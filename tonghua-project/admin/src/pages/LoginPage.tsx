@@ -16,17 +16,20 @@ export default function LoginPage() {
     }
     setLoading(true);
     try {
-      const response = await fetch('/api/admin/auth/login', {
+      const response = await fetch('/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email: username, password }),
       });
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
         throw new Error(data.message || '用户名或密码错误');
       }
       const data = await response.json();
-      login(data.user, data.token);
+      // Handle both camelCase and snake_case responses
+      const accessToken = data.access_token || data.accessToken;
+      const refreshToken = data.refresh_token || data.refreshToken;
+      login(data.user, accessToken, refreshToken);
       toast.success('登录成功');
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : '登录失败，请重试';

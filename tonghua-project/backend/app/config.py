@@ -42,6 +42,11 @@ class Settings(BaseSettings):
     # CORS - Default to empty list, must be configured via env
     CORS_ORIGINS: List[str] = []
 
+    # Seed data passwords (for development/testing only)
+    SEED_ADMIN_PASSWORD: str = "tonghua_admin_2026"
+    SEED_EDITOR_PASSWORD: str = "tonghua_editor_2026"
+    SEED_USER_PASSWORD: str = "tonghua_user_2026"
+
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod
     def parse_cors_origins(cls, v):

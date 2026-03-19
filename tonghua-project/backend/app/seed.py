@@ -32,6 +32,7 @@ from app.models.supply_chain import SupplyChainRecord
 from app.models.payment import PaymentTransaction
 from app.models.audit import AuditLog
 from app.security import hash_password
+from app.config import settings
 
 
 async def seed():
@@ -47,35 +48,35 @@ async def seed():
         users = [
             User(
                 email="admin@tonghua.org",
-                password_hash=hash_password("admin123"),
+                password_hash=hash_password(settings.SEED_ADMIN_PASSWORD),
                 nickname="管理员",
                 role="admin",
                 status="active",
             ),
             User(
                 email="editor@tonghua.org",
-                password_hash=hash_password("editor123"),
+                password_hash=hash_password(settings.SEED_EDITOR_PASSWORD),
                 nickname="编辑小王",
                 role="editor",
                 status="active",
             ),
             User(
                 email="lihua@example.com",
-                password_hash=hash_password("user123"),
+                password_hash=hash_password(settings.SEED_USER_PASSWORD),
                 nickname="李华",
                 role="user",
                 status="active",
             ),
             User(
                 email="zhangwei@example.com",
-                password_hash=hash_password("user123"),
+                password_hash=hash_password(settings.SEED_USER_PASSWORD),
                 nickname="张伟",
                 role="user",
                 status="active",
             ),
             User(
                 email="wangfang@example.com",
-                password_hash=hash_password("user123"),
+                password_hash=hash_password(settings.SEED_USER_PASSWORD),
                 nickname="王芳",
                 role="user",
                 status="active",

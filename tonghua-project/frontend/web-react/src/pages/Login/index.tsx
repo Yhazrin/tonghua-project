@@ -1,22 +1,29 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import PageWrapper from '@/components/layout/PageWrapper';
 import SectionContainer from '@/components/layout/SectionContainer';
 import EditorialHero from '@/components/editorial/EditorialHero';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Login() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { login, isLoggingIn, loginError } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('loading');
-    // API call would go here
-    setTimeout(() => setStatus('idle'), 2000);
+    login(
+      { email, password },
+      {
+        onSuccess: () => {
+          navigate('/');
+        },
+      }
+    );
   };
 
   return (
@@ -67,14 +74,20 @@ export default function Login() {
             </Link>
           </div>
 
+          {loginError && (
+            <div className="text-red-600 text-sm text-center mb-4">
+              {loginError}
+            </div>
+          )}
+
           <motion.button
             type="submit"
-            disabled={status === 'loading'}
+            disabled={isLoggingIn}
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
             className="w-full font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300 disabled:opacity-50"
           >
-            {status === 'loading' ? '...' : t('login.submit')}
+            {isLoggingIn ? '...' : t('login.submit')}
           </motion.button>
 
           <div className="relative py-4">

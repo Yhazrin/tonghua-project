@@ -10,7 +10,7 @@ export function useAuth() {
     mutationFn: (data: LoginRequest) => authApi.login(data),
     onMutate: () => setLoading(true),
     onSuccess: (data) => {
-      login(data.user, data.accessToken, data.refreshToken);
+      login(data.user, data.access_token, data.refresh_token);
       queryClient.invalidateQueries();
     },
     onSettled: () => setLoading(false),
@@ -20,7 +20,7 @@ export function useAuth() {
     mutationFn: (data: RegisterRequest) => authApi.register(data),
     onMutate: () => setLoading(true),
     onSuccess: (data) => {
-      login(data.user, data.accessToken, data.refreshToken);
+      login(data.user, data.access_token, data.refresh_token);
       queryClient.invalidateQueries();
     },
     onSettled: () => setLoading(false),
