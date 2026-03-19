@@ -1,6 +1,8 @@
 package org.tonghua.app.data.repository
 
 import android.content.Context
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tonghua.app.data.api.ApiResponse
 import org.tonghua.app.data.api.TonghuaApi
@@ -77,15 +79,25 @@ class AuthRepository @Inject constructor(
      * NOTE: This is a client-side check. For server-side validation,
      * the API will return 401 if the session is invalid.
      *
-     * Implementation: Checks for presence of session cookies in SharedPreferences.
-     * Cookies are persisted by AndroidCookieJar in the "tonghua_cookies" shared prefs.
+     * Implementation: Checks for presence of session cookies in EncryptedSharedPreferences.
+     * Cookies are persisted by AndroidCookieJar in the "tonghua_cookies_encrypted" shared prefs.
      *
      * Note: This does NOT validate cookie expiration with the server.
      * API calls will return 401 if the session is actually expired.
      */
     fun isLoggedIn(): Boolean {
         return try {
-            val prefs = context.getSharedPreferences("tonghua_cookies", Context.MODE_PRIVATE)
+            val masterKey = MasterKey.Builder(context)
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                .build()
+
+            val prefs = EncryptedSharedPreferences.create(
+                context,
+                "tonghua_cookies_encrypted",
+                masterKey,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
             val cookies = prefs.getString("stored_cookies", "") ?: ""
             // Check if cookies are present (non-empty string indicates active session)
             cookies.isNotEmpty()

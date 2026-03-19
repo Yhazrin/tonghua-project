@@ -15,7 +15,11 @@ class WeChatPayService:
     def __init__(self):
         self.app_id = settings.WECHAT_APP_ID or "wx_test_app_id"
         self.mch_id = settings.WECHAT_APP_ID or "test_merchant_id"  # Mock merchant ID
-        self.api_key = settings.AES_KEY  # Use AES key as mock API key
+        # Use dedicated WeChat Pay API key, not the system AES key
+        # Raise exception if API key is not configured (security requirement)
+        if not settings.WECHAT_PAY_API_KEY:
+            raise ValueError("WECHAT_PAY_API_KEY environment variable is required for payment security")
+        self.api_key = settings.WECHAT_PAY_API_KEY
         self.notify_url = f"{settings.CORS_ORIGINS[0]}/payments/wechat-notify" if settings.CORS_ORIGINS else "http://localhost:8000/payments/wechat-notify"
 
     def generate_nonce_str(self) -> str:

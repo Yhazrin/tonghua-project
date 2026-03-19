@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from decimal import Decimal
+import xml.etree.ElementTree as ET
 
 from app.database import get_db
 from app.models.payment import PaymentTransaction
@@ -52,11 +53,55 @@ async def create_payment(body: PaymentCreate, db: AsyncSession = Depends(get_db)
         return ApiResponse(data=new_payment)
 
 
-@router.post("/wechat-notify", response_model=ApiResponse)
-async def wechat_notify():
+@router.post("/wechat-notify")
+async def wechat_notify(request: Request):
     """Handle WeChat payment notification callback."""
-    # In production: verify signature, update payment status, update order/donation
-    return ApiResponse(data={"message": "WeChat notification received"})
+    # Read the raw XML body from the request
+    xml_body = await request.body()
+
+    try:
+        # Parse the XML
+        root = ET.fromstring(xml_body)
+
+        # Convert XML to dictionary
+        params = {}
+        for child in root:
+            params[child.tag] = child.text
+
+        # Verify the signature
+        if not payment_service.verify_payment_signature(params):
+            # Signature verification failed
+            # WeChat expects a specific XML response for failures
+            return Response(
+                content="<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[Signature verification failed]]></return_msg></xml>",
+                media_type="application/xml"
+            )
+
+        # Signature is valid, process the payment
+        # In production: update payment status, update order/donation
+        transaction_id = params.get("transaction_id")
+        out_trade_no = params.get("out_trade_no")
+        result_code = params.get("result_code")
+
+        # Example logic to update database (mocked for now)
+        # In a real scenario, you would query the DB by out_trade_no and update the status
+
+        # Return success response to WeChat
+        return Response(
+            content="<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>",
+            media_type="application/xml"
+        )
+
+    except ET.ParseError:
+        return Response(
+            content="<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[Invalid XML format]]></return_msg></xml>",
+            media_type="application/xml"
+        )
+    except Exception as e:
+        return Response(
+            content=f"<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[{str(e)}]]></return_msg></xml>",
+            media_type="application/xml"
+        )
 
 
 @router.post("/alipay-notify", response_model=ApiResponse)

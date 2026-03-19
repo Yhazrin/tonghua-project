@@ -27,11 +27,8 @@ App({
             var request = require('./utils/request');
             request.post('/auth/wx-login', { code: res.code })
               .then(function(r) {
-                // Server returns token in JSON body
-                // Save token client-side for Authorization header
-                if (r.success && r.data && r.data.access_token) {
-                  self.globalData.token = r.data.access_token;
-                }
+                // Server sets httpOnly session cookie on successful login.
+                // Client does NOT store the token.
                 resolve(r);
               }).catch(reject);
           } else { reject(new Error('login failed')); }

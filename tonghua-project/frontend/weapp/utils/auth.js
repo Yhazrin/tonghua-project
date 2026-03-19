@@ -1,11 +1,16 @@
 var http = require('./request');
 
-// NOTE: Authentication is handled via Bearer tokens stored locally.
-// The token is retrieved from the server response and sent in the Authorization header.
+// NOTE: Authentication is handled via httpOnly Cookies.
+// The server manages the session and sets the session cookie on login.
+// The client does NOT store the token locally.
 
 function checkLogin() {
-  // Check if a token exists in local storage
-  return getToken() !== null;
+  // With httpOnly Cookies, we cannot check login status synchronously from the client.
+  // Use an asynchronous check (e.g., fetch user profile) or assume logged out until
+  // the server responds with 401/200. Here we return false to force re-login checks.
+  // Real implementation might query an endpoint like GET /api/user/me
+  // For now, we rely on the request interceptor or component logic to handle session state.
+  return false;
 }
 
 function ensureLogin() {
@@ -24,12 +29,9 @@ function doLogin() {
       success: function(res) {
         if (res.code) {
           http.post('/auth/wx-login', { code: res.code }).then(function(r) {
-            // Server returns token in JSON body
-            // Save token client-side for Authorization header
-            if (r.success && r.data && r.data.access_token) {
-              getApp().globalData.token = r.data.access_token;
-            }
-            resolve();
+            // Server sets httpOnly session cookie on successful login.
+            // Client does NOT store the token.
+            resolve(r);
           }).catch(reject);
         } else {
           reject(new Error('login failed'));
@@ -41,15 +43,15 @@ function doLogin() {
 }
 
 function logout() {
-  // Clear local token and user info.
-  // Note: /auth/logout endpoint can be called to invalidate server-side session if needed.
+  // Clear local user info.
+  // Note: /auth/logout endpoint should be called to clear server-side session/cookie.
   getApp().globalData.userInfo = null;
-  getApp().globalData.token = null;
+  // No token to clear locally as it's httpOnly cookie
 }
 
 function getToken() {
-  // Retrieve token from global data
-  return getApp().globalData.token || null;
+  // Token is stored in httpOnly Cookie, cannot be retrieved by JavaScript.
+  return null;
 }
 
 module.exports = { checkLogin: checkLogin, ensureLogin: ensureLogin, doLogin: doLogin, logout: logout, getToken: getToken };
