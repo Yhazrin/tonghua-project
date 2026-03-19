@@ -1,0 +1,28 @@
+<view class="page-container">
+  <loading loading="{{loading}}" />
+  <view wx:if="{{order && \!loading}}">
+    <view class="section-header">
+      <text class="section-number">01</text>
+      <text class="editorial-title">\u8BA2\u5355\u8BE6\u60C5</text>
+    </view>
+    <view class="status-bar">
+      <text class="status-text">{{order.status === `paid` ? `\u5DF2\u652F\u4ED8` : order.status === `shipped` ? `\u5DF2\u53D1\u8D27` : order.status === `completed` ? `\u5DF2\u5B8C\u6210` : `\u5F85\u652F\u4ED8`}}</text>
+    </view>
+    <view class="order-items card">
+      <view class="order-item" wx:for="{{order.items}}" wx:key="id">
+        <image class="item-img" src="{{item.imageUrl}}" mode="aspectFill" />
+        <view class="item-info">
+          <text class="item-name">{{item.name}}</text>
+          <text class="item-qty editorial-caption">x {{item.quantity}}</text>
+          <text class="item-price">¥{{item.price}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="order-info card">
+      <view class="info-row"><text class="info-label editorial-caption">\u8BA2\u5355\u53F7</text><text>{{order.orderNo}}</text></view>
+      <view class="info-row"><text class="info-label editorial-caption">\u91D1\u989D</text><text class="info-value">¥{{order.totalAmount}}</text></view>
+      <view class="info-row"><text class="info-label editorial-caption">\u65F6\u95F4</text><text>{{order.createdAt}}</text></view>
+    </view>
+    <view class="btn-secondary trace-btn" bindtap="onTraceTap">\u67E5\u770B\u6EAF\u6E90\u4FE1\u606F</view>
+  </view>
+</view>

@@ -1,0 +1,312 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "campaigns": "Campaigns",
+    "stories": "Stories",
+    "donate": "Donate",
+    "shop": "Shop",
+    "traceability": "Traceability",
+    "contact": "Contact",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "home": {
+    "hero": {
+      "title": "Where Little Hands Shape the Future of Fashion",
+      "subtitle": "Every child's imagination, woven into sustainable threads. Every purchase, a step toward a fairer world.",
+      "cta": "Explore Our Work"
+    },
+    "featured": {
+      "sectionTitle": "Featured Campaigns",
+      "viewAll": "View All Campaigns"
+    },
+    "artworks": {
+      "sectionTitle": "Children's Gallery",
+      "viewAll": "View Full Gallery"
+    },
+    "impact": {
+      "title": "Our Impact in Numbers",
+      "children": "Children Participated",
+      "artworks": "Artworks Created",
+      "donated": "Funds Raised",
+      "products": "Products Sold"
+    },
+    "cta": {
+      "title": "Join the Movement",
+      "description": "Whether you donate, shop, or share our story — every action counts.",
+      "donate": "Make a Donation",
+      "shop": "Shop Sustainably"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Our Story",
+      "subtitle": "A publication born from the belief that every child deserves to see their creativity change the world."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "body": "Tonghua Public Welfare bridges the raw, unfiltered imagination of children with the world of sustainable fashion. We believe that the most honest art comes from the youngest hands — and that fashion can be a force for good when it carries those stories forward."
+    },
+    "values": {
+      "title": "What We Stand For",
+      "transparency": {
+        "title": "Radical Transparency",
+        "body": "Every thread traced. Every donation accounted for. We publish our supply chain because you deserve to know."
+      },
+      "childFirst": {
+        "title": "Child-First Design",
+        "body": "Children are collaborators, not subjects. Their consent, privacy, and creative ownership are non-negotiable."
+      },
+      "sustainability": {
+        "title": "Genuine Sustainability",
+        "body": "No greenwashing. We measure carbon footprints, use certified materials, and publish our environmental impact quarterly."
+      },
+      "community": {
+        "title": "Community Roots",
+        "body": "We work with local schools, shelters, and community centers. Fashion is the medium; community is the message."
+      }
+    },
+    "team": {
+      "title": "The People Behind the Pages",
+      "subtitle": "A small team with an oversized purpose."
+    }
+  },
+  "campaigns": {
+    "hero": {
+      "title": "Campaigns",
+      "subtitle": "Each campaign is a chapter — a focused effort to connect children's art with sustainable fashion that funds real change."
+    },
+    "status": {
+      "active": "Active",
+      "upcoming": "Upcoming",
+      "completed": "Completed"
+    },
+    "detail": {
+      "artworks": "Campaign Artworks",
+      "donate": "Support This Campaign",
+      "progress": "of goal raised",
+      "participants": "participants",
+      "daysLeft": "days left"
+    },
+    "listing": {
+      "sectionTitle": "All Campaigns",
+      "sectionSubtitle": "Browse our ongoing, upcoming, and completed initiatives."
+    },
+    "filter": {
+      "all": "All"
+    },
+    "results": "{{count}} campaigns found",
+    "search": {
+      "placeholder": "Search campaigns..."
+    },
+    "pagination": {
+      "prev": "Prev",
+      "next": "Next"
+    },
+    "empty": "No campaigns found matching your criteria."
+  },
+  "stories": {
+    "hero": {
+      "title": "Stories",
+      "subtitle": "Dispatches from the intersection of childhood, creativity, and conscious fashion."
+    },
+    "readMore": "Read Full Story",
+    "readTime": "min read",
+    "categories": {
+      "all": "All",
+      "impact": "Impact",
+      "fashion": "Fashion",
+      "community": "Community",
+      "education": "Education"
+    },
+    "newsletter": {
+      "title": "Stay in the Loop",
+      "subtitle": "Get monthly dispatches on campaigns, stories, and the impact your support creates.",
+      "placeholder": "Your email address",
+      "subscribe": "Subscribe"
+    },
+    "empty": "No stories found in this category."
+  },
+  "donate": {
+    "hero": {
+      "title": "Donate",
+      "subtitle": "Your generosity funds art supplies, workshops, sustainable materials, and the infrastructure that turns children's dreams into wearable stories."
+    },
+    "form": {
+      "title": "Choose Your Impact",
+      "customAmount": "Or enter a custom amount",
+      "placeholder": "Enter amount",
+      "currency": "CNY",
+      "frequency": {
+        "title": "Donation Frequency",
+        "once": "One-time",
+        "monthly": "Monthly"
+      },
+      "anonymous": "Make this donation anonymous",
+      "message": "Leave a message (optional)",
+      "submit": "Complete Donation",
+      "processing": "Processing..."
+    },
+    "tiers": {
+      "seedling": {
+        "label": "Seedling",
+        "description": "Provides basic art supplies for one child for a month.",
+        "impact": "1 child × 1 month of creative expression"
+      },
+      "bloom": {
+        "label": "Bloom",
+        "description": "Funds a workshop session for a classroom of children.",
+        "impact": "1 classroom × 1 creative workshop"
+      },
+      "canopy": {
+        "label": "Canopy",
+        "description": "Supports the production of a sustainable garment from children's artwork.",
+        "impact": "1 garment × full supply chain support"
+      },
+      "forest": {
+        "label": "Forest",
+        "description": "Sponsors an entire campaign from artwork collection to product launch.",
+        "impact": "1 campaign × end-to-end sponsorship"
+      }
+    },
+    "impact": {
+      "title": "Where Your Money Goes",
+      "artSupplies": "Art Supplies & Workshops",
+      "production": "Sustainable Production",
+      "operations": "Platform Operations",
+      "community": "Community Programs"
+    },
+    "transparency": {
+      "title": "Financial Transparency",
+      "subtitle": "We publish quarterly financial reports. Every yuan is accounted for.",
+      "viewReport": "View Latest Report"
+    }
+  },
+  "shop": {
+    "hero": {
+      "title": "Shop",
+      "subtitle": "Every garment carries a child's story. Every purchase funds the next chapter."
+    },
+    "filters": {
+      "all": "All",
+      "apparel": "Apparel",
+      "accessories": "Accessories",
+      "stationery": "Stationery",
+      "prints": "Art Prints"
+    },
+    "card": {
+      "viewDetails": "View Details",
+      "soldOut": "Sold Out",
+      "lowStock": "Only {{count}} left"
+    },
+    "detail": {
+      "addToCart": "Add to Cart",
+      "added": "Added to Cart",
+      "supplyChain": "Supply Chain Journey",
+      "sustainability": "Sustainability Score",
+      "artwork": "Based on artwork by",
+      "size": "Size",
+      "quantity": "Quantity"
+    },
+    "sort": {
+      "label": "Sort by",
+      "default": "Default",
+      "priceAsc": "Price: Low to High",
+      "priceDesc": "Price: High to Low",
+      "sustainability": "Sustainability"
+    },
+    "results": "{{count}} products",
+    "empty": "No products found in this category."
+  },
+  "traceability": {
+    "hero": {
+      "title": "Traceability",
+      "subtitle": "From the child's hand that drew the design to the artisan who stitched it — follow every step of the journey."
+    },
+    "stages": {
+      "artwork": "Artwork Creation",
+      "design": "Design Adaptation",
+      "material": "Material Sourcing",
+      "production": "Production",
+      "quality": "Quality Check",
+      "shipping": "Shipping"
+    },
+    "verified": "Verified",
+    "carbon": "Carbon Footprint"
+  },
+  "contact": {
+    "hero": {
+      "title": "Contact",
+      "subtitle": "We read every message. Whether you have a question, a partnership idea, or a story to share — we're listening."
+    },
+    "form": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "message": "Your Message",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Thank you! We'll get back to you within 48 hours.",
+      "error": "Something went wrong. Please try again."
+    },
+    "info": {
+      "title": "Other Ways to Reach Us",
+      "email": "hello@tonghua.org",
+      "wechat": "TonghuaOfficial",
+      "address": "Shanghai, China"
+    }
+  },
+  "login": {
+    "title": "Welcome Back",
+    "subtitle": "Sign in to continue your journey with us.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign In",
+    "register": "Create an Account",
+    "forgotPassword": "Forgot Password?",
+    "orContinueWith": "Or continue with",
+    "wechat": "WeChat"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "subtitle": "This chapter seems to be missing from our publication.",
+    "cta": "Return to Table of Contents"
+  },
+  "footer": {
+    "tagline": "Where childhood imagination meets conscious couture.",
+    "sections": {
+      "publication": "Publication",
+      "connect": "Connect",
+      "legal": "Legal"
+    },
+    "links": {
+      "about": "About Us",
+      "campaigns": "Campaigns",
+      "stories": "Stories",
+      "shop": "Shop",
+      "donate": "Donate",
+      "contact": "Contact",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "children": "Children's Protection"
+    },
+    "copyright": "© 2026 Tonghua Public Welfare. All rights reserved.",
+    "issueNo": "Issue No. 01 — Inaugural Edition"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try Again",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "viewAll": "View All",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started"
+  }
+}

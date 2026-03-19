@@ -1,0 +1,56 @@
+<view class="page user-page">
+  <view class="user-header">
+    <block wx:if="{{isLoggedIn}}">
+      <view class="user-avatar-wrap">
+        <image class="user-avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" />
+      </view>
+      <view class="user-name">{{userInfo.nickName}}</view>
+      <view class="user-subtitle">Tonghua Volunteer</view>
+    </block>
+    <block wx:else>
+      <view class="user-avatar-wrap">
+        <view class="user-avatar-placeholder">+</view>
+      </view>
+      <view class="login-tip" bindtap="handleLogin">Tap to login</view>
+      <view class="user-subtitle">Join us in public welfare</view>
+    </block>
+  </view>
+
+  <view class="menu-section">
+    <view class="section-label">My Services</view>
+    <view class="menu-list">
+      <view class="menu-item" wx:for="{{menuItems}}" wx:key="id" data-id="{{item.id}}" bindtap="handleMenuTap">
+        <view class="menu-icon-wrap">
+          <text class="menu-icon-text">{{item.icon === "orders" ? "O" : item.icon === "donate" ? "H" : item.icon === "art" ? "P" : "S"}}</text>
+        </view>
+        <view class="menu-content">
+          <text class="menu-title">{{item.title}}</text>
+          <text class="menu-desc">{{item.desc}}</text>
+        </view>
+        <text class="menu-arrow">&gt;</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="menu-section">
+    <view class="section-label">More</view>
+    <view class="menu-list">
+      <view class="menu-item" bindtap="handleAbout">
+        <view class="menu-icon-wrap">
+          <text class="menu-icon-text">i</text>
+        </view>
+        <view class="menu-content">
+          <text class="menu-title">About Us</text>
+          <text class="menu-desc">Learn about our mission</text>
+        </view>
+        <text class="menu-arrow">&gt;</text>
+      </view>
+    </view>
+  </view>
+
+  <block wx:if="{{isLoggedIn}}">
+    <view class="logout-wrap">
+      <view class="btn-secondary logout-btn" bindtap="handleLogout">Log Out</view>
+    </view>
+  </block>
+</view>

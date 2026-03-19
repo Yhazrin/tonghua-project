@@ -1,0 +1,25 @@
+<view class="page-container">
+  <view class="section-header">
+    <text class="section-number">01</text>
+    <text class="editorial-title">\u786E\u8BA4\u8BA2\u5355</text>
+  </view>
+  <view class="order-summary card">
+    <text class="editorial-caption">\u5546\u54C1\u660E\u7EC6</text>
+    <view class="order-item" wx:for="{{cartItems}}" wx:key="product.id">
+      <text class="order-item-name">{{item.product.name}} x {{item.quantity}}</text>
+      <text class="order-item-price">¥{{item.product.price * item.quantity}}</text>
+    </view>
+    <view class="order-total">
+      <text>\u5408\u8BA1</text>
+      <text class="total-amount">¥{{totalAmount}}</text>
+    </view>
+  </view>
+  <view class="address-section">
+    <text class="editorial-caption">\u6536\u8D27\u5730\u5740</text>
+    <input class="form-input" placeholder="\u59D3\u540D" value="{{address.name}}" bindinput="onNameInput" />
+    <input class="form-input" placeholder="\u7535\u8BDD" type="number" value="{{address.phone}}" bindinput="onPhoneInput" />
+    <textarea class="form-textarea" placeholder="\u8BE6\u7EC6\u5730\u5740" value="{{address.detail}}" bindinput="onAddrInput" />
+  </view>
+  <view class="btn-primary submit-btn" bindtap="onSubmit">\u63D0\u4EA4\u5E76\u652F\u4ED8</view>
+  <loading loading="{{submitting}}" text="\u5904\u7406\u4E2D..." />
+</view>

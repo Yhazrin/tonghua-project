@@ -1,0 +1,4 @@
+<view class="empty-state">
+  <view class="empty-icon">\u2014</view>
+  <text class="empty-text editorial-caption">{{text}}</text>
+</view>

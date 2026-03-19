@@ -1,0 +1,223 @@
+/* === Cart Page === */
+
+.page-cart {
+  min-height: 100vh;
+  padding-bottom: 140rpx;
+}
+
+.page-header {
+  padding: 40rpx 0 32rpx;
+  border-bottom: 2rpx solid var(--color-warm-gray);
+  margin-bottom: 32rpx;
+}
+
+.page-header__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.page-header__clear {
+  font-size: 24rpx;
+  color: var(--color-rust);
+  font-family: 'Courier New', monospace;
+  padding: 8rpx 16rpx;
+  border: 1rpx solid var(--color-rust);
+  border-radius: 2rpx;
+}
+
+/* Cart List */
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.cart-item {
+  display: flex;
+  gap: 20rpx;
+  padding: 24rpx;
+  background-color: var(--color-aged-stock);
+  border: 1rpx solid var(--color-warm-gray);
+  border-radius: 4rpx;
+  position: relative;
+}
+
+.cart-item__image {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 2rpx;
+  flex-shrink: 0;
+}
+
+.cart-item__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.cart-item__title {
+  display: block;
+  font-family: 'Georgia', serif;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 8rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cart-item__price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.cart-item__price {
+  font-family: 'Courier New', monospace;
+  font-size: 28rpx;
+  color: var(--color-rust);
+  font-weight: 600;
+}
+
+/* Quantity Control */
+.cart-item__quantity {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1rpx solid var(--color-warm-gray);
+  border-radius: 2rpx;
+}
+
+.quantity-btn {
+  width: 52rpx;
+  height: 52rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+}
+
+.quantity-value {
+  width: 60rpx;
+  height: 52rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Courier New', monospace;
+  font-size: 26rpx;
+  color: var(--color-ink);
+  border-left: 1rpx solid var(--color-warm-gray);
+  border-right: 1rpx solid var(--color-warm-gray);
+}
+
+.cart-item__subtotal {
+  text-align: right;
+}
+
+.cart-item__subtotal-text {
+  font-size: 22rpx;
+  color: var(--color-sepia-mid);
+  font-family: 'Courier New', monospace;
+}
+
+/* Remove Button */
+.cart-item__remove {
+  position: absolute;
+  top: 16rpx;
+  right: 16rpx;
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-sepia-mid);
+  font-size: 24rpx;
+}
+
+/* Empty State */
+.empty-hint {
+  padding: 120rpx 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.empty-hint__icon {
+  font-size: 80rpx;
+  opacity: 0.3;
+}
+
+.empty-hint__text {
+  font-size: 28rpx;
+  color: var(--color-sepia-mid);
+}
+
+.empty-hint__btn {
+  width: 240rpx;
+  margin-top: 16rpx;
+}
+
+/* Bottom Bar */
+.bottom-bar-placeholder {
+  height: 120rpx;
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16rpx 32rpx;
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+  background-color: var(--color-paper);
+  border-top: 1rpx solid var(--color-warm-gray);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+.bottom-bar__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-bar__label {
+  font-size: 22rpx;
+  color: var(--color-sepia-mid);
+}
+
+.bottom-bar__total {
+  display: flex;
+  align-items: baseline;
+}
+
+.bottom-bar__currency {
+  font-family: 'Courier New', monospace;
+  font-size: 24rpx;
+  color: var(--color-rust);
+}
+
+.bottom-bar__amount {
+  font-family: 'Georgia', serif;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--color-rust);
+}
+
+.bottom-bar__btn {
+  min-width: 220rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  font-size: 26rpx;
+  border-radius: 2rpx;
+}

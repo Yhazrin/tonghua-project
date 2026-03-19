@@ -1,0 +1,67 @@
+/* ─────────────────────────────────────────────────────────────
+   Design Tokens — Tonghua Public Welfare × Sustainable Fashion
+   1990s Editorial / Print-Inspired / Humanistic
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Color Palette ── */
+  --color-paper: #F5F0E8;
+  --color-aged-stock: #EDE6D6;
+  --color-warm-gray: #D4CFC4;
+  --color-ink: #1A1A16;
+  --color-ink-faded: #4A4540;
+  --color-sepia-mid: #7A6A58;
+  --color-rust: #8B3A2A;
+  --color-archive-brown: #5C4033;
+  --color-pale-gold: #C4A45A;
+
+  /* ── Typography ── */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', Courier, monospace;
+  --font-ui: 'Inter', 'Source Sans Pro', -apple-system, sans-serif;
+
+  /* ── Font Sizes ── */
+  --text-hero: clamp(64px, 10vw, 120px);
+  --text-h1: clamp(40px, 6vw, 72px);
+  --text-h2: clamp(28px, 4vw, 48px);
+  --text-h3: clamp(20px, 2.5vw, 32px);
+  --text-body: 16px;
+  --text-caption: 12px;
+  --text-label: 13px;
+
+  /* ── Spacing ── */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --space-4xl: 128px;
+
+  /* ── Borders ── */
+  --border-thin: 1px solid var(--color-warm-gray);
+  --border-divider: 1px solid rgba(212, 207, 196, 0.4);
+  --border-accent: 2px solid var(--color-rust);
+
+  /* ── Transitions ── */
+  --ease-editorial: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-entrance: cubic-bezier(0, 0, 0.2, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 700ms;
+  --duration-page-flip: 800ms;
+
+  /* ── Layout ── */
+  --max-width: 1400px;
+  --gutter: clamp(24px, 4vw, 80px);
+  --header-height: 64px;
+  --header-height-md: 80px;
+
+  /* ── Z-Index Scale ── */
+  --z-base: 1;
+  --z-overlay: 10;
+  --z-nav: 50;
+  --z-modal: 100;
+  --z-grain: 999;
+}

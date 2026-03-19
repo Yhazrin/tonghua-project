@@ -1,0 +1,103 @@
+import { motion } from 'framer-motion';
+import type { SupplyChainRecord } from '@/types';
+import { useTranslation } from 'react-i18next';
+
+interface TraceabilityTimelineProps {
+  records: SupplyChainRecord[];
+  className?: string;
+}
+
+export default function TraceabilityTimeline({
+  records,
+  className = '',
+}: TraceabilityTimelineProps) {
+  const { t } = useTranslation();
+
+  if (records.length === 0) {
+    return (
+      <div className={`text-center py-16 ${className}`}>
+        <p className="font-body text-sm text-sepia-mid">
+          No supply chain records available.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`relative pl-12 ${className}`}>
+      {/* Vertical line */}
+      <div
+        className="absolute left-[15px] top-0 bottom-0 w-px bg-warm-gray"
+        aria-hidden="true"
+      />
+
+      <div className="space-y-0">
+        {records.map((record, index) => (
+          <motion.div
+            key={record.id}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-30px' }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="relative pb-12 last:pb-0"
+          >
+            {/* Dot */}
+            <div
+              className={`
+                absolute left-[-33px] top-1 w-4 h-4 rounded-full border-[3px] border-paper z-[2]
+                ${record.verified ? 'bg-rust' : 'bg-warm-gray'}
+              `}
+            />
+
+            {/* Card */}
+            <div className="p-6 border border-warm-gray bg-paper transition-colors hover:border-rust/30">
+              <div className="flex justify-between items-start flex-wrap gap-3 mb-3">
+                <h4 className="font-display text-[clamp(18px,2vw,24px)] font-bold text-ink">
+                  {record.stage}
+                </h4>
+                {record.verified && (
+                  <span className="font-body text-[10px] tracking-[0.1em] uppercase px-3 py-1 bg-rust/10 text-rust">
+                    {t('traceability.verified')}
+                  </span>
+                )}
+              </div>
+
+              <p className="font-body text-sm text-ink-faded leading-relaxed mb-4">
+                {record.description}
+              </p>
+
+              <div className="flex flex-wrap gap-6">
+                <div className="font-body text-[11px] text-sepia-mid">
+                  <span className="uppercase tracking-[0.1em]">Location:</span>{' '}
+                  <span className="text-ink-faded font-medium">{record.location}</span>
+                </div>
+                <div className="font-body text-[11px] text-sepia-mid">
+                  <span className="uppercase tracking-[0.1em]">Partner:</span>{' '}
+                  <span className="text-ink-faded font-medium">{record.partnerName}</span>
+                </div>
+                <div className="font-body text-[11px] text-sepia-mid">
+                  <span className="uppercase tracking-[0.1em]">Date:</span>{' '}
+                  <span className="text-ink-faded font-medium">
+                    {new Date(record.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </span>
+                </div>
+                {record.carbonFootprint !== undefined && (
+                  <div className="font-body text-[11px] text-sepia-mid">
+                    <span className="uppercase tracking-[0.1em]">{t('traceability.carbon')}:</span>{' '}
+                    <span className="text-archive-brown font-medium">
+                      {record.carbonFootprint} kg CO2
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}

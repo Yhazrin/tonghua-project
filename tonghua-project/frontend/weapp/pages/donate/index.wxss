@@ -1,0 +1,14 @@
+.donate-desc { display: block; margin-bottom: 32rpx; line-height: 1.6; }
+.amount-section { margin-bottom: 32rpx; }
+.amount-grid { display: flex; flex-wrap: wrap; gap: 16rpx; margin-bottom: 24rpx; }
+.custom-input { margin-top: 16rpx; }
+.form-group { margin-bottom: 32rpx; }
+.form-label { display: block; margin-bottom: 12rpx; }
+.form-input { background: #fff; border: 1rpx solid #E8DDD0; padding: 20rpx; font-size: 28rpx; }
+.form-textarea { background: #fff; border: 1rpx solid #E8DDD0; padding: 20rpx; font-size: 28rpx; width: 100%; height: 160rpx; box-sizing: border-box; }
+.consent-group { display: flex; align-items: center; gap: 12rpx; margin: 32rpx 0; }
+.consent-text { font-size: 24rpx; color: #7A6A58; }
+.submit-btn { text-align: center; margin-top: 48rpx; }
+.result-card { text-align: center; padding: 80rpx 32rpx; }
+.result-title { font-size: 48rpx; display: block; margin-bottom: 24rpx; }
+.result-amount { font-family: `Playfair Display`, serif; font-size: 72rpx; color: #5C4033; display: block; margin-bottom: 16rpx; }

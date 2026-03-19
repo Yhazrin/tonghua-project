@@ -1,0 +1,60 @@
+<view class="page orders-page">
+  <view class="status-tabs">
+    <view
+      class="status-tab {{currentStatus === item.key ? 'active' : ''}}"
+      wx:for="{{statusTabs}}"
+      wx:key="key"
+      data-status="{{item.key}}"
+      bindtap="handleStatusChange"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <block wx:if="{{isEmpty}}">
+    <view class="empty-wrap">
+      <view class="empty-icon">&mdash;</view>
+      <view class="empty-text">No orders yet</view>
+      <view class="empty-desc">Explore our shop and support public welfare</view>
+      <view class="btn-primary empty-btn" bindtap="goShop">Browse Shop</view>
+    </view>
+  </block>
+
+  <view class="order-list" wx:if="{{!isEmpty}}">
+    <view
+      class="order-card"
+      wx:for="{{orders}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="handleOrderTap"
+    >
+      <view class="order-header">
+        <text class="order-no">Order #{{item.orderNo}}</text>
+        <text class="order-status status-{{item.status}}">{{item.statusFormatted || item.status}}</text>
+      </view>
+      <view class="order-items">
+        <view class="order-item" wx:for="{{item.items}}" wx:for-item="product" wx:key="productId">
+          <image class="order-item-img" src="{{product.imageUrl}}" mode="aspectFill" />
+          <view class="order-item-info">
+            <text class="order-item-name">{{product.name}}</text>
+            <text class="order-item-qty">x{{product.quantity}}</text>
+          </view>
+          <text class="order-item-price">{{product.priceFormatted || product.price}}</text>
+        </view>
+      </view>
+      <view class="order-footer">
+        <text class="order-date">{{item.createdAtFormatted}}</text>
+        <text class="order-total">Total: {{item.totalAmountFormatted}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="loading-more" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">Loading...</text>
+  </view>
+
+  <view class="no-more" wx:if="{{!hasMore && orders.length > 0}}">
+    <text class="no-more-text">No more orders</text>
+  </view>
+</view>

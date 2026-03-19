@@ -1,0 +1,69 @@
+<view class="page donations-page">
+  <view class="summary-card">
+    <view class="summary-row">
+      <view class="summary-item">
+        <text class="summary-value">{{totalCount}}</text>
+        <text class="summary-label">Donations</text>
+      </view>
+      <view class="summary-divider"></view>
+      <view class="summary-item">
+        <text class="summary-value">¥{{totalAmount}}</text>
+        <text class="summary-label">Total Amount</text>
+      </view>
+    </view>
+    <view class="summary-note">Thank you for supporting children's art</view>
+  </view>
+
+  <view class="section-header">
+    <text class="section-title">Donation History</text>
+  </view>
+
+  <block wx:if="{{isEmpty}}">
+    <view class="empty-wrap">
+      <view class="empty-icon">&mdash;</view>
+      <view class="empty-text">No donations yet</view>
+      <view class="empty-desc">Your donation helps children express themselves through art</view>
+      <view class="btn-primary empty-btn" bindtap="handleDonateNow">Donate Now</view>
+    </view>
+  </block>
+
+  <view class="donation-list" wx:if="{{!isEmpty}}">
+    <view
+      class="donation-card"
+      wx:for="{{donations}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="handleDonationTap"
+    >
+      <view class="donation-left">
+        <view class="donation-amount">{{item.amountFormatted}}</view>
+        <view class="donation-date">{{item.createdAtFormatted}}</view>
+      </view>
+      <view class="donation-right">
+        <view class="donation-campaign" wx:if="{{item.campaignTitle}}">{{item.campaignTitle}}</view>
+        <view class="donation-message" wx:if="{{item.message}}">{{item.message}}</view>
+        <view class="donation-anonymous" wx:if="{{item.anonymous}}">Anonymous</view>
+        <view
+          class="donation-certificate"
+          data-id="{{item.id}}"
+          catchtap="handleViewCertificate"
+        >
+          View Certificate
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="loading-more" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">Loading...</text>
+  </view>
+
+  <view class="no-more" wx:if="{{!hasMore && donations.length > 0}}">
+    <text class="no-more-text">No more donations</text>
+  </view>
+
+  <view class="donate-fab" bindtap="handleDonateNow">
+    <text class="fab-text">Donate</text>
+  </view>
+</view>

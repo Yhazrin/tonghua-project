@@ -1,0 +1,290 @@
+/* ─── Contact Page Styles ───────────────────────────────────── */
+
+.hero {
+  padding: var(--space-4xl) 0 var(--space-2xl);
+}
+
+.hero__overline {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-rust);
+  margin-bottom: var(--space-lg);
+}
+
+.hero__subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  line-height: 1.8;
+  color: var(--color-ink-faded);
+  max-width: 700px;
+  margin-top: var(--space-xl);
+}
+
+/* ─── Contact Section ──────────────────────────────────────── */
+.contact {
+  padding: var(--space-3xl) 0;
+}
+
+.contact__grid {
+  display: grid;
+  gap: var(--space-2xl);
+}
+
+@media (min-width: 768px) {
+  .contact__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+  }
+}
+
+/* ─── Form ──────────────────────────────────────────────────── */
+.form {
+  max-width: 500px;
+}
+
+.form__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xl);
+}
+
+.form__group {
+  margin-bottom: var(--space-xl);
+}
+
+.form__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-sepia-mid);
+  margin-bottom: var(--space-sm);
+}
+
+.form__input {
+  width: 100%;
+  padding: var(--space-md) 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-warm-gray);
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-editorial);
+  background: transparent;
+}
+
+.form__input::placeholder {
+  color: var(--color-sepia-mid);
+  opacity: 0.6;
+}
+
+.form__input:focus {
+  border-bottom-color: var(--color-rust);
+}
+
+.form__textarea {
+  width: 100%;
+  padding: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-ink);
+  border: 1px solid var(--color-warm-gray);
+  outline: none;
+  resize: vertical;
+  min-height: 150px;
+  transition: border-color var(--duration-fast) var(--ease-editorial);
+  background: transparent;
+}
+
+.form__textarea::placeholder {
+  color: var(--color-sepia-mid);
+  opacity: 0.6;
+}
+
+.form__textarea:focus {
+  border-color: var(--color-rust);
+}
+
+.form__submit {
+  width: 100%;
+  padding: var(--space-lg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-editorial);
+}
+
+.form__submit:hover {
+  background-color: var(--color-archive-brown);
+}
+
+.form__submit:disabled {
+  background-color: var(--color-warm-gray);
+  cursor: not-allowed;
+}
+
+.form__success {
+  padding: var(--space-lg);
+  background-color: rgba(139, 58, 42, 0.06);
+  border-left: 3px solid var(--color-rust);
+  margin-top: var(--space-lg);
+}
+
+.form__successText {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-rust);
+}
+
+.form__error {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-rust);
+  margin-top: var(--space-xs);
+}
+
+/* ─── Info Panel ────────────────────────────────────────────── */
+.info {
+  padding: var(--space-xl);
+  background-color: var(--color-aged-stock);
+}
+
+.info__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xl);
+}
+
+.info__item {
+  margin-bottom: var(--space-xl);
+}
+
+.info__item:last-child {
+  margin-bottom: 0;
+}
+
+.info__itemLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-sepia-mid);
+  margin-bottom: var(--space-xs);
+}
+
+.info__itemValue {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-ink-faded);
+}
+
+.info__itemValue a {
+  color: var(--color-rust);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-editorial);
+}
+
+.info__itemValue a:hover {
+  color: var(--color-archive-brown);
+}
+
+/* ─── Social Links ─────────────────────────────────────────── */
+.social {
+  padding: var(--space-3xl) 0;
+  text-align: center;
+  border-top: 1px solid var(--color-warm-gray);
+}
+
+.social__title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-sepia-mid);
+  margin-bottom: var(--space-lg);
+}
+
+.social__links {
+  display: flex;
+  gap: var(--space-xl);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social__link {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-ink-faded);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-editorial);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+}
+
+.social__link:hover {
+  color: var(--color-rust);
+  border-bottom-color: var(--color-rust);
+}
+
+/* ─── Office Section ───────────────────────────────────────── */
+.office {
+  padding: var(--space-3xl) 0;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.office__inner {
+  display: grid;
+  gap: var(--space-2xl);
+}
+
+@media (min-width: 768px) {
+  .office__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.office__address {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.office__details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.office__detail {
+  margin-bottom: var(--space-lg);
+}
+
+.office__detailLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-sepia-mid);
+  margin-bottom: var(--space-xs);
+}
+
+.office__detailValue {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-warm-gray);
+}

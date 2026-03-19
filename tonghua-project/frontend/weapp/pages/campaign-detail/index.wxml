@@ -1,0 +1,110 @@
+<scroll-view scroll-y class="page-campaign-detail">
+  <view class="container" wx:if="{{!loading && campaign}}">
+
+    <!-- Cover Image -->
+    <view class="campaign-cover">
+      <image class="campaign-cover__image sepia-image" src="{{campaign.cover_url}}" mode="aspectFill" />
+      <view class="campaign-cover__overlay">
+        <view class="campaign-cover__status {{campaign.status === 'active' ? 'campaign-cover__status--active' : ''}}">
+          <text>{{campaign.status === 'active' ? '进行中' : '已结束'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Title & Description -->
+    <view class="campaign-info">
+      <text class="campaign-info__title">{{campaign.name}}</text>
+      <view class="divider"></view>
+      <text class="campaign-info__desc">{{campaign.description}}</text>
+    </view>
+
+    <!-- Progress -->
+    <view class="campaign-progress">
+      <view class="campaign-progress__header">
+        <text class="campaign-progress__label editorial-caption">作品进度</text>
+        <text class="campaign-progress__count">{{campaign.artwork_count}} / {{campaign.artwork_goal}}</text>
+      </view>
+      <view class="campaign-progress__bar">
+        <view class="campaign-progress__fill" style="width: {{progressPercent}}%"></view>
+      </view>
+      <text class="campaign-progress__percent">{{progressPercent}}%</text>
+    </view>
+
+    <!-- Stats -->
+    <view class="campaign-stats">
+      <view class="campaign-stat">
+        <text class="campaign-stat__number">{{campaign.participant_count}}</text>
+        <text class="campaign-stat__label">参与者</text>
+      </view>
+      <view class="campaign-stat">
+        <text class="campaign-stat__number">{{campaign.artwork_count}}</text>
+        <text class="campaign-stat__label">作品数</text>
+      </view>
+      <view class="campaign-stat">
+        <text class="campaign-stat__number">{{campaign.total_votes}}</text>
+        <text class="campaign-stat__label">总投票</text>
+      </view>
+    </view>
+
+    <!-- Date Range -->
+    <view class="campaign-dates">
+      <view class="campaign-dates__item">
+        <text class="campaign-dates__label">开始日期</text>
+        <text class="campaign-dates__value">{{campaign.start_date}}</text>
+      </view>
+      <view class="campaign-dates__item">
+        <text class="campaign-dates__label">结束日期</text>
+        <text class="campaign-dates__value">{{campaign.end_date}}</text>
+      </view>
+    </view>
+
+    <!-- Action Buttons -->
+    <view class="campaign-actions" wx:if="{{campaign.status === 'active'}}">
+      <button class="btn-primary campaign-actions__btn" bindtap="onJoinTap">参与活动</button>
+      <button class="btn-secondary campaign-actions__btn" bindtap="onDonateTap">支持捐赠</button>
+    </view>
+
+    <!-- Related Artworks -->
+    <view class="related-section" wx:if="{{campaign.related_artworks.length > 0}}">
+      <text class="section-number">Works</text>
+      <text class="section-title">相关作品</text>
+      <view class="divider"></view>
+      <view class="related-grid">
+        <view
+          class="related-grid__item"
+          wx:for="{{campaign.related_artworks}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onArtworkTap"
+        >
+          <view class="related-card">
+            <view class="related-card__image-wrap">
+              <image class="related-card__image sepia-image" src="{{item.image_url}}" mode="aspectFill" lazy-load />
+              <view class="related-card__overlay">
+                <text class="related-card__name">{{item.child_display_name}}</text>
+              </view>
+            </view>
+            <view class="related-card__body">
+              <text class="related-card__title">{{item.title}}</text>
+              <view class="related-card__meta">
+                <text class="related-card__heart">&#9829;</text>
+                <text class="related-card__likes">{{item.like_count}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Footer -->
+    <view class="editorial-footer">
+      <view class="editorial-footer__divider"></view>
+      <text class="editorial-footer__name">童画公益 &times; 可持续时尚</text>
+    </view>
+  </view>
+
+  <!-- Loading -->
+  <view class="loading-hint" wx:if="{{loading}}">
+    <text class="loading-hint__text">加载中...</text>
+  </view>
+</scroll-view>

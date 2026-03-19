@@ -1,0 +1,175 @@
+version: "3.9"
+
+# ============================================
+# Tonghua Public Welfare — Docker Compose
+# Development & Staging Environment
+# ============================================
+
+services:
+  # ---- MySQL 8.0 ----
+  mysql:
+    image: mysql:8.0
+    container_name: tonghua-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-tonghua_root_2026}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-tonghua_db}
+      MYSQL_USER: ${MYSQL_USER:-tonghua}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-tonghua_dev_pass}
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-authentication-plugin=mysql_native_password
+      --max-connections=200
+      --innodb-buffer-pool-size=256M
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-tonghua_root_2026}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - tonghua-net
+
+  # ---- Redis 7 ----
+  redis:
+    image: redis:7-alpine
+    container_name: tonghua-redis
+    restart: unless-stopped
+    command: >
+      redis-server
+      --appendonly yes
+      --maxmemory 128mb
+      --maxmemory-policy allkeys-lru
+      --requirepass ${REDIS_PASSWORD:-tonghua_redis_pass}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-tonghua_redis_pass}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - tonghua-net
+
+  # ---- RabbitMQ 3 ----
+  rabbitmq:
+    image: rabbitmq:3.12-management-alpine
+    container_name: tonghua-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-tonghua}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-tonghua_rabbit_pass}
+      RABBITMQ_DEFAULT_VHOST: /
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    networks:
+      - tonghua-net
+
+  # ---- Backend (FastAPI) ----
+  backend:
+    build:
+      context: ../../
+      dockerfile: deploy/docker/Dockerfiles/backend.Dockerfile
+    container_name: tonghua-backend
+    restart: unless-stopped
+    environment:
+      APP_ENV: ${APP_ENV:-development}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      APP_SECRET_KEY: ${APP_SECRET_KEY:-dev-secret-change-in-prod}
+      APP_PORT: "8000"
+      # Database
+      MYSQL_HOST: mysql
+      MYSQL_PORT: "3306"
+      MYSQL_USER: ${MYSQL_USER:-tonghua}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-tonghua_dev_pass}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-tonghua_db}
+      DATABASE_URL: "mysql+aiomysql://${MYSQL_USER:-tonghua}:${MYSQL_PASSWORD:-tonghua_dev_pass}@mysql:3306/${MYSQL_DATABASE:-tonghua_db}"
+      # Redis
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-tonghua_redis_pass}
+      REDIS_URL: "redis://:${REDIS_PASSWORD:-tonghua_redis_pass}@redis:6379/0"
+      # RabbitMQ
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: "5672"
+      RABBITMQ_USER: ${RABBITMQ_USER:-tonghua}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-tonghua_rabbit_pass}
+      RABBITMQ_URL: "amqp://${RABBITMQ_USER:-tonghua}:${RABBITMQ_PASSWORD:-tonghua_rabbit_pass}@rabbitmq:5672/"
+      # JWT
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-dev-jwt-secret}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+      JWT_ACCESS_TOKEN_EXPIRE_MINUTES: ${JWT_ACCESS_TOKEN_EXPIRE_MINUTES:-15}
+      JWT_REFRESH_TOKEN_EXPIRE_DAYS: ${JWT_REFRESH_TOKEN_EXPIRE_DAYS:-7}
+      # Encryption
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef}
+      # CORS
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:3000,http://localhost:80}
+    ports:
+      - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - tonghua-net
+
+  # ---- Frontend (React + Nginx) ----
+  frontend:
+    build:
+      context: ../../frontend/web-react
+      dockerfile: ../../deploy/docker/Dockerfiles/frontend.Dockerfile
+    container_name: tonghua-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:80"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    networks:
+      - tonghua-net
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+  rabbitmq_data:
+    driver: local
+
+networks:
+  tonghua-net:
+    driver: bridge
+    name: tonghua-network

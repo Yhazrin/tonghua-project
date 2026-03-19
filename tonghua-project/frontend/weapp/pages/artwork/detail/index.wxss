@@ -1,0 +1,8 @@
+.detail-image { width: 100%; }
+.detail-info { padding: 32rpx; }
+.detail-title { font-size: 40rpx; display: block; margin-bottom: 16rpx; }
+.detail-desc { font-size: 28rpx; color: #3A3226; line-height: 1.8; display: block; margin-bottom: 32rpx; }
+.detail-actions { display: flex; gap: 24rpx; }
+.vote-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 12rpx; background: #2C1810; color: #F5F0E8; padding: 24rpx; font-family: `IBM Plex Mono`, monospace; font-size: 28rpx; }
+.vote-btn.voted { background: #9A8B78; }
+.vote-num { font-size: 32rpx; }

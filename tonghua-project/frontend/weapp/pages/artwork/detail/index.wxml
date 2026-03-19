@@ -1,0 +1,20 @@
+<view class="page-container">
+  <loading loading="{{loading}}" />
+  <view wx:if="{{artwork && \!loading}}">
+    <image class="detail-image sepia-image" src="{{artwork.imageUrl}}" mode="widthFix" />
+    <view class="detail-info">
+      <text class="editorial-title detail-title">{{artwork.title}}</text>
+      <text class="editorial-caption">\u4F5C\u8005: {{artwork.childDisplayName}}</text>
+      <text class="editorial-caption">\u6D3B\u52A8: {{artwork.campaignName}}</text>
+      <view class="divider"></view>
+      <text class="detail-desc">{{artwork.description}}</text>
+      <view class="detail-actions">
+        <view class="vote-btn {{voted ? `voted` : ``}}" bindtap="onVote">
+          <text>{{voted ? `\u5DF2\u6295\u7968` : `\u6295\u7968`}}</text>
+          <text class="vote-num">{{artwork.voteCount || 0}}</text>
+        </view>
+        <view class="btn-secondary" bindtap="onShopTap">\u76F8\u5173\u5546\u54C1</view>
+      </view>
+    </view>
+  </view>
+</view>

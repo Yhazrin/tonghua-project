@@ -1,0 +1,36 @@
+<view class="page-container">
+  <view class="section-header">
+    <text class="section-number">01</text>
+    <text class="editorial-title">\u4E0A\u4F20\u4F5C\u54C1</text>
+  </view>
+  <view class="form-group">
+    <text class="form-label editorial-caption">\u4F5C\u54C1\u56FE\u7247 *</text>
+    <view class="image-picker">
+      <view class="image-item" wx:for="{{imageList}}" wx:key="*this">
+        <image src="{{item}}" mode="aspectFill" />
+        <view class="remove-btn" data-index="{{index}}" catchtap="removeImage">x</view>
+      </view>
+      <view class="add-image" wx:if="{{imageList.length < 3}}" bindtap="chooseImage">+</view>
+    </view>
+  </view>
+  <view class="form-group">
+    <text class="form-label editorial-caption">\u7528\u6237\u540D * (\u975E\u771F\u5B9E\u59D3\u540D)</text>
+    <input class="form-input" placeholder="\u8F93\u5165\u5C55\u793A\u540D\u79F0" value="{{childDisplayName}}" bindinput="onNameInput" />
+  </view>
+  <view class="form-group">
+    <text class="form-label editorial-caption">\u9009\u62E9\u6D3B\u52A8</text>
+    <picker mode="selector" range="{{campaigns}}" range-key="name" bindchange="onCampaignChange">
+      <view class="form-picker">{{campaignId ? campaigns[0].name : `\u8BF7\u9009\u62E9`}}</view>
+    </picker>
+  </view>
+  <view class="form-group">
+    <text class="form-label editorial-caption">\u4F5C\u54C1\u63CF\u8FF0</text>
+    <textarea class="form-textarea" placeholder="\u63CF\u8FF0\u4F5C\u54C1\u7684\u521B\u4F5C\u7075\u611F..." value="{{description}}" bindinput="onDescInput" />
+  </view>
+  <view class="consent-group">
+    <checkbox checked="{{guardianConsent}}" bindchange="onConsentChange" />
+    <text class="consent-text">\u6211\u5DF2\u786E\u8BA4\u76D1\u62A4\u4EBA\u540C\u610F\u4E0A\u4F20\u6B64\u4F5C\u54C1</text>
+  </view>
+  <view class="btn-primary submit-btn" bindtap="submit">\u63D0\u4EA4\u4E0A\u4F20</view>
+  <loading loading="{{uploading}}" text="\u4E0A\u4F20\u4E2D..." />
+</view>

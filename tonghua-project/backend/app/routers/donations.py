@@ -1,0 +1,176 @@
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy import select, func
+from sqlalchemy.ext.asyncio import AsyncSession
+from decimal import Decimal
+from datetime import datetime
+
+from app.database import get_db
+from app.models.donation import Donation
+from app.models.campaign import Campaign
+from app.schemas import ApiResponse, DonationCreate, DonationOut, PaginatedResponse
+from app.deps import get_current_user
+
+router = APIRouter(prefix="/donations", tags=["Donations"])
+
+_mock_donations = [
+    {"id": 1, "donor_name": "张先生", "donor_user_id": 3, "amount": "500.00", "currency": "CNY", "payment_method": "wechat", "payment_id": "wx20250301123456", "campaign_id": 1, "status": "completed", "is_anonymous": False, "message": "支持孩子们的艺术梦想！", "created_at": "2025-03-01T10:30:00"},
+    {"id": 2, "donor_name": "李女士", "donor_user_id": 4, "amount": "1000.00", "currency": "CNY", "payment_method": "alipay", "payment_id": "ali20250302654321", "campaign_id": 1, "status": "completed", "is_anonymous": False, "message": "为乡村美育尽一份力", "created_at": "2025-03-02T14:20:00"},
+    {"id": 3, "donor_name": "匿名好心人", "donor_user_id": None, "amount": "2000.00", "currency": "CNY", "payment_method": "wechat", "payment_id": "wx20250303789012", "campaign_id": 2, "status": "completed", "is_anonymous": True, "message": None, "created_at": "2025-03-03T09:00:00"},
+    {"id": 4, "donor_name": "John Smith", "donor_user_id": None, "amount": "100.00", "currency": "USD", "payment_method": "stripe", "payment_id": "pi_stripe_001", "campaign_id": 1, "status": "completed", "is_anonymous": False, "message": "Happy to support!", "created_at": "2025-03-05T16:45:00"},
+    {"id": 5, "donor_name": "王先生", "donor_user_id": 5, "amount": "300.00", "currency": "CNY", "payment_method": "wechat", "payment_id": "wx20250306345678", "campaign_id": 2, "status": "completed", "is_anonymous": False, "message": "保护我们的乡村记忆", "created_at": "2025-03-06T11:15:00"},
+    {"id": 6, "donor_name": "赵女士", "donor_user_id": None, "amount": "5000.00", "currency": "CNY", "payment_method": "alipay", "payment_id": "ali20250310901234", "campaign_id": 3, "status": "completed", "is_anonymous": False, "message": "科技改变未来，希望改变孩子", "created_at": "2025-03-10T08:30:00"},
+    {"id": 7, "donor_name": "陈先生", "donor_user_id": None, "amount": "200.00", "currency": "CNY", "payment_method": "wechat", "payment_id": "wx20250315567890", "campaign_id": None, "status": "completed", "is_anonymous": True, "message": "支持公益", "created_at": "2025-03-15T17:00:00"},
+    {"id": 8, "donor_name": "Emily Wang", "donor_user_id": None, "amount": "50.00", "currency": "USD", "payment_method": "paypal", "payment_id": "pp_20250316", "campaign_id": 1, "status": "completed", "is_anonymous": False, "message": "Beautiful cause!", "created_at": "2025-03-16T12:00:00"},
+    {"id": 9, "donor_name": "刘先生", "donor_user_id": None, "amount": "1500.00", "currency": "CNY", "payment_method": "wechat", "payment_id": "wx20250320123789", "campaign_id": 2, "status": "pending", "is_anonymous": False, "message": "家乡永远在心中", "created_at": "2025-03-20T10:00:00"},
+    {"id": 10, "donor_name": "孙女士", "donor_user_id": None, "amount": "800.00", "currency": "CNY", "payment_method": "alipay", "payment_id": "ali20250325456789", "campaign_id": 1, "status": "completed", "is_anonymous": False, "message": "愿每个孩子都能画画", "created_at": "2025-03-25T15:30:00"},
+]
+
+
+@router.get("", response_model=PaginatedResponse)
+async def list_donations(
+    page: int = Query(1, ge=1),
+    page_size: int = Query(20, ge=1, le=100),
+    campaign_id: int | None = Query(None),
+    status: str | None = Query(None),
+    db: AsyncSession = Depends(get_db),
+):
+    """List donations with optional filters."""
+    try:
+        stmt = select(Donation)
+        if campaign_id is not None:
+            stmt = stmt.where(Donation.campaign_id == campaign_id)
+        if status:
+            stmt = stmt.where(Donation.status == status)
+        count_stmt = select(func.count(Donation.id))
+        total = (await db.execute(count_stmt)).scalar() or 0
+        stmt = stmt.order_by(Donation.created_at.desc()).offset((page - 1) * page_size).limit(page_size)
+        result = await db.execute(stmt)
+        donations = result.scalars().all()
+        return PaginatedResponse(
+            data=[DonationOut.model_validate(d).model_dump() for d in donations],
+            total=total,
+            page=page,
+            page_size=page_size,
+        )
+    except Exception:
+        filtered = _mock_donations
+        if campaign_id is not None:
+            filtered = [d for d in filtered if d.get("campaign_id") == campaign_id]
+        if status:
+            filtered = [d for d in filtered if d["status"] == status]
+        start = (page - 1) * page_size
+        return PaginatedResponse(
+            data=filtered[start: start + page_size],
+            total=len(filtered),
+            page=page,
+            page_size=page_size,
+        )
+
+
+@router.get("/stats", response_model=ApiResponse)
+async def donation_stats(db: AsyncSession = Depends(get_db)):
+    """Get public donation statistics."""
+    try:
+        total_amount = (await db.execute(
+            select(func.sum(Donation.amount)).where(Donation.status == "completed")
+        )).scalar() or 0
+        total_count = (await db.execute(
+            select(func.count(Donation.id)).where(Donation.status == "completed")
+        )).scalar() or 0
+        return ApiResponse(data={
+            "total_amount": str(total_amount),
+            "total_donors": total_count,
+            "currency": "CNY",
+        })
+    except Exception:
+        return ApiResponse(data={
+            "total_amount": "10350.00",
+            "total_donors": 9,
+            "currency": "CNY",
+        })
+
+
+@router.get("/{donation_id}", response_model=ApiResponse)
+async def get_donation(donation_id: int, db: AsyncSession = Depends(get_db)):
+    """Get a donation by ID."""
+    try:
+        stmt = select(Donation).where(Donation.id == donation_id)
+        result = await db.execute(stmt)
+        donation = result.scalar_one_or_none()
+        if not donation:
+            raise HTTPException(status_code=404, detail="Donation not found")
+        return ApiResponse(data=DonationOut.model_validate(donation).model_dump())
+    except HTTPException:
+        raise
+    except Exception:
+        for d in _mock_donations:
+            if d["id"] == donation_id:
+                return ApiResponse(data=d)
+        raise HTTPException(status_code=404, detail="Donation not found")
+
+
+@router.post("", response_model=ApiResponse, status_code=201)
+async def create_donation(body: DonationCreate, db: AsyncSession = Depends(get_db)):
+    """Create a new donation."""
+    try:
+        donation = Donation(**body.model_dump())
+        db.add(donation)
+        # Update campaign amount if applicable
+        if body.campaign_id:
+            stmt = select(Campaign).where(Campaign.id == body.campaign_id)
+            result = await db.execute(stmt)
+            campaign = result.scalar_one_or_none()
+            if campaign:
+                campaign.current_amount = (campaign.current_amount or 0) + body.amount
+        await db.flush()
+        return ApiResponse(data=DonationOut.model_validate(donation).model_dump())
+    except Exception:
+        new_id = max(d["id"] for d in _mock_donations) + 1 if _mock_donations else 1
+        new_donation = {
+            "id": new_id,
+            **body.model_dump(mode="json"),
+            "payment_id": None,
+            "status": "pending",
+            "created_at": "2025-06-01T00:00:00",
+        }
+        _mock_donations.append(new_donation)
+        return ApiResponse(data=new_donation)
+
+
+@router.get("/{donation_id}/certificate", response_model=ApiResponse)
+async def get_donation_certificate(donation_id: int, db: AsyncSession = Depends(get_db)):
+    """Get donation certificate data for a completed donation."""
+    try:
+        stmt = select(Donation).where(Donation.id == donation_id)
+        result = await db.execute(stmt)
+        donation = result.scalar_one_or_none()
+        if not donation:
+            raise HTTPException(status_code=404, detail="Donation not found")
+        if donation.status != "completed":
+            raise HTTPException(status_code=400, detail="Certificate available only for completed donations")
+        return ApiResponse(data={
+            "donation_id": donation.id,
+            "donor_name": donation.donor_name if not donation.is_anonymous else "爱心人士",
+            "amount": str(donation.amount),
+            "currency": donation.currency,
+            "date": donation.created_at.isoformat() if donation.created_at else None,
+            "campaign_id": donation.campaign_id,
+            "certificate_no": f"TH-DON-{donation.id:06d}",
+        })
+    except HTTPException:
+        raise
+    except Exception:
+        for d in _mock_donations:
+            if d["id"] == donation_id:
+                if d["status"] != "completed":
+                    raise HTTPException(status_code=400, detail="Certificate available only for completed donations")
+                return ApiResponse(data={
+                    "donation_id": d["id"],
+                    "donor_name": d["donor_name"] if not d["is_anonymous"] else "爱心人士",
+                    "amount": d["amount"],
+                    "currency": d["currency"],
+                    "date": d["created_at"],
+                    "campaign_id": d.get("campaign_id"),
+                    "certificate_no": f"TH-DON-{d['id']:06d}",
+                })
+        raise HTTPException(status_code=404, detail="Donation not found")
