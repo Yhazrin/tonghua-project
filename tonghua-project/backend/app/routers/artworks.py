@@ -20,7 +20,7 @@ _mock_artworks = [
         "child_participant_id": None,
         "artist_name": a,
         "status": s,
-        "like_count": l,
+        "vote_count": l,  # Changed from like_count to vote_count
         "view_count": v,
         "campaign_id": c,
         "created_at": f"2025-{(i % 12) + 1:02d}-15T10:00:00",
@@ -126,7 +126,7 @@ async def create_artwork(body: ArtworkCreate, db: AsyncSession = Depends(get_db)
         return ApiResponse(data=ArtworkOut.model_validate(artwork).model_dump())
     except Exception:
         new_id = max(a["id"] for a in _mock_artworks) + 1 if _mock_artworks else 1
-        new_artwork = {"id": new_id, **body.model_dump(), "status": "draft", "like_count": 0, "view_count": 0, "created_at": "2025-06-01T00:00:00", "updated_at": "2025-06-01T00:00:00"}
+        new_artwork = {"id": new_id, **body.model_dump(), "status": "draft", "vote_count": 0, "view_count": 0, "created_at": "2025-06-01T00:00:00", "updated_at": "2025-06-01T00:00:00"}
         _mock_artworks.append(new_artwork)
         return ApiResponse(data=new_artwork)
 
@@ -172,6 +172,33 @@ async def update_artwork_status(artwork_id: int, body: ArtworkStatusUpdate, db: 
         for a in _mock_artworks:
             if a["id"] == artwork_id:
                 a["status"] = body.status
+                return ApiResponse(data=a)
+        raise HTTPException(status_code=404, detail="Artwork not found")
+
+
+@router.post("/{artwork_id}/vote", response_model=ApiResponse)
+async def vote_artwork(artwork_id: int, db: AsyncSession = Depends(get_db)):
+    """Vote for an artwork."""
+    try:
+        stmt = select(Artwork).where(Artwork.id == artwork_id)
+        result = await db.execute(stmt)
+        artwork = result.scalar_one_or_none()
+        if not artwork:
+            raise HTTPException(status_code=404, detail="Artwork not found")
+
+        # Update vote count (using like_count in DB, which maps to vote_count in schema)
+        artwork.like_count += 1
+        await db.flush()
+
+        return ApiResponse(data=ArtworkOut.model_validate(artwork).model_dump())
+    except HTTPException:
+        raise
+    except Exception:
+        # Fallback for mock data
+        for a in _mock_artworks:
+            if a["id"] == artwork_id:
+                # Update vote_count in mock data
+                a["vote_count"] = a.get("vote_count", 0) + 1
                 return ApiResponse(data=a)
         raise HTTPException(status_code=404, detail="Artwork not found")
 

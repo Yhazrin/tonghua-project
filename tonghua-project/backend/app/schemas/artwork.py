@@ -34,12 +34,12 @@ class ArtworkListItem(BaseModel):
     thumbnail_url: Optional[str] = None
     artist_name: str
     status: str
-    like_count: int
+    vote_count: int = Field(alias="like_count")
     view_count: int
     campaign_id: Optional[int] = None
     created_at: datetime
 
-    model_config = {"from_attributes": True}
+    model_config = {"from_attributes": True, "populate_by_name": True}
 
 
 class ArtworkOut(BaseModel):
@@ -51,10 +51,10 @@ class ArtworkOut(BaseModel):
     child_participant_id: Optional[int] = None
     artist_name: str
     status: str
-    like_count: int
+    vote_count: int = Field(alias="like_count")
     view_count: int
     campaign_id: Optional[int] = None
     created_at: datetime
     updated_at: datetime
 
-    model_config = {"from_attributes": True}
+    model_config = {"from_attributes": True, "populate_by_name": True}
