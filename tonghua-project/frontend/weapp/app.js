@@ -1,16 +1,13 @@
 App({
   globalData: {
     userInfo: null,
-    token: null,
-    refreshToken: null,
     systemInfo: null,
-    baseUrl: 'https://api.tonghua.example.com',
+    baseUrl: 'https://api.tonghua.org/api/v1',
     isConnected: true
   },
   onLaunch: function() {
     this.checkNetworkStatus();
     this.getSystemInfo();
-    this.autoLogin();
   },
   getSystemInfo: function() {
     this.globalData.systemInfo = wx.getSystemInfoSync();
@@ -18,10 +15,6 @@ App({
   checkNetworkStatus: function() {
     var self = this;
     wx.getNetworkType({ success: function(r) { self.globalData.isConnected = r.networkType !== 'none'; } });
-  },
-  autoLogin: function() {
-    var token = wx.getStorageSync('accessToken');
-    if (token) { this.globalData.token = token; }
   },
   wxLogin: function() {
     var self = this;
@@ -32,10 +25,7 @@ App({
             var request = require('./utils/request');
             request.post('/auth/wx-login', { code: res.code })
               .then(function(r) {
-                self.globalData.token = r.accessToken;
-                self.globalData.refreshToken = r.refreshToken;
-                wx.setStorageSync('accessToken', r.accessToken);
-                wx.setStorageSync('refreshToken', r.refreshToken);
+                // Server sets httpOnly cookies, no need to store tokens client-side
                 resolve(r);
               }).catch(reject);
           } else { reject(new Error('login failed')); }

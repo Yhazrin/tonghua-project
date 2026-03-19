@@ -62,9 +62,9 @@ function paginate<T>(items: T[], params: FilterParams): PaginatedResponse<T> {
 // Delay helper to simulate network
 const delay = (ms = 300) => new Promise((r) => setTimeout(r, ms));
 
-// === API Functions (using mock data) ===
-// NOTE: Currently using mock data for development.
-// TODO: Replace mock returns with real API calls using the `api` axios instance above.
+// === API Functions (using mock data for development) ===
+// NOTE: Mock data is used for development and testing purposes.
+// When backend is ready, replace mock calls with real API calls:
 // Example: return api.get('/dashboard/metrics').then(r => r.data);
 
 export async function fetchDashboardMetrics(): Promise<DashboardMetrics> {
