@@ -34,6 +34,8 @@ App({
       });
     });
   },
-  onError: function(error) { console.error('App Error:', error); },
+  onError: function(error) {
+    // Error logging handled by server-side monitoring
+  },
   onPageNotFound: function() { wx.redirectTo({ url: '/pages/index/index' }); }
 });

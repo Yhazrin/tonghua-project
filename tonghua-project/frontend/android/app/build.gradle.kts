@@ -91,8 +91,7 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
-    // DataStore Preferences (for token storage)
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    // NOTE: Token storage removed - using httpOnly Cookie authentication
 
     // Debug
     debugImplementation("androidx.compose.ui:ui-tooling")

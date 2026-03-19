@@ -2,7 +2,9 @@ package org.tonghua.app.data.api
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
-import okhttp3.Interceptor
+import okhttp3.Cookie
+import okhttp3.CookieJar
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.tonghua.app.BuildConfig
@@ -13,12 +15,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * OkHttp client configuration with auth token interceptor.
+ * OkHttp client configuration with httpOnly Cookie authentication.
+ *
+ * NOTE: Authentication is handled via httpOnly cookies, not Bearer tokens.
+ * The server manages session state via Set-Cookie headers.
  */
 @Singleton
 class ApiClient @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val tokenProvider: TokenProvider,
 ) {
     companion object {
         private const val BASE_URL = "https://api.tonghua.org/api/v1/"
@@ -39,21 +43,9 @@ class ApiClient @Inject constructor(
             .connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
-            .addInterceptor(authInterceptor())
+            .cookieJar(AndroidCookieJar(context))
             .addInterceptor(loggingInterceptor())
             .build()
-    }
-
-    private fun authInterceptor(): Interceptor = Interceptor { chain ->
-        val token = tokenProvider.getAccessToken()
-        val request = if (token != null) {
-            chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer $token")
-                .build()
-        } else {
-            chain.request()
-        }
-        chain.proceed(request)
     }
 
     private fun loggingInterceptor(): HttpLoggingInterceptor {
@@ -68,13 +60,28 @@ class ApiClient @Inject constructor(
 }
 
 /**
- * Interface for providing auth tokens.
- * Implemented in DI module with DataStore-backed implementation.
+ * Cookie jar implementation for Android that persists cookies across app sessions.
+ * Uses SharedPreferences to store cookies.
  */
-interface TokenProvider {
-    fun getAccessToken(): String?
-    fun getRefreshToken(): String?
-    suspend fun initialize()
-    suspend fun saveTokens(accessToken: String, refreshToken: String)
-    suspend fun clearTokens()
+class AndroidCookieJar(private val context: Context) : CookieJar {
+    private val prefs = context.getSharedPreferences("tonghua_cookies", Context.MODE_PRIVATE)
+    private val cookieKey = "stored_cookies"
+
+    override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
+        val serialized = cookies.joinToString(";") { it.toString() }
+        prefs.edit().putString(cookieKey, serialized).apply()
+    }
+
+    override fun loadForRequest(url: HttpUrl): List<Cookie> {
+        val serialized = prefs.getString(cookieKey, "") ?: ""
+        if (serialized.isEmpty()) return emptyList()
+
+        return serialized.split(";").mapNotNull { cookieStr ->
+            try {
+                Cookie.parse(url, cookieStr.trim())
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
 }
