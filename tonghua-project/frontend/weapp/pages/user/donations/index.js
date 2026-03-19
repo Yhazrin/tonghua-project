@@ -24,10 +24,9 @@ Page({
   },
 
   onShow: function () {
-    if (auth.checkLogin()) {
-      this.setData({ page: 1, donations: [], hasMore: true });
-      this.loadDonations();
-    }
+    // Server handles session via httpOnly cookies
+    this.setData({ page: 1, donations: [], hasMore: true });
+    this.loadDonations();
   },
 
   onPullDownRefresh: function () {

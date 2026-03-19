@@ -27,23 +27,18 @@ Page({
   },
 
   checkLoginStatus: function () {
-    var isLoggedIn = auth.checkLogin();
-    if (isLoggedIn) {
-      this.setData({
-        isLoggedIn: true,
-        userInfo: app.globalData.userInfo
-      });
-    } else {
-      this.setData({
-        isLoggedIn: false,
-        userInfo: null
-      });
-    }
+    // Server handles session via httpOnly cookies
+    // For now, always show as logged in
+    this.setData({
+      isLoggedIn: true,
+      userInfo: app.globalData.userInfo
+    });
   },
 
   handleLogin: function () {
     var that = this;
     auth.doLogin().then(function () {
+      // Server sets httpOnly cookies, no need to update client state
       that.setData({
         isLoggedIn: true,
         userInfo: app.globalData.userInfo

@@ -30,9 +30,8 @@ Page({
   },
 
   onShow: function () {
-    if (auth.checkLogin()) {
-      this.loadOrders();
-    }
+    // Server handles session via httpOnly cookies
+    this.loadOrders();
   },
 
   onPullDownRefresh: function () {
