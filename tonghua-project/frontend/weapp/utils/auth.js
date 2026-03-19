@@ -1,18 +1,19 @@
 var http = require('./request');
 
-// NOTE: Authentication is handled via httpOnly cookies managed by the server.
-// No client-side token storage is needed.
+// NOTE: Authentication is handled via Bearer tokens stored locally.
+// The token is retrieved from the server response and sent in the Authorization header.
 
 function checkLogin() {
-  // For now, always return true to let server handle session validation
-  // In a real implementation, you might check for a session cookie presence
-  return true;
+  // Check if a token exists in local storage
+  return getToken() !== null;
 }
 
 function ensureLogin() {
   return new Promise(function(resolve, reject) {
-    // Server handles session via httpOnly cookies
-    // No need to check for client-side tokens
+    // Client handles token presence
+    // If token is missing, login flow should be triggered
+    // Note: This function currently resolves immediately.
+    // Real implementation might check checkLogin() and redirect if false.
     resolve();
   });
 }
@@ -23,8 +24,11 @@ function doLogin() {
       success: function(res) {
         if (res.code) {
           http.post('/auth/wx-login', { code: res.code }).then(function(r) {
-            // Server sets httpOnly cookies via Set-Cookie header
-            // No need to store tokens client-side
+            // Server returns token in JSON body
+            // Save token client-side for Authorization header
+            if (r.success && r.data && r.data.access_token) {
+              getApp().globalData.token = r.data.access_token;
+            }
             resolve();
           }).catch(reject);
         } else {
@@ -37,14 +41,15 @@ function doLogin() {
 }
 
 function logout() {
-  // Server will clear httpOnly cookies on /auth/logout
+  // Clear local token and user info.
+  // Note: /auth/logout endpoint can be called to invalidate server-side session if needed.
   getApp().globalData.userInfo = null;
   getApp().globalData.token = null;
 }
 
 function getToken() {
-  // Token is managed by httpOnly cookies, not stored client-side
-  return null;
+  // Retrieve token from global data
+  return getApp().globalData.token || null;
 }
 
 module.exports = { checkLogin: checkLogin, ensureLogin: ensureLogin, doLogin: doLogin, logout: logout, getToken: getToken };

@@ -25,7 +25,8 @@ class ApiClient @Inject constructor(
     @ApplicationContext private val context: Context,
 ) {
     companion object {
-        private const val BASE_URL = "https://api.tonghua.org/api/v1/"
+        private val BASE_URL: String
+            get() = BuildConfig.API_BASE_URL
         private const val TIMEOUT_SECONDS = 30L
     }
 

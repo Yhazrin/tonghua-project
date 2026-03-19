@@ -29,9 +29,10 @@ function request(options) {
       header: {
         'Content-Type': 'application/json',
         'X-Timestamp': Date.now().toString(),
-        'X-Nonce': generateNonce()
+        'X-Nonce': generateNonce(),
+        'Authorization': getApp().globalData.token ? 'Bearer ' + getApp().globalData.token : ''
       },
-      withCredentials: true, // Enable cookie support for httpOnly authentication
+      withCredentials: true, // Enable cookie support if needed, though we use Bearer tokens here
       success: function(res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           resolve(res.data);
@@ -43,7 +44,7 @@ function request(options) {
             return;
           }
           options._refreshAttempted = true;
-          // Server will handle refresh via httpOnly cookies
+          // Token expired, retrying request (refresh logic should be handled if necessary)
           resolve(request(options));
         } else {
           var msg = (res.data && res.data.message) ? res.data.message : 'Request Error';
@@ -64,8 +65,8 @@ function request(options) {
   });
 }
 
-// Token refresh is now handled server-side via httpOnly cookies
-// No client-side token management needed
+// Token is managed client-side via Bearer token in Authorization header.
+// Token refresh logic should be implemented if needed (e.g., using refresh token).
 
 function get(url, data) {
   return request({ url: url, method: 'GET', data: data });
@@ -92,9 +93,10 @@ function upload(url, filePath, name, formData) {
       formData: formData || {},
       header: {
         'X-Timestamp': Date.now().toString(),
-        'X-Nonce': generateNonce()
+        'X-Nonce': generateNonce(),
+        'Authorization': getApp().globalData.token ? 'Bearer ' + getApp().globalData.token : ''
       },
-      withCredentials: true, // Enable cookie support for httpOnly authentication
+      withCredentials: true, // Enable cookie support if needed, though we use Bearer tokens here
       success: function(res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           try {

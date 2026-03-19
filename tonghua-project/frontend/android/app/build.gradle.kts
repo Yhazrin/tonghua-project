@@ -20,15 +20,29 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // Build Config Fields for API URL
+        buildConfigField("String", "API_BASE_URL", "\"https://api.tonghua.org/api/v1/\"")
     }
 
     buildTypes {
+        debug {
+            val devUrl = findProperty("API_BASE_URL_DEV") as String? ?: "http://10.0.2.2:8000/api/v1/"
+            buildConfigField("String", "API_BASE_URL", "\"$devUrl\"")
+        }
+        staging {
+            initWith(getByName("debug"))
+            val stagingUrl = findProperty("API_BASE_URL_STAGING") as String? ?: "https://staging-api.tonghua.org/api/v1/"
+            buildConfigField("String", "API_BASE_URL", "\"$stagingUrl\"")
+        }
         release {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            val prodUrl = findProperty("API_BASE_URL_PROD") as String? ?: "https://api.tonghua.org/api/v1/"
+            buildConfigField("String", "API_BASE_URL", "\"$prodUrl\"")
         }
     }
 

@@ -30,7 +30,7 @@ Page({
   calcTotal: function (items) {
     var total = 0
     for (var i = 0; i < items.length; i++) {
-      total += items[i].price * items[i].quantity
+      total += (items[i].price || 0) * items[i].quantity
     }
     return total.toFixed(2)
   },

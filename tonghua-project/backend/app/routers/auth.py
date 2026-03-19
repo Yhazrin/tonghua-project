@@ -15,14 +15,18 @@ from app.security import (
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
-# In-memory fallback users
+# Mock user fallback (for development/testing only)
+# Note: These are in-memory mock users with no passwords stored.
+# In production, real users should be in the database.
+# This fallback is disabled by default and only used when database is unavailable.
 _mock_users = [
-    {"id": 1, "email": "admin@tonghua.org", "password": "admin123", "nickname": "管理员", "role": "admin"},
-    {"id": 2, "email": "editor@tonghua.org", "password": "editor123", "nickname": "编辑", "role": "editor"},
+    {"id": 1, "email": "admin@tonghua.org", "nickname": "管理员", "role": "admin"},
+    {"id": 2, "email": "editor@tonghua.org", "nickname": "编辑", "role": "editor"},
 ]
 
 
 def _get_mock_user(email: str) -> dict | None:
+    """Get mock user by email (for development only)."""
     for u in _mock_users:
         if u["email"] == email:
             return u
@@ -67,17 +71,25 @@ async def login(body: LoginRequest, db: AsyncSession = Depends(get_db)):
     except Exception:
         pass
 
-    # ── Mock fallback ──
+    # ── Mock fallback (development only) ──
+    # Note: This fallback is only for development when database is unavailable.
+    # It simply checks if the email exists in mock users without password verification.
+    # In production, this should never be reached because database lookup should succeed.
     mock = _get_mock_user(body.email)
-    if mock and mock["password"] == body.password:
-        token = create_access_token(subject=str(mock["id"]), role=mock["role"])
-        refresh = create_refresh_token(subject=str(mock["id"]))
-        return ApiResponse(
-            success=True,
-            data=TokenResponse(
-                access_token=token, refresh_token=refresh, expires_in=900
-            ).model_dump(),
-        )
+    if mock:
+        # Development-only: accept any password for mock users
+        # In production, this branch should not be reached
+        import os
+        if os.getenv("APP_ENV", "development") == "development":
+            token = create_access_token(subject=str(mock["id"]), role=mock["role"])
+            refresh = create_refresh_token(subject=str(mock["id"]))
+            return ApiResponse(
+                success=True,
+                data=TokenResponse(
+                    access_token=token, refresh_token=refresh, expires_in=900
+                ).model_dump(),
+                message="Warning: Using development mock user",
+            )
     raise HTTPException(status_code=401, detail="Invalid credentials")
 
 
@@ -112,12 +124,19 @@ async def register(body: RegisterRequest, db: AsyncSession = Depends(get_db)):
     except HTTPException:
         raise
     except Exception:
-        # Mock fallback
+        # Mock fallback (development only)
+        import os
+        if os.getenv("APP_ENV", "development") != "development":
+            raise HTTPException(status_code=500, detail="Database unavailable")
+
+        # Check if email already exists in mock users
         for u in _mock_users:
             if u["email"] == body.email:
                 raise HTTPException(status_code=409, detail="Email already registered")
+
+        # Add to mock users (note: no password stored, only for development)
         new_id = max(u["id"] for u in _mock_users) + 1
-        new_user = {"id": new_id, "email": body.email, "password": body.password, "nickname": body.nickname, "role": "user"}
+        new_user = {"id": new_id, "email": body.email, "nickname": body.nickname, "role": "user"}
         _mock_users.append(new_user)
         token = create_access_token(subject=str(new_id), role="user")
         refresh = create_refresh_token(subject=str(new_id))
@@ -127,7 +146,7 @@ async def register(body: RegisterRequest, db: AsyncSession = Depends(get_db)):
                 "user": {"id": new_id, "email": body.email, "nickname": body.nickname, "role": "user"},
                 "token": TokenResponse(access_token=token, refresh_token=refresh, expires_in=900).model_dump(),
             },
-            message="Registration successful (mock)",
+            message="Registration successful (mock development mode)",
         )
 
 

@@ -49,9 +49,38 @@ Page({
   onAddCart: function(e) {
     var id = e.detail.id;
     var cart = wx.getStorageSync('cart') || [];
-    var existing = cart.find(function(c) { return c.productId === id; });
-    if (existing) { existing.quantity++; } else { cart.push({ productId: id, quantity: 1 }); }
+
+    // Find product details from loaded products list
+    var product = this.data.products.find(function(p) { return p.id === id; });
+
+    if (!product) {
+      wx.showToast({ title: '商品信息获取失败', icon: 'none' });
+      return;
+    }
+
+    var existIndex = -1;
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].id === id) {
+        existIndex = i;
+        break;
+      }
+    }
+
+    if (existIndex >= 0) {
+      cart[existIndex].quantity++;
+      // Update price in case it changed
+      cart[existIndex].price = product.price;
+    } else {
+      cart.push({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        image_url: product.images[0],
+        quantity: 1
+      });
+    }
+
     wx.setStorageSync('cart', cart);
-    wx.showToast({ title: '\u5DF2\u52A0\u5165\u8D2D\u7269\u8F66' });
+    wx.showToast({ title: '已加入购物车', icon: 'success' });
   }
 });

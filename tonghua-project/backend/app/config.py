@@ -1,21 +1,22 @@
 from pydantic_settings import BaseSettings
-from typing import Optional
+from typing import Optional, List
+from pydantic import field_validator
 
 
 class Settings(BaseSettings):
     APP_NAME: str = "Tonghua API"
     APP_VERSION: str = "1.0.0"
-    DEBUG: bool = True
+    DEBUG: bool = False
 
-    # Database
-    DATABASE_URL: str = "mysql+aiomysql://root:password@localhost:3306/tonghua"
+    # Database - Read from env, no default for security
+    DATABASE_URL: str
     DB_ECHO: bool = False
 
-    # Redis
-    REDIS_URL: str = "redis://localhost:6379/0"
+    # Redis - Read from env, no default for security
+    REDIS_URL: str
 
-    # JWT
-    SECRET_KEY: str = "tonghua-super-secret-key-change-in-production-2024"
+    # JWT - Read from env, no default for security
+    SECRET_KEY: str  # Must be set via environment variable
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
@@ -28,11 +29,21 @@ class Settings(BaseSettings):
     GLOBAL_RATE_LIMIT: int = 1000  # per minute
     USER_RATE_LIMIT: int = 60  # per minute
 
-    # AES Encryption
-    AES_KEY: str = "0123456789abcdef0123456789abcdef"  # 32 bytes for AES-256
+    # AES Encryption - Read from env, no default for security
+    AES_KEY: str  # Must be 32 bytes for AES-256, set via environment variable
 
-    # CORS
-    CORS_ORIGINS: list[str] = ["*"]
+    # CORS - Default to empty list, must be configured via env
+    CORS_ORIGINS: List[str] = []
+
+    @field_validator("CORS_ORIGINS", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, v):
+        """Parse CORS origins from string (comma-separated) or list."""
+        if isinstance(v, str):
+            if v == "*":
+                return ["*"]
+            return [origin.strip() for origin in v.split(",") if origin.strip()]
+        return v
 
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "extra": "ignore"}
 
