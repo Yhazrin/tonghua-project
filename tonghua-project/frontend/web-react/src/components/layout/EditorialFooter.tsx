@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { OrigamiCorner, OrigamiDivider, OrigamiFoldAccent } from '@/components/animations/OrigamiFold';
 
 const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
-const SEPIA_GRADIENT_STYLE: React.CSSProperties = { background: 'linear-gradient(to bottom, transparent 0%, rgba(139, 90, 43, 0.1) 100%)' };
+const SEPIA_GRADIENT_STYLE: React.CSSProperties = { background: 'linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--color-pale-gold) 10%, transparent) 100%)' };
 
 export default function EditorialFooter() {
   const { t } = useTranslation();

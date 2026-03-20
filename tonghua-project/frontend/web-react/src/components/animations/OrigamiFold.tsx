@@ -38,17 +38,17 @@ const cornerColorClasses = {
   paper: {
     front: 'bg-paper',
     back: 'bg-aged-stock',
-    shadow: 'rgba(26, 26, 22, 0.08)',
+    shadow: 'color-mix(in srgb, var(--color-ink) 8%, transparent)',
   },
   aged: {
     front: 'bg-aged-stock',
     back: 'bg-warm-gray',
-    shadow: 'rgba(26, 26, 22, 0.12)',
+    shadow: 'color-mix(in srgb, var(--color-ink) 12%, transparent)',
   },
   sepia: {
     front: 'bg-sepia-mid',
     back: 'bg-archive-brown',
-    shadow: 'rgba(26, 26, 22, 0.15)',
+    shadow: 'color-mix(in srgb, var(--color-ink) 15%, transparent)',
   },
 };
 
@@ -492,9 +492,9 @@ export function OrigamiPaperStrip({
   className = '',
 }: OrigamiPaperStripProps) {
   const colors = {
-    paper: { front: 'var(--color-paper)', back: 'var(--color-aged-stock)', shadow: 'rgba(26, 26, 22, 0.06)' },
-    aged: { front: 'var(--color-aged-stock)', back: 'var(--color-warm-gray)', shadow: 'rgba(26, 26, 22, 0.1)' },
-    sepia: { front: 'var(--color-sepia-mid)', back: 'var(--color-archive-brown)', shadow: 'rgba(26, 26, 22, 0.15)' },
+    paper: { front: 'var(--color-paper)', back: 'var(--color-aged-stock)', shadow: 'color-mix(in srgb, var(--color-ink) 6%, transparent)' },
+    aged: { front: 'var(--color-aged-stock)', back: 'var(--color-warm-gray)', shadow: 'color-mix(in srgb, var(--color-ink) 10%, transparent)' },
+    sepia: { front: 'var(--color-sepia-mid)', back: 'var(--color-archive-brown)', shadow: 'color-mix(in srgb, var(--color-ink) 15%, transparent)' },
   }[color];
 
   const isHorizontal = orientation === 'horizontal';

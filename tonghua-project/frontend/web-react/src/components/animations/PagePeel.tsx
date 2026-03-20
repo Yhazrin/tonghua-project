@@ -108,7 +108,7 @@ export default function PagePeel({
         <div
           className="absolute inset-0 flex items-center justify-center pointer-events-none"
           style={{
-            background: 'linear-gradient(135deg, transparent 50%, rgba(139, 58, 42, 0.05) 100%)',
+            background: 'linear-gradient(135deg, transparent 50%, color-mix(in srgb, var(--color-rust) 5%, transparent) 100%)',
           }}
         />
       </motion.div>
@@ -132,7 +132,7 @@ export default function PagePeel({
             opacity: shadowOpacity,
             transform: `translateX(${transforms.shadowX}px) translateY(${transforms.shadowY}px)`,
             transformOrigin: transforms.transformOrigin,
-            background: `radial-gradient(ellipse at ${corner.replace('-', ' ')}, rgba(26, 26, 22, 0.4) 0%, transparent 70%)`,
+            background: `radial-gradient(ellipse at ${corner.replace('-', ' ')}, color-mix(in srgb, var(--color-ink) 40%, transparent) 0%, transparent 70%)`,
             filter: `blur(${transforms.shadowBlur}px)`,
             zIndex: -1,
           }}

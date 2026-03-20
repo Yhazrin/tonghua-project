@@ -27,7 +27,7 @@ export default function FAQAccordion({ items, className = '' }: FAQAccordionProp
         >
           <button
             onClick={() => toggleItem(index)}
-            className="w-full flex items-center justify-between py-4 text-left group"
+            className="w-full flex items-center justify-between py-4 text-left group cursor-pointer"
             aria-expanded={openIndex === index}
             aria-controls={`faq-answer-${index}`}
           >

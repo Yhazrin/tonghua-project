@@ -68,7 +68,7 @@ export default function MagazineNav() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-warm-gray/30">
       {/* Grain overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]" style={GRAIN_STYLE} />
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]" style={GRAIN_STYLE} aria-hidden="true" />
 
       <div className="relative max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}

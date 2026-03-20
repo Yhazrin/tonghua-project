@@ -44,14 +44,15 @@ function GalleryItem({ src, alt, index }: GalleryItemProps) {
         style={{
           backgroundImage: 'var(--grain-overlay)',
         }}
+        aria-hidden="true"
       />
 
       {/* Sepia frame effect */}
-      <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/8 via-transparent to-archive-brown/8" />
+      <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/8 via-transparent to-archive-brown/8" aria-hidden="true" />
 
       {/* Decorative corner accents */}
-      <div className="absolute top-2 left-2 w-6 h-6 border-t border-l border-rust/40 z-20 pointer-events-none" />
-      <div className="absolute bottom-2 right-2 w-6 h-6 border-b border-r border-rust/40 z-20 pointer-events-none" />
+      <div className="absolute top-2 left-2 w-6 h-6 border-t border-l border-rust/40 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-2 right-2 w-6 h-6 border-b border-r border-rust/40 z-20 pointer-events-none" aria-hidden="true" />
 
       {/* Loading skeleton */}
       {!imageLoaded && (
@@ -117,8 +118,9 @@ function LatestArtworkCard({
           style={{
             backgroundImage: 'var(--grain-overlay)',
           }}
+          aria-hidden="true"
         />
-        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" aria-hidden="true" />
 
         {!imageLoaded && (
           <ImageSkeleton

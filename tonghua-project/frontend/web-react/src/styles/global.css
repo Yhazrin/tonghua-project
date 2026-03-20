@@ -16,6 +16,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Component Utilities ── */
+@layer components {
+  .shadow-rust-glow {
+    box-shadow: 0 0 30px color-mix(in srgb, var(--color-rust) 15%, transparent);
+  }
+}
+
 /* ── Reset & Base ── */
 *,
 *::before,

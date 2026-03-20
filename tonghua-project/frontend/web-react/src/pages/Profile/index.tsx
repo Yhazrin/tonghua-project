@@ -26,7 +26,7 @@ export default function Profile() {
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
               onClick={() => navigate('/login')}
-              className="font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300"
+              className="font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300 cursor-pointer"
             >
               {t('nav.login')}
             </motion.button>
@@ -90,7 +90,7 @@ export default function Profile() {
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
                     onClick={handleLogout}
-                    className="flex-1 font-body text-sm tracking-[0.1em] uppercase border border-warm-gray/40 text-ink px-6 py-3 hover:bg-warm-gray/10 transition-colors duration-300"
+                    className="flex-1 font-body text-sm tracking-[0.1em] uppercase border border-warm-gray/40 text-ink px-6 py-3 hover:bg-warm-gray/10 transition-colors duration-300 cursor-pointer"
                   >
                     {t('nav.logout')}
                   </motion.button>

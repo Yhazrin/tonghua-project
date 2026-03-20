@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface ImpactCounterProps {
   value: number;
@@ -13,9 +14,11 @@ interface ImpactCounterProps {
 function AnimatedNumber({
   value,
   duration = 2000,
+  reducedMotion = false,
 }: {
   value: number;
   duration: number;
+  reducedMotion?: boolean;
 }) {
   const [displayValue, setDisplayValue] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -24,6 +27,14 @@ function AnimatedNumber({
 
   useEffect(() => {
     if (!isInView) return;
+
+    if (reducedMotion) {
+      setDisplayValue(value);
+      if (spanRef.current) {
+        spanRef.current.textContent = value.toLocaleString();
+      }
+      return;
+    }
 
     let startTime: number;
     let animationFrame: number;
@@ -52,7 +63,7 @@ function AnimatedNumber({
 
     animationFrame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrame);
-  }, [isInView, value, duration]);
+  }, [isInView, value, duration, reducedMotion]);
 
   return <span ref={ref} role="status" aria-label={`${value.toLocaleString()}`}><span ref={spanRef}>{displayValue.toLocaleString()}</span></span>;
 }
@@ -65,17 +76,19 @@ export default function ImpactCounter({
   duration = 2000,
   className = '',
 }: ImpactCounterProps) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true, margin: '-80px' }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1] }}
       className={`text-center ${className}`}
     >
       <div className="font-display text-5xl md:text-6xl font-bold text-ink leading-none tracking-tight">
         {prefix}
-        <AnimatedNumber value={value} duration={duration} />
+        <AnimatedNumber value={value} duration={duration} reducedMotion={prefersReducedMotion} />
         {suffix}
       </div>
       <div className="font-body text-caption text-sepia-mid tracking-[0.15em] uppercase mt-3">

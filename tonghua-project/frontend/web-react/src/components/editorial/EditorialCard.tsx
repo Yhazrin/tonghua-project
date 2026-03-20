@@ -33,7 +33,7 @@ export const EditorialCard = ({
 
   const hoverClasses = {
     lift: 'hover:-translate-y-1 hover:shadow-lg',
-    glow: 'hover:shadow-[0_0_30px_rgba(139,58,42,0.15)]',
+    glow: 'hover:shadow-rust-glow',
     border: 'hover:border-ink/40',
   };
 

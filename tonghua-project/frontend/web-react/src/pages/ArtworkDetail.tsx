@@ -65,7 +65,7 @@ export default function ArtworkDetail() {
       <PageWrapper>
         <PaperTextureBackground variant="paper" className="py-16 md:py-24">
           <SectionContainer>
-            <div className="text-center">
+            <div className="text-center" role="alert" aria-live="assertive">
               <h1 className="font-display text-2xl text-ink mb-4">
                 {t('artwork.notFound')}
               </h1>

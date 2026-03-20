@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
 
@@ -11,6 +12,8 @@ export default function ImageSkeleton({
   className = '',
   aspectRatio = 'aspect-square',
 }: ImageSkeletonProps) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
   return (
     <div
       className={`relative overflow-hidden bg-aged-stock ${aspectRatio} ${className}`}
@@ -23,18 +26,25 @@ export default function ImageSkeleton({
       />
 
       {/* Animated shimmer effect */}
-      <motion.div
-        aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-        animate={{
-          x: ['-100%', '100%'],
-        }}
-        transition={{
-          duration: 1.5,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-      />
+      {prefersReducedMotion ? (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+        />
+      ) : (
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+          animate={{
+            x: ['-100%', '100%'],
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        />
+      )}
 
       {/* Placeholder icon */}
       <div className="absolute inset-0 flex items-center justify-center">

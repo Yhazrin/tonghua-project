@@ -197,18 +197,19 @@ function ContactInfoCard({
         <div
           className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
           style={GRAIN_STYLE}
+          aria-hidden="true"
         />
 
         {/* Corner accents */}
-        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 z-10" />
-        <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 z-10" />
-        <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 z-10" />
-        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 z-10" />
+        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 z-10" aria-hidden="true" />
+        <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 z-10" aria-hidden="true" />
+        <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 z-10" aria-hidden="true" />
+        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 z-10" aria-hidden="true" />
 
         {/* Image */}
         <div className="relative aspect-[16/9] overflow-hidden">
-          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/10 via-transparent to-archive-brown/10" />
-          <div className="absolute inset-0 z-10 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px rgba(26, 26, 22, 0.15)' }} />
+          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/10 via-transparent to-archive-brown/10" aria-hidden="true" />
+          <div className="absolute inset-0 z-10 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px rgba(26, 26, 22, 0.15)' }} aria-hidden="true" />
           <img
             src={`https://picsum.photos/seed/${card.imageSeed}/600/338`}
             alt={t(card.titleKey)}
@@ -407,13 +408,14 @@ export default function Contact() {
                   <div
                     className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
                     style={GRAIN_STYLE}
+                    aria-hidden="true"
                   />
 
                   {/* Corner accents */}
-                  <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rust/30 z-10" />
-                  <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-rust/30 z-10" />
-                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-rust/30 z-10" />
-                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/30 z-10" />
+                  <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rust/30 z-10" aria-hidden="true" />
+                  <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-rust/30 z-10" aria-hidden="true" />
+                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-rust/30 z-10" aria-hidden="true" />
+                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/30 z-10" aria-hidden="true" />
 
                   <div className="relative z-10 flex flex-col items-center">
                     <CheckmarkIcon />
@@ -475,8 +477,8 @@ export default function Contact() {
                       {t('contact.form.subject')}
                     </label>
                     <div className="relative">
-                      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" />
-                      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" />
+                      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
                       <select
                         id="contact-subject"
                         value={formData.subject}
@@ -529,8 +531,8 @@ export default function Contact() {
                       {t('contact.form.message')}
                     </label>
                     <div className="relative">
-                      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" />
-                      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" />
+                      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
                       <motion.textarea
                         id="contact-message"
                         value={formData.message}
