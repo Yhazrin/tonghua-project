@@ -183,6 +183,7 @@
     },
     "readMore": "Read Full Story",
     "readTime": "min read",
+    "readTimeWithMinutes": "{{minutes}} min read",
     "categories": {
       "all": "All",
       "impact": "Impact",

@@ -235,12 +235,12 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
     >
       {/* Dot */}
       <div
-        className={`absolute left-[-33px] top-1 w-4 h-4 rounded-full border-[3px] border-paper z-[2] ${config.dot}`}
+        className={`absolute left-[-33px] top-1 w-4 h-4 rotate-45 border-[3px] border-paper z-[2] ${config.dot}`}
       />
 
       {/* Card */}
       <motion.div
-        whileHover={{ y: -3, borderColor: 'rgba(139, 58, 42, 0.4)' }}
+        whileHover={{ y: -3, borderColor: 'var(--color-rust)' }}
         transition={{ duration: 0.3 }}
         className="relative p-6 border-2 border-rust/30 bg-paper transition-all duration-300 hover:border-rust/50 overflow-hidden"
       >

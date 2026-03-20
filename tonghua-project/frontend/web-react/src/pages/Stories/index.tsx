@@ -408,9 +408,9 @@ export default function Stories() {
                             <div className="flex items-center gap-4 font-body text-xs text-sepia-mid">
                               <span>{story.author}</span>
                               <span className="text-sepia-mid/40">|</span>
-                              <span>{story.readTimeMinutes} {t('stories.readTime')}</span>
+                              <span>{t('stories.readTimeWithMinutes', { minutes: story.readTimeMinutes })}</span>
                               <span className="text-sepia-mid/40">|</span>
-                              <span>{story.publishedAt}</span>
+                              <span>{new Date(story.publishedAt).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                             </div>
 
                             {/* Reading progress indicator */}

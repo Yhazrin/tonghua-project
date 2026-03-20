@@ -512,6 +512,8 @@ export default function Contact() {
                         initial={{ opacity: 0, y: -5 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="font-body text-[10px] text-archive-brown"
+                        role="alert"
+                        aria-live="assertive"
                       >
                         {errors.subject}
                       </motion.p>
@@ -551,6 +553,8 @@ export default function Contact() {
                           initial={{ opacity: 0, y: -5 }}
                           animate={{ opacity: 1, y: 0 }}
                           className="font-body text-[10px] text-archive-brown"
+                          role="alert"
+                          aria-live="assertive"
                         >
                           {errors.message}
                         </motion.p>

@@ -66,7 +66,7 @@ export default function Login() {
 
             <div className="flex items-center justify-between">
               <Link
-                to="#"
+                to="/forgot-password"
                 className="font-body text-xs text-rust hover:text-ink transition-colors"
               >
                 {t('login.forgotPassword')}

@@ -251,7 +251,7 @@ export default function Campaigns() {
 
         {/* Campaign list */}
         {error ? (
-          <div className="text-center py-20">
+          <div className="text-center py-20" role="alert" aria-live="assertive">
             <p className="font-body text-sm text-rust">{t('common.error')}</p>
             <p className="font-body text-xs text-sepia-mid mt-2">{t('common.retry')}</p>
           </div>
@@ -294,7 +294,7 @@ export default function Campaigns() {
                     transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
                   >
                     <Link to={`/campaigns/${campaign.id}`} className="group block">
-                      <div className={`grid grid-cols-1 md:grid-cols-12 gap-8 items-center ${index % 2 === 1 ? '' : ''}`}>
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                         {/* Image */}
                         <div className={`md:col-span-7 ${index % 2 === 1 ? 'md:order-2' : ''}`}>
                           <div className={isCompleted ? 'opacity-85 grayscale-[15%]' : ''}>

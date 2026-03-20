@@ -50,7 +50,7 @@ function TeamMemberCard({ member, index }: { member: { name: string; role: strin
 
         {/* Fallback initials placeholder */}
         {imgError && (
-          <div className="absolute inset-0 z-5 flex items-center justify-center bg-aged-stock">
+          <div className="absolute inset-0 z-[5] flex items-center justify-center bg-aged-stock">
             <span className="font-display text-4xl font-bold text-rust/40">
               {member.initials}
             </span>

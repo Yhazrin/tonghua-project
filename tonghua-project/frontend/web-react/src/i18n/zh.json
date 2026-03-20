@@ -183,6 +183,7 @@
     },
     "readMore": "阅读全文",
     "readTime": "分钟阅读",
+    "readTimeWithMinutes": "{{minutes}} 分钟阅读",
     "categories": {
       "all": "全部",
       "impact": "影响力",

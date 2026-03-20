@@ -107,7 +107,7 @@ function ImpactProgressBar({
           }}
           className="h-full"
           style={{
-            background: 'linear-gradient(90deg, rgba(139, 58, 42, 0.5), rgba(139, 58, 42, 0.8))',
+            background: 'linear-gradient(90deg, var(--color-rust), var(--color-archive-brown))',
           }}
         />
       </div>
