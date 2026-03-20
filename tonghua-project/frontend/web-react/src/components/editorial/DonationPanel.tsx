@@ -118,10 +118,10 @@ export default function DonationPanel({
               `}
             >
               {/* Grain overlay */}
-              <div className="absolute inset-0 z-10 pointer-events-none opacity-10" style={GRAIN_STYLE} />
+              <div className="absolute inset-0 z-10 pointer-events-none opacity-10" aria-hidden="true" style={GRAIN_STYLE} />
 
               {/* Sepia accent gradient */}
-              <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/3 via-transparent to-archive-brown/5" />
+              <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/3 via-transparent to-archive-brown/5" aria-hidden="true" />
 
               {/* Active indicator */}
               {selectedAmount === amount && !customAmount && (

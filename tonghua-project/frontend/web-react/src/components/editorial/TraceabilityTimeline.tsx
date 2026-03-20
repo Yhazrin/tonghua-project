@@ -49,10 +49,10 @@ export default function TraceabilityTimeline({
         <motion.path
           d={`M 7 0 L 7 ${pathHeight}`}
           fill="none"
-          stroke="#D4CFC4"
           strokeWidth="1"
           strokeLinecap="round"
           style={{
+            stroke: 'var(--color-warm-gray)',
             strokeDasharray: pathHeight,
             strokeDashoffset,
           }}
@@ -62,8 +62,8 @@ export default function TraceabilityTimeline({
           cx="7"
           cy="0"
           r="3"
-          fill="#8B3A2A"
           style={{
+            fill: 'var(--color-rust)',
             opacity: useTransform(scrollYProgress, [0, 0.1], [0, 1]),
           }}
         />
@@ -71,8 +71,8 @@ export default function TraceabilityTimeline({
           cx="7"
           cy={pathHeight}
           r="3"
-          fill="#8B3A2A"
           style={{
+            fill: 'var(--color-rust)',
             opacity: useTransform(scrollYProgress, [0.9, 1], [0, 1]),
           }}
         />
@@ -80,10 +80,10 @@ export default function TraceabilityTimeline({
         <motion.path
           d="M 7 20 Q 15 25 7 35"
           fill="none"
-          stroke="#8B3A2A"
           strokeWidth="1"
           strokeLinecap="round"
           style={{
+            stroke: 'var(--color-rust)',
             opacity: useTransform(scrollYProgress, [0, 0.15], [0, 1]),
             strokeDasharray: 30,
             strokeDashoffset: useTransform(scrollYProgress, [0, 0.2], [30, 0]),
@@ -92,10 +92,10 @@ export default function TraceabilityTimeline({
         <motion.path
           d="M 7 60 Q 15 65 7 75"
           fill="none"
-          stroke="#8B3A2A"
           strokeWidth="1"
           strokeLinecap="round"
           style={{
+            stroke: 'var(--color-rust)',
             opacity: useTransform(scrollYProgress, [0.05, 0.2], [0, 1]),
             strokeDasharray: 30,
             strokeDashoffset: useTransform(scrollYProgress, [0.05, 0.25], [30, 0]),
@@ -131,11 +131,11 @@ export default function TraceabilityTimeline({
               className="relative p-6 border-2 border-rust/30 bg-paper transition-all duration-300 hover:border-rust/50 overflow-hidden"
             >
               {/* Grain overlay */}
-              <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08]" style={GRAIN_STYLE} />
+              <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08]" aria-hidden="true" style={GRAIN_STYLE} />
 
               {/* Sepia corner accents */}
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-rust/30" />
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-rust/30" />
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-rust/30" aria-hidden="true" />
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-rust/30" aria-hidden="true" />
 
               <div className="relative z-20">
                 <div className="flex justify-between items-start flex-wrap gap-3 mb-3">

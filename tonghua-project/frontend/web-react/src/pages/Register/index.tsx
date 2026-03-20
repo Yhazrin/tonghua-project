@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import PageWrapper from '@/components/layout/PageWrapper';
 import { VintageInput } from '@/components/editorial/VintageInput';
+import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeading';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function Register() {
@@ -46,27 +47,13 @@ export default function Register() {
       <div className="min-h-[100dvh] flex items-center justify-center py-12 px-4">
         <div className="w-full max-w-md">
           {/* Header */}
-          <div className="text-center mb-10">
-            <span className="font-body text-caption text-sepia-mid tracking-[0.3em] uppercase mb-4 block">
-              10
-            </span>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
-              className="font-display text-3xl md:text-4xl font-bold text-ink mb-4"
-            >
-              {t('register.title')}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.1 }}
-              className="font-body text-sm text-ink-faded"
-            >
-              {t('register.subtitle')}
-            </motion.p>
-          </div>
+          <NumberedSectionHeading
+            number="10"
+            title={t('register.title')}
+            subtitle={t('register.subtitle')}
+            centered
+            immediate
+          />
 
           {/* Form */}
           <motion.form

@@ -435,16 +435,16 @@ export function OrigamiFoldAccent({
         {/* Front face */}
         <path
           d="M0 0 L40 0 L40 40 Z"
-          fill="#EDE6D6"
           stroke="rgba(26, 26, 22, 0.08)"
           strokeWidth="0.5"
+          style={{ fill: 'var(--color-aged-stock)' }}
         />
 
         {/* Back face (showing through) */}
         <path
           d="M0 0 L40 40 L0 40 Z"
-          fill="#D4CFC4"
           opacity="0.6"
+          style={{ fill: 'var(--color-warm-gray)' }}
         />
 
         {/* Crease line */}
@@ -492,9 +492,9 @@ export function OrigamiPaperStrip({
   className = '',
 }: OrigamiPaperStripProps) {
   const colors = {
-    paper: { front: '#F5F0E8', back: '#EDE6D6', shadow: 'rgba(26, 26, 22, 0.06)' },
-    aged: { front: '#EDE6D6', back: '#D4CFC4', shadow: 'rgba(26, 26, 22, 0.1)' },
-    sepia: { front: '#5C4D3D', back: '#5C4033', shadow: 'rgba(26, 26, 22, 0.15)' },
+    paper: { front: 'var(--color-paper)', back: 'var(--color-aged-stock)', shadow: 'rgba(26, 26, 22, 0.06)' },
+    aged: { front: 'var(--color-aged-stock)', back: 'var(--color-warm-gray)', shadow: 'rgba(26, 26, 22, 0.1)' },
+    sepia: { front: 'var(--color-sepia-mid)', back: 'var(--color-archive-brown)', shadow: 'rgba(26, 26, 22, 0.15)' },
   }[color];
 
   const isHorizontal = orientation === 'horizontal';

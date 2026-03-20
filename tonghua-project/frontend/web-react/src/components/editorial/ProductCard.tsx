@@ -16,7 +16,7 @@ interface ProductCardProps {
 
 function getSustainabilityTier(score: number, t: (key: string) => string): { label: string; colorClass: string; barColor: string } {
   if (score >= 90) return { label: t('shop.sustainabilityTiers.exceptional'), colorClass: 'text-rust', barColor: 'bg-rust' };
-  if (score >= 80) return { label: t('shop.sustainabilityTiers.excellent'), colorClass: 'text-[#6B7C3E]', barColor: 'bg-[#6B7C3E]' };
+  if (score >= 80) return { label: t('shop.sustainabilityTiers.excellent'), colorClass: 'text-olive-green', barColor: 'bg-olive-green' };
   return { label: t('shop.sustainabilityTiers.good'), colorClass: 'text-sepia-mid', barColor: 'bg-sepia-mid' };
 }
 
@@ -65,10 +65,11 @@ export default function ProductCard({
         {/* Image */}
         <div className="relative aspect-[3/4] overflow-hidden border-2 border-rust/30 bg-aged-stock mb-5 group-hover:border-rust/50 transition-colors duration-300">
           {/* Vintage frame effect */}
-          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/3 via-transparent to-archive-brown/5" />
+          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/3 via-transparent to-archive-brown/5" aria-hidden="true" />
 
           {/* Grain overlay */}
           <div className="absolute inset-0 z-20 pointer-events-none opacity-10"
+               aria-hidden="true"
                style={{ backgroundImage: 'var(--grain-overlay)' }} />
 
           {/* Loading skeleton */}
@@ -96,7 +97,7 @@ export default function ProductCard({
           )}
 
           {/* Hover overlay */}
-          <div className="absolute inset-0 z-15 bg-ink/0 group-hover:bg-ink/5 transition-colors duration-300" />
+          <div className="absolute inset-0 z-[15] bg-ink/0 group-hover:bg-ink/5 transition-colors duration-300" />
         </div>
 
         {/* Info */}
@@ -165,7 +166,7 @@ export default function ProductCard({
                 <motion.p
                   initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="font-body text-[10px] text-[#6B7C3E] tracking-wide text-center py-2"
+                  className="font-body text-[10px] text-olive-green tracking-wide text-center py-2"
                 >
                   {t('shop.notifyMeSuccess')}
                 </motion.p>

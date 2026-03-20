@@ -141,12 +141,12 @@ export default function CampaignDetail() {
                       {t('campaigns.detail.progress')}
                     </span>
                   </div>
-                  <div className="w-full h-1.5 bg-warm-gray/30 rounded-full overflow-hidden mb-4">
+                  <div className="w-full h-1.5 bg-warm-gray/30 overflow-hidden mb-4">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${progress}%` }}
                       transition={{ duration: 1.2, ease: 'easeOut' }}
-                      className="h-full bg-archive-brown rounded-full"
+                      className="h-full bg-archive-brown"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-center">

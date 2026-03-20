@@ -364,7 +364,8 @@
       "origin": "贵州省，2025年11月",
       "decreaseQuantity": "减少数量",
       "increaseQuantity": "增加数量",
-      "carbonFootprint": "总碳足迹：{{value}} 千克 CO\u2082e \u00b7 通过认证项目抵消"
+      "carbonFootprint": "总碳足迹：{{value}} 千克 CO₂e · 通过认证项目抵消",
+      "viewImage": "查看图片 {{number}}"
     },
     "sort": {
       "label": "排序",
@@ -591,6 +592,7 @@
   "notFound": {
     "title": "页面未找到",
     "subtitle": "这个章节似乎从我们的出版物中遗失了。",
+    "body": "您访问的页面可能已被移动、重命名或不再存在。以下是一些可以开始的地方。",
     "cta": "返回目录"
   },
   "footer": {
@@ -614,7 +616,6 @@
     "copyright": "© {{year}} VICOO。保留所有权利。",
     "copyrightTonghua": "© 2026 童画公益。保留所有权利。",
     "issueNo": "第01期 — 创刊号",
-    "tagline": "童年想象力遇见有意识的时装。",
     "brandTagline": "创意机遇中的远见",
     "newsletter": {
       "title": "通讯季刊",

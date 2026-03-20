@@ -44,7 +44,7 @@ interface MotionPathProps {
 export function MotionPath({
   d,
   className = '',
-  strokeColor = '#8B3A2A', // rust default
+  strokeColor = 'var(--color-rust)',
   strokeWidth = 2,
   fill = 'none',
   containerRef,
@@ -111,7 +111,7 @@ interface ScrollPathDrawInlineProps {
 export function ScrollPathDrawInline({
   path,
   className = '',
-  strokeColor = '#8B3A2A', // rust
+  strokeColor = 'var(--color-rust)',
   strokeWidth = 2,
   containerRef,
   delay = 0,

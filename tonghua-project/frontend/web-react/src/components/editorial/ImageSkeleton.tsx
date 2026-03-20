@@ -18,6 +18,7 @@ export default function ImageSkeleton({
       {/* Grain overlay */}
       <div
         className="absolute inset-0 z-10 pointer-events-none opacity-10"
+        aria-hidden="true"
         style={GRAIN_STYLE}
       />
 

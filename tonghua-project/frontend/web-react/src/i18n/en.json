@@ -364,7 +364,8 @@
       "origin": "Guizhou Province, November 2025",
       "decreaseQuantity": "Decrease quantity",
       "increaseQuantity": "Increase quantity",
-      "carbonFootprint": "Total carbon footprint: {{value}} kg CO\u2082e \u00b7 Offset via verified programs"
+      "carbonFootprint": "Total carbon footprint: {{value}} kg CO₂e · Offset via verified programs",
+      "viewImage": "View image {{number}}"
     },
     "sort": {
       "label": "Sort by",
@@ -591,6 +592,7 @@
   "notFound": {
     "title": "Page Not Found",
     "subtitle": "This chapter seems to be missing from our publication.",
+    "body": "The page you are looking for may have been moved, renamed, or no longer exists. Here are some places to start.",
     "cta": "Return to Table of Contents"
   },
   "footer": {
@@ -614,7 +616,6 @@
     "copyright": "© {{year}} VICOO. All rights reserved.",
     "copyrightTonghua": "© 2026 Tonghua Public Welfare. All rights reserved.",
     "issueNo": "Issue No. 01 — Inaugural Edition",
-    "tagline": "Where childhood imagination meets conscious couture.",
     "brandTagline": "Vision In Creative Opportunity",
     "newsletter": {
       "title": "Newsletter",

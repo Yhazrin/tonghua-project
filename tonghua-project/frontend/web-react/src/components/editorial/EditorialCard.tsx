@@ -69,15 +69,16 @@ export const EditorialCard = ({
       {/* Grain overlay */}
       <div
         className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]"
+        aria-hidden="true"
         style={{
           backgroundImage: 'var(--grain-overlay)'
         }}
       />
       {/* Decorative corner accents */}
-      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 z-10" />
-      <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 z-10" />
-      <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 z-10" />
-      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 z-10" />
+      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 z-10" aria-hidden="true" />
+      <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 z-10" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 z-10" aria-hidden="true" />
+      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 z-10" aria-hidden="true" />
 
       {/* Image section */}
       {image && (
@@ -85,11 +86,12 @@ export const EditorialCard = ({
           {/* Grain overlay for image */}
           <div
             className="absolute inset-0 z-10 pointer-events-none opacity-10"
+            aria-hidden="true"
             style={{
               backgroundImage: 'var(--grain-overlay)'
             }}
           />
-          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
+          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" aria-hidden="true" />
 
           {/* Loading skeleton */}
           {!imageLoaded && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-[4/3]" />}
