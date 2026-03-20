@@ -29,7 +29,7 @@ export default function TraceabilityTimeline({
     return (
       <div className={`text-center py-16 ${className}`}>
         <p className="font-body text-sm text-sepia-mid">
-          No supply chain records available.
+          {t('traceability.noRecords')}
         </p>
       </div>
     );
@@ -155,15 +155,15 @@ export default function TraceabilityTimeline({
 
                 <div className="flex flex-wrap gap-6">
                   <div className="font-body text-[11px] text-sepia-mid">
-                    <span className="uppercase tracking-[0.1em]">Location:</span>{' '}
+                    <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.locationLabel')}</span>{' '}
                     <span className="text-ink-faded font-medium">{record.location}</span>
                   </div>
                   <div className="font-body text-[11px] text-sepia-mid">
-                    <span className="uppercase tracking-[0.1em]">Partner:</span>{' '}
+                    <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.partnerLabel')}</span>{' '}
                     <span className="text-ink-faded font-medium">{record.partnerName}</span>
                   </div>
                   <div className="font-body text-[11px] text-sepia-mid">
-                    <span className="uppercase tracking-[0.1em]">Date:</span>{' '}
+                    <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.dateLabel')}</span>{' '}
                     <span className="text-ink-faded font-medium">
                       {new Date(record.date).toLocaleDateString('en-US', {
                         year: 'numeric',
@@ -176,7 +176,7 @@ export default function TraceabilityTimeline({
                     <div className="font-body text-[11px] text-sepia-mid">
                       <span className="uppercase tracking-[0.1em]">{t('traceability.carbon')}:</span>{' '}
                       <span className="text-archive-brown font-medium">
-                        {record.carbonFootprint} kg CO2
+                        {t('traceability.kgCO2', { value: record.carbonFootprint })}
                       </span>
                     </div>
                   )}

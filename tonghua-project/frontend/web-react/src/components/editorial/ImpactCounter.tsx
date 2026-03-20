@@ -19,6 +19,7 @@ function AnimatedNumber({
 }) {
   const [displayValue, setDisplayValue] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
+  const spanRef = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   useEffect(() => {
@@ -33,10 +34,19 @@ function AnimatedNumber({
 
       // Ease-out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplayValue(Math.round(eased * value));
+      const currentValue = Math.round(eased * value);
+      const formatted = currentValue.toLocaleString();
+
+      // Update DOM directly to avoid ~120 unnecessary re-renders
+      if (spanRef.current) {
+        spanRef.current.textContent = formatted;
+      }
 
       if (progress < 1) {
         animationFrame = requestAnimationFrame(animate);
+      } else {
+        // Ensure React state is consistent at animation end
+        setDisplayValue(currentValue);
       }
     };
 
@@ -44,7 +54,7 @@ function AnimatedNumber({
     return () => cancelAnimationFrame(animationFrame);
   }, [isInView, value, duration]);
 
-  return <span ref={ref}>{displayValue.toLocaleString()}</span>;
+  return <span ref={ref} role="status" aria-label={`${value.toLocaleString()}`}><span ref={spanRef}>{displayValue.toLocaleString()}</span></span>;
 }
 
 export default function ImpactCounter({
@@ -63,7 +73,7 @@ export default function ImpactCounter({
       transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
       className={`text-center ${className}`}
     >
-      <div className="font-display text-h2 md:text-h1 font-bold text-ink leading-none tracking-tight">
+      <div className="font-display text-5xl md:text-6xl font-bold text-ink leading-none tracking-tight">
         {prefix}
         <AnimatedNumber value={value} duration={duration} />
         {suffix}

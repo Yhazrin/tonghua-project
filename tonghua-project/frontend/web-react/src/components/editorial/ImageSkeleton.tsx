@@ -23,6 +23,7 @@ export default function ImageSkeleton({
 
       {/* Animated shimmer effect */}
       <motion.div
+        aria-hidden="true"
         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
         animate={{
           x: ['-100%', '100%'],

@@ -42,8 +42,7 @@ function GalleryItem({ src, alt, index }: GalleryItemProps) {
       <div
         className="absolute inset-0 z-10 pointer-events-none opacity-15"
         style={{
-          backgroundImage:
-            'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+          backgroundImage: 'var(--grain-overlay)',
         }}
       />
 
@@ -115,8 +114,7 @@ function LatestArtworkCard({
         <div
           className="absolute inset-0 z-10 pointer-events-none opacity-10"
           style={{
-            backgroundImage:
-              'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+            backgroundImage: 'var(--grain-overlay)',
           }}
         />
         <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
@@ -262,7 +260,7 @@ export default function Home() {
           </div>
           <div className="md:col-span-5 flex flex-col justify-center">
             <h3 className="font-display text-h3 md:text-h2 font-bold text-ink leading-tight mb-4">
-              Where Little Hands Shape Big Ideas
+              {t('home.featured.heading')}
             </h3>
             <p className="font-body text-sm text-ink-faded leading-relaxed mb-6">
               {t('home.featured.body1')}
@@ -290,9 +288,9 @@ export default function Home() {
       {/* Quote Interlude */}
       <SectionContainer narrow>
         <StoryQuoteBlock
-          quote="Every stitch carries a child's dream. Every garment is a chapter in a story that hasn't been written yet."
-          author="Chen Wei"
-          role="Founder, VICOO"
+          quote={t('home.quote.body')}
+          author={t('home.quote.author')}
+          role={t('home.quote.role')}
         />
       </SectionContainer>
 

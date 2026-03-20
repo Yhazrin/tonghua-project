@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
@@ -16,6 +17,7 @@ export default function ArtworkCard({
   index = 0,
   className = '',
 }: ArtworkCardProps) {
+  const { t } = useTranslation();
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -43,8 +45,9 @@ export default function ArtworkCard({
           {/* Grain overlay */}
           <div
             className="absolute inset-0 z-10 pointer-events-none opacity-10"
+            aria-hidden="true"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+              backgroundImage: 'var(--grain-overlay)'
             }}
           />
           <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
@@ -68,13 +71,13 @@ export default function ArtworkCard({
               {artwork.title}
             </h3>
             <p className="font-body text-xs text-sepia-mid mt-1">
-              Age {artwork.childParticipant.age} &middot;{' '}
+              {t('artwork.card.age', { age: artwork.childParticipant.age })} &middot;{' '}
               {new Date(artwork.createdAt).getFullYear()}
             </p>
           </div>
 
           <span className="font-body text-xs text-sepia-mid whitespace-nowrap flex-shrink-0">
-            {artwork.voteCount} votes
+            {t('artwork.card.votes', { count: artwork.voteCount })}
           </span>
         </div>
       </Link>

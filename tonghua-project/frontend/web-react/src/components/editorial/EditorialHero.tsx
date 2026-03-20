@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -28,6 +29,7 @@ export default function EditorialHero({
   scrambleTitle = false,
   scrambleDuration = 1200,
 }: EditorialHeroProps) {
+  const { t } = useTranslation();
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
@@ -168,7 +170,7 @@ export default function EditorialHero({
           transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
           className="block font-body text-caption text-sepia-mid tracking-[0.3em] mb-6 md:mb-8"
         >
-          Vision In Creative Opportunity
+          {t('hero.brandTagline')}
         </motion.span>
 
         <motion.h1
@@ -226,9 +228,10 @@ export default function EditorialHero({
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.6 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          aria-hidden="true"
         >
           <span className="font-body text-[10px] tracking-[0.2em] uppercase text-sepia-mid">
-            Scroll
+            {t('hero.scroll')}
           </span>
           <motion.div
             animate={{ y: [0, 6, 0] }}

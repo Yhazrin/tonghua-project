@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
@@ -92,7 +92,7 @@ function ImpactProgressBar({
           </span>
         </div>
       </div>
-      <div className="h-2 bg-warm-gray/15 rounded-sm overflow-hidden">
+      <div className="h-2 bg-warm-gray/15 rounded-sm overflow-hidden" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={label}>
         <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: `${pct}%` }}
@@ -196,6 +196,8 @@ function DonationStoryCard({
 export default function Donate() {
   const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [donationSuccess, setDonationSuccess] = useState(false);
+  const successRef = useRef<HTMLDivElement>(null);
 
   const handleDonate = async (data: {
     amount: number;
@@ -204,6 +206,7 @@ export default function Donate() {
     message: string;
   }) => {
     setIsSubmitting(true);
+    setDonationSuccess(false);
     try {
       await donationsApi.create({
         amount: data.amount,
@@ -212,7 +215,11 @@ export default function Donate() {
         message: data.message,
         frequency: data.frequency,
       });
-      console.log('Donation successful');
+      setDonationSuccess(true);
+      // Scroll to success feedback area
+      requestAnimationFrame(() => {
+        successRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
     } catch (error) {
       console.error('Donation failed:', error);
     } finally {
@@ -295,6 +302,22 @@ export default function Donate() {
               onSubmit={handleDonate}
               isSubmitting={isSubmitting}
             />
+
+            {/* Success feedback */}
+            {donationSuccess && (
+              <motion.div
+                ref={successRef}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mt-6 p-5 border-2 border-[#5a7a5a]/30 bg-[#5a7a5a]/5"
+                role="status"
+              >
+                <p className="font-body text-sm text-[#5a7a5a] font-medium">
+                  {t('donate.form.success', 'Thank you for your donation!')}
+                </p>
+              </motion.div>
+            )}
           </div>
         </div>
       </SectionContainer>

@@ -389,7 +389,7 @@ export default function Contact() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
           {/* Form */}
           <div className="md:col-span-7">
-            <NumberedSectionHeading number="02" title="Write to Us" />
+            <NumberedSectionHeading number="02" title={t('contact.formTitle')} />
 
             <AnimatePresence mode="wait">
               {status === 'success' ? (
@@ -611,7 +611,7 @@ export default function Contact() {
             <div className="space-y-8">
               <div>
                 <span className="font-body text-caption text-sepia-mid tracking-[0.2em] uppercase">
-                  Email
+                  {t('contact.info.emailLabel')}
                 </span>
                 <a
                   href={`mailto:${t('contact.info.email')}`}
@@ -623,7 +623,7 @@ export default function Contact() {
 
               <div>
                 <span className="font-body text-caption text-sepia-mid tracking-[0.2em] uppercase">
-                  WeChat
+                  {t('contact.info.wechatLabel')}
                 </span>
                 <p className="font-display text-xl font-semibold text-ink mt-2">
                   {t('contact.info.wechat')}
@@ -632,7 +632,7 @@ export default function Contact() {
 
               <div>
                 <span className="font-body text-caption text-sepia-mid tracking-[0.2em] uppercase">
-                  Location
+                  {t('contact.info.locationLabel')}
                 </span>
                 <p className="font-display text-xl font-semibold text-ink mt-2">
                   {t('contact.info.address')}
@@ -656,7 +656,7 @@ export default function Contact() {
 
       {/* Contact Info Cards */}
       <SectionContainer>
-        <NumberedSectionHeading number="04" title="Get in Touch" />
+        <NumberedSectionHeading number="04" title={t('contact.contactTitle')} />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {CONTACT_CARDS.map((card, index) => (

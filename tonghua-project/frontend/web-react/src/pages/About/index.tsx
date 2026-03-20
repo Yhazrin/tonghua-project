@@ -21,6 +21,7 @@ const TEAM_MEMBERS = [
 
 function TeamMemberCard({ member, index }: { member: { name: string; role: string; initials: string }; index: number }) {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   return (
     <motion.div
@@ -34,7 +35,7 @@ function TeamMemberCard({ member, index }: { member: { name: string; role: strin
       <div className="relative aspect-[3/4] overflow-hidden border-2 border-warm-gray/50 bg-aged-stock mb-4">
         {/* Grain overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none opacity-12" style={{
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")'
+          backgroundImage: 'var(--grain-overlay)'
         }} />
 
         {/* Sepia frame effect */}
@@ -45,16 +46,16 @@ function TeamMemberCard({ member, index }: { member: { name: string; role: strin
         <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-rust/30 z-20 pointer-events-none" />
 
         {/* Loading skeleton */}
-        {!imageLoaded && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-[3/4]" />}
+        {!imageLoaded && !imgError && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-[3/4]" />}
 
         {/* Fallback initials placeholder */}
-        <div
-          className="team-fallback absolute inset-0 z-5 hidden items-center justify-center bg-aged-stock"
-        >
-          <span className="font-display text-4xl font-bold text-rust/40">
-            {member.initials}
-          </span>
-        </div>
+        {imgError && (
+          <div className="absolute inset-0 z-5 flex items-center justify-center bg-aged-stock">
+            <span className="font-display text-4xl font-bold text-rust/40">
+              {member.initials}
+            </span>
+          </div>
+        )}
 
         <img
           src={`https://picsum.photos/seed/vicoo-team-${index}/400/533`}
@@ -62,12 +63,7 @@ function TeamMemberCard({ member, index }: { member: { name: string; role: strin
           className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 sepia-[0.05] ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
           loading="lazy"
           onLoad={() => setImageLoaded(true)}
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.style.display = 'none';
-            const fallback = target.parentElement?.querySelector('.team-fallback');
-            if (fallback) (fallback as HTMLElement).style.display = 'flex';
-          }}
+          onError={() => setImgError(true)}
         />
       </div>
       <h4 className="font-display text-base font-semibold text-ink group-hover:text-rust transition-colors">
@@ -126,8 +122,8 @@ export default function About() {
           <div className="md:col-span-8">
             <SepiaImageFrame
               src="https://picsum.photos/seed/vicoo-workshop/1000/563"
-              alt="Children in a workshop"
-              caption="A Saturday workshop in Shanghai — where it all begins"
+              alt={t('about.images.workshop.alt')}
+              caption={t('about.images.workshop.caption')}
               aspectRatio="wide"
               size="full"
             />
@@ -135,7 +131,7 @@ export default function About() {
           <div className="md:col-span-4 flex items-end">
             <SepiaImageFrame
               src="https://picsum.photos/seed/vicoo-supplies/500/667"
-              alt="Art supplies"
+              alt={t('about.images.supplies.alt')}
               aspectRatio="portrait"
               size="full"
             />
@@ -175,9 +171,9 @@ export default function About() {
       {/* Quote */}
       <SectionContainer narrow>
         <StoryQuoteBlock
-          quote="We don't just sell clothes. We sell the right to say: I know where this came from, and it came from somewhere good."
-          author="Li Mei"
-          role="Head of Operations"
+          quote={t('about.quote.body')}
+          author={t('about.quote.author')}
+          role={t('about.quote.role')}
         />
       </SectionContainer>
 

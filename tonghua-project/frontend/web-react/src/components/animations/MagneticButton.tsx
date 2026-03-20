@@ -24,6 +24,7 @@ export default function MagneticButton({
 }: MagneticButtonProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isTouchDevice = useMediaQuery('(hover: none)');
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   // Motion values for x and y displacement
   const mouseX = useMotionValue(0);
@@ -45,7 +46,7 @@ export default function MagneticButton({
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      if (disabled || isTouchDevice || !containerRef.current) return;
+      if (disabled || isTouchDevice || prefersReducedMotion || !containerRef.current) return;
 
       const rect = containerRef.current.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
@@ -59,17 +60,17 @@ export default function MagneticButton({
       mouseX.set(relativeX * maxDisplacement);
       mouseY.set(relativeY * maxDisplacement);
     },
-    [disabled, isTouchDevice, mouseX, mouseY, maxDisplacement]
+    [disabled, isTouchDevice, prefersReducedMotion, mouseX, mouseY, maxDisplacement]
   );
 
   const handleMouseLeave = useCallback(() => {
-    if (disabled || isTouchDevice) return;
+    if (disabled || isTouchDevice || prefersReducedMotion) return;
     mouseX.set(0);
     mouseY.set(0);
-  }, [disabled, isTouchDevice, mouseX, mouseY]);
+  }, [disabled, isTouchDevice, prefersReducedMotion, mouseX, mouseY]);
 
-  // Touch devices: render without magnetic effect
-  if (isTouchDevice) {
+  // Touch devices or reduced motion: render without magnetic effect
+  if (isTouchDevice || prefersReducedMotion) {
     return (
       <div className={className}>
         {children}

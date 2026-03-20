@@ -37,6 +37,13 @@ export const EditorialCard = ({
     border: 'hover:border-ink/40',
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (onClick && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      onClick();
+    }
+  };
+
   return (
     <motion.article
       ref={ref}
@@ -55,12 +62,15 @@ export const EditorialCard = ({
         ${className}
       `}
       onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? handleKeyDown : undefined}
     >
       {/* Grain overlay */}
       <div
         className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+          backgroundImage: 'var(--grain-overlay)'
         }}
       />
       {/* Decorative corner accents */}
@@ -76,7 +86,7 @@ export const EditorialCard = ({
           <div
             className="absolute inset-0 z-10 pointer-events-none opacity-10"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+              backgroundImage: 'var(--grain-overlay)'
             }}
           />
           <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
@@ -118,7 +128,7 @@ export const EditorialCard = ({
       {/* Hover indicator */}
       {onClick && (
         <div className="absolute bottom-4 right-4 w-6 h-6 rounded-full border border-ink/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span className="font-mono text-[8px] text-ink/50">→</span>
+          <span className="font-mono text-[8px] text-ink/50" aria-hidden="true">→</span>
         </div>
       )}
     </motion.article>

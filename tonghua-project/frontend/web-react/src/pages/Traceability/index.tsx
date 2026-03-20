@@ -206,10 +206,11 @@ function CertificationBadge({ title, description, delay }: {
 }
 
 // Enhanced timeline entry with status indicator, story, and image
-function EnhancedTimelineEntry({ record, index, t }: {
+function EnhancedTimelineEntry({ record, index, t, locale }: {
   record: EnhancedSupplyChainRecord;
   index: number;
   t: (key: string) => string;
+  locale: string;
 }) {
   const statusConfig = {
     verified: { label: t('traceability.status.verified'), bg: 'bg-[#5a7a5a]/10', text: 'text-[#5a7a5a]', border: 'border-[#5a7a5a]/30', dot: 'bg-[#5a7a5a]' },
@@ -299,7 +300,7 @@ function EnhancedTimelineEntry({ record, index, t }: {
             <div className="font-body text-[11px] text-sepia-mid">
               <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.date')}:</span>{' '}
               <span className="text-ink-faded font-medium">
-                {new Date(record.date).toLocaleDateString('en-US', {
+                {new Date(record.date).toLocaleDateString(locale, {
                   year: 'numeric',
                   month: 'short',
                   day: 'numeric',
@@ -322,7 +323,7 @@ function EnhancedTimelineEntry({ record, index, t }: {
 }
 
 // Enhanced timeline with staggered reveal entries
-function EnhancedTimeline({ records, t }: { records: EnhancedSupplyChainRecord[]; t: (key: string) => string }) {
+function EnhancedTimeline({ records, t, locale }: { records: EnhancedSupplyChainRecord[]; t: (key: string) => string; locale: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathHeight = records.length * 220;
 
@@ -360,7 +361,7 @@ function EnhancedTimeline({ records, t }: { records: EnhancedSupplyChainRecord[]
 
       <div className="space-y-0">
         {records.map((record, index) => (
-          <EnhancedTimelineEntry key={record.id} record={record} index={index} t={t} />
+          <EnhancedTimelineEntry key={record.id} record={record} index={index} t={t} locale={locale} />
         ))}
       </div>
     </div>
@@ -368,7 +369,7 @@ function EnhancedTimeline({ records, t }: { records: EnhancedSupplyChainRecord[]
 }
 
 export default function Traceability() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const timelineRef = useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
@@ -496,7 +497,7 @@ export default function Traceability() {
                     </h4>
                     <p className="font-body text-xs text-ink-faded leading-relaxed">
                       {searchResult.partnerName} &mdash; {searchResult.location},{' '}
-                      {new Date(searchResult.date).toLocaleDateString('en-US', {
+                      {new Date(searchResult.date).toLocaleDateString(i18n.language, {
                         year: 'numeric',
                         month: 'short',
                       })}
@@ -570,7 +571,7 @@ export default function Traceability() {
 
           {/* Enhanced Timeline with scroll-drawn connector */}
           <div className="md:col-span-7 md:order-1 relative" ref={timelineRef}>
-            <EnhancedTimeline records={MOCK_RECORDS} t={t} />
+            <EnhancedTimeline records={MOCK_RECORDS} t={t} locale={i18n.language} />
 
             {/* Vertical scroll-drawn connecting line alongside timeline */}
             <div className="absolute top-0 -left-6 bottom-0 w-px hidden md:block" aria-hidden="true">

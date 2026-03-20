@@ -170,7 +170,7 @@ export default function Header() {
               ref={menuTriggerRef}
               onClick={toggleMobileNav}
               className="flex flex-col gap-1.5 p-2"
-              aria-label="Toggle menu"
+              aria-label="Toggle navigation menu"
               aria-expanded={mobileNavOpen}
               aria-controls="mobile-navigation"
             >

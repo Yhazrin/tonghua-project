@@ -14,10 +14,10 @@ interface ProductCardProps {
   className?: string;
 }
 
-function getSustainabilityTier(score: number): { label: string; colorClass: string; barColor: string } {
-  if (score >= 90) return { label: 'Exceptional', colorClass: 'text-rust', barColor: 'bg-rust' };
-  if (score >= 80) return { label: 'Excellent', colorClass: 'text-[#6B7C3E]', barColor: 'bg-[#6B7C3E]' };
-  return { label: 'Good', colorClass: 'text-sepia-mid', barColor: 'bg-sepia-mid' };
+function getSustainabilityTier(score: number, t: (key: string) => string): { label: string; colorClass: string; barColor: string } {
+  if (score >= 90) return { label: t('shop.sustainabilityTiers.exceptional'), colorClass: 'text-rust', barColor: 'bg-rust' };
+  if (score >= 80) return { label: t('shop.sustainabilityTiers.excellent'), colorClass: 'text-[#6B7C3E]', barColor: 'bg-[#6B7C3E]' };
+  return { label: t('shop.sustainabilityTiers.good'), colorClass: 'text-sepia-mid', barColor: 'bg-sepia-mid' };
 }
 
 export default function ProductCard({
@@ -32,7 +32,7 @@ export default function ProductCard({
   const [notifyEmail, setNotifyEmail] = useState('');
   const [notifySubmitted, setNotifySubmitted] = useState(false);
 
-  const sustainability = getSustainabilityTier(product.sustainabilityScore);
+  const sustainability = getSustainabilityTier(product.sustainabilityScore, t);
 
   const handleNotifySubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,7 +69,7 @@ export default function ProductCard({
 
           {/* Grain overlay */}
           <div className="absolute inset-0 z-20 pointer-events-none opacity-10"
-               style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }} />
+               style={{ backgroundImage: 'var(--grain-overlay)' }} />
 
           {/* Loading skeleton */}
           {!imageLoaded && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-[3/4]" />}
@@ -84,13 +84,13 @@ export default function ProductCard({
 
           {/* Stock badge */}
           {!product.inStock && (
-            <div className="absolute top-3 right-3 z-30 bg-ink/90 text-paper font-body text-caption px-3 py-1 tracking-wider border border-ink">
+            <div className="absolute top-3 right-3 z-30 bg-ink/90 text-paper font-body text-caption px-3 py-1 tracking-wider border border-ink" role="status">
               {t('shop.card.soldOut')}
             </div>
           )}
 
           {product.inStock && product.stockCount <= 5 && (
-            <div className="absolute top-3 right-3 z-30 bg-rust/95 text-paper font-body text-caption px-3 py-1 tracking-wider border border-rust">
+            <div className="absolute top-3 right-3 z-30 bg-rust/95 text-paper font-body text-caption px-3 py-1 tracking-wider border border-rust" role="status">
               {t('shop.card.lowStock', { count: product.stockCount })}
             </div>
           )}
@@ -113,8 +113,8 @@ export default function ProductCard({
           {/* Artwork attribution */}
           {product.artworkBy && (
             <p className="font-body text-[10px] text-sepia-mid tracking-wide mb-2">
-              Artwork by {product.artworkBy.childName}, age {product.artworkBy.age}
-              {' '}&mdash; {product.artworkBy.campaign} campaign
+              {t('shop.product.artworkBy', { name: product.artworkBy.childName, age: product.artworkBy.age })}
+              {' '}&mdash; {t('shop.product.campaign', { campaign: product.artworkBy.campaign })}
             </p>
           )}
 
@@ -147,7 +147,7 @@ export default function ProductCard({
 
           {/* Notify Me for out-of-stock */}
           {!product.inStock && (
-            <div className="mt-3" onClick={(e) => e.preventDefault()}>
+            <div className="mt-3" onClick={(e) => e.preventDefault()} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') e.stopPropagation(); }} role="presentation">
               {!showNotifyInput ? (
                 <motion.button
                   whileHover={{ scale: 1.02 }}
@@ -159,7 +159,7 @@ export default function ProductCard({
                   }}
                   className="w-full font-body text-[10px] tracking-[0.15em] uppercase text-sepia-mid py-2 px-4 border border-dashed border-sepia-mid/50 hover:border-sepia-mid hover:text-ink transition-all duration-200 bg-transparent"
                 >
-                  Notify Me
+                  {t('shop.notifyMe')}
                 </motion.button>
               ) : notifySubmitted ? (
                 <motion.p
@@ -167,7 +167,7 @@ export default function ProductCard({
                   animate={{ opacity: 1, y: 0 }}
                   className="font-body text-[10px] text-[#6B7C3E] tracking-wide text-center py-2"
                 >
-                  We will let you know when this is back.
+                  {t('shop.notifyMeSuccess')}
                 </motion.p>
               ) : (
                 <AnimatePresence>
@@ -181,8 +181,8 @@ export default function ProductCard({
                     <div className="flex-1">
                       <VintageInput
                         type="email"
-                        label="Email"
-                        placeholder="your@email.com"
+                        label={t('common.email')}
+                        placeholder={t('shop.notifyMePlaceholder')}
                         value={notifyEmail}
                         onChange={(e) => setNotifyEmail(e.target.value)}
                         icon="email"
@@ -194,7 +194,7 @@ export default function ProductCard({
                       whileTap={{ scale: 0.95 }}
                       className="font-body text-[10px] tracking-[0.1em] uppercase text-paper bg-rust px-3 py-3 border border-rust hover:bg-rust/90 transition-colors flex-shrink-0"
                     >
-                      Send
+                      {t('common.send')}
                     </motion.button>
                   </motion.form>
                 </AnimatePresence>

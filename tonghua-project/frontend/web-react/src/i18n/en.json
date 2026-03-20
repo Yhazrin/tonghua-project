@@ -39,7 +39,8 @@
       "viewAll": "View All Campaigns",
       "body1": "Each campaign begins in a classroom, a community center, a shelter. We collect children's artwork — raw, honest, unfiltered — and transform it into sustainable fashion that funds their future.",
       "body2": "Every garment in this collection begins the same way — with a child, a blank page, and the freedom to imagine. We partner with schools and community centres across twelve cities, running workshops where children draw their hopes for the world.",
-      "body3": "Our designers then translate these raw, honest artworks into patterns, prints, and embroideries — never altering the child's original vision. The result is clothing that carries real stories, not manufactured ones."
+      "body3": "Our designers then translate these raw, honest artworks into patterns, prints, and embroideries — never altering the child's original vision. The result is clothing that carries real stories, not manufactured ones.",
+      "heading": "Where Little Hands Shape Big Ideas"
     },
     "gallery": {
       "alt1": "Child's watercolor landscape",
@@ -60,6 +61,11 @@
       "description": "Whether you donate, shop, or share our story — every action counts.",
       "donate": "Make a Donation",
       "shop": "Shop Sustainably"
+    },
+    "quote": {
+      "body": "Every stitch carries a child's dream. Every garment is a chapter in a story that hasn't been written yet.",
+      "author": "Chen Wei",
+      "role": "Founder, VICOO"
     }
   },
   "about": {
@@ -93,6 +99,20 @@
     "team": {
       "title": "The People Behind the Pages",
       "subtitle": "A small team with an oversized purpose."
+    },
+    "images": {
+      "workshop": {
+        "alt": "Children in a workshop",
+        "caption": "A Saturday workshop in Shanghai — where it all begins"
+      },
+      "supplies": {
+        "alt": "Art supplies"
+      }
+    },
+    "quote": {
+      "body": "We don't just sell clothes. We sell the right to say: I know where this came from, and it came from somewhere good.",
+      "author": "Li Mei",
+      "role": "Head of Operations"
     }
   },
   "campaigns": {
@@ -127,7 +147,12 @@
       "prev": "Prev",
       "next": "Next"
     },
-    "empty": "No campaigns found matching your criteria."
+    "empty": "No campaigns found matching your criteria.",
+    "goalReached": "Goal Reached",
+    "emptyState": {
+      "title": "No campaigns found in this category.",
+      "subtitle": "Check back soon."
+    }
   },
   "stories": {
     "hero": {
@@ -290,6 +315,18 @@
       "soldOut": "Sold Out",
       "lowStock": "Only {{count}} left"
     },
+    "sustainabilityTiers": {
+      "exceptional": "Exceptional",
+      "excellent": "Excellent",
+      "good": "Good"
+    },
+    "product": {
+      "artworkBy": "Artwork by {{name}}, age {{age}}",
+      "campaign": "{{campaign}} campaign"
+    },
+    "notifyMe": "Notify Me",
+    "notifyMeSuccess": "We will let you know when this is back.",
+    "notifyMePlaceholder": "your@email.com",
     "detail": {
       "addToCart": "Add to Cart",
       "added": "Added to Cart",
@@ -344,6 +381,8 @@
     },
     "verified": "Verified",
     "carbon": "Carbon Footprint",
+    "noRecords": "No supply chain records available.",
+    "kgCO2": "{{value}} kg CO2",
     "lookup": {
       "title": "Trace Your Product",
       "subtitle": "Enter an order number or product ID to follow its complete journey from creation to delivery.",
@@ -361,7 +400,10 @@
     "timeline": {
       "location": "Location",
       "partner": "Partner",
-      "date": "Date"
+      "date": "Date",
+      "locationLabel": "Location:",
+      "partnerLabel": "Partner:",
+      "dateLabel": "Date:"
     },
     "searching": "Tracing supply chain…",
     "carbon": {
@@ -454,11 +496,16 @@
       "success": "Thank you for reaching out. We'll get back to you within 24 hours.",
       "error": "Something went wrong. Please try again."
     },
+    "formTitle": "Write to Us",
+    "contactTitle": "Get in Touch",
     "info": {
       "title": "Other Ways to Reach Us",
       "email": "hello@tonghua.org",
       "wechat": "TonghuaOfficial",
-      "address": "Shanghai, China"
+      "address": "Shanghai, China",
+      "emailLabel": "Email",
+      "wechatLabel": "WeChat",
+      "locationLabel": "Location"
     },
     "cards": {
       "email": {
@@ -532,12 +579,17 @@
       "title": "Newsletter",
       "body": "Quarterly dispatches from the editor's desk.",
       "placeholder": "your@email.com",
-      "subscribe": "Subscribe"
+      "subscribe": "Subscribe",
+      "ariaLabel": "Email address"
     },
     "location": "Shanghai, China",
     "builtWith": "Built with care"
   },
   "artwork": {
+    "card": {
+      "age": "Age {{age}}",
+      "votes": "{{count}} votes"
+    },
     "detail": {
       "heading": "Artwork",
       "artist": "Artist",
@@ -559,6 +611,19 @@
     "sort": "Sort",
     "viewAll": "View All",
     "learnMore": "Learn More",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "email": "Email",
+    "send": "Send"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "subtitle": "We hit a snag",
+    "body": "The page encountered an unexpected error. Our team has been notified. You can try again or return to the home page.",
+    "retry": "Try again",
+    "home": "Home"
+  },
+  "hero": {
+    "scroll": "Scroll",
+    "brandTagline": "Vision In Creative Opportunity"
   }
 }

@@ -96,7 +96,7 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder={t('footer.newsletter.placeholder')}
-                aria-label="Email address"
+                aria-label={t('footer.newsletter.ariaLabel')}
                 className="bg-transparent border-b border-sepia-mid/50 text-paper font-body text-xs py-2 focus:outline-none focus:border-pale-gold transition-colors placeholder:text-sepia-mid/50"
               />
               <motion.button
