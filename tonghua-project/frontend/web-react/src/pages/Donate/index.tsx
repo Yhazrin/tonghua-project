@@ -8,6 +8,7 @@ import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeadin
 import StoryQuoteBlock from '@/components/editorial/StoryQuoteBlock';
 import DonationPanel from '@/components/editorial/DonationPanel';
 import ImpactCounter from '@/components/editorial/ImpactCounter';
+import FAQAccordion from '@/components/editorial/FAQAccordion';
 import { donationsApi } from '@/services/donations';
 
 const IMPACT_AREAS = [
@@ -176,6 +177,38 @@ export default function Donate() {
           quote="Transparency isn't a feature. It's a responsibility."
           author="Annual Report 2025"
         />
+      </SectionContainer>
+
+      {/* FAQ Section */}
+      <SectionContainer>
+        <div className="max-w-3xl mx-auto">
+          <NumberedSectionHeading
+            number="06"
+            title={t('donate.faq.title')}
+          />
+          <div className="mt-8">
+            <FAQAccordion
+              items={[
+                {
+                  question: t('donate.faq.q1'),
+                  answer: t('donate.faq.a1'),
+                },
+                {
+                  question: t('donate.faq.q2'),
+                  answer: t('donate.faq.a2'),
+                },
+                {
+                  question: t('donate.faq.q3'),
+                  answer: t('donate.faq.a3'),
+                },
+                {
+                  question: t('donate.faq.q4'),
+                  answer: t('donate.faq.a4'),
+                },
+              ]}
+            />
+          </div>
+        </div>
       </SectionContainer>
 
       <div className="editorial-divider" />

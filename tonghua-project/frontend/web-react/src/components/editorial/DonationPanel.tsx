@@ -15,6 +15,8 @@ interface DonationPanelProps {
 }
 
 const AMOUNT_PRESETS = [50, 100, 200, 500];
+const MIN_AMOUNT = 1;
+const MAX_AMOUNT = 100000;
 
 export default function DonationPanel({
   onSubmit,
@@ -27,18 +29,53 @@ export default function DonationPanel({
   const [frequency, setFrequency] = useState<'once' | 'monthly'>('once');
   const [anonymous, setAnonymous] = useState(false);
   const [message, setMessage] = useState('');
+  const [error, setError] = useState<string>('');
 
   const activeAmount = customAmount ? Number(customAmount) : selectedAmount;
 
+  const validateAmount = (amount: number): string => {
+    if (isNaN(amount) || amount <= 0) {
+      return t('donate.form.errors.invalidAmount');
+    }
+    if (amount < MIN_AMOUNT) {
+      return t('donate.form.errors.minAmount', { min: MIN_AMOUNT });
+    }
+    if (amount > MAX_AMOUNT) {
+      return t('donate.form.errors.maxAmount', { max: MAX_AMOUNT });
+    }
+    return '';
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (activeAmount > 0 && onSubmit) {
+    setError('');
+
+    const validationError = validateAmount(activeAmount);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    if (onSubmit) {
       onSubmit({
         amount: activeAmount,
         frequency,
         anonymous,
         message,
       });
+    }
+  };
+
+  const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setCustomAmount(value);
+    // Clear preset selection when typing custom amount
+    if (value) {
+      setSelectedAmount(0);
+    }
+    // Clear error when user starts typing
+    if (error) {
+      setError('');
     }
   };
 
@@ -113,11 +150,25 @@ export default function DonationPanel({
             label={t('donate.form.customAmount')}
             type="number"
             value={customAmount}
-            onChange={(e) => setCustomAmount(e.target.value)}
+            onChange={handleCustomAmountChange}
             placeholder={t('donate.form.placeholder')}
-            min="1"
+            min={MIN_AMOUNT}
+            max={MAX_AMOUNT}
+            error={error && customAmount ? error : undefined}
+            helperText={t('donate.form.amountRange', { min: MIN_AMOUNT, max: MAX_AMOUNT })}
           />
         </div>
+
+        {/* Error Message */}
+        {error && !customAmount && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 p-3 bg-archive-brown/10 border border-archive-brown/30"
+          >
+            <p className="font-body text-xs text-archive-brown">{error}</p>
+          </motion.div>
+        )}
 
         {/* Frequency */}
         <div className="mb-8">

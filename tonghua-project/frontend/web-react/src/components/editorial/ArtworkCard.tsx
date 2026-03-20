@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import ImageSkeleton from '@/components/editorial/ImageSkeleton';
 import type { Artwork } from '@/types';
 
 interface ArtworkCardProps {
@@ -15,6 +17,7 @@ export default function ArtworkCard({
   className = '',
 }: ArtworkCardProps) {
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <motion.article
@@ -41,15 +44,20 @@ export default function ArtworkCard({
           <div
             className="absolute inset-0 z-10 pointer-events-none opacity-10"
             style={{
-              backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\\'0 0 200 200\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cfilter id=\\'noiseFilter\\'%3E%3CfeTurbulence type=\\'fractalNoise\\' baseFrequency=\\'0.9\\' numOctaves=\\'4\\' stitchTiles=\\'stitch\\'/%3E%3C/filter%3E%3Crect width=\\'100%25\\' height=\\'100%25\\' filter=\\'url(%23noiseFilter)\\'/%3E%3C/svg%3E")'
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
             }}
           />
           <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
+
+          {/* Loading skeleton */}
+          {!imageLoaded && <ImageSkeleton className="absolute inset-0" />}
+
           <img
             src={artwork.imageUrl}
             alt={artwork.title}
-            className="w-full h-full object-cover sepia-[0.08] transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105"
+            className={`w-full h-full object-cover sepia-[0.08] transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             loading="lazy"
+            onLoad={() => setImageLoaded(true)}
           />
         </div>
 
