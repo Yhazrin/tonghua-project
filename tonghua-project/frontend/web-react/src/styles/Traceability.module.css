@@ -65,7 +65,7 @@
 
 .selector__item--active {
   border-color: var(--color-rust);
-  background-color: rgba(139, 58, 42, 0.04);
+  background-color: color-mix(in srgb, var(--color-rust) 4%, transparent);
 }
 
 .selector__itemName {
@@ -140,7 +140,7 @@
 }
 
 .timeline__stepContent:hover {
-  border-color: rgba(139, 58, 42, 0.3);
+  border-color: color-mix(in srgb, var(--color-rust) 30%, transparent);
 }
 
 .timeline__stepHeader {
@@ -165,7 +165,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 3px 10px;
-  background-color: rgba(139, 58, 42, 0.1);
+  background-color: color-mix(in srgb, var(--color-rust) 10%, transparent);
   color: var(--color-rust);
 }
 

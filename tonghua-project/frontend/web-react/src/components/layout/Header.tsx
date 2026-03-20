@@ -112,7 +112,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleLocale}
-            className="font-body text-caption text-ink-faded hover:text-ink transition-colors px-2 py-1 border border-warm-gray/40"
+            className="font-body text-caption text-ink-faded hover:text-ink transition-colors px-2 py-1 border border-warm-gray/40 cursor-pointer"
             aria-label={t('nav.toggleLanguage')}
           >
             {currentLocale === 'en' ? '中文' : 'EN'}
@@ -123,7 +123,7 @@ export default function Header() {
             <div className="relative" ref={userMenuRef}>
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="hidden md:flex items-center gap-2 font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40"
+                className="hidden md:flex items-center gap-2 font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 cursor-pointer"
                 aria-label={t('nav.userMenu')}
                 aria-expanded={userMenuOpen}
               >
@@ -144,14 +144,14 @@ export default function Header() {
                     </div>
                     <Link
                       to="/profile"
-                      className="block px-4 py-2 font-body text-sm text-ink hover:bg-warm-gray/10 transition-colors"
+                      className="block px-4 py-2 font-body text-sm text-ink hover:bg-warm-gray/10 transition-colors cursor-pointer"
                       onClick={() => setUserMenuOpen(false)}
                     >
                       {t('nav.profile')}
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 font-body text-sm text-ink hover:bg-warm-gray/10 transition-colors"
+                      className="w-full text-left px-4 py-2 font-body text-sm text-ink hover:bg-warm-gray/10 transition-colors cursor-pointer"
                     >
                       {t('nav.logout')}
                     </button>
@@ -174,7 +174,7 @@ export default function Header() {
             <button
               ref={menuTriggerRef}
               onClick={toggleMobileNav}
-              className="flex flex-col gap-1.5 p-2"
+              className="flex flex-col gap-1.5 p-2 cursor-pointer"
               aria-label={t('nav.toggleMenu')}
               aria-expanded={mobileNavOpen}
               aria-controls="mobile-navigation"

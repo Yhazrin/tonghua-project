@@ -10,6 +10,7 @@ import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeadin
 import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import { VintageInput } from '@/components/editorial/VintageInput';
 import { campaignsApi } from '@/services/campaigns';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import type { Campaign } from '@/types';
 
 const MOCK_CAMPAIGNS: Campaign[] = [
@@ -126,6 +127,7 @@ type StatusFilter = 'all' | 'active' | 'upcoming' | 'completed';
 
 export default function Campaigns() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [filter, setFilter] = useState<StatusFilter>('all');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -220,7 +222,7 @@ export default function Campaigns() {
               transition={{ delay: index * 0.05 }}
               whileHover={{ y: -2 }}
               className={`
-                font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative
+                font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
                 ${filter === status
                   ? 'border-rust text-rust'
                   : 'border-transparent text-sepia-mid hover:text-ink'
@@ -258,7 +260,7 @@ export default function Campaigns() {
         ) : isLoading ? (
           <div className="space-y-16">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="animate-pulse grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+              <div key={i} className={`${prefersReducedMotion ? '' : 'animate-pulse'} grid grid-cols-1 md:grid-cols-12 gap-8 items-center`}>
                 <div className="md:col-span-7 bg-warm-gray/20 aspect-[16/10] border border-warm-gray/20" />
                 <div className="md:col-span-5 space-y-3">
                   <div className="h-4 bg-warm-gray/20 w-24" />

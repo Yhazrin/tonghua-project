@@ -8,6 +8,7 @@ import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeadin
 import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import { VintageInput } from '@/components/editorial/VintageInput';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
 
@@ -209,7 +210,7 @@ function ContactInfoCard({
         {/* Image */}
         <div className="relative aspect-[16/9] overflow-hidden">
           <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/10 via-transparent to-archive-brown/10" aria-hidden="true" />
-          <div className="absolute inset-0 z-10 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px rgba(26, 26, 22, 0.15)' }} aria-hidden="true" />
+          <div className="absolute inset-0 z-10 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px color-mix(in srgb, var(--color-ink) 15%, transparent)' }} aria-hidden="true" />
           <img
             src={`https://picsum.photos/seed/${card.imageSeed}/600/338`}
             alt={t(card.titleKey)}
@@ -239,14 +240,15 @@ function ContactInfoCard({
 
 // Loading dots animation for submit button
 function LoadingDots() {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   return (
     <span className="inline-flex items-center gap-1">
       {[0, 1, 2].map((i) => (
         <motion.span
           key={i}
           className="inline-block w-1 h-1 bg-paper"
-          animate={{ opacity: [0.3, 1, 0.3] }}
-          transition={{
+          animate={prefersReducedMotion ? { opacity: 1 } : { opacity: [0.3, 1, 0.3] }}
+          transition={prefersReducedMotion ? { duration: 0 } : {
             duration: 1,
             repeat: Infinity,
             delay: i * 0.2,

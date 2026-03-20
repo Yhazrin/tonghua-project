@@ -140,15 +140,15 @@ export default function EditorialHero({
                     0deg,
                     transparent,
                     transparent 2px,
-                    rgba(92, 77, 61, 0.3) 2px,
-                    rgba(92, 77, 61, 0.3) 4px
+                    color-mix(in srgb, var(--color-sepia-mid) 30%, transparent) 2px,
+                    color-mix(in srgb, var(--color-sepia-mid) 30%, transparent) 4px
                   ),
                   repeating-linear-gradient(
                     90deg,
                     transparent,
                     transparent 2px,
-                    rgba(92, 77, 61, 0.3) 2px,
-                    rgba(92, 77, 61, 0.3) 4px
+                    color-mix(in srgb, var(--color-sepia-mid) 30%, transparent) 2px,
+                    color-mix(in srgb, var(--color-sepia-mid) 30%, transparent) 4px
                   )
                 `,
               }}
@@ -234,8 +234,8 @@ export default function EditorialHero({
             {t('hero.scroll')}
           </span>
           <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+            animate={prefersReducedMotion ? {} : { y: [0, 6, 0] }}
+            transition={prefersReducedMotion ? { duration: 0 } : { repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
             className="w-px h-8 bg-gradient-to-b from-sepia-mid/40 to-transparent"
           />
         </motion.div>
@@ -265,7 +265,7 @@ export default function EditorialHero({
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: 'linear-gradient(to top, rgba(26, 26, 22, 0.04), transparent)',
+            background: 'linear-gradient(to top, color-mix(in srgb, var(--color-ink) 4%, transparent), transparent)',
           }}
         />
       </motion.div>

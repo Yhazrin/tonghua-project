@@ -10,6 +10,7 @@ import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import StoryQuoteBlock from '@/components/editorial/StoryQuoteBlock';
 import { ScrollPathDrawInline } from '@/components/animations/ScrollPathDraw';
 import ImpactCounter from '@/components/editorial/ImpactCounter';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import type { SupplyChainRecord } from '@/types';
 
 const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
@@ -151,12 +152,13 @@ function CarbonBar({ label, value, maxValue, isEco, delay }: {
 // Loading spinner for product lookup
 function SearchSpinner() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   return (
     <div className="flex items-center gap-3 py-4" role="status" aria-live="polite">
       <motion.div
         className="w-5 h-5 border-2 border-warm-gray/30 border-t-rust"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+        animate={prefersReducedMotion ? {} : { rotate: 360 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 1, repeat: Infinity, ease: 'linear' }}
       />
       <span className="font-body text-xs text-sepia-mid tracking-[0.1em] uppercase">
         {t('traceability.searching')}

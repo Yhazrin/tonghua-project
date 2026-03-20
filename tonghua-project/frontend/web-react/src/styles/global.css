@@ -56,10 +56,10 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 15% 30%, rgba(196, 164, 90, 0.05) 0%, transparent 45%),
-    radial-gradient(ellipse at 85% 15%, rgba(139, 58, 42, 0.04) 0%, transparent 40%),
-    radial-gradient(ellipse at 50% 85%, rgba(92, 64, 51, 0.03) 0%, transparent 55%),
-    radial-gradient(ellipse at 70% 60%, rgba(212, 207, 196, 0.08) 0%, transparent 50%);
+    radial-gradient(ellipse at 15% 30%, color-mix(in srgb, var(--color-pale-gold) 5%, transparent) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 15%, color-mix(in srgb, var(--color-rust) 4%, transparent) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 85%, color-mix(in srgb, var(--color-archive-brown) 3%, transparent) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 60%, color-mix(in srgb, var(--color-warm-gray) 8%, transparent) 0%, transparent 50%);
 }
 
 /* ── Grain Overlay ── */
@@ -346,8 +346,8 @@ input, textarea, select {
 .aged-border {
   border: 1px solid var(--color-warm-gray);
   box-shadow:
-    inset 0 0 30px rgba(237, 230, 214, 0.5),
-    0 2px 8px rgba(26, 26, 22, 0.05);
+    inset 0 0 30px color-mix(in srgb, var(--color-aged-stock) 50%, transparent),
+    0 2px 8px color-mix(in srgb, var(--color-ink) 5%, transparent);
   position: relative;
 }
 
@@ -358,10 +358,10 @@ input, textarea, select {
   pointer-events: none;
   background: linear-gradient(
     135deg,
-    rgba(196, 164, 90, 0.06) 0%,
+    color-mix(in srgb, var(--color-pale-gold) 6%, transparent) 0%,
     transparent 40%,
     transparent 60%,
-    rgba(92, 64, 51, 0.04) 100%
+    color-mix(in srgb, var(--color-archive-brown) 4%, transparent) 100%
   );
 }
 
@@ -378,9 +378,9 @@ input, textarea, select {
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(196, 164, 90, 0.08) 0%,
+    color-mix(in srgb, var(--color-pale-gold) 8%, transparent) 0%,
     transparent 50%,
-    rgba(92, 64, 51, 0.05) 100%
+    color-mix(in srgb, var(--color-archive-brown) 5%, transparent) 100%
   );
   pointer-events: none;
 }
@@ -395,7 +395,7 @@ input, textarea, select {
 .vintage-card {
   position: relative;
   background: var(--color-paper);
-  border: 1px solid rgba(26, 26, 22, 0.12);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
   transition: all var(--duration-normal) var(--ease-editorial);
 }
 
@@ -425,7 +425,7 @@ input, textarea, select {
 }
 
 .vintage-card:hover {
-  border-color: rgba(26, 26, 22, 0.25);
+  border-color: color-mix(in srgb, var(--color-ink) 25%, transparent);
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
 }

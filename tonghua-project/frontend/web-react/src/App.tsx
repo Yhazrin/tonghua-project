@@ -4,6 +4,7 @@ import Layout from '@/components/layout/Layout';
 import FlipPageTransition from '@/components/transitions/FlipPageTransition';
 import ErrorBoundary from '@/components/editorial/ErrorBoundary';
 import { useSessionRestore } from '@/hooks/useSessionRestore';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const Home = lazy(() => import('@/pages/Home'));
 const About = lazy(() => import('@/pages/About'));
@@ -22,9 +23,10 @@ const Profile = lazy(() => import('@/pages/Profile'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 function PageLoader() {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   return (
     <div className="flex items-center justify-center min-h-[50dvh]">
-      <div className="w-6 h-6 border-2 border-warm-gray border-t-rust animate-spin" />
+      <div className={`w-6 h-6 border-2 border-warm-gray border-t-rust ${prefersReducedMotion ? '' : 'animate-spin'}`} />
     </div>
   );
 }

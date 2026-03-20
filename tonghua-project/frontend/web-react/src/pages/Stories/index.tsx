@@ -313,7 +313,7 @@ export default function Stories() {
               transition={{ duration: 0.3 }}
               whileHover={{ y: -2 }}
               className={`
-                font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative
+                font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
                 ${activeCategory === cat
                   ? 'border-rust text-rust'
                   : 'border-transparent text-sepia-mid hover:text-ink'

@@ -130,7 +130,7 @@
   font-size: 9px;
   letter-spacing: 0.05em;
   color: var(--color-paper);
-  background: rgba(26, 26, 22, 0.6);
+  background: color-mix(in srgb, var(--color-ink) 60%, transparent);
   padding: 4px 8px;
   backdrop-filter: blur(4px);
   text-decoration: none;
@@ -138,7 +138,7 @@
 }
 
 .card__chain:hover {
-  background: rgba(139, 58, 42, 0.8);
+  background: color-mix(in srgb, var(--color-rust) 80%, transparent);
 }
 
 .card__body {

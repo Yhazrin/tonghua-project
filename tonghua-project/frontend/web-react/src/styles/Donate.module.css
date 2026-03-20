@@ -74,7 +74,7 @@
 
 .tier__active {
   border-color: var(--color-rust);
-  background-color: rgba(139, 58, 42, 0.04);
+  background-color: color-mix(in srgb, var(--color-rust) 4%, transparent);
 }
 
 .tier__amount {
@@ -357,7 +357,7 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-md) 0;
-  border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-paper) 10%, transparent);
 }
 
 .donor:last-child {

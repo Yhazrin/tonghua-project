@@ -11,6 +11,7 @@ import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import StoryQuoteBlock from '@/components/editorial/StoryQuoteBlock';
 import VintageSelect from '@/components/editorial/VintageSelect';
 import { productsApi } from '@/services/products';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import type { Product } from '@/types';
 
 type Category = 'all' | 'apparel' | 'accessories' | 'stationery' | 'prints';
@@ -105,6 +106,7 @@ const MOCK_PRODUCTS: Product[] = [
 
 export default function Shop() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const [sortBy, setSortBy] = useState<SortOption>('default');
 
@@ -175,7 +177,7 @@ export default function Shop() {
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ y: -2 }}
                 className={`
-                  font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative
+                  font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
                   ${activeCategory === cat
                     ? 'border-rust text-rust'
                     : 'border-transparent text-sepia-mid hover:text-ink'
@@ -216,9 +218,9 @@ export default function Shop() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-14">
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className="space-y-3">
-                <div className="aspect-[3/4] bg-aged-stock animate-pulse border border-warm-gray/30" />
-                <div className="h-4 bg-aged-stock animate-pulse w-3/4" />
-                <div className="h-3 bg-aged-stock animate-pulse w-1/2" />
+                <div className={`aspect-[3/4] bg-aged-stock ${prefersReducedMotion ? '' : 'animate-pulse'} border border-warm-gray/30`} />
+                <div className={`h-4 bg-aged-stock ${prefersReducedMotion ? '' : 'animate-pulse'} w-3/4`} />
+                <div className={`h-3 bg-aged-stock ${prefersReducedMotion ? '' : 'animate-pulse'} w-1/2`} />
               </div>
             ))}
           </div>
