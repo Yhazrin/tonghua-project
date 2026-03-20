@@ -25,7 +25,7 @@ interface FormErrors {
 // SVG icons for contact cards
 function EmailIcon() {
   return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.2}>
+    <svg aria-hidden="true" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.2}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
     </svg>
   );
@@ -33,7 +33,7 @@ function EmailIcon() {
 
 function LocationIcon() {
   return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.2}>
+    <svg aria-hidden="true" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.2}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z" />
     </svg>
@@ -42,7 +42,7 @@ function LocationIcon() {
 
 function ClockIcon() {
   return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.2}>
+    <svg aria-hidden="true" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.2}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   );
@@ -51,6 +51,7 @@ function ClockIcon() {
 function CheckmarkIcon() {
   return (
     <motion.svg
+      aria-hidden="true"
       className="w-12 h-12 text-rust"
       viewBox="0 0 24 24"
       fill="none"
@@ -75,6 +76,7 @@ function CheckmarkIcon() {
 function ChevronIcon({ isOpen }: { isOpen: boolean }) {
   return (
     <motion.svg
+      aria-hidden="true"
       className="w-4 h-4 text-sepia-mid flex-shrink-0"
       fill="none"
       viewBox="0 0 24 24"
@@ -500,7 +502,7 @@ export default function Contact() {
                       </select>
                       {/* Dropdown arrow */}
                       <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                        <svg className="w-4 h-4 text-sepia-mid" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <svg aria-hidden="true" className="w-4 h-4 text-sepia-mid" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                         </svg>
                       </div>
@@ -562,7 +564,7 @@ export default function Contact() {
                             : 'text-sepia-mid/60'
                         }`}
                       >
-                        {formData.message.length} / {MAX_MESSAGE_LENGTH}
+                        {t('contact.form.characterCount', { count: formData.message.length, max: MAX_MESSAGE_LENGTH })}
                       </span>
                     </div>
                   </div>
@@ -642,8 +644,8 @@ export default function Contact() {
             <div className="mt-12">
               <SepiaImageFrame
                 src="https://picsum.photos/seed/vicoo-shanghai-office/600/450"
-                alt="Our Shanghai office"
-                caption="Our Shanghai office"
+                alt={t('contact.info.officeCaption')}
+                caption={t('contact.info.officeCaption')}
                 aspectRatio="landscape"
                 size="full"
               />

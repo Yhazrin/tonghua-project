@@ -115,6 +115,7 @@ function CarbonBar({ label, value, maxValue, isEco, delay }: {
   isEco: boolean;
   delay: number;
 }) {
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const percentage = (value / maxValue) * 100;
@@ -131,13 +132,13 @@ function CarbonBar({ label, value, maxValue, isEco, delay }: {
         <span className="font-body text-[11px] tracking-[0.15em] uppercase text-sepia-mid">
           {label}
         </span>
-        <span className={`font-display text-h3 font-bold ${isEco ? 'text-[#5a7a5a]' : 'text-archive-brown'}`}>
-          {value} kg CO2
+        <span className={`font-display text-h3 font-bold ${isEco ? 'text-eco-green' : 'text-archive-brown'}`}>
+          {t('traceability.kgCO2', { value })}
         </span>
       </div>
       <div className="h-3 bg-warm-gray/20 border border-warm-gray/30 overflow-hidden">
         <motion.div
-          className={`h-full ${isEco ? 'bg-[#5a7a5a]' : 'bg-archive-brown/60'}`}
+          className={`h-full ${isEco ? 'bg-eco-green' : 'bg-archive-brown/60'}`}
           initial={{ width: 0 }}
           animate={isInView ? { width: `${percentage}%` } : {}}
           transition={{ duration: 1.2, delay: delay + 0.3, ease: [0, 0, 0.2, 1] }}
@@ -189,7 +190,7 @@ function CertificationBadge({ title, description, delay }: {
       <div className="relative z-20">
         {/* Badge icon */}
         <div className="w-12 h-12 mx-auto mb-3 border border-rust/30 flex items-center justify-center bg-aged-stock">
-          <svg className="w-5 h-5 text-rust" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <svg aria-hidden="true" className="w-5 h-5 text-rust" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
           </svg>
         </div>
@@ -213,7 +214,7 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
   locale: string;
 }) {
   const statusConfig = {
-    verified: { label: t('traceability.status.verified'), bg: 'bg-[#5a7a5a]/10', text: 'text-[#5a7a5a]', border: 'border-[#5a7a5a]/30', dot: 'bg-[#5a7a5a]' },
+    verified: { label: t('traceability.status.verified'), bg: 'bg-eco-green/10', text: 'text-eco-green', border: 'border-eco-green/30', dot: 'bg-eco-green' },
     'in-progress': { label: t('traceability.status.inProgress'), bg: 'bg-pale-gold/20', text: 'text-archive-brown', border: 'border-archive-brown/30', dot: 'bg-archive-brown' },
     pending: { label: t('traceability.status.pending'), bg: 'bg-warm-gray/10', text: 'text-warm-gray', border: 'border-warm-gray/30', dot: 'bg-warm-gray' },
   };
@@ -335,23 +336,23 @@ function EnhancedTimeline({ records, t, locale }: { records: EnhancedSupplyChain
       >
         <line
           x1="7" y1="0" x2="7" y2={pathHeight}
-          stroke="#D4CFC4"
+          style={{ stroke: 'var(--color-warm-gray)' }}
           strokeWidth="1"
           strokeLinecap="round"
         />
-        <circle cx="7" cy="0" r="3" fill="#8B3A2A" />
-        <circle cx="7" cy={pathHeight} r="3" fill="#8B3A2A" />
+        <circle cx="7" cy="0" r="3" style={{ fill: 'var(--color-rust)' }} />
+        <circle cx="7" cy={pathHeight} r="3" style={{ fill: 'var(--color-rust)' }} />
         <path
           d="M 7 20 Q 15 25 7 35"
           fill="none"
-          stroke="#8B3A2A"
+          style={{ stroke: 'var(--color-rust)' }}
           strokeWidth="1"
           strokeLinecap="round"
         />
         <path
           d="M 7 60 Q 15 65 7 75"
           fill="none"
-          stroke="#8B3A2A"
+          style={{ stroke: 'var(--color-rust)' }}
           strokeWidth="1"
           strokeLinecap="round"
         />
@@ -441,7 +442,7 @@ export default function Traceability() {
             <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" />
 
             <div className="flex items-center border-b-2 border-warm-gray/60 focus-within:border-rust transition-colors">
-              <svg className="w-4 h-4 text-sepia-mid ml-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <svg aria-hidden="true" className="w-4 h-4 text-sepia-mid ml-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <input
@@ -479,13 +480,13 @@ export default function Traceability() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.4 }}
-                className="mt-4 p-5 border-2 border-[#5a7a5a]/30 bg-[#5a7a5a]/5 relative overflow-hidden"
+                className="mt-4 p-5 border-2 border-eco-green/30 bg-eco-green/5 relative overflow-hidden"
               >
-                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#5a7a5a]/30" />
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#5a7a5a]/30" />
+                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-eco-green/30" />
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-eco-green/30" />
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 flex-shrink-0 border border-[#5a7a5a]/30 flex items-center justify-center bg-[#5a7a5a]/10">
-                    <svg className="w-4 h-4 text-[#5a7a5a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <div className="w-10 h-10 flex-shrink-0 border border-eco-green/30 flex items-center justify-center bg-eco-green/10">
+                    <svg className="w-4 h-4 text-eco-green" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
@@ -512,7 +513,7 @@ export default function Traceability() {
       <SectionContainer>
         <NumberedSectionHeading
           number="02"
-          title={`Dreamscape Tee — ${t('traceability.subtitle')}`}
+          title={t('traceability.featuredTitle')}
           subtitle={t('traceability.journeySubtitle')}
         />
 
@@ -522,7 +523,7 @@ export default function Traceability() {
             <div className="sticky top-28">
               <SepiaImageFrame
                 src="https://picsum.photos/seed/dreamscape-tee/600/800"
-                alt="Dreamscape Tee"
+                alt={t('traceability.featuredProduct')}
                 aspectRatio="portrait"
                 size="full"
               />
@@ -553,9 +554,9 @@ export default function Traceability() {
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.4 }}
-                    className="mt-4 border-2 border-[#5a7a5a]/30 p-5 bg-[#5a7a5a]/5"
+                    className="mt-4 border-2 border-eco-green/30 p-5 bg-eco-green/5"
                   >
-                    <span className="font-body text-[10px] text-[#5a7a5a] tracking-[0.15em] uppercase">
+                    <span className="font-body text-[10px] text-eco-green tracking-[0.15em] uppercase">
                       {t('traceability.lookup.highlighted')}
                     </span>
                     <p className="font-body text-xs text-ink-faded mt-1 leading-relaxed">
@@ -636,7 +637,7 @@ export default function Traceability() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className="font-body text-xs text-ink-faded leading-relaxed border-l-2 border-[#5a7a5a]/30 pl-4 mt-4"
+                className="font-body text-xs text-ink-faded leading-relaxed border-l-2 border-eco-green/30 pl-4 mt-4"
               >
                 {t('traceability.carbon.explanation')}
               </motion.p>
@@ -649,20 +650,20 @@ export default function Traceability() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="border-2 border-[#5a7a5a]/30 p-8 text-center bg-paper relative overflow-hidden"
+                className="border-2 border-eco-green/30 p-8 text-center bg-paper relative overflow-hidden"
               >
                 {/* Grain */}
                 <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} />
 
                 {/* Corner accents */}
-                <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#5a7a5a]/20" />
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#5a7a5a]/20" />
+                <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-eco-green/20" />
+                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-eco-green/20" />
 
                 <div className="relative z-20">
-                  <span className="font-body text-[10px] tracking-[0.2em] uppercase text-[#5a7a5a] block mb-3">
+                  <span className="font-body text-[10px] tracking-[0.2em] uppercase text-eco-green block mb-3">
                     {t('traceability.carbon.reduction')}
                   </span>
-                  <div className="font-display text-[clamp(48px,8vw,72px)] font-bold text-[#5a7a5a] leading-none">
+                  <div className="font-display text-[clamp(48px,8vw,72px)] font-bold text-eco-green leading-none">
                     <ImpactCounter value={reductionPercent} suffix="%" label="" />
                   </div>
                   <p className="font-body text-xs text-sepia-mid mt-4 leading-relaxed">

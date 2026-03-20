@@ -166,7 +166,14 @@
     "campaign": "Campaign",
     "about": "About This Campaign",
     "artworks": "Artworks",
-    "backToAll": "to all campaigns"
+    "backToAll": "to all campaigns",
+    "quote": "I drew a dress that makes rain sounds when you walk. That way, everyone knows you're coming.",
+    "quoteAuthor": "Mei, age 8",
+    "quoteRole": "Guizhou",
+    "funded": "{{percent}}% funded",
+    "featuredChild": {
+      "ageLabel": "{{name}}, age {{age}}"
+    }
   },
   "stories": {
     "hero": {
@@ -388,6 +395,7 @@
     "behind": {
       "title": "Behind the Collection",
       "caption": "A Saturday morning workshop in Chengdu, where children paint the dreams that will become our next collection.",
+      "alt": "Children creating artwork in a VICOO workshop",
       "body1": "Every garment in this collection begins the same way — with a child, a blank page, and the freedom to imagine. We partner with schools and community centres across twelve cities, running workshops where children draw their hopes for the world.",
       "body2": "Our designers then translate these raw, honest artworks into patterns, prints, and embroideries — never altering the child's original vision. The result is clothing that carries real stories, not manufactured ones.",
       "quote": "I drew the ocean because I want it to stay blue forever.",
@@ -470,6 +478,8 @@
       "publish": "Publish",
       "publishDesc": "The complete journey is published on our platform for every customer to inspect."
     },
+    "featuredTitle": "Product Journey",
+    "featuredProduct": "Dreamscape Tee",
     "quote": "If you can trace it, you can trust it. Every stitch tells a story worth knowing.",
     "quoteAuthor": "Supply Chain Manifesto",
     "quoteRole": "Tonghua Public Welfare, 2025",
@@ -525,7 +535,7 @@
         "other": "Other"
       },
       "message": "Your Message",
-      "characterCount": "{count} / {max} characters",
+      "characterCount": "{{count}} / {{max}} characters",
       "requiredField": "This field is required",
       "invalidEmail": "Please enter a valid email address",
       "submit": "Send Message",
@@ -558,7 +568,8 @@
         "title": "Response Time",
         "description": "Average reply time is under 12 hours. Urgent matters are prioritized."
       }
-    }
+    },
+    "officeCaption": "Our Shanghai office"
   },
   "login": {
     "title": "Welcome Back",

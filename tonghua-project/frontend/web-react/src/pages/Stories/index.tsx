@@ -98,12 +98,12 @@ function EditorialOrnament({ className = '' }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 200 24"
-      className={`w-32 mx-auto ${className}`}
+      className={`w-32 mx-auto text-rust ${className}`}
       aria-hidden="true"
     >
       <motion.line
         x1="0" y1="12" x2="70" y2="12"
-        stroke="#8B3A2A"
+        stroke="currentColor"
         strokeWidth="0.5"
         initial={{ pathLength: 0 }}
         whileInView={{ pathLength: 1 }}
@@ -113,7 +113,7 @@ function EditorialOrnament({ className = '' }: { className?: string }) {
       <motion.circle
         cx="85" cy="12" r="3"
         fill="none"
-        stroke="#8B3A2A"
+        stroke="currentColor"
         strokeWidth="0.75"
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
@@ -122,7 +122,7 @@ function EditorialOrnament({ className = '' }: { className?: string }) {
       />
       <motion.circle
         cx="100" cy="12" r="1.5"
-        fill="#8B3A2A"
+        fill="currentColor"
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true }}
@@ -131,7 +131,7 @@ function EditorialOrnament({ className = '' }: { className?: string }) {
       <motion.circle
         cx="115" cy="12" r="3"
         fill="none"
-        stroke="#8B3A2A"
+        stroke="currentColor"
         strokeWidth="0.75"
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
@@ -140,7 +140,7 @@ function EditorialOrnament({ className = '' }: { className?: string }) {
       />
       <motion.line
         x1="130" y1="12" x2="200" y2="12"
-        stroke="#8B3A2A"
+        stroke="currentColor"
         strokeWidth="0.5"
         initial={{ pathLength: 0 }}
         whileInView={{ pathLength: 1 }}
@@ -228,8 +228,8 @@ function EmptyState({ onBrowseAll }: { onBrowseAll: () => void }) {
           transition={{ duration: 0.6, delay: 1.4, type: 'spring', stiffness: 200 }}
           style={{ transformOrigin: '95px 30px' }}
         >
-          <line x1="88" y1="38" x2="98" y2="22" stroke="#8B3A2A" strokeWidth="1.5" strokeLinecap="round" />
-          <polygon points="98,22 100,19 96,19" fill="#8B3A2A" />
+          <line x1="88" y1="38" x2="98" y2="22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <polygon points="98,22 100,19 96,19" fill="currentColor" />
         </motion.g>
       </svg>
 
@@ -509,7 +509,7 @@ export default function Stories() {
                   {/* Animated checkmark */}
                   <motion.svg
                     viewBox="0 0 40 40"
-                    className="w-10 h-10"
+                    className="w-10 h-10 text-rust"
                     aria-hidden="true"
                   >
                     <motion.circle
@@ -517,7 +517,7 @@ export default function Stories() {
                       cy="20"
                       r="18"
                       fill="none"
-                      stroke="#8B3A2A"
+                      stroke="currentColor"
                       strokeWidth="1.5"
                       initial={{ pathLength: 0 }}
                       animate={{ pathLength: 1 }}
@@ -526,7 +526,7 @@ export default function Stories() {
                     <motion.path
                       d="M12 20 L18 26 L28 14"
                       fill="none"
-                      stroke="#8B3A2A"
+                      stroke="currentColor"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"

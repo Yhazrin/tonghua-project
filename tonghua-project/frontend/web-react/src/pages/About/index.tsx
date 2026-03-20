@@ -110,7 +110,7 @@ export default function About() {
       <div className="flex justify-center py-6" aria-hidden="true">
         <ScrollPathDrawInline
           path="M0,15 Q50,0 100,15 T200,15 T300,15 T400,15"
-          strokeColor="#8B3A2A"
+          strokeColor="var(--color-rust)"
           strokeWidth={1}
           className="w-80 h-8 opacity-60"
         />

@@ -280,7 +280,7 @@ export default function Home() {
       <div className="flex justify-center py-2" aria-hidden="true">
         <ScrollPathDrawInline
           path="M0,10 L60,10 M80,10 L140,10 M160,10 L220,10"
-          strokeColor="#D4CFC4"
+          strokeColor="var(--color-warm-gray)"
           strokeWidth={1}
           className="w-56 h-5"
         />

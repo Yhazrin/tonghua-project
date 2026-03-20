@@ -324,7 +324,7 @@ export default function Shop() {
           >
             <SepiaImageFrame
               src="https://picsum.photos/seed/vicoo-workshop-art/800/500"
-              alt="Children creating artwork in a VICOO workshop"
+              alt={t('shop.behind.alt')}
               caption={t('shop.behind.caption')}
               aspectRatio="wide"
               size="full"

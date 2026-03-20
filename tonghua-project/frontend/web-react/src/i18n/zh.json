@@ -166,7 +166,14 @@
     "campaign": "活动",
     "about": "关于此活动",
     "artworks": "作品",
-    "backToAll": "返回全部活动"
+    "backToAll": "返回全部活动",
+    "quote": "我画了一条裙子，走路时会发出雨声。这样每个人都知道你来了。",
+    "quoteAuthor": "小美，8岁",
+    "quoteRole": "贵州",
+    "funded": "{{percent}}% 已筹",
+    "featuredChild": {
+      "ageLabel": "{{name}}，{{age}}岁"
+    }
   },
   "stories": {
     "hero": {
@@ -388,6 +395,7 @@
     "behind": {
       "title": "系列背后",
       "caption": "成都一个周六早晨的工作坊，孩子们在那里画出将成为我们下一个系列的梦想。",
+      "alt": "孩子们在VICOO工作坊创作艺术作品",
       "body1": "这个系列的每一件服装都以相同的方式开始——一个孩子、一张白纸和想象的自由。我们与十二座城市的学校和社区中心合作，举办工作坊，让孩子们画出他们对世界的期望。",
       "body2": "我们的设计师随后将这些原始、真诚的艺术作品转化为图案、印花和刺绣——从不改变孩子最初的愿景。结果是承载真实故事的服装，而非制造出来的故事。",
       "quote": "我画了大海，因为我希望它永远是蓝色的。",
@@ -470,6 +478,8 @@
       "publish": "发布",
       "publishDesc": "完整旅程发布在我们的平台上，供每位客户查验。"
     },
+    "featuredTitle": "产品溯源之旅",
+    "featuredProduct": "梦境T恤",
     "quote": "可追溯，方可信。每一针每一线都讲述着值得了解的故事。",
     "quoteAuthor": "供应链宣言",
     "quoteRole": "童画公益，2025",
@@ -525,7 +535,7 @@
         "other": "其他"
       },
       "message": "您的留言",
-      "characterCount": "{count} / {max} 字符",
+      "characterCount": "{{count}} / {{max}} 字符",
       "requiredField": "此字段为必填项",
       "invalidEmail": "请输入有效的电子邮箱",
       "submit": "发送消息",
@@ -558,7 +568,8 @@
         "title": "回复时间",
         "description": "平均回复时间在12小时以内，紧急事项会优先处理。"
       }
-    }
+    },
+    "officeCaption": "我们的上海办公室"
   },
   "login": {
     "title": "欢迎回来",

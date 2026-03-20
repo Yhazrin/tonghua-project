@@ -319,7 +319,7 @@ export default function Campaigns() {
                             </span>
                             {isCompleted && fundingPercent >= 100 && (
                               <span className="font-body text-[10px] tracking-[0.2em] uppercase px-3 py-1 border border-sepia-mid text-sepia-mid flex items-center gap-1.5">
-                                <svg className="w-3 h-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+                                <svg aria-hidden="true" className="w-3 h-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
                                   <path d="M3 8.5l3.5 3.5 6.5-7" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                                 {t('campaigns.goalReached')}
@@ -344,7 +344,7 @@ export default function Campaigns() {
                                 </span>
                                 <span className={`font-body text-xs ${isCompleted ? 'text-sepia-mid' : 'text-sepia-mid'}`}>
                                   {isCompleted
-                                    ? `${fundingPercent}% funded`
+                                    ? t('campaigns.funded', { percent: fundingPercent })
                                     : `${fundingPercent}%`
                                   }
                                 </span>
@@ -374,7 +374,7 @@ export default function Campaigns() {
                                 &ldquo;{campaign.featuredChild.quote}&rdquo;
                               </p>
                               <p className="font-body text-[11px] text-sepia-mid mt-1.5 tracking-wider uppercase">
-                                {campaign.featuredChild.name}, age {campaign.featuredChild.age}
+                                {t('campaigns.featuredChild.ageLabel', { name: campaign.featuredChild.name, age: campaign.featuredChild.age })}
                               </p>
                             </motion.div>
                           )}
