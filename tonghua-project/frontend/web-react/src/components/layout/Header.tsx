@@ -112,7 +112,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleLocale}
-            className="font-body text-caption text-ink-faded hover:text-ink transition-colors px-2 py-1 border border-warm-gray/40 rounded"
+            className="font-body text-caption text-ink-faded hover:text-ink transition-colors px-2 py-1 border border-warm-gray/40"
             aria-label={t('nav.toggleLanguage')}
           >
             {currentLocale === 'en' ? '中文' : 'EN'}
@@ -123,11 +123,11 @@ export default function Header() {
             <div className="relative" ref={userMenuRef}>
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="hidden md:flex items-center gap-2 font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 rounded"
+                className="hidden md:flex items-center gap-2 font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40"
                 aria-label={t('nav.userMenu')}
                 aria-expanded={userMenuOpen}
               >
-                <span className="text-[9px] tracking-[0.2em] text-sepia-mid font-mono">USER</span>
+                <span className="text-[9px] tracking-[0.2em] text-sepia-mid font-mono">{t('nav.userLabel')}</span>
                 <span className="max-w-[120px] truncate">{user.nickname || user.email}</span>
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -136,7 +136,7 @@ export default function Header() {
 
               {/* Dropdown menu */}
               {userMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 rounded shadow-lg z-50">
+                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 shadow-lg z-50">
                   <div className="py-2">
                     <div className="px-4 py-2 border-b border-warm-gray/20">
                       <p className="font-body text-xs text-ink-faded">{user.nickname || user.email}</p>
@@ -163,7 +163,7 @@ export default function Header() {
             /* Login link - shown when not authenticated */
             <Link
               to="/login"
-              className="hidden md:inline-block font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 rounded"
+              className="hidden md:inline-block font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40"
             >
               {t('nav.login')}
             </Link>

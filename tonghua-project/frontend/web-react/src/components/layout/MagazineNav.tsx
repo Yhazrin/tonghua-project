@@ -133,7 +133,7 @@ export default function MagazineNav() {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleLocale}
-            className="relative font-body text-[10px] tracking-[0.1em] uppercase text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 rounded-sm cursor-pointer overflow-hidden group"
+            className="relative font-body text-[10px] tracking-[0.1em] uppercase text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 cursor-pointer overflow-hidden group"
             aria-label={t('nav.toggleLanguage')}
           >
             <span className="relative z-10">{currentLocale === 'en' ? '中文' : 'EN'}</span>
@@ -150,7 +150,7 @@ export default function MagazineNav() {
             <div className="relative" ref={userMenuRef}>
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="hidden md:flex items-center gap-2 font-body text-[11px] tracking-[0.05em] text-ink-faded hover:text-ink transition-colors px-4 py-2 border border-warm-gray/40 rounded-sm overflow-hidden group"
+                className="hidden md:flex items-center gap-2 font-body text-[11px] tracking-[0.05em] text-ink-faded hover:text-ink transition-colors px-4 py-2 border border-warm-gray/40 overflow-hidden group"
                 aria-label={t('nav.userMenu')}
                 aria-expanded={userMenuOpen}
               >
@@ -168,7 +168,7 @@ export default function MagazineNav() {
 
               {/* Dropdown menu */}
               {userMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 rounded shadow-lg z-50">
+                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 shadow-lg z-50">
                   <div className="py-2">
                     <div className="px-4 py-2 border-b border-warm-gray/20">
                       <p className="font-body text-xs text-ink-faded">{user.nickname || user.email}</p>
@@ -196,7 +196,7 @@ export default function MagazineNav() {
             <>
               <Link
                 to="/login"
-                className="hidden md:inline-block relative font-body text-[11px] tracking-[0.05em] text-ink-faded hover:text-ink transition-colors px-4 py-2 border border-warm-gray/40 rounded-sm overflow-hidden group"
+                className="hidden md:inline-block relative font-body text-[11px] tracking-[0.05em] text-ink-faded hover:text-ink transition-colors px-4 py-2 border border-warm-gray/40 overflow-hidden group"
               >
                 <span className="relative z-10">{t('nav.login')}</span>
                 <motion.div
@@ -209,7 +209,7 @@ export default function MagazineNav() {
 
               <Link
                 to="/register"
-                className="hidden md:inline-block relative font-body text-[11px] tracking-[0.05em] text-paper bg-ink hover:bg-rust transition-colors px-4 py-2 rounded-sm overflow-hidden group"
+                className="hidden md:inline-block relative font-body text-[11px] tracking-[0.05em] text-paper bg-ink hover:bg-rust transition-colors px-4 py-2 overflow-hidden group"
               >
                 <span className="relative z-10">{t('nav.register')}</span>
                 <motion.div
@@ -226,7 +226,7 @@ export default function MagazineNav() {
           {isMobile && (
             <button
               onClick={toggleMobileNav}
-              className="relative flex flex-col gap-1.5 p-3 cursor-pointer overflow-hidden rounded-sm border border-warm-gray/30"
+              className="relative flex flex-col gap-1.5 p-3 cursor-pointer overflow-hidden border border-warm-gray/30"
               aria-label={t('nav.toggleMenu')}
               aria-expanded={mobileNavOpen}
             >

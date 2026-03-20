@@ -129,7 +129,7 @@ export const EditorialCard = ({
 
       {/* Hover indicator */}
       {onClick && (
-        <div className="absolute bottom-4 right-4 w-6 h-6 rounded-full border border-ink/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute bottom-4 right-4 w-6 h-6 border border-ink/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <span className="font-mono text-[8px] text-ink/50" aria-hidden="true">→</span>
         </div>
       )}

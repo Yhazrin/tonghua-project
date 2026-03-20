@@ -223,7 +223,7 @@ export default function Shop() {
             ))}
           </div>
         ) : error ? (
-          <div className="text-center py-20">
+          <div className="text-center py-20" role="alert" aria-live="assertive">
             <p className="font-body text-sm text-rust">{t('common.error')}</p>
             <p className="font-body text-xs text-sepia-mid mt-2">{t('common.retry')}</p>
           </div>

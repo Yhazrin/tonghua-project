@@ -15,7 +15,8 @@
     "toggleMenu": "切换导航菜单",
     "toggleLanguage": "切换语言",
     "userMenu": "用户菜单",
-    "mobileMenu": "移动导航菜单"
+    "mobileMenu": "移动导航菜单",
+    "userLabel": "用户"
   },
   "profile": {
     "title": "个人中心",

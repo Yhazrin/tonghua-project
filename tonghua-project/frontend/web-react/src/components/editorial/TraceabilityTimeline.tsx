@@ -116,7 +116,7 @@ export default function TraceabilityTimeline({
             {/* Dot */}
             <div
               className={`
-                absolute left-[-33px] top-1 w-4 h-4 rounded-full border-[3px] border-paper z-[2]
+                absolute left-[-33px] top-1 w-4 h-4 rotate-45 border-[3px] border-paper z-[2]
                 ${record.verified ? 'bg-rust' : 'bg-warm-gray'}
               `}
             />

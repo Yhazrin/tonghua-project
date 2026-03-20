@@ -15,7 +15,8 @@
     "toggleMenu": "Toggle navigation menu",
     "toggleLanguage": "Toggle language",
     "userMenu": "User menu",
-    "mobileMenu": "Mobile navigation menu"
+    "mobileMenu": "Mobile navigation menu",
+    "userLabel": "User"
   },
   "profile": {
     "title": "My Profile",

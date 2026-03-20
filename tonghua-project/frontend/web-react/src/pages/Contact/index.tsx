@@ -243,7 +243,7 @@ function LoadingDots() {
       {[0, 1, 2].map((i) => (
         <motion.span
           key={i}
-          className="inline-block w-1 h-1 rounded-full bg-paper"
+          className="inline-block w-1 h-1 bg-paper"
           animate={{ opacity: [0.3, 1, 0.3] }}
           transition={{
             duration: 1,
@@ -595,6 +595,8 @@ export default function Contact() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="font-body text-sm text-archive-brown"
+                      role="alert"
+                      aria-live="assertive"
                     >
                       {t('contact.form.error')}
                     </motion.p>

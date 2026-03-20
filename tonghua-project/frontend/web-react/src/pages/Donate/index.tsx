@@ -94,7 +94,7 @@ function ImpactProgressBar({
           </span>
         </div>
       </div>
-      <div className="h-2 bg-warm-gray/15 rounded-sm overflow-hidden" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={label}>
+      <div className="h-2 bg-warm-gray/15 overflow-hidden" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={label}>
         <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: `${pct}%` }}
@@ -105,7 +105,7 @@ function ImpactProgressBar({
             damping: 20,
             delay: index * 0.12 + 0.2,
           }}
-          className="h-full rounded-sm"
+          className="h-full"
           style={{
             background: 'linear-gradient(90deg, rgba(139, 58, 42, 0.5), rgba(139, 58, 42, 0.8))',
           }}
@@ -134,7 +134,7 @@ function TrustBadge({ label, index }: { label: string; index: number }) {
       }}
       className="flex items-center gap-2 border border-warm-gray/30 px-4 py-2.5 bg-paper"
     >
-      <span className="w-2 h-2 bg-rust/60 rounded-full" />
+      <span className="w-2 h-2 bg-rust/60 rotate-45" />
       <span className="font-body text-xs text-ink tracking-[0.08em] uppercase">
         {label}
       </span>
@@ -370,19 +370,19 @@ export default function Donate() {
               {/* Specific transparency data points */}
               <div className="space-y-3 mb-8">
                 <div className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-rust/60 rounded-full mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 bg-rust/60 rotate-45 mt-2 shrink-0" />
                   <span className="font-body text-sm text-ink">
                     {t('donate.transparency.lastAudit')}
                   </span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-rust/60 rounded-full mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 bg-rust/60 rotate-45 mt-2 shrink-0" />
                   <span className="font-body text-sm text-ink">
                     {t('donate.transparency.onChain')}
                   </span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-rust/60 rounded-full mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 bg-rust/60 rotate-45 mt-2 shrink-0" />
                   <span className="font-body text-sm text-ink">
                     {t('donate.transparency.quarterly')}
                   </span>

@@ -97,7 +97,7 @@ export default function EditorialHero({
             {/* Large decorative circle top-right */}
             <div
               className="absolute -top-20 -right-20 w-[40vw] h-[40vw] max-w-[600px] max-h-[600px]
-                         rounded-full border border-sepia-mid/10"
+                         border border-sepia-mid/10"
             />
             {/* Large faded rectangle bottom-left */}
             <div
