@@ -18,9 +18,12 @@ MAX_REQUEST_BODY_SIZE = 10 * 1024 * 1024
 
 logger = logging.getLogger("tonghua")
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(asctime)s %(levelname)s %(name)s - %(message)s",
 )
+# Ensure all "tonghua" loggers propagate and use the same level
+logging.getLogger("tonghua").setLevel(logging.DEBUG)
+logging.getLogger("tonghua.auth").setLevel(logging.DEBUG)
 
 
 @asynccontextmanager
@@ -58,11 +61,18 @@ def extract_host(url: str) -> str:
     return netloc
 
 allowed_hosts = [extract_host(origin) for origin in settings.CORS_ORIGINS]
+# Add localhost and localhost:8081 for development
+allowed_hosts.extend(["localhost", "localhost:8081", "localhost:8080", "127.0.0.1", "127.0.0.1:8081"])
+# Remove duplicates
+allowed_hosts = list(set(allowed_hosts))
 if not allowed_hosts:
     allowed_hosts = ["localhost"]
-app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_hosts)
+logger.info(f"Allowed hosts: {allowed_hosts}")
+# Temporarily disable TrustedHostMiddleware for development
+# app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_hosts)
 
 # CORS - Restrict to specific origins (no wildcard)
+logger.info(f"CORS Origins: {settings.CORS_ORIGINS}")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
@@ -111,15 +121,25 @@ async def signature_verification_middleware(request: Request, call_next):
     2. X-Timestamp header (prevents request replay)
     3. X-Nonce header (prevents replay attacks)
 
-    Only applies to API endpoints (/api/*).
+    Only applies to API endpoints (/api/*) except public auth endpoints.
     """
     # Skip signature verification for non-API endpoints
     if not request.url.path.startswith("/api/"):
         return await call_next(request)
 
+    # Skip signature verification for public auth endpoints
+    public_endpoints = [
+        "/api/v1/auth/login",
+        "/api/v1/auth/register",
+        "/api/v1/auth/refresh",
+        "/api/v1/auth/wx-login",
+        "/api/v1/auth/logout",
+    ]
+    if request.url.path in public_endpoints:
+        return await call_next(request)
+
     # Skip signature verification in testing environment
-    import os
-    if os.getenv("TESTING") == "1":
+    if settings.TESTING == "1":
         return await call_next(request)
 
     # Verify signature
@@ -143,8 +163,14 @@ async def signature_verification_middleware(request: Request, call_next):
 # ── Rate Limiting middleware (applied before logging) ────────────
 @app.middleware("http")
 async def rate_limit_middleware(request: Request, call_next):
-    # Apply rate limiting (skip for health check endpoint)
-    if request.url.path != "/health":
+    # Apply rate limiting (skip for health check endpoint and testing)
+    testing = settings.TESTING
+    logger.info(f"Rate limit middleware: path={request.url.path}, TESTING={testing}, type={type(testing)}")
+    # Skip rate limiting for health check and when TESTING=1
+    if request.url.path == "/health" or testing == "1":
+        logger.info(f"Rate limit middleware: Skipping rate limiting (path={request.url.path}, testing={testing})")
+    else:
+        logger.info(f"Rate limit middleware: Applying rate limiting")
         try:
             # Create DB session for user extraction
             async with AsyncSessionLocal() as db:
@@ -187,6 +213,10 @@ async def request_logging_middleware(request: Request, call_next):
         elapsed,
         response.status_code,
     )
+    # Log Set-Cookie headers for debugging
+    set_cookie_headers = [v for k, v in response.headers.items() if k.lower() == "set-cookie"]
+    if set_cookie_headers:
+        logger.info(f"Set-Cookie headers: {set_cookie_headers}")
     response.headers["X-Process-Time"] = f"{elapsed:.3f}"
     return response
 
@@ -250,4 +280,4 @@ app.include_router(supply_chain_router, prefix="/api/v1")
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8080, reload=True)

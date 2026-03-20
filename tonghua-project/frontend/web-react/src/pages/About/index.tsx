@@ -20,10 +20,11 @@ export default function About() {
         number="02"
         title={t('about.hero.title')}
         subtitle={t('about.hero.subtitle')}
+        fullHeight={true}
       />
 
       {/* Mission */}
-      <SectionContainer>
+      <SectionContainer noTopSpacing>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
           <div className="md:col-span-5">
             <NumberedSectionHeading

@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import ImageSkeleton from '@/components/editorial/ImageSkeleton';
 import type { Product } from '@/types';
 
 interface ProductCardProps {
@@ -17,6 +19,7 @@ export default function ProductCard({
 }: ProductCardProps) {
   const { t } = useTranslation();
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <motion.article
@@ -40,11 +43,15 @@ export default function ProductCard({
           <div className="absolute inset-0 z-20 pointer-events-none opacity-10"
                style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }} />
 
+          {/* Loading skeleton */}
+          {!imageLoaded && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-[3/4]" />}
+
           <img
             src={product.imageUrls[0]}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105 sepia-[0.1]"
+            className={`w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105 sepia-[0.1] ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             loading="lazy"
+            onLoad={() => setImageLoaded(true)}
           />
 
           {/* Stock badge */}

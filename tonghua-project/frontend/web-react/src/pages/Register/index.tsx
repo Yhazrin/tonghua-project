@@ -10,7 +10,7 @@ export default function Register() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { register, isRegistering, registerError } = useAuth();
-  const [displayName, setDisplayName] = useState('');
+  const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -31,7 +31,7 @@ export default function Register() {
     }
 
     register(
-      { email, password, displayName },
+      { email, password, nickname },
       {
         onSuccess: () => {
           navigate('/');
@@ -77,10 +77,10 @@ export default function Register() {
             className="space-y-6"
           >
             <VintageInput
-              label={t('register.displayName')}
+              label={t('register.nickname')}
               type="text"
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
               required
             />
 

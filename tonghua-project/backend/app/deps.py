@@ -87,6 +87,9 @@ async def rate_limit_check(request: Request, current_user: Optional[dict] = None
 
     Returns True if the request is allowed, raises HTTPException 429 if rate limited.
     """
+    # Skip rate limiting in development mode when Redis is not available
+    is_development = settings.APP_ENV == "development"
+
     try:
         redis_client = await get_redis_client()
 
@@ -111,9 +114,12 @@ async def rate_limit_check(request: Request, current_user: Optional[dict] = None
                     detail="Too many requests. Please slow down."
                 )
         except redis.RedisError as e:
-            # Fail closed: Redis is critical for rate limiting
-            logger.error(f"Redis connection failed during global rate limiting: {e}")
-            raise HTTPException(status_code=503, detail="Service temporarily unavailable")
+            # Fail open in development mode, fail closed in production
+            if is_development:
+                logger.warning(f"Redis connection failed during global rate limiting (development mode): {e}")
+            else:
+                logger.error(f"Redis connection failed during global rate limiting: {e}")
+                raise HTTPException(status_code=503, detail="Service temporarily unavailable")
 
         # Public endpoint rate limit: 20 requests per minute per IP for auth endpoints
         public_endpoints = ["/api/v1/auth/login", "/api/v1/auth/register", "/api/v1/auth/refresh", "/api/v1/auth/wx-login"]
@@ -129,9 +135,12 @@ async def rate_limit_check(request: Request, current_user: Optional[dict] = None
                         detail="Too many requests. Please try again later."
                     )
             except redis.RedisError as e:
-                # Fail closed: Redis is critical for rate limiting
-                logger.error(f"Redis connection failed during public endpoint rate limiting: {e}")
-                raise HTTPException(status_code=503, detail="Service temporarily unavailable")
+                # Fail open in development mode, fail closed in production
+                if is_development:
+                    logger.warning(f"Redis connection failed during public endpoint rate limiting (development mode): {e}")
+                else:
+                    logger.error(f"Redis connection failed during public endpoint rate limiting: {e}")
+                    raise HTTPException(status_code=503, detail="Service temporarily unavailable")
 
         # User-specific rate limit: 60 requests per minute (if authenticated)
         if current_user and "id" in current_user:
@@ -147,9 +156,12 @@ async def rate_limit_check(request: Request, current_user: Optional[dict] = None
                         detail="Too many requests. Please slow down."
                     )
             except redis.RedisError as e:
-                # Fail closed: Redis is critical for rate limiting
-                logger.error(f"Redis connection failed during user rate limiting: {e}")
-                raise HTTPException(status_code=503, detail="Service temporarily unavailable")
+                # Fail open in development mode, fail closed in production
+                if is_development:
+                    logger.warning(f"Redis connection failed during user rate limiting (development mode): {e}")
+                else:
+                    logger.error(f"Redis connection failed during user rate limiting: {e}")
+                    raise HTTPException(status_code=503, detail="Service temporarily unavailable")
 
         return True
     except HTTPException:

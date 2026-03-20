@@ -53,10 +53,11 @@ export default function Donate() {
         number="05"
         title={t('donate.hero.title')}
         subtitle={t('donate.hero.subtitle')}
+        fullHeight={true}
       />
 
       {/* Main donation area */}
-      <SectionContainer>
+      <SectionContainer noTopSpacing>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
           {/* Left: Info */}
           <div className="md:col-span-5">

@@ -14,10 +14,14 @@ import ProductDetail from '@/pages/ProductDetail';
 import Traceability from '@/pages/Traceability';
 import Contact from '@/pages/Contact';
 import Login from '@/pages/Login';
+import Register from '@/pages/Register';
+import Profile from '@/pages/Profile';
 import NotFound from '@/pages/NotFound';
+import { useSessionRestore } from '@/hooks/useSessionRestore';
 
 function AnimatedRoutes() {
   const location = useLocation();
+  useSessionRestore(); // Restore session on app load
 
   return (
     <ErrorBoundary>
@@ -36,6 +40,8 @@ function AnimatedRoutes() {
             <Route path="traceability" element={<ErrorBoundary><Traceability /></ErrorBoundary>} />
             <Route path="contact" element={<ErrorBoundary><Contact /></ErrorBoundary>} />
             <Route path="login" element={<ErrorBoundary><Login /></ErrorBoundary>} />
+            <Route path="register" element={<ErrorBoundary><Register /></ErrorBoundary>} />
+            <Route path="profile" element={<ErrorBoundary><Profile /></ErrorBoundary>} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

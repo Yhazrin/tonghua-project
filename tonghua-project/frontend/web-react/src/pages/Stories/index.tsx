@@ -91,9 +91,10 @@ export default function Stories() {
         number="04"
         title={t('stories.hero.title')}
         subtitle={t('stories.hero.subtitle')}
+        hideHero={true}
       />
 
-      <SectionContainer>
+      <SectionContainer noTopSpacing>
         {/* Category filter */}
         <div className="flex items-center gap-1 mb-12 border-b border-warm-gray/30 overflow-x-auto">
           {categories.map((cat, index) => (

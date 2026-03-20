@@ -1,9 +1,10 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { useUIStore } from '@/stores/uiStore';
+import { useAuthStore } from '@/stores/authStore';
 import { useIsMobile } from '@/hooks/useMediaQuery';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 const NAV_ITEMS = [
   { key: 'home', path: '/' },
@@ -19,20 +20,47 @@ const NAV_ITEMS = [
 export default function Header() {
   const { t, i18n } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const { mobileNavOpen, toggleMobileNav, setMobileNavOpen, currentLocale, setLocale, setMenuTriggerRef } =
     useUIStore();
+  const { user, isAuthenticated, logout } = useAuthStore();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMenuTriggerRef(menuTriggerRef);
   }, [setMenuTriggerRef]);
 
+  // Close user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    };
+
+    if (userMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [userMenuOpen]);
+
   const toggleLocale = () => {
     const next = currentLocale === 'en' ? 'zh' : 'en';
     setLocale(next);
     i18n.changeLanguage(next);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setUserMenuOpen(false);
+    navigate('/');
   };
 
   return (
@@ -85,12 +113,56 @@ export default function Header() {
             {currentLocale === 'en' ? '中文' : 'EN'}
           </button>
 
-          <Link
-            to="/login"
-            className="hidden md:inline-block font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 rounded"
-          >
-            {t('nav.login')}
-          </Link>
+          {/* User menu - shown when authenticated */}
+          {isAuthenticated && user ? (
+            <div className="relative" ref={userMenuRef}>
+              <button
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="hidden md:flex items-center gap-2 font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 rounded"
+                aria-label="User menu"
+                aria-expanded={userMenuOpen}
+              >
+                <span className="text-[9px] tracking-[0.2em] text-sepia-mid font-mono">USER</span>
+                <span className="max-w-[120px] truncate">{user.nickname || user.email}</span>
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* Dropdown menu */}
+              {userMenuOpen && (
+                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 rounded shadow-lg z-50">
+                  <div className="py-2">
+                    <div className="px-4 py-2 border-b border-warm-gray/20">
+                      <p className="font-body text-xs text-ink-faded">{user.nickname || user.email}</p>
+                      <p className="font-body text-[10px] text-sepia-mid capitalize">{user.role}</p>
+                    </div>
+                    <Link
+                      to="/profile"
+                      className="block px-4 py-2 font-body text-sm text-ink hover:bg-warm-gray/10 transition-colors"
+                      onClick={() => setUserMenuOpen(false)}
+                    >
+                      {t('nav.profile')}
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 font-body text-sm text-ink hover:bg-warm-gray/10 transition-colors"
+                    >
+                      {t('nav.logout')}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            /* Login link - shown when not authenticated */
+            <Link
+              to="/login"
+              className="hidden md:inline-block font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 rounded"
+            >
+              {t('nav.login')}
+            </Link>
+          )}
 
           {/* Mobile hamburger */}
           {isMobile && (

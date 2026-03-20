@@ -169,9 +169,10 @@ export default function Campaigns() {
         number="03"
         title={t('campaigns.hero.title')}
         subtitle={t('campaigns.hero.subtitle')}
+        hideHero={true}
       />
 
-      <SectionContainer>
+      <SectionContainer noTopSpacing>
         <NumberedSectionHeading
           number="01"
           title={t('campaigns.listing.sectionTitle')}

@@ -4,6 +4,7 @@ interface SectionContainerProps {
   children: ReactNode;
   className?: string;
   noPadding?: boolean;
+  noTopSpacing?: boolean;
   narrow?: boolean;
   decorativeDivider?: boolean;
 }
@@ -12,13 +13,14 @@ export default function SectionContainer({
   children,
   className = '',
   noPadding = false,
+  noTopSpacing = false,
   narrow = false,
   decorativeDivider = false,
 }: SectionContainerProps) {
   return (
     <section
       className={`
-        ${noPadding ? '' : 'section-spacing'}
+        ${noPadding ? '' : noTopSpacing ? 'pb-16 md:pb-24' : 'section-spacing'}
         ${className}
         relative
       `}

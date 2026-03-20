@@ -38,9 +38,10 @@ export default function Contact() {
         number="08"
         title={t('contact.hero.title')}
         subtitle={t('contact.hero.subtitle')}
+        hideHero={true}
       />
 
-      <SectionContainer>
+      <SectionContainer noTopSpacing>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
           {/* Form */}
           <div className="md:col-span-7">

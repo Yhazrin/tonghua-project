@@ -148,9 +148,10 @@ export default function Shop() {
         number="06"
         title={t('shop.hero.title')}
         subtitle={t('shop.hero.subtitle')}
+        hideHero={true}
       />
 
-      <SectionContainer>
+      <SectionContainer noTopSpacing>
         <NumberedSectionHeading number="01" title="Collection" />
 
         {/* Filters and sort row */}
