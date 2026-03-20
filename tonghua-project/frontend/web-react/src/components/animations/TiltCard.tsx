@@ -1,18 +1,7 @@
-import { useRef, type ReactNode, useCallback, useState, useEffect } from 'react';
+import { useRef, type ReactNode, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
-
-function usePrefersReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduced(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
-    mql.addEventListener('change', handler);
-    return () => mql.removeEventListener('change', handler);
-  }, []);
-  return reduced;
-}
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface TiltCardProps {
   children: ReactNode;
@@ -36,7 +25,7 @@ export default function TiltCard({
 }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const isTouchDevice = useIsTouchDevice();
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   // Motion values for mouse position
   const mouseX = useMotionValue(0);

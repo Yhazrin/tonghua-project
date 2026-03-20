@@ -1,17 +1,6 @@
-import { useRef, useState, useEffect, type RefObject } from 'react';
+import { useRef, type RefObject } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-
-function usePrefersReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduced(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
-    mql.addEventListener('change', handler);
-    return () => mql.removeEventListener('change', handler);
-  }, []);
-  return reduced;
-}
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 /**
  * Hook to create scroll-linked path drawing animation
@@ -61,7 +50,7 @@ export function MotionPath({
   fill = 'none',
   containerRef,
 }: MotionPathProps) {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
@@ -143,7 +132,7 @@ export function ScrollPathDrawInline({
   containerRef,
   delay = 0,
 }: ScrollPathDrawInlineProps) {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const internalRef = useRef<HTMLDivElement>(null);
   const resolvedRef = containerRef || internalRef;
 

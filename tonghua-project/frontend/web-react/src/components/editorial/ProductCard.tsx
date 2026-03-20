@@ -16,7 +16,7 @@ interface ProductCardProps {
 
 function getSustainabilityTier(score: number, t: (key: string) => string): { label: string; colorClass: string; barColor: string } {
   if (score >= 90) return { label: t('shop.sustainabilityTiers.exceptional'), colorClass: 'text-rust', barColor: 'bg-rust' };
-  if (score >= 80) return { label: t('shop.sustainabilityTiers.excellent'), colorClass: 'text-olive-green', barColor: 'bg-olive-green' };
+  if (score >= 80) return { label: t('shop.sustainabilityTiers.excellent'), colorClass: 'text-eco-green', barColor: 'bg-eco-green' };
   return { label: t('shop.sustainabilityTiers.good'), colorClass: 'text-sepia-mid', barColor: 'bg-sepia-mid' };
 }
 
@@ -166,7 +166,7 @@ export default function ProductCard({
                 <motion.p
                   initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="font-body text-[10px] text-olive-green tracking-wide text-center py-2"
+                  className="font-body text-[10px] text-eco-green tracking-wide text-center py-2"
                 >
                   {t('shop.notifyMeSuccess')}
                 </motion.p>

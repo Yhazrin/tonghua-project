@@ -104,7 +104,7 @@ export default function CurtainTransition({ children }: CurtainTransitionProps) 
               className="absolute inset-0 z-50 pointer-events-none"
               style={{
                 background:
-                  'linear-gradient(90deg, var(--color-sepia-light) 0%, color-mix(in srgb, var(--color-sepia-light) 60%, var(--color-pale-gold-light)) 50%, var(--color-pale-gold-light) 100%)',
+                  'linear-gradient(90deg, var(--color-paper) 0%, color-mix(in srgb, var(--color-paper) 60%, var(--color-aged-stock)) 50%, var(--color-aged-stock) 100%)',
               }}
               aria-hidden="true"
             />
@@ -118,7 +118,7 @@ export default function CurtainTransition({ children }: CurtainTransitionProps) 
               className="absolute inset-0 z-50 pointer-events-none"
               style={{
                 background:
-                  'linear-gradient(90deg, var(--color-pale-gold-light) 50%, color-mix(in srgb, var(--color-sepia-light) 60%, var(--color-pale-gold-light)) 100%, var(--color-sepia-light) 100%)',
+                  'linear-gradient(90deg, var(--color-aged-stock) 50%, color-mix(in srgb, var(--color-paper) 60%, var(--color-aged-stock)) 100%, var(--color-paper) 100%)',
               }}
               aria-hidden="true"
             />

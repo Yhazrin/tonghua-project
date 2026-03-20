@@ -72,6 +72,13 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-warm-gray/30">
+      {/* Skip to content - visible on focus for keyboard users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-ink focus:text-paper focus:font-body focus:text-sm focus:tracking-wide"
+      >
+        {t('nav.skipToContent', 'Skip to content')}
+      </a>
       {/* Grain overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]" aria-hidden="true" style={GRAIN_STYLE} />
       <div className="relative max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-20">
