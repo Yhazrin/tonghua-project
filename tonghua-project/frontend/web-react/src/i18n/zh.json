@@ -646,6 +646,7 @@
     "detail": {
       "heading": "作品详情",
       "artist": "创作者",
+      "artistInfo": "{{name}}，{{age}} 岁",
       "vote": "为作品投票",
       "votes": "票",
       "tags": "标签"

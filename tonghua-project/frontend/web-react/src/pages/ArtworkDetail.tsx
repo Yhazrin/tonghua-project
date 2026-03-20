@@ -122,7 +122,7 @@ export default function ArtworkDetail() {
                   {t('artwork.detail.artist')}
                 </p>
                 <p className="font-body text-xs text-ink-faded">
-                  {artwork.childParticipant.firstName}, age {artwork.childParticipant.age}
+                  {t('artwork.detail.artistInfo', { name: artwork.childParticipant.firstName, age: artwork.childParticipant.age })}
                 </p>
                 {artwork.childParticipant.schoolName && (
                   <p className="font-body text-xs text-ink-faded mt-1">

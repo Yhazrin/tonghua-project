@@ -576,7 +576,7 @@ export default function Traceability() {
             <div className="absolute top-0 -left-6 bottom-0 w-px hidden md:block" aria-hidden="true">
               <ScrollPathDrawInline
                 path="M0,0 L0,800"
-                strokeColor="#A0896E"
+                strokeColor="var(--color-warm-gray)"
                 strokeWidth={1}
                 className="h-full w-4"
                 containerRef={timelineRef}
@@ -599,7 +599,7 @@ export default function Traceability() {
       <div className="flex justify-center py-4" aria-hidden="true">
         <ScrollPathDrawInline
           path="M0,20 C60,5 120,35 180,20 S300,5 360,20"
-          strokeColor="#A0896E"
+          strokeColor="var(--color-warm-gray)"
           strokeWidth={1}
           className="w-64 h-10"
         />

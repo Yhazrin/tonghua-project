@@ -307,6 +307,7 @@ export default function Stories() {
             <motion.button
               key={cat}
               onClick={() => setActiveCategory(cat)}
+              aria-pressed={activeCategory === cat}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}

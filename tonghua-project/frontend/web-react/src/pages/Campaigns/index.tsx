@@ -214,6 +214,7 @@ export default function Campaigns() {
             <motion.button
               key={status}
               onClick={() => handleFilterChange(status)}
+              aria-pressed={filter === status}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}

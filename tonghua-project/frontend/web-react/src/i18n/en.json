@@ -646,6 +646,7 @@
     "detail": {
       "heading": "Artwork",
       "artist": "Artist",
+      "artistInfo": "{{name}}, age {{age}}",
       "vote": "Vote for this Artwork",
       "votes": "Votes",
       "tags": "Tags"

@@ -1,23 +1,33 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import FlipPageTransition from '@/components/transitions/FlipPageTransition';
 import ErrorBoundary from '@/components/editorial/ErrorBoundary';
-import Home from '@/pages/Home';
-import About from '@/pages/About';
-import Campaigns from '@/pages/Campaigns';
-import CampaignDetail from '@/pages/CampaignDetail';
-import Stories from '@/pages/Stories';
-import ArtworkDetail from '@/pages/ArtworkDetail';
-import Donate from '@/pages/Donate';
-import Shop from '@/pages/Shop';
-import ProductDetail from '@/pages/ProductDetail';
-import Traceability from '@/pages/Traceability';
-import Contact from '@/pages/Contact';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
-import Profile from '@/pages/Profile';
-import NotFound from '@/pages/NotFound';
 import { useSessionRestore } from '@/hooks/useSessionRestore';
+
+const Home = lazy(() => import('@/pages/Home'));
+const About = lazy(() => import('@/pages/About'));
+const Campaigns = lazy(() => import('@/pages/Campaigns'));
+const CampaignDetail = lazy(() => import('@/pages/CampaignDetail'));
+const Stories = lazy(() => import('@/pages/Stories'));
+const ArtworkDetail = lazy(() => import('@/pages/ArtworkDetail'));
+const Donate = lazy(() => import('@/pages/Donate'));
+const Shop = lazy(() => import('@/pages/Shop'));
+const ProductDetail = lazy(() => import('@/pages/ProductDetail'));
+const Traceability = lazy(() => import('@/pages/Traceability'));
+const Contact = lazy(() => import('@/pages/Contact'));
+const Login = lazy(() => import('@/pages/Login'));
+const Register = lazy(() => import('@/pages/Register'));
+const Profile = lazy(() => import('@/pages/Profile'));
+const NotFound = lazy(() => import('@/pages/NotFound'));
+
+function PageLoader() {
+  return (
+    <div className="flex items-center justify-center min-h-[50dvh]">
+      <div className="w-6 h-6 border-2 border-warm-gray border-t-rust rounded-full animate-spin" />
+    </div>
+  );
+}
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -26,7 +36,8 @@ function AnimatedRoutes() {
   return (
     <ErrorBoundary>
       <FlipPageTransition>
-        <Routes location={location} key={location.pathname}>
+        <Suspense fallback={<PageLoader />}>
+          <Routes location={location} key={location.pathname}>
           <Route element={<Layout />}>
             <Route index element={<ErrorBoundary><Home /></ErrorBoundary>} />
             <Route path="about" element={<ErrorBoundary><About /></ErrorBoundary>} />
@@ -44,7 +55,8 @@ function AnimatedRoutes() {
             <Route path="profile" element={<ErrorBoundary><Profile /></ErrorBoundary>} />
             <Route path="*" element={<NotFound />} />
           </Route>
-        </Routes>
+          </Routes>
+        </Suspense>
       </FlipPageTransition>
     </ErrorBoundary>
   );
