@@ -129,7 +129,7 @@ export default function Header() {
               >
                 <span className="text-[9px] tracking-[0.2em] text-sepia-mid font-mono">USER</span>
                 <span className="max-w-[120px] truncate">{user.nickname || user.email}</span>
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>

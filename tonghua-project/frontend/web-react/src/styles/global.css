@@ -36,7 +36,7 @@ html {
 body {
   background-color: var(--color-paper);
   color: var(--color-ink);
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   position: relative;
 }
@@ -715,6 +715,11 @@ input, textarea, select {
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-content {
+    animation: none !important;
+  }
+  .animate-fade-in,
+  .animate-fade-up,
+  .animate-fade-down {
     animation: none !important;
   }
 }

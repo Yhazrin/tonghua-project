@@ -109,7 +109,7 @@ export default function Register() {
             />
 
             {(localError || registerError) && (
-              <div className="text-red-600 text-sm text-center">
+              <div className="text-rust text-sm text-center">
                 {localError || registerError}
               </div>
             )}

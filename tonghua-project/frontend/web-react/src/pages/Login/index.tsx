@@ -78,9 +78,6 @@ export default function Login() {
             />
 
             <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <span className="font-body text-xs text-ink-faded">{t('login.rememberMe')}</span>
-              </label>
               <Link
                 to="#"
                 className="font-body text-xs text-rust hover:text-ink transition-colors"
@@ -90,7 +87,7 @@ export default function Login() {
             </div>
 
             {loginError && (
-              <div className="text-red-600 text-sm text-center mb-4">
+              <div className="text-rust text-sm text-center mb-4">
                 {loginError}
               </div>
             )}
