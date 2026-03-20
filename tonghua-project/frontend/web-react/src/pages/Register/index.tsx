@@ -96,7 +96,7 @@ export default function Register() {
             />
 
             {(localError || registerError) && (
-              <div className="text-rust text-sm text-center">
+              <div role="alert" aria-live="assertive" className="border-l-2 border-rust pl-4 text-rust text-sm text-center">
                 {localError || registerError}
               </div>
             )}

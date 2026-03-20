@@ -211,7 +211,7 @@ export default function ProductDetail() {
                     {[1, 2, 3, 4, 5].map((level) => (
                       <div
                         key={level}
-                        className={`w-4 h-4 rounded-full ${
+                        className={`w-4 h-4 ${
                           level <= product.sustainabilityScore / 20
                             ? 'bg-archive-brown'
                             : 'bg-warm-gray/40'

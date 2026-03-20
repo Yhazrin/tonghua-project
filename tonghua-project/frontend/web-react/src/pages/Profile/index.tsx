@@ -53,7 +53,7 @@ export default function Profile() {
               <div className="space-y-6">
                 {/* User Info */}
                 <div className="flex items-center gap-6 pb-6 border-b border-warm-gray/20">
-                  <div className="w-16 h-16 rounded-full bg-warm-gray/20 flex items-center justify-center">
+                  <div className="w-16 h-16 bg-warm-gray/20 flex items-center justify-center">
                     <span className="font-display text-xl text-ink">
                       {user.nickname ? user.nickname.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase()}
                     </span>

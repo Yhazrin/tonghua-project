@@ -328,7 +328,7 @@ export default function Campaigns() {
                             )}
                           </div>
 
-                          <h3 className="font-display text-h3 md:text-h2 font-bold text-ink mb-3 group-hover:text-rust transition-colors">
+                          <h3 className="font-display text-h3 md:text-h2 font-bold text-ink mb-3 transition-colors duration-300 ease-out group-hover:text-rust">
                             {campaign.title}
                           </h3>
 

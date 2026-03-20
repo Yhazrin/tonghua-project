@@ -74,7 +74,7 @@ export default function Login() {
             </div>
 
             {loginError && (
-              <div className="text-rust text-sm text-center mb-4">
+              <div role="alert" aria-live="assertive" className="border-l-2 border-rust pl-4 text-rust text-sm text-center mb-4">
                 {loginError}
               </div>
             )}
