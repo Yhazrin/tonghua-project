@@ -80,15 +80,15 @@ export default function Profile() {
               {/* Account Details */}
               <div className="space-y-4">
                 <h3 className="font-body text-sm tracking-[0.1em] uppercase text-sepia-mid">
-                  Account Details
+                  {t('profile.accountDetails')}
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="font-body text-xs text-ink-faded mb-1">User ID</p>
+                    <p className="font-body text-xs text-ink-faded mb-1">{t('profile.userId')}</p>
                     <p className="font-body text-sm text-ink">{user.id}</p>
                   </div>
                   <div>
-                    <p className="font-body text-xs text-ink-faded mb-1">Role</p>
+                    <p className="font-body text-xs text-ink-faded mb-1">{t('profile.role')}</p>
                     <p className="font-body text-sm text-ink capitalize">{user.role}</p>
                   </div>
                 </div>

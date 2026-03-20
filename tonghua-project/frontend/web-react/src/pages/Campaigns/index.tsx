@@ -130,7 +130,7 @@ export default function Campaigns() {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['campaigns', { status: filter, page, search }],
     queryFn: async () => {
       try {
@@ -249,7 +249,12 @@ export default function Campaigns() {
         </p>
 
         {/* Campaign list */}
-        {isLoading ? (
+        {error ? (
+          <div className="text-center py-20">
+            <p className="font-body text-sm text-rust">{t('common.error')}</p>
+            <p className="font-body text-xs text-sepia-mid mt-2">{t('common.retry')}</p>
+          </div>
+        ) : isLoading ? (
           <div className="space-y-16">
             {[1, 2, 3].map((i) => (
               <div key={i} className="animate-pulse grid grid-cols-1 md:grid-cols-12 gap-8 items-center">

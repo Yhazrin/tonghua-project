@@ -11,11 +11,17 @@
     "login": "登录",
     "register": "注册",
     "profile": "个人中心",
-    "logout": "退出"
+    "logout": "退出",
+    "toggleMenu": "切换导航菜单",
+    "toggleLanguage": "切换语言",
+    "userMenu": "用户菜单"
   },
   "profile": {
     "title": "个人中心",
-    "notLoggedIn": "请登录以查看您的个人资料。"
+    "notLoggedIn": "请登录以查看您的个人资料。",
+    "accountDetails": "账户详情",
+    "userId": "用户 ID",
+    "role": "角色"
   },
   "home": {
     "hero": {
@@ -152,7 +158,11 @@
     "emptyState": {
       "title": "此分类下没有找到活动。",
       "subtitle": "请稍后再来查看。"
-    }
+    },
+    "campaign": "活动",
+    "about": "关于此活动",
+    "artworks": "作品",
+    "backToAll": "返回全部活动"
   },
   "stories": {
     "hero": {
@@ -200,7 +210,14 @@
       "anonymous": "匿名捐赠",
       "message": "留言（可选）",
       "submit": "完成捐赠",
-      "processing": "处理中..."
+      "processing": "处理中...",
+      "errors": {
+        "invalidAmount": "请输入有效金额",
+        "minAmount": "最低捐赠金额为 ¥{{min}}",
+        "maxAmount": "最高捐赠金额为 ¥{{max}}"
+      },
+      "amountRange": "金额范围：¥{{min}} - ¥{{max}}",
+      "success": "感谢您的捐赠！"
     },
     "tiers": {
       "seedling": {
@@ -334,7 +351,11 @@
       "sustainability": "可持续评分",
       "artwork": "基于作品",
       "size": "尺码",
-      "quantity": "数量"
+      "quantity": "数量",
+      "origin": "贵州省，2025年11月",
+      "decreaseQuantity": "减少数量",
+      "increaseQuantity": "增加数量",
+      "carbonFootprint": "总碳足迹：{{value}} 千克 CO\u2082e \u00b7 通过认证项目抵消"
     },
     "sort": {
       "label": "排序",
@@ -531,7 +552,8 @@
     "register": "创建账户",
     "forgotPassword": "忘记密码？",
     "orContinueWith": "或使用以下方式继续",
-    "wechat": "微信"
+    "wechat": "微信",
+    "rememberMe": "记住我"
   },
   "register": {
     "title": "加入我们的社区",
@@ -573,14 +595,17 @@
       "terms": "使用条款",
       "children": "儿童保护"
     },
-    "copyright": "© 2026 童画公益。保留所有权利。",
+    "copyright": "© {{year}} VICOO。保留所有权利。",
+    "copyrightTonghua": "© 2026 童画公益。保留所有权利。",
     "issueNo": "第01期 — 创刊号",
+    "tagline": "童年想象力遇见有意识的时装。",
+    "brandTagline": "创意机遇中的远见",
     "newsletter": {
       "title": "通讯季刊",
-      "body": "每季度来自编辑台的通讯。",
+      "body": "每季度来自编辑台的通讯。绝不发送垃圾邮件，只分享故事。",
       "placeholder": "your@email.com",
       "subscribe": "订阅",
-      "ariaLabel": "电子邮箱"
+      "ariaLabel": "电子邮箱地址"
     },
     "location": "中国 · 上海",
     "builtWith": "用心构建"
@@ -596,7 +621,9 @@
       "vote": "为作品投票",
       "votes": "票",
       "tags": "标签"
-    }
+    },
+    "loadError": "加载作品失败",
+    "notFound": "未找到作品"
   },
   "common": {
     "loading": "加载中...",

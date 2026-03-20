@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { OrigamiCorner, OrigamiDivider, OrigamiFoldAccent } from '@/components/animations/OrigamiFold';
 
+const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
+const SEPIA_GRADIENT_STYLE: React.CSSProperties = { background: 'linear-gradient(to bottom, transparent 0%, rgba(139, 90, 43, 0.1) 100%)' };
+
 export default function EditorialFooter() {
   const { t } = useTranslation();
   const year = new Date().getFullYear();
@@ -12,18 +15,14 @@ export default function EditorialFooter() {
       {/* Grain overlay */}
       <div
         className="absolute inset-0 z-0 pointer-events-none opacity-10"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-        }}
+        style={GRAIN_STYLE}
         aria-hidden="true"
       />
 
       {/* Sepia gradient overlay */}
       <div
         className="absolute inset-0 z-0 pointer-events-none opacity-5"
-        style={{
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(139, 90, 43, 0.1) 100%)'
-        }}
+        style={SEPIA_GRADIENT_STYLE}
         aria-hidden="true"
       />
 
@@ -78,7 +77,7 @@ export default function EditorialFooter() {
               VICOO
             </h3>
             <p className="font-body text-sm text-warm-gray leading-relaxed max-w-xs mb-6">
-              Vision In Creative Opportunity
+              {t('footer.brandTagline')}
             </p>
             <div className="w-12 h-px bg-pale-gold mb-6" aria-hidden="true" />
             <p className="font-body text-[10px] tracking-[0.2em] uppercase text-sepia-mid">
@@ -168,10 +167,10 @@ export default function EditorialFooter() {
             />
 
             <h4 className="font-body text-[10px] tracking-[0.2em] uppercase text-sepia-mid mb-6">
-              Newsletter
+              {t('footer.newsletter.title')}
             </h4>
             <p className="font-body text-xs text-warm-gray mb-4 leading-relaxed">
-              Quarterly dispatches from the editor's desk. No spam, only stories.
+              {t('footer.newsletter.body')}
             </p>
             <motion.form
               onSubmit={(e) => e.preventDefault()}
@@ -180,11 +179,14 @@ export default function EditorialFooter() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1 }}
             >
+              <label htmlFor="newsletter-email" className="sr-only">
+                {t('footer.newsletter.ariaLabel')}
+              </label>
               <motion.input
+                id="newsletter-email"
                 type="email"
-                placeholder="your@email.com"
+                placeholder={t('footer.newsletter.placeholder')}
                 className="bg-transparent border-b border-sepia-mid/30 text-paper font-body text-xs py-2 outline-none focus:border-pale-gold transition-colors placeholder:text-sepia-mid/40"
-                aria-label="Email address"
                 whileFocus={{ scale: 1.01 }}
               />
               <motion.button
@@ -192,7 +194,7 @@ export default function EditorialFooter() {
                 className="font-body text-[10px] tracking-[0.15em] uppercase text-pale-gold hover:text-paper transition-colors text-left cursor-pointer"
                 whileHover={{ x: 4 }}
               >
-                Subscribe &rarr;
+                {t('footer.newsletter.subscribe')} &rarr;
               </motion.button>
             </motion.form>
           </div>
@@ -201,14 +203,14 @@ export default function EditorialFooter() {
         {/* Divider */}
         <div className="border-t border-sepia-mid/20 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <p className="font-body text-[11px] text-sepia-mid">
-            &copy; {year} VICOO. All rights reserved.
+            {t('footer.copyright', { year })}
           </p>
           <div className="flex items-center gap-6">
             <span className="font-body text-[11px] text-sepia-mid">
-              Shanghai, China
+              {t('footer.location')}
             </span>
             <span className="font-body text-[11px] text-sepia-mid">
-              Built with care
+              {t('footer.builtWith')}
             </span>
           </div>
         </div>

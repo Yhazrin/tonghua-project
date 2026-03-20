@@ -108,7 +108,7 @@ export default function Shop() {
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const [sortBy, setSortBy] = useState<SortOption>('default');
 
-  const { data } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['products', { category: activeCategory }],
     queryFn: async () => {
       try {
@@ -212,7 +212,22 @@ export default function Shop() {
         </p>
 
         {/* Product grid */}
-        {filtered.length === 0 ? (
+        {isLoading ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-14">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="space-y-3">
+                <div className="aspect-[3/4] bg-aged-stock animate-pulse border border-warm-gray/30" />
+                <div className="h-4 bg-aged-stock animate-pulse w-3/4" />
+                <div className="h-3 bg-aged-stock animate-pulse w-1/2" />
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="text-center py-20">
+            <p className="font-body text-sm text-rust">{t('common.error')}</p>
+            <p className="font-body text-xs text-sepia-mid mt-2">{t('common.retry')}</p>
+          </div>
+        ) : filtered.length === 0 ? (
           <p className="font-body text-sm text-sepia-mid py-20 text-center">
             {t('shop.empty')}
           </p>

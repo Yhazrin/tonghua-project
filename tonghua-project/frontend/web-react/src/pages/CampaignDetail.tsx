@@ -103,7 +103,7 @@ export default function CampaignDetail() {
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
           <div className="max-w-[1400px] mx-auto">
             <span className="font-body text-[10px] tracking-[0.3em] uppercase text-pale-gold mb-3 block">
-              {t(`campaigns.status.${campaign.status}`)} Campaign
+              {t(`campaigns.status.${campaign.status}`)} {t('campaigns.campaign')}
             </span>
             <BleedTitleBlock>
               <span className="text-paper">{campaign.title}</span>
@@ -118,7 +118,7 @@ export default function CampaignDetail() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
             {/* Main content */}
             <div className="md:col-span-7">
-              <NumberedSectionHeading number="01" title="About This Campaign" />
+              <NumberedSectionHeading number="01" title={t('campaigns.about')} />
               <p className="font-body text-sm text-ink-faded leading-[1.8] mb-6">
                 {campaign.description}
               </p>
@@ -159,7 +159,7 @@ export default function CampaignDetail() {
                     <div>
                       <p className="font-display text-xl text-ink">{campaign.artworkCount}</p>
                       <p className="font-body text-[10px] text-sepia-mid tracking-wider uppercase">
-                        Artworks
+                        {t('campaigns.artworks')}
                       </p>
                     </div>
                   </div>
@@ -196,7 +196,7 @@ export default function CampaignDetail() {
           to="/campaigns"
           className="font-body text-xs tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors"
         >
-          &larr; {t('common.back')} to all campaigns
+          &larr; {t('common.back')} {t('campaigns.backToAll')}
         </Link>
       </SectionContainer>
     </PageWrapper>

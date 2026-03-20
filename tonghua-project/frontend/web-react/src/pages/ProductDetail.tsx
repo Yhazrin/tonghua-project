@@ -182,10 +182,10 @@ export default function ProductDetail() {
               {/* Artwork source */}
               <div className="border border-warm-gray/30 p-4 mb-8">
                 <p className="font-body text-xs text-sepia-mid tracking-wider uppercase mb-1">
-                  {t('shop.detail.artwork')} Mei, age 8
+                  {t('shop.product.artworkBy', { name: 'Mei', age: 8 })}
                 </p>
                 <p className="font-body text-xs text-ink-faded">
-                  Guizhou Province, November 2025
+                  {t('shop.detail.origin')}
                 </p>
               </div>
 
@@ -221,7 +221,7 @@ export default function ProductDetail() {
                 <div className="flex items-center border border-warm-gray/50">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    aria-label="Decrease quantity"
+                    aria-label={t('shop.detail.decreaseQuantity')}
                     className="px-3 py-2 text-ink hover:bg-warm-gray/20 transition-colors"
                   >
                     -
@@ -229,7 +229,7 @@ export default function ProductDetail() {
                   <span className="font-body text-sm px-4 py-2 text-ink" aria-live="polite">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    aria-label="Increase quantity"
+                    aria-label={t('shop.detail.increaseQuantity')}
                     className="px-3 py-2 text-ink hover:bg-warm-gray/20 transition-colors"
                   >
                     +
@@ -267,7 +267,7 @@ export default function ProductDetail() {
           <NumberedSectionHeading
             number="01"
             title={t('shop.detail.supplyChain')}
-            subtitle={`Total carbon footprint: ${totalCarbon.toFixed(1)} kg CO\u2082e \u00b7 Offset via verified programs`}
+            subtitle={t('shop.detail.carbonFootprint', { value: totalCarbon.toFixed(1) })}
           />
           <TraceabilityTimeline records={product.supplyChain} />
         </SectionContainer>
@@ -279,7 +279,7 @@ export default function ProductDetail() {
           to="/shop"
           className="font-body text-xs tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors"
         >
-          &larr; {t('common.back')} to shop
+          &larr; {t('common.back')} {t('nav.shop')}
         </Link>
       </SectionContainer>
     </PageWrapper>

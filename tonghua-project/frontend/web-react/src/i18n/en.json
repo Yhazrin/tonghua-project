@@ -11,11 +11,17 @@
     "login": "Login",
     "register": "Register",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "toggleMenu": "Toggle navigation menu",
+    "toggleLanguage": "Toggle language",
+    "userMenu": "User menu"
   },
   "profile": {
     "title": "My Profile",
-    "notLoggedIn": "Please log in to view your profile."
+    "notLoggedIn": "Please log in to view your profile.",
+    "accountDetails": "Account Details",
+    "userId": "User ID",
+    "role": "Role"
   },
   "home": {
     "hero": {
@@ -152,7 +158,11 @@
     "emptyState": {
       "title": "No campaigns found in this category.",
       "subtitle": "Check back soon."
-    }
+    },
+    "campaign": "Campaign",
+    "about": "About This Campaign",
+    "artworks": "Artworks",
+    "backToAll": "to all campaigns"
   },
   "stories": {
     "hero": {
@@ -200,7 +210,14 @@
       "anonymous": "Make this donation anonymous",
       "message": "Leave a message (optional)",
       "submit": "Complete Donation",
-      "processing": "Processing..."
+      "processing": "Processing...",
+      "errors": {
+        "invalidAmount": "Please enter a valid amount",
+        "minAmount": "Minimum donation is ¥{{min}}",
+        "maxAmount": "Maximum donation is ¥{{max}}"
+      },
+      "amountRange": "Amount: ¥{{min}} - ¥{{max}}",
+      "success": "Thank you for your donation!"
     },
     "tiers": {
       "seedling": {
@@ -334,7 +351,11 @@
       "sustainability": "Sustainability Score",
       "artwork": "Based on artwork by",
       "size": "Size",
-      "quantity": "Quantity"
+      "quantity": "Quantity",
+      "origin": "Guizhou Province, November 2025",
+      "decreaseQuantity": "Decrease quantity",
+      "increaseQuantity": "Increase quantity",
+      "carbonFootprint": "Total carbon footprint: {{value}} kg CO\u2082e \u00b7 Offset via verified programs"
     },
     "sort": {
       "label": "Sort by",
@@ -531,7 +552,8 @@
     "register": "Create an Account",
     "forgotPassword": "Forgot Password?",
     "orContinueWith": "Or continue with",
-    "wechat": "WeChat"
+    "wechat": "WeChat",
+    "rememberMe": "Remember me"
   },
   "register": {
     "title": "Join Our Community",
@@ -573,14 +595,17 @@
       "terms": "Terms of Use",
       "children": "Children's Protection"
     },
-    "copyright": "© 2026 Tonghua Public Welfare. All rights reserved.",
+    "copyright": "© {{year}} VICOO. All rights reserved.",
+    "copyrightTonghua": "© 2026 Tonghua Public Welfare. All rights reserved.",
     "issueNo": "Issue No. 01 — Inaugural Edition",
+    "tagline": "Where childhood imagination meets conscious couture.",
+    "brandTagline": "Vision In Creative Opportunity",
     "newsletter": {
       "title": "Newsletter",
-      "body": "Quarterly dispatches from the editor's desk.",
+      "body": "Quarterly dispatches from the editor's desk. No spam, only stories.",
       "placeholder": "your@email.com",
       "subscribe": "Subscribe",
-      "ariaLabel": "Email address"
+      "ariaLabel": "Email address for newsletter"
     },
     "location": "Shanghai, China",
     "builtWith": "Built with care"
@@ -596,7 +621,9 @@
       "vote": "Vote for this Artwork",
       "votes": "Votes",
       "tags": "Tags"
-    }
+    },
+    "loadError": "Failed to load artwork",
+    "notFound": "Artwork not found"
   },
   "common": {
     "loading": "Loading...",

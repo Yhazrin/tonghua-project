@@ -79,7 +79,7 @@ export default function Login() {
 
             <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 cursor-pointer">
-                <span className="font-body text-xs text-ink-faded">Remember me</span>
+                <span className="font-body text-xs text-ink-faded">{t('login.rememberMe')}</span>
               </label>
               <Link
                 to="#"

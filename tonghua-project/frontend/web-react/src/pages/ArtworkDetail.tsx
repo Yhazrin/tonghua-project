@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
@@ -17,20 +17,28 @@ export default function ArtworkDetail() {
   const [error, setError] = useState<string | null>(null);
 
   // Load artwork data
-  if (loading && id) {
+  useEffect(() => {
+    if (!id) return;
+    let cancelled = false;
+    setLoading(true);
     artworksApi
       .getById(id)
       .then((data) => {
-        setArtwork(data);
-        setLoading(false);
+        if (!cancelled) {
+          setArtwork(data);
+          setLoading(false);
+        }
       })
       .catch((err) => {
-        setError(err.message || 'Failed to load artwork');
-        setLoading(false);
+        if (!cancelled) {
+          setError(err.message || t('artwork.loadError'));
+          setLoading(false);
+        }
       });
-  }
+    return () => { cancelled = true; };
+  }, [id]);
 
-  const handleVote = async () => {
+  const handleVote = useCallback(async () => {
     if (!id) return;
     try {
       const result = await artworksApi.vote(id);
@@ -38,14 +46,14 @@ export default function ArtworkDetail() {
     } catch (err) {
       console.error('Failed to vote', err);
     }
-  };
+  }, [id]);
 
   if (loading) {
     return (
       <PageWrapper>
         <PaperTextureBackground variant="paper" className="py-16 md:py-24">
           <SectionContainer>
-            <p className="font-body text-sepia-mid">Loading...</p>
+            <p className="font-body text-sepia-mid">{t('common.loading')}</p>
           </SectionContainer>
         </PaperTextureBackground>
       </PageWrapper>
@@ -59,13 +67,13 @@ export default function ArtworkDetail() {
           <SectionContainer>
             <div className="text-center">
               <h1 className="font-display text-2xl text-ink mb-4">
-                Artwork not found
+                {t('artwork.notFound')}
               </h1>
               <Link
                 to="/stories"
                 className="font-body text-xs tracking-[0.15em] uppercase text-rust hover:text-ink transition-colors"
               >
-                &larr; Back to Stories
+                &larr; {t('common.back')} {t('nav.stories')}
               </Link>
             </div>
           </SectionContainer>
@@ -172,7 +180,7 @@ export default function ArtworkDetail() {
           to="/stories"
           className="font-body text-xs tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors"
         >
-          &larr; {t('common.back')} to Stories
+          &larr; {t('common.back')} {t('nav.stories')}
         </Link>
       </SectionContainer>
     </PageWrapper>

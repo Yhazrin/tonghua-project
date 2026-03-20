@@ -147,7 +147,7 @@ export default function ProductCard({
 
           {/* Notify Me for out-of-stock */}
           {!product.inStock && (
-            <div className="mt-3" onClick={(e) => e.preventDefault()} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') e.stopPropagation(); }} role="presentation">
+            <div className="mt-3" onClick={(e) => e.preventDefault()} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); } }} role="button" tabIndex={0}>
               {!showNotifyInput ? (
                 <motion.button
                   whileHover={{ scale: 1.02 }}

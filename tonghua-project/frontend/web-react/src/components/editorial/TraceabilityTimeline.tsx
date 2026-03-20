@@ -3,6 +3,8 @@ import { useRef } from 'react';
 import type { SupplyChainRecord } from '@/types';
 import { useTranslation } from 'react-i18next';
 
+const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
+
 interface TraceabilityTimelineProps {
   records: SupplyChainRecord[];
   className?: string;
@@ -129,9 +131,7 @@ export default function TraceabilityTimeline({
               className="relative p-6 border-2 border-rust/30 bg-paper transition-all duration-300 hover:border-rust/50 overflow-hidden"
             >
               {/* Grain overlay */}
-              <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08]" style={{
-                backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")'
-              }} />
+              <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08]" style={GRAIN_STYLE} />
 
               {/* Sepia corner accents */}
               <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-rust/30" />

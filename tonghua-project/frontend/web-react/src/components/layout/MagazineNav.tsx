@@ -6,6 +6,8 @@ import { useAuthStore } from '@/stores/authStore';
 import { useIsMobile } from '@/hooks/useMediaQuery';
 import { useRef, useEffect, useState } from 'react';
 
+const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
+
 const NAV_ITEMS = [
   { key: 'home', path: '/' },
   { key: 'about', path: '/about' },
@@ -61,9 +63,7 @@ export default function MagazineNav() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-warm-gray/30">
       {/* Grain overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-      }} />
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]" style={GRAIN_STYLE} />
 
       <div className="relative max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
@@ -129,7 +129,7 @@ export default function MagazineNav() {
           <button
             onClick={toggleLocale}
             className="relative font-body text-[10px] tracking-[0.1em] uppercase text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 rounded-sm cursor-pointer overflow-hidden group"
-            aria-label="Toggle language"
+            aria-label={t('nav.toggleLanguage')}
           >
             <span className="relative z-10">{currentLocale === 'en' ? '中文' : 'EN'}</span>
             <motion.div
@@ -146,7 +146,7 @@ export default function MagazineNav() {
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="hidden md:flex items-center gap-2 font-body text-[11px] tracking-[0.05em] text-ink-faded hover:text-ink transition-colors px-4 py-2 border border-warm-gray/40 rounded-sm overflow-hidden group"
-                aria-label="User menu"
+                aria-label={t('nav.userMenu')}
                 aria-expanded={userMenuOpen}
               >
                 <span className="relative z-10">{user.nickname || user.email}</span>

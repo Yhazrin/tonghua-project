@@ -9,6 +9,8 @@ import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import { VintageInput } from '@/components/editorial/VintageInput';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
+const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
+
 const MAX_MESSAGE_LENGTH = 1000;
 
 type FormStatus = 'idle' | 'validation' | 'sending' | 'success' | 'error';
@@ -192,9 +194,7 @@ function ContactInfoCard({
         {/* Grain overlay */}
         <div
           className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          }}
+          style={GRAIN_STYLE}
         />
 
         {/* Corner accents */}
@@ -404,9 +404,7 @@ export default function Contact() {
                   {/* Grain overlay */}
                   <div
                     className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-                    }}
+                    style={GRAIN_STYLE}
                   />
 
                   {/* Corner accents */}
