@@ -14,7 +14,7 @@ export default function TraceabilityTimeline({
   records,
   className = '',
 }: TraceabilityTimelineProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Scroll-linked animation for the vertical path line
@@ -165,7 +165,7 @@ export default function TraceabilityTimeline({
                   <div className="font-body text-[11px] text-sepia-mid">
                     <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.dateLabel')}</span>{' '}
                     <span className="text-ink-faded font-medium">
-                      {new Date(record.date).toLocaleDateString('en-US', {
+                      {new Date(record.date).toLocaleDateString(i18n.language === 'zh' ? 'zh-CN' : 'en-US', {
                         year: 'numeric',
                         month: 'short',
                         day: 'numeric',
@@ -174,7 +174,7 @@ export default function TraceabilityTimeline({
                   </div>
                   {record.carbonFootprint !== undefined && (
                     <div className="font-body text-[11px] text-sepia-mid">
-                      <span className="uppercase tracking-[0.1em]">{t('traceability.carbon')}:</span>{' '}
+                      <span className="uppercase tracking-[0.1em]">{t('traceability.carbonLabel')}:</span>{' '}
                       <span className="text-archive-brown font-medium">
                         {t('traceability.kgCO2', { value: record.carbonFootprint })}
                       </span>

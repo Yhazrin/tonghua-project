@@ -31,20 +31,25 @@ export default function MagazineNav() {
 
   const userMenuRef = useRef<HTMLDivElement>(null);
 
-  // Close user menu when clicking outside
+  // Close user menu when clicking outside or pressing Escape
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
         setUserMenuOpen(false);
       }
     };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setUserMenuOpen(false);
+    };
 
     if (userMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [userMenuOpen]);
 
@@ -72,7 +77,7 @@ export default function MagazineNav() {
           className="relative font-display text-ink text-xl md:text-2xl font-bold tracking-tight group"
           onClick={() => setMobileNavOpen(false)}
         >
-          <span className="relative z-10">TONGHUA</span>
+          <span className="relative z-10">VICOO</span>
           <motion.span
             className="absolute inset-0 bg-rust/10 opacity-0 group-hover:opacity-100 transition-opacity"
             initial={false}
@@ -222,7 +227,7 @@ export default function MagazineNav() {
             <button
               onClick={toggleMobileNav}
               className="relative flex flex-col gap-1.5 p-3 cursor-pointer overflow-hidden rounded-sm border border-warm-gray/30"
-              aria-label="Toggle menu"
+              aria-label={t('nav.toggleMenu')}
               aria-expanded={mobileNavOpen}
             >
               <motion.div

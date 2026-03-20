@@ -75,7 +75,7 @@ export default function MobileNav() {
           id="mobile-navigation"
           role="dialog"
           aria-modal="true"
-          aria-label="Mobile navigation menu"
+          aria-label={t('nav.mobileMenu')}
         >
           <nav className="flex flex-col items-start px-8 gap-0">
             {NAV_ITEMS.map((item, index) => {

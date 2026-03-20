@@ -209,7 +209,7 @@ function CertificationBadge({ title, description, delay }: {
 function EnhancedTimelineEntry({ record, index, t, locale }: {
   record: EnhancedSupplyChainRecord;
   index: number;
-  t: (key: string) => string;
+  t: (key: string, options?: Record<string, unknown>) => string;
   locale: string;
 }) {
   const statusConfig = {
@@ -307,9 +307,9 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
             </div>
             {record.carbonFootprint !== undefined && (
               <div className="font-body text-[11px] text-sepia-mid">
-                <span className="uppercase tracking-[0.1em]">{t('traceability.carbon')}:</span>{' '}
+                <span className="uppercase tracking-[0.1em]">{t('traceability.carbonLabel')}:</span>{' '}
                 <span className="text-archive-brown font-medium">
-                  {record.carbonFootprint} kg CO2
+                  {t('traceability.kgCO2', { value: record.carbonFootprint })}
                 </span>
               </div>
             )}
@@ -406,10 +406,10 @@ export default function Traceability() {
   );
 
   const certifications = [
-    { title: t('traceability.certifications.gots'), description: 'Global Organic Textile Standard verified organic fibers and responsible processing.' },
-    { title: t('traceability.certifications.fairTrade'), description: 'Living wages, safe conditions, and ethical treatment for every worker.' },
-    { title: t('traceability.certifications.carbonNeutral'), description: 'Operations offset through verified reforestation and renewable energy.' },
-    { title: t('traceability.certifications.childSafe'), description: 'Full compliance with child protection regulations and consent protocols.' },
+    { title: t('traceability.certifications.gots'), description: t('traceability.certifications.gotsDesc') },
+    { title: t('traceability.certifications.fairTrade'), description: t('traceability.certifications.fairTradeDesc') },
+    { title: t('traceability.certifications.carbonNeutral'), description: t('traceability.certifications.carbonNeutralDesc') },
+    { title: t('traceability.certifications.childSafe'), description: t('traceability.certifications.childSafeDesc') },
   ];
 
   return (
@@ -535,13 +535,13 @@ export default function Traceability() {
                 className="mt-6 border border-warm-gray/30 p-6 bg-aged-stock"
               >
                 <span className="font-body text-caption text-sepia-mid tracking-[0.2em] uppercase">
-                  {t('traceability.carbon')} — Total
+                  {t('traceability.carbonLabel')} — {t('traceability.total')}
                 </span>
                 <div className="font-display text-h3 font-bold text-ink mt-2">
-                  5.3 kg CO2
+                  {t('traceability.carbonValue')}
                 </div>
                 <p className="font-body text-xs text-ink-faded mt-2 leading-relaxed">
-                  Offset through verified reforestation project in Yunnan Province.
+                  {t('traceability.offsetDesc')}
                 </p>
               </motion.div>
 

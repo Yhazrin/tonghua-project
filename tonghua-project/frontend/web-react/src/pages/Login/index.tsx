@@ -28,7 +28,7 @@ export default function Login() {
   return (
     <PageWrapper>
       {/* Centered auth layout - no hero section */}
-      <div className="min-h-screen flex items-center justify-center py-12 px-4">
+      <div className="min-h-[100dvh] flex items-center justify-center py-12 px-4">
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="text-center mb-10">
@@ -102,7 +102,7 @@ export default function Login() {
               whileTap={{ scale: 0.99 }}
               className="w-full font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300 disabled:opacity-50"
             >
-              {isLoggingIn ? '...' : t('login.submit')}
+              {isLoggingIn ? t('common.loading') : t('login.submit')}
             </motion.button>
 
             <div className="relative py-4">

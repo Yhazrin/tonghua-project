@@ -90,6 +90,7 @@ function LatestArtworkCard({
   index,
   wide = false,
 }: LatestArtworkCardProps) {
+  const { t } = useTranslation();
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
@@ -128,7 +129,7 @@ function LatestArtworkCard({
 
         <img
           src={src}
-          alt={`Artwork by ${childName}`}
+          alt={t('home.artworkAlt', { childName })}
           className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 sepia-[0.1] ${
             imageLoaded ? 'opacity-100' : 'opacity-0'
           }`}
@@ -252,8 +253,8 @@ export default function Home() {
           <div className="md:col-span-7">
             <SepiaImageFrame
               src="https://picsum.photos/seed/spring-campaign/800/600"
-              alt="Children creating art in a community workshop"
-              caption="Spring Campaign 2026 — Artwork Collection Phase"
+              alt={t('home.featured.alt')}
+              caption={t('home.featured.caption')}
               aspectRatio="landscape"
               size="full"
             />

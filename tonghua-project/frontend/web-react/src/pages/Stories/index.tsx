@@ -430,9 +430,9 @@ export default function Stories() {
                         <div className="mt-16 md:mt-24">
                           <PagePeel corner="top-right" maxRotation={8} shadowIntensity={0.2}>
                             <StoryQuoteBlock
-                              quote="Every brushstroke a child makes is a window into a world they imagine. Our job is to make that world visible."
-                              author="Chen Wei"
-                              role="Founder, VICOO"
+                              quote={t('stories.quote.text')}
+                              author={t('stories.quote.author')}
+                              role={t('stories.quote.role')}
                             />
                           </PagePeel>
                         </div>

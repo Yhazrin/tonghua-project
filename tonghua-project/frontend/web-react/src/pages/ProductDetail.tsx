@@ -12,6 +12,32 @@ import ImageSkeleton from '@/components/editorial/ImageSkeleton';
 import { useCartStore } from '@/stores/cartStore';
 import type { Product, SupplyChainRecord } from '@/types';
 
+function ThumbnailButton({ url, index, isSelected, onSelect }: {
+  url: string; index: number; isSelected: boolean; onSelect: () => void;
+}) {
+  const { t } = useTranslation();
+  const [thumbLoaded, setThumbLoaded] = useState(false);
+  return (
+    <button
+      onClick={onSelect}
+      aria-label={t('shop.detail.viewImage', { number: index + 1 })}
+      className={`w-16 h-16 overflow-hidden border-2 transition-colors relative ${
+        isSelected ? 'border-ink' : 'border-transparent'
+      }`}
+    >
+      {!thumbLoaded && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-square" />}
+      <img
+        src={url}
+        alt=""
+        aria-hidden="true"
+        className={`w-full h-full object-cover ${thumbLoaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ filter: 'sepia(0.2) contrast(1.05) brightness(0.97)' }}
+        onLoad={() => setThumbLoaded(true)}
+      />
+    </button>
+  );
+}
+
 const MOCK_SUPPLY_CHAIN: SupplyChainRecord[] = [
   {
     id: 'sc1',
@@ -86,8 +112,8 @@ const MOCK_PRODUCT: Product = {
   price: 380,
   currency: 'CNY',
   imageUrls: [
-    'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=400&fit=crop',
+    'https://picsum.photos/seed/silk-scarf-1/800/1000',
+    'https://picsum.photos/seed/silk-scarf-2/400/400',
   ],
   category: 'accessories',
   inStock: true,
@@ -137,29 +163,15 @@ export default function ProductDetail() {
               </motion.div>
               {product.imageUrls.length > 1 && (
                 <div className="flex gap-3 mt-4">
-                  {product.imageUrls.map((url, index) => {
-                    const [thumbLoaded, setThumbLoaded] = useState(false);
-                    return (
-                      <button
-                        key={index}
-                        onClick={() => setSelectedImage(index)}
-                        aria-label={'View image ' + (index + 1)}
-                        className={`w-16 h-16 overflow-hidden border-2 transition-colors relative ${
-                          selectedImage === index ? 'border-ink' : 'border-transparent'
-                        }`}
-                      >
-                        {!thumbLoaded && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-square" />}
-                        <img
-                          src={url}
-                          alt=""
-                          aria-hidden="true"
-                          className={`w-full h-full object-cover ${thumbLoaded ? 'opacity-100' : 'opacity-0'}`}
-                          style={{ filter: 'sepia(0.2) contrast(1.05) brightness(0.97)' }}
-                          onLoad={() => setThumbLoaded(true)}
-                        />
-                      </button>
-                    );
-                  })}
+                  {product.imageUrls.map((url, index) => (
+                    <ThumbnailButton
+                      key={index}
+                      url={url}
+                      index={index}
+                      isSelected={selectedImage === index}
+                      onSelect={() => setSelectedImage(index)}
+                    />
+                  ))}
                 </div>
               )}
             </div>

@@ -36,20 +36,25 @@ export default function Header() {
     setMenuTriggerRef(menuTriggerRef);
   }, [setMenuTriggerRef]);
 
-  // Close user menu when clicking outside
+  // Close user menu when clicking outside or pressing Escape
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
         setUserMenuOpen(false);
       }
     };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setUserMenuOpen(false);
+    };
 
     if (userMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [userMenuOpen]);
 
@@ -66,7 +71,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-paper/90 backdrop-blur-sm border-b border-warm-gray/30">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-warm-gray/30">
       {/* Grain overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]" style={GRAIN_STYLE} />
       <div className="relative max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-20">
@@ -76,7 +81,7 @@ export default function Header() {
           className="font-display text-ink text-lg md:text-xl font-bold tracking-tight"
           onClick={() => setMobileNavOpen(false)}
         >
-          Tonghua
+          VICOO
         </Link>
 
         {/* Desktop Navigation */}

@@ -19,7 +19,7 @@ const MOCK_CAMPAIGN: Campaign = {
   description:
     "In the misty villages of Guizhou Province, children aged 6-12 are given watercolors and a simple prompt: \"Draw the clothes you wish existed.\" What emerges is a torrent of imagination — dresses that bloom with flowers, jackets that change color with the weather, shoes that carry you to the moon. This campaign collects their artwork and, with the help of sustainable textile partners, transforms select designs into real garments. Every purchase funds the next workshop, the next set of supplies, the next child's creative journey.",
   coverImageUrl:
-    'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=1400&h=600&fit=crop',
+    'https://picsum.photos/seed/guizhou-campaign/1400/600',
   startDate: '2026-01-15',
   endDate: '2026-06-30',
   status: 'active',
@@ -35,7 +35,7 @@ const MOCK_ARTWORKS: Artwork[] = [
     id: 'a1',
     title: 'The Garden That Grows Clothes',
     description: '',
-    imageUrl: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=800&fit=crop',
+    imageUrl: 'https://picsum.photos/seed/artwork-garden/600/800',
     childParticipant: { id: 'c1', firstName: 'Mei', age: 8, guardianId: 'g1', consentGiven: true },
     status: 'featured',
     voteCount: 234,
@@ -46,7 +46,7 @@ const MOCK_ARTWORKS: Artwork[] = [
     id: 'a2',
     title: 'Butterfly Factory',
     description: '',
-    imageUrl: 'https://images.unsplash.com/photo-1560807707-8cc77767d783?w=600&h=800&fit=crop',
+    imageUrl: 'https://picsum.photos/seed/artwork-butterfly/600/800',
     childParticipant: { id: 'c2', firstName: 'Jun', age: 7, guardianId: 'g2', consentGiven: true },
     status: 'approved',
     voteCount: 189,
@@ -57,7 +57,7 @@ const MOCK_ARTWORKS: Artwork[] = [
     id: 'a3',
     title: 'Rain on My Umbrella Hat',
     description: '',
-    imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop',
+    imageUrl: 'https://picsum.photos/seed/artwork-umbrella/600/800',
     childParticipant: { id: 'c3', firstName: 'Lan', age: 9, guardianId: 'g3', consentGiven: true },
     status: 'approved',
     voteCount: 167,
@@ -68,7 +68,7 @@ const MOCK_ARTWORKS: Artwork[] = [
     id: 'a4',
     title: 'Stars in My Pockets',
     description: '',
-    imageUrl: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&h=800&fit=crop',
+    imageUrl: 'https://picsum.photos/seed/artwork-stars/600/800',
     childParticipant: { id: 'c4', firstName: 'Hao', age: 6, guardianId: 'g4', consentGiven: true },
     status: 'approved',
     voteCount: 145,
@@ -85,7 +85,7 @@ export default function CampaignDetail() {
   return (
     <PageWrapper>
       {/* Hero Image */}
-      <section className="relative h-[50vh] md:h-[60vh]">
+      <section className="relative min-h-[50dvh] md:min-h-[60dvh]">
         <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-video" />
         <img
           src={campaign.coverImageUrl}

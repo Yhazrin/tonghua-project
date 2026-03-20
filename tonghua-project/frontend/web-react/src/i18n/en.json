@@ -14,7 +14,8 @@
     "logout": "Logout",
     "toggleMenu": "Toggle navigation menu",
     "toggleLanguage": "Toggle language",
-    "userMenu": "User menu"
+    "userMenu": "User menu",
+    "mobileMenu": "Mobile navigation menu"
   },
   "profile": {
     "title": "My Profile",
@@ -43,6 +44,8 @@
     "featured": {
       "sectionTitle": "Featured Campaigns",
       "viewAll": "View All Campaigns",
+      "alt": "Children creating art in a community workshop",
+      "caption": "Spring Campaign 2026 — Artwork Collection Phase",
       "body1": "Each campaign begins in a classroom, a community center, a shelter. We collect children's artwork — raw, honest, unfiltered — and transform it into sustainable fashion that funds their future.",
       "body2": "Every garment in this collection begins the same way — with a child, a blank page, and the freedom to imagine. We partner with schools and community centres across twelve cities, running workshops where children draw their hopes for the world.",
       "body3": "Our designers then translate these raw, honest artworks into patterns, prints, and embroideries — never altering the child's original vision. The result is clothing that carries real stories, not manufactured ones.",
@@ -62,6 +65,7 @@
     "location": "Shanghai, China",
     "estYear": "Est. 2026",
     "latestArtworks": "Latest Artworks",
+    "artworkAlt": "Artwork by {{childName}}",
     "cta": {
       "title": "Join the Movement",
       "description": "Whether you donate, shop, or share our story — every action counts.",
@@ -190,6 +194,11 @@
       "title": "No stories here yet",
       "body": "Every great publication has blank pages waiting to be filled. Try another category — there are stories waiting to be discovered.",
       "browseAll": "Browse All Stories"
+    },
+    "quote": {
+      "text": "Every brushstroke a child makes is a window into a world they imagine. Our job is to make that world visible.",
+      "author": "Chen Wei",
+      "role": "Founder, VICOO"
     }
   },
   "donate": {
@@ -401,9 +410,12 @@
       "shipping": "Shipping"
     },
     "verified": "Verified",
-    "carbon": "Carbon Footprint",
+    "carbonLabel": "Carbon Footprint",
+    "total": "Total",
     "noRecords": "No supply chain records available.",
     "kgCO2": "{{value}} kg CO2",
+    "carbonValue": "5.3 kg CO2",
+    "offsetDesc": "Offset through verified reforestation project in Yunnan Province.",
     "lookup": {
       "title": "Trace Your Product",
       "subtitle": "Enter an order number or product ID to follow its complete journey from creation to delivery.",
@@ -442,7 +454,11 @@
       "gots": "GOTS Certified Organic",
       "fairTrade": "Fair Trade Verified",
       "carbonNeutral": "Carbon Neutral",
-      "childSafe": "Child-Safe Production"
+      "childSafe": "Child-Safe Production",
+      "gotsDesc": "Global Organic Textile Standard verified organic fibers and responsible processing.",
+      "fairTradeDesc": "Living wages, safe conditions, and ethical treatment for every worker.",
+      "carbonNeutralDesc": "Operations offset through verified reforestation and renewable energy.",
+      "childSafeDesc": "Full compliance with child protection regulations and consent protocols."
     },
     "howItWorks": {
       "title": "How Traceability Works",

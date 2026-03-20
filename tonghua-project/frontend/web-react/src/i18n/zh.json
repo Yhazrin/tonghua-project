@@ -14,7 +14,8 @@
     "logout": "退出",
     "toggleMenu": "切换导航菜单",
     "toggleLanguage": "切换语言",
-    "userMenu": "用户菜单"
+    "userMenu": "用户菜单",
+    "mobileMenu": "移动导航菜单"
   },
   "profile": {
     "title": "个人中心",
@@ -32,6 +33,8 @@
     "featured": {
       "sectionTitle": "精选活动",
       "viewAll": "查看全部活动",
+      "alt": "孩子们在社区工作坊中创作艺术",
+      "caption": "2026 春季活动 — 作品征集阶段",
       "body1": "每一次活动都始于一间教室、一个社区中心、一处庇护所。我们收集孩子们的画作——原始、真诚、未经修饰——并将它们转化为可持续时尚，为孩子们的未来提供资金。",
       "body2": "这个系列中的每一件服装都以同样的方式开始——一个孩子、一张白纸、以及自由想象的空间。我们与十二座城市的学校和社区中心合作，举办工作坊，让孩子们画出他们对世界的期望。",
       "body3": "我们的设计师将这些原始、真诚的画作转化为图案、印花和刺绣——绝不改变孩子最初的愿景。最终呈现的是承载真实故事的服装，而非批量生产的商品。",
@@ -51,6 +54,7 @@
     "location": "中国 · 上海",
     "estYear": "创立于 2026",
     "latestArtworks": "最新作品",
+    "artworkAlt": "{{childName}} 的作品",
     "artworks": {
       "sectionTitle": "儿童画廊",
       "viewAll": "查看完整画廊"
@@ -190,6 +194,11 @@
       "title": "这里还没有故事",
       "body": "每本伟大的出版物都有等待被书写的空白页。试试其他分类——有故事等待被发现。",
       "browseAll": "浏览全部故事"
+    },
+    "quote": {
+      "text": "孩子画下的每一笔都是他们想象中世界的一扇窗。我们的工作是让那个世界被看见。",
+      "author": "陈伟",
+      "role": "VICOO 创始人"
     }
   },
   "donate": {
@@ -401,9 +410,12 @@
       "shipping": "物流配送"
     },
     "verified": "已验证",
-    "carbon": "碳足迹",
+    "carbonLabel": "碳足迹",
+    "total": "总计",
     "noRecords": "暂无供应链记录。",
     "kgCO2": "{{value}} 千克 CO2",
+    "carbonValue": "5.3 千克 CO2",
+    "offsetDesc": "通过云南省经认证的再造林项目实现碳抵消。",
     "lookup": {
       "title": "追溯您的产品",
       "subtitle": "输入订单号或产品 ID，追踪从创作到交付的完整旅程。",
@@ -442,7 +454,11 @@
       "gots": "GOTS 有机认证",
       "fairTrade": "公平贸易认证",
       "carbonNeutral": "碳中和认证",
-      "childSafe": "儿童安全生产"
+      "childSafe": "儿童安全生产",
+      "gotsDesc": "全球有机纺织品标准认证的有机纤维和负责任加工。",
+      "fairTradeDesc": "为每位工人提供生活工资、安全条件和道德待遇。",
+      "carbonNeutralDesc": "通过经认证的再造林和可再生能源实现运营碳抵消。",
+      "childSafeDesc": "完全遵守儿童保护法规和知情同意协议。"
     },
     "howItWorks": {
       "title": "溯源工作原理",
