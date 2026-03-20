@@ -25,8 +25,25 @@
     },
     "featured": {
       "sectionTitle": "精选活动",
-      "viewAll": "查看全部活动"
+      "viewAll": "查看全部活动",
+      "body1": "每一次活动都始于一间教室、一个社区中心、一处庇护所。我们收集孩子们的画作——原始、真诚、未经修饰——并将它们转化为可持续时尚，为孩子们的未来提供资金。",
+      "body2": "这个系列中的每一件服装都以同样的方式开始——一个孩子、一张白纸、以及自由想象的空间。我们与十二座城市的学校和社区中心合作，举办工作坊，让孩子们画出他们对世界的期望。",
+      "body3": "我们的设计师将这些原始、真诚的画作转化为图案、印花和刺绣——绝不改变孩子最初的愿景。最终呈现的是承载真实故事的服装，而非批量生产的商品。"
     },
+    "gallery": {
+      "alt1": "儿童水彩风景画",
+      "alt2": "儿童抽象蜡笔画",
+      "alt3": "儿童粉彩肖像画",
+      "alt4": "儿童墨水插画"
+    },
+    "pillars": {
+      "supplyChain": "可追溯供应链",
+      "children": "赋能儿童",
+      "reinvested": "再投资善款"
+    },
+    "location": "中国 · 上海",
+    "estYear": "创立于 2026",
+    "latestArtworks": "最新作品",
     "artworks": {
       "sectionTitle": "儿童画廊",
       "viewAll": "查看完整画廊"
@@ -189,6 +206,8 @@
     },
     "impact": {
       "title": "您的资金去向",
+      "fundsRaised": "已筹资金",
+      "childrenHelped": "受助儿童",
       "artSupplies": "美术用品与工作坊",
       "artSuppliesDesc": "颜料、画笔、画布和专业的工作坊导师。",
       "production": "可持续生产",
@@ -210,7 +229,12 @@
         "verified": "已验证",
         "transparent": "透明公开",
         "impactReported": "影响报告"
-      }
+      },
+      "trustIndicators": "信任指标",
+      "financialReport": "财务报告",
+      "pdfSize": "PDF · 2.4 MB",
+      "quote": "透明不是一种功能，而是一种责任。",
+      "quoteAuthor": "2025 年度报告"
     },
     "stories": {
       "title": "您的捐赠在行动",
@@ -283,13 +307,33 @@
       "sustainability": "可持续评分"
     },
     "results": "{{count}} 件商品",
-    "empty": "此分类下没有商品。"
+    "empty": "此分类下没有商品。",
+    "collection": "精选系列",
+    "sustainability": {
+      "materials": "认证材料",
+      "materialsDesc": "所有面料均为 GOTS 认证有机棉或再生聚酯纤维。",
+      "production": "道德生产",
+      "productionDesc": "公平薪酬、安全条件、完整供应链透明。",
+      "carbon": "碳足迹可溯",
+      "carbonDesc": "每件产品的碳足迹均经过计算和抵消。"
+    },
+    "behind": {
+      "title": "系列背后",
+      "caption": "成都一个周六早晨的工作坊，孩子们在那里画出将成为我们下一个系列的梦想。",
+      "body1": "这个系列的每一件服装都以相同的方式开始——一个孩子、一张白纸和想象的自由。我们与十二座城市的学校和社区中心合作，举办工作坊，让孩子们画出他们对世界的期望。",
+      "body2": "我们的设计师随后将这些原始、真诚的艺术作品转化为图案、印花和刺绣——从不改变孩子最初的愿景。结果是承载真实故事的服装，而非制造出来的故事。",
+      "quote": "我画了大海，因为我希望它永远是蓝色的。",
+      "quoteAuthor": "小林",
+      "quoteRole": "8 岁，海洋之梦活动"
+    }
   },
   "traceability": {
     "hero": {
       "title": "溯源",
       "subtitle": "从孩子绘制设计的双手，到缝制它的工匠——跟随每一步旅程。"
     },
+    "subtitle": "完整旅程",
+    "journeySubtitle": "从原材料到成品的可验证、逐步记录。",
     "stages": {
       "artwork": "艺术创作",
       "design": "设计转化",
@@ -314,6 +358,12 @@
       "inProgress": "进行中",
       "pending": "待处理"
     },
+    "timeline": {
+      "location": "地点",
+      "partner": "合作方",
+      "date": "日期"
+    },
+    "searching": "正在追溯供应链…",
     "carbon": {
       "title": "碳足迹对比",
       "subtitle": "我们对可持续发展的承诺意味着测量、减少并抵消每一克排放。",
@@ -325,8 +375,24 @@
     },
     "certifications": {
       "title": "认证与标准",
-      "subtitle": "我们做出的每一项声明都有独立第三方验证的支持。"
+      "subtitle": "我们做出的每一项声明都有独立第三方验证的支持。",
+      "gots": "GOTS 有机认证",
+      "fairTrade": "公平贸易认证",
+      "carbonNeutral": "碳中和认证",
+      "childSafe": "儿童安全生产"
     },
+    "howItWorks": {
+      "title": "溯源工作原理",
+      "record": "记录",
+      "recordDesc": "供应链的每一步都记录了照片、日期、地点和合作方验证。",
+      "verify": "验证",
+      "verifyDesc": "第三方审核员验证每条记录。未验证的步骤会被透明标记。",
+      "publish": "发布",
+      "publishDesc": "完整旅程发布在我们的平台上，供每位客户查验。"
+    },
+    "quote": "可追溯，方可信。每一针每一线都讲述着值得了解的故事。",
+    "quoteAuthor": "供应链宣言",
+    "quoteRole": "童画公益，2025",
     "cta": {
       "label": "放心购物",
       "headline": "知你所穿，信你所购。",
@@ -461,7 +527,15 @@
       "children": "儿童保护"
     },
     "copyright": "© 2026 童画公益。保留所有权利。",
-    "issueNo": "第01期 — 创刊号"
+    "issueNo": "第01期 — 创刊号",
+    "newsletter": {
+      "title": "通讯季刊",
+      "body": "每季度来自编辑台的通讯。",
+      "placeholder": "your@email.com",
+      "subscribe": "订阅"
+    },
+    "location": "中国 · 上海",
+    "builtWith": "用心构建"
   },
   "artwork": {
     "detail": {

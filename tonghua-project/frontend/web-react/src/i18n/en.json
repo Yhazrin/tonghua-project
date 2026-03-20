@@ -23,10 +23,6 @@
       "subtitle": "Every child's imagination, woven into sustainable threads. Every purchase, a step toward a fairer world.",
       "cta": "Explore Our Work"
     },
-    "featured": {
-      "sectionTitle": "Featured Campaigns",
-      "viewAll": "View All Campaigns"
-    },
     "artworks": {
       "sectionTitle": "Children's Gallery",
       "viewAll": "View Full Gallery"
@@ -38,6 +34,27 @@
       "donated": "Funds Raised",
       "products": "Products Sold"
     },
+    "featured": {
+      "sectionTitle": "Featured Campaigns",
+      "viewAll": "View All Campaigns",
+      "body1": "Each campaign begins in a classroom, a community center, a shelter. We collect children's artwork — raw, honest, unfiltered — and transform it into sustainable fashion that funds their future.",
+      "body2": "Every garment in this collection begins the same way — with a child, a blank page, and the freedom to imagine. We partner with schools and community centres across twelve cities, running workshops where children draw their hopes for the world.",
+      "body3": "Our designers then translate these raw, honest artworks into patterns, prints, and embroideries — never altering the child's original vision. The result is clothing that carries real stories, not manufactured ones."
+    },
+    "gallery": {
+      "alt1": "Child's watercolor landscape",
+      "alt2": "Child's abstract crayon drawing",
+      "alt3": "Child's pastel portrait",
+      "alt4": "Child's ink illustration"
+    },
+    "pillars": {
+      "supplyChain": "Traceable Supply Chain",
+      "children": "Children Empowered",
+      "reinvested": "Yuan Reinvested"
+    },
+    "location": "Shanghai, China",
+    "estYear": "Est. 2026",
+    "latestArtworks": "Latest Artworks",
     "cta": {
       "title": "Join the Movement",
       "description": "Whether you donate, shop, or share our story — every action counts.",
@@ -189,6 +206,8 @@
     },
     "impact": {
       "title": "Where Your Money Goes",
+      "fundsRaised": "Funds Raised",
+      "childrenHelped": "Children Helped",
       "artSupplies": "Art Supplies & Workshops",
       "artSuppliesDesc": "Paints, brushes, canvases, and skilled workshop facilitators.",
       "production": "Sustainable Production",
@@ -210,7 +229,12 @@
         "verified": "Verified",
         "transparent": "Transparent",
         "impactReported": "Impact-Reported"
-      }
+      },
+      "trustIndicators": "Trust Indicators",
+      "financialReport": "FINANCIAL REPORT",
+      "pdfSize": "PDF · 2.4 MB",
+      "quote": "Transparency is not a feature. It is a responsibility.",
+      "quoteAuthor": "Annual Report 2025"
     },
     "stories": {
       "title": "Your Donations at Work",
@@ -283,13 +307,33 @@
       "sustainability": "Sustainability"
     },
     "results": "{{count}} products",
-    "empty": "No products found in this category."
+    "empty": "No products found in this category.",
+    "collection": "Collection",
+    "sustainability": {
+      "materials": "Certified Materials",
+      "materialsDesc": "All fabrics are GOTS-certified organic cotton or recycled polyester.",
+      "production": "Ethical Production",
+      "productionDesc": "Fair wages, safe conditions, full supply chain transparency.",
+      "carbon": "Carbon Measured",
+      "carbonDesc": "Every product's carbon footprint is calculated and offset."
+    },
+    "behind": {
+      "title": "Behind the Collection",
+      "caption": "A Saturday morning workshop in Chengdu, where children paint the dreams that will become our next collection.",
+      "body1": "Every garment in this collection begins the same way — with a child, a blank page, and the freedom to imagine. We partner with schools and community centres across twelve cities, running workshops where children draw their hopes for the world.",
+      "body2": "Our designers then translate these raw, honest artworks into patterns, prints, and embroideries — never altering the child's original vision. The result is clothing that carries real stories, not manufactured ones.",
+      "quote": "I drew the ocean because I want it to stay blue forever.",
+      "quoteAuthor": "Xiao Lin",
+      "quoteRole": "Age 8, Ocean Dreams campaign"
+    }
   },
   "traceability": {
     "hero": {
       "title": "Traceability",
       "subtitle": "From the child's hand that drew the design to the artisan who stitched it — follow every step of the journey."
     },
+    "subtitle": "Full Journey",
+    "journeySubtitle": "A verifiable, step-by-step record from raw material to finished garment.",
     "stages": {
       "artwork": "Artwork Creation",
       "design": "Design Adaptation",
@@ -314,6 +358,12 @@
       "inProgress": "In Progress",
       "pending": "Pending"
     },
+    "timeline": {
+      "location": "Location",
+      "partner": "Partner",
+      "date": "Date"
+    },
+    "searching": "Tracing supply chain…",
     "carbon": {
       "title": "Carbon Footprint Comparison",
       "subtitle": "Our commitment to sustainability means measuring, reducing, and offsetting every gram of emissions.",
@@ -325,8 +375,24 @@
     },
     "certifications": {
       "title": "Certifications and Standards",
-      "subtitle": "Every claim we make is backed by independent third-party verification."
+      "subtitle": "Every claim we make is backed by independent third-party verification.",
+      "gots": "GOTS Certified Organic",
+      "fairTrade": "Fair Trade Verified",
+      "carbonNeutral": "Carbon Neutral",
+      "childSafe": "Child-Safe Production"
     },
+    "howItWorks": {
+      "title": "How Traceability Works",
+      "record": "Record",
+      "recordDesc": "Every step in the supply chain is documented with photos, dates, locations, and partner verification.",
+      "verify": "Verify",
+      "verifyDesc": "Third-party auditors verify each record. Unverified steps are flagged transparently.",
+      "publish": "Publish",
+      "publishDesc": "The complete journey is published on our platform for every customer to inspect."
+    },
+    "quote": "If you can trace it, you can trust it. Every stitch tells a story worth knowing.",
+    "quoteAuthor": "Supply Chain Manifesto",
+    "quoteRole": "Tonghua Public Welfare, 2025",
     "cta": {
       "label": "Shop with Confidence",
       "headline": "Know what you wear. Trust what you buy.",
@@ -461,7 +527,15 @@
       "children": "Children's Protection"
     },
     "copyright": "© 2026 Tonghua Public Welfare. All rights reserved.",
-    "issueNo": "Issue No. 01 — Inaugural Edition"
+    "issueNo": "Issue No. 01 — Inaugural Edition",
+    "newsletter": {
+      "title": "Newsletter",
+      "body": "Quarterly dispatches from the editor's desk.",
+      "placeholder": "your@email.com",
+      "subscribe": "Subscribe"
+    },
+    "location": "Shanghai, China",
+    "builtWith": "Built with care"
   },
   "artwork": {
     "detail": {

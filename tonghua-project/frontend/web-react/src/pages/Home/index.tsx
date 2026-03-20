@@ -186,44 +186,46 @@ function BrandPillar({ label, value, index }: BrandPillarProps) {
   );
 }
 
+/* ─── Static Data ─── */
+
+const galleryImages = [
+  { src: 'https://picsum.photos/seed/children-art-1/400/400', alt: "Child's watercolor landscape" },
+  { src: 'https://picsum.photos/seed/children-art-2/400/400', alt: "Child's abstract crayon drawing" },
+  { src: 'https://picsum.photos/seed/children-art-3/400/400', alt: "Child's pastel portrait" },
+  { src: 'https://picsum.photos/seed/children-art-4/400/400', alt: "Child's ink illustration" },
+];
+
+const latestArtworks = [
+  {
+    src: 'https://picsum.photos/seed/spring-bloom-art/800/500',
+    childName: 'Lin Xiaomei',
+    campaignName: 'Spring Bloom Campaign',
+    date: 'Mar 2026',
+  },
+  {
+    src: 'https://picsum.photos/seed/ocean-dreams-art/400/533',
+    childName: 'Zhang Yufei',
+    campaignName: 'Ocean Dreams',
+    date: 'Feb 2026',
+  },
+  {
+    src: 'https://picsum.photos/seed/mountain-song-art/400/533',
+    childName: 'Wang Haoran',
+    campaignName: 'Mountain Song',
+    date: 'Jan 2026',
+  },
+];
+
+const brandPillars = [
+  { label: 'supplyChain', value: '100%' },
+  { label: 'children', value: '2,847' },
+  { label: 'reinvested', value: '890,000' },
+];
+
 /* ─── Home Page ─── */
 
 export default function Home() {
   const { t } = useTranslation();
-
-  const galleryImages = [
-    { src: 'https://picsum.photos/seed/children-art-1/400/400', alt: "Child's watercolor landscape" },
-    { src: 'https://picsum.photos/seed/children-art-2/400/400', alt: "Child's abstract crayon drawing" },
-    { src: 'https://picsum.photos/seed/children-art-3/400/400', alt: "Child's pastel portrait" },
-    { src: 'https://picsum.photos/seed/children-art-4/400/400', alt: "Child's ink illustration" },
-  ];
-
-  const latestArtworks = [
-    {
-      src: 'https://picsum.photos/seed/spring-bloom-art/800/500',
-      childName: 'Lin Xiaomei',
-      campaignName: 'Spring Bloom Campaign',
-      date: 'Mar 2026',
-    },
-    {
-      src: 'https://picsum.photos/seed/ocean-dreams-art/400/533',
-      childName: 'Zhang Yufei',
-      campaignName: 'Ocean Dreams',
-      date: 'Feb 2026',
-    },
-    {
-      src: 'https://picsum.photos/seed/mountain-song-art/400/533',
-      childName: 'Wang Haoran',
-      campaignName: 'Mountain Song',
-      date: 'Jan 2026',
-    },
-  ];
-
-  const brandPillars = [
-    { label: 'Traceable Supply Chain', value: '100%' },
-    { label: 'Children Empowered', value: '2,847' },
-    { label: 'Yuan Reinvested', value: '890,000' },
-  ];
 
   return (
     <PageWrapper>
@@ -263,9 +265,7 @@ export default function Home() {
               Where Little Hands Shape Big Ideas
             </h3>
             <p className="font-body text-sm text-ink-faded leading-relaxed mb-6">
-              Each campaign begins in a classroom, a community center, a shelter.
-              We collect children's artwork — raw, honest, unfiltered — and transform
-              it into sustainable fashion that funds their future.
+              {t('home.featured.body1')}
             </p>
             <Link
               to="/campaigns"
@@ -310,7 +310,7 @@ export default function Home() {
 
       {/* Latest Artworks */}
       <SectionContainer>
-        <NumberedSectionHeading number="03" title="Latest Artworks" />
+        <NumberedSectionHeading number="03" title={t('home.latestArtworks')} />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {latestArtworks.map((artwork, i) => (
@@ -336,7 +336,7 @@ export default function Home() {
             <GalleryItem
               key={img.src}
               src={img.src}
-              alt={img.alt}
+              alt={t(`home.gallery.alt${i + 1}`)}
               index={i}
             />
           ))}
@@ -400,11 +400,11 @@ export default function Home() {
         >
           <div className="flex items-baseline gap-3 mb-10">
             <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
-              Shanghai, China
+              {t('home.location')}
             </span>
             <span className="flex-1 h-px bg-warm-gray/40" />
             <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
-              Est. 2026
+              {t('home.estYear')}
             </span>
           </div>
 
@@ -412,7 +412,7 @@ export default function Home() {
             {brandPillars.map((pillar, i) => (
               <BrandPillar
                 key={pillar.label}
-                label={pillar.label}
+                label={t(`home.pillars.${pillar.label}`)}
                 value={pillar.value}
                 index={i}
               />

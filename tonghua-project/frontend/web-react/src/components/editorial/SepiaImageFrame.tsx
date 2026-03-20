@@ -52,7 +52,7 @@ export default function SepiaImageFrame({
         { position: 'bottom-right' as const, intensity: 'medium' as const },
       ];
     }
-    return [{ position: accentPosition as any, intensity: 'medium' as const }];
+    return [{ position: accentPosition as 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right', intensity: 'medium' as const }];
   };
 
   const cornerAccents = getCornerAccents();

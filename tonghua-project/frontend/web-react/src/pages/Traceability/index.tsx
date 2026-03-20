@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,7 @@ import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeadin
 import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import StoryQuoteBlock from '@/components/editorial/StoryQuoteBlock';
 import { ScrollPathDrawInline } from '@/components/animations/ScrollPathDraw';
+import ImpactCounter from '@/components/editorial/ImpactCounter';
 import type { SupplyChainRecord } from '@/types';
 
 // Extended record with story, image, and status for enhanced timeline
@@ -104,40 +105,6 @@ const CARBON_DATA = {
   vicoo: 8.2,
 };
 
-// Animated counter for reduction percentage
-function AnimatedCounter({ value, suffix = '' }: { value: number; suffix?: string }) {
-  const [displayValue, setDisplayValue] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-
-  useEffect(() => {
-    if (!isInView) return;
-    let startTime: number;
-    let animationFrame: number;
-    const duration = 2000;
-
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplayValue(Math.round(eased * value));
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate);
-      }
-    };
-
-    animationFrame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrame);
-  }, [isInView, value]);
-
-  return (
-    <span ref={ref}>
-      {displayValue}
-      {suffix}
-    </span>
-  );
-}
-
 // Animated bar for carbon comparison
 function CarbonBar({ label, value, maxValue, isEco, delay }: {
   label: string;
@@ -180,15 +147,16 @@ function CarbonBar({ label, value, maxValue, isEco, delay }: {
 
 // Loading spinner for product lookup
 function SearchSpinner() {
+  const { t } = useTranslation();
   return (
-    <div className="flex items-center gap-3 py-4">
+    <div className="flex items-center gap-3 py-4" role="status" aria-live="polite">
       <motion.div
         className="w-5 h-5 border-2 border-warm-gray/30 border-t-rust rounded-full"
         animate={{ rotate: 360 }}
         transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
       />
       <span className="font-body text-xs text-sepia-mid tracking-[0.1em] uppercase">
-        Tracing supply chain...
+        {t('traceability.searching')}
       </span>
     </div>
   );
@@ -258,7 +226,7 @@ function EnhancedTimelineEntry({ record, index, t }: {
       viewport={{ once: true, margin: '-40px' }}
       transition={{
         duration: 0.6,
-        delay: index * 0.15,
+        delay: index * 0.12,
         ease: [0.25, 0.1, 0.25, 1],
       }}
       className="relative pb-12 last:pb-0"
@@ -321,15 +289,15 @@ function EnhancedTimelineEntry({ record, index, t }: {
           {/* Meta info */}
           <div className="flex flex-wrap gap-6">
             <div className="font-body text-[11px] text-sepia-mid">
-              <span className="uppercase tracking-[0.1em]">Location:</span>{' '}
+              <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.location')}:</span>{' '}
               <span className="text-ink-faded font-medium">{record.location}</span>
             </div>
             <div className="font-body text-[11px] text-sepia-mid">
-              <span className="uppercase tracking-[0.1em]">Partner:</span>{' '}
+              <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.partner')}:</span>{' '}
               <span className="text-ink-faded font-medium">{record.partnerName}</span>
             </div>
             <div className="font-body text-[11px] text-sepia-mid">
-              <span className="uppercase tracking-[0.1em]">Date:</span>{' '}
+              <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.date')}:</span>{' '}
               <span className="text-ink-faded font-medium">
                 {new Date(record.date).toLocaleDateString('en-US', {
                   year: 'numeric',
@@ -439,10 +407,10 @@ export default function Traceability() {
   );
 
   const certifications = [
-    { title: 'GOTS Certified', description: 'Global Organic Textile Standard verified organic fibers and responsible processing.' },
-    { title: 'Fair Trade Verified', description: 'Living wages, safe conditions, and ethical treatment for every worker.' },
-    { title: 'Carbon Neutral', description: 'Operations offset through verified reforestation and renewable energy.' },
-    { title: 'Child-Safe Production', description: 'Full compliance with child protection regulations and consent protocols.' },
+    { title: t('traceability.certifications.gots'), description: 'Global Organic Textile Standard verified organic fibers and responsible processing.' },
+    { title: t('traceability.certifications.fairTrade'), description: 'Living wages, safe conditions, and ethical treatment for every worker.' },
+    { title: t('traceability.certifications.carbonNeutral'), description: 'Operations offset through verified reforestation and renewable energy.' },
+    { title: t('traceability.certifications.childSafe'), description: 'Full compliance with child protection regulations and consent protocols.' },
   ];
 
   return (
@@ -545,8 +513,8 @@ export default function Traceability() {
       <SectionContainer>
         <NumberedSectionHeading
           number="02"
-          title="Dreamscape Tee — Full Journey"
-          subtitle="Follow the complete lifecycle of one product, from a child's brushstroke to your wardrobe."
+          title={`Dreamscape Tee — ${t('traceability.subtitle')}`}
+          subtitle={t('traceability.journeySubtitle')}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
@@ -621,9 +589,9 @@ export default function Traceability() {
       {/* Quote */}
       <SectionContainer narrow>
         <StoryQuoteBlock
-          quote="If you can trace it, you can trust it. Every stitch tells a story worth knowing."
-          author="Supply Chain Manifesto"
-          role="Tonghua Public Welfare, 2025"
+          quote={t('traceability.quote')}
+          author={t('traceability.quoteAuthor')}
+          role={t('traceability.quoteRole')}
         />
       </SectionContainer>
 
@@ -698,7 +666,7 @@ export default function Traceability() {
                     {t('traceability.carbon.reduction')}
                   </span>
                   <div className="font-display text-[clamp(48px,8vw,72px)] font-bold text-[#5a7a5a] leading-none">
-                    <AnimatedCounter value={reductionPercent} suffix="%" />
+                    <ImpactCounter value={reductionPercent} suffix="%" label="" />
                   </div>
                   <p className="font-body text-xs text-sepia-mid mt-4 leading-relaxed">
                     {t('traceability.carbon.reductionDesc')}
@@ -715,33 +683,33 @@ export default function Traceability() {
         <SectionContainer>
           <NumberedSectionHeading
             number="04"
-            title="How Traceability Works"
+            title={t('traceability.howItWorks.title')}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 num: '01',
-                title: 'Record',
-                desc: 'Every step in the supply chain is documented with photos, dates, locations, and partner verification.',
+                title: t('traceability.howItWorks.record'),
+                desc: t('traceability.howItWorks.recordDesc'),
               },
               {
                 num: '02',
-                title: 'Verify',
-                desc: 'Third-party auditors verify each record. Unverified steps are flagged transparently.',
+                title: t('traceability.howItWorks.verify'),
+                desc: t('traceability.howItWorks.verifyDesc'),
               },
               {
                 num: '03',
-                title: 'Publish',
-                desc: 'The complete journey is published on our platform for every customer to inspect.',
+                title: t('traceability.howItWorks.publish'),
+                desc: t('traceability.howItWorks.publishDesc'),
               },
-            ].map((step) => (
+            ].map((step, i) => (
               <motion.div
                 key={step.num}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
+                transition={{ duration: 0.6, delay: i * 0.12, ease: [0, 0, 0.2, 1] }}
                 className="border-t border-warm-gray/30 pt-6"
               >
                 <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">

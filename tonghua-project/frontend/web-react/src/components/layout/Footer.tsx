@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -30,14 +31,14 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               {['about', 'campaigns', 'stories'].map((key) => (
-                <li key={key}>
+                <motion.li key={key} whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
                   <Link
                     to={`/${key}`}
                     className="font-body text-sm text-warm-gray hover:text-paper transition-colors"
                   >
                     {t(`footer.links.${key}`)}
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>
@@ -49,14 +50,14 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               {['shop', 'donate', 'contact'].map((key) => (
-                <li key={key}>
+                <motion.li key={key} whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
                   <Link
                     to={`/${key}`}
                     className="font-body text-sm text-warm-gray hover:text-paper transition-colors"
                   >
                     {t(`footer.links.${key}`)}
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>
@@ -68,14 +69,14 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               {['privacy', 'terms', 'children'].map((key) => (
-                <li key={key}>
+                <motion.li key={key} whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
                   <Link
                     to={`/${key}`}
                     className="font-body text-sm text-warm-gray hover:text-paper transition-colors"
                   >
                     {t(`footer.links.${key}`)}
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>
@@ -83,10 +84,10 @@ export default function Footer() {
           {/* Newsletter */}
           <div className="md:col-span-2">
             <h4 className="font-body text-xs tracking-[0.2em] uppercase text-sepia-mid mb-6">
-              Newsletter
+              {t('footer.newsletter.title')}
             </h4>
             <p className="font-body text-xs text-warm-gray mb-4">
-              Quarterly dispatches from the editor's desk.
+              {t('footer.newsletter.body')}
             </p>
             <form
               onSubmit={(e) => e.preventDefault()}
@@ -94,15 +95,18 @@ export default function Footer() {
             >
               <input
                 type="email"
-                placeholder="your@email.com"
+                placeholder={t('footer.newsletter.placeholder')}
+                aria-label="Email address"
                 className="bg-transparent border-b border-sepia-mid/50 text-paper font-body text-xs py-2 focus:outline-none focus:border-pale-gold transition-colors placeholder:text-sepia-mid/50"
               />
-              <button
+              <motion.button
                 type="submit"
+                whileHover={{ x: 3 }}
+                transition={{ duration: 0.2 }}
                 className="font-body text-xs text-pale-gold hover:text-paper transition-colors text-left mt-1 tracking-wider uppercase"
               >
-                Subscribe &rarr;
-              </button>
+                {t('footer.newsletter.subscribe')} &rarr;
+              </motion.button>
             </form>
           </div>
         </div>
@@ -110,14 +114,14 @@ export default function Footer() {
         {/* Divider */}
         <div className="border-t border-sepia-mid/20 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <p className="font-body text-xs text-sepia-mid">
-            {t('footer.copyright').replace('2026', String(year))}
+            {t('footer.copyright', { year })}
           </p>
           <div className="flex items-center gap-6">
             <span className="font-body text-xs text-sepia-mid">
-              Shanghai, China
+              {t('footer.location')}
             </span>
             <span className="font-body text-xs text-sepia-mid">
-              Built with care
+              {t('footer.builtWith')}
             </span>
           </div>
         </div>

@@ -184,7 +184,7 @@ function ContactInfoCard({
       transition={{
         duration: 0.6,
         ease: [0, 0, 0.2, 1],
-        delay: index * 0.15,
+        delay: index * 0.12,
       }}
       className="group"
     >

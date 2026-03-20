@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
@@ -164,7 +164,7 @@ function DonationStoryCard({
         type: 'spring',
         stiffness: 380,
         damping: 30,
-        delay: index * 0.15,
+        delay: index * 0.12,
       }}
       whileHover={{ y: -6 }}
       className="group"
@@ -220,7 +220,7 @@ export default function Donate() {
     }
   };
 
-  const donationStories = [
+  const donationStories = useMemo(() => [
     {
       amount: t('donate.stories.items.0.amount'),
       impact: t('donate.stories.items.0.impact'),
@@ -239,7 +239,7 @@ export default function Donate() {
       caption: t('donate.stories.items.2.caption'),
       imageSeed: 'donation-workshop-rural',
     },
-  ];
+  ], [t]);
 
   return (
     <PageWrapper>
@@ -284,8 +284,8 @@ export default function Donate() {
 
             {/* Impact counters */}
             <div className="grid grid-cols-2 gap-6 mt-12">
-              <ImpactCounter value={890000} label="Funds Raised" prefix="¥" />
-              <ImpactCounter value={2847} label="Children Helped" />
+              <ImpactCounter value={890000} label={t('donate.impact.fundsRaised')} prefix="¥" />
+              <ImpactCounter value={2847} label={t('donate.impact.childrenHelped')} />
             </div>
           </div>
 
@@ -369,7 +369,7 @@ export default function Donate() {
               {/* Trust Indicators */}
               <div className="mb-8">
                 <span className="font-body text-caption text-sepia-mid tracking-[0.15em] uppercase block mb-3">
-                  Trust Indicators
+                  {t('donate.transparency.trustIndicators')}
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {[
@@ -399,7 +399,7 @@ export default function Donate() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ y: -4 }}
+                    whileHover={{ y: -6 }}
                     className="border border-warm-gray/30 p-6 bg-paper hover:border-rust/30 transition-colors cursor-pointer relative"
                   >
                     {/* Corner accents */}
@@ -407,13 +407,13 @@ export default function Donate() {
                     <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/20 pointer-events-none" />
 
                     <span className="font-body text-caption text-sepia-mid tracking-[0.15em]">
-                      FINANCIAL REPORT
+                      {t('donate.transparency.financialReport')}
                     </span>
                     <h4 className="font-display text-lg font-bold text-ink mt-2">
                       {quarter}
                     </h4>
                     <span className="font-body text-xs text-sepia-mid mt-2 block">
-                      PDF &middot; 2.4 MB
+                      {t('donate.transparency.pdfSize')}
                     </span>
                   </motion.div>
                 ))}
@@ -426,8 +426,8 @@ export default function Donate() {
       {/* Quote */}
       <SectionContainer narrow>
         <StoryQuoteBlock
-          quote="Transparency is not a feature. It is a responsibility."
-          author="Annual Report 2025"
+          quote={t('donate.transparency.quote')}
+          author={t('donate.transparency.quoteAuthor')}
         />
       </SectionContainer>
 
@@ -503,12 +503,12 @@ export default function Donate() {
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
               <MagneticButton strength={0.35}>
-                <a
-                  href="#top"
+                <button
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                   className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-rust text-paper px-10 py-4 hover:bg-pale-gold hover:text-ink transition-all duration-300"
                 >
                   {t('donate.cta.donate')}
-                </a>
+                </button>
               </MagneticButton>
               <MagneticButton strength={0.35}>
                 <Link
