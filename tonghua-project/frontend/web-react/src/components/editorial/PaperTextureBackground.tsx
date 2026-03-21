@@ -26,7 +26,7 @@ export default function PaperTextureBackground({
     <div className={`relative ${bgClasses[variant]} ${className}`}>
       {/* Subtle texture overlay */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        className="absolute inset-0 pointer-events-none opacity-[0.06]"
         aria-hidden="true"
         style={TEXTURE_STYLE}
       />
