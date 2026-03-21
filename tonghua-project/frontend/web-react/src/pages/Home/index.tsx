@@ -42,7 +42,7 @@ function GalleryItem({ src, alt, index }: GalleryItemProps) {
     >
       {/* Grain overlay */}
       <div
-        className="absolute inset-0 z-10 pointer-events-none opacity-15"
+        className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]"
         style={{
           backgroundImage: 'var(--grain-overlay)',
         }}
@@ -54,6 +54,8 @@ function GalleryItem({ src, alt, index }: GalleryItemProps) {
 
       {/* Decorative corner accents */}
       <div className="absolute top-2 left-2 w-6 h-6 border-t border-l border-rust/40 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-2 right-2 w-6 h-6 border-t border-r border-rust/40 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-2 left-2 w-6 h-6 border-b border-l border-rust/40 z-20 pointer-events-none" aria-hidden="true" />
       <div className="absolute bottom-2 right-2 w-6 h-6 border-b border-r border-rust/40 z-20 pointer-events-none" aria-hidden="true" />
 
       {/* Loading skeleton */}
@@ -360,7 +362,10 @@ export default function Home() {
       </SectionContainer>
 
       {/* Call to Action */}
-      <section className="bg-ink text-paper section-spacing">
+      <section className="bg-ink text-paper section-spacing relative">
+        {/* Grain overlay */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" aria-hidden="true" style={{ backgroundImage: 'var(--grain-overlay)' }} />
+
         <SectionContainer>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>

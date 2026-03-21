@@ -575,7 +575,12 @@
         "description": "平均回复时间在12小时以内，紧急事项会优先处理。"
       }
     },
-    "officeCaption": "我们的上海办公室"
+    "officeCaption": "我们的上海办公室",
+    "pullQuote": {
+      "quote": "每一个问题都是深入了解我们使命的邀请——而每一个回答都是编织信任之线的机会。",
+      "author": "VICOO 编辑部",
+      "role": "社区运营"
+    }
   },
   "login": {
     "title": "欢迎回来",

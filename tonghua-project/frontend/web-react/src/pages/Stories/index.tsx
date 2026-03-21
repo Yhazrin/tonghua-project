@@ -449,7 +449,7 @@ export default function Stories() {
                             </p>
 
                             {/* Pull quote / key stat */}
-                            <p className="font-body text-xs text-rust/80 italic mb-4 pl-3 border-l-2 border-rust/20">
+                            <p className="font-display text-sm text-rust/80 italic mb-4 pl-3 border-l-2 border-rust/20">
                               {story.pullQuote}
                             </p>
 
@@ -502,7 +502,10 @@ export default function Stories() {
       </SectionContainer>
 
       {/* Newsletter CTA */}
-      <section className="bg-aged-stock section-spacing">
+      <section className="bg-aged-stock section-spacing relative">
+        {/* Grain overlay */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" aria-hidden="true" style={{ backgroundImage: 'var(--grain-overlay)' }} />
+
         <SectionContainer narrow>
           <div className="text-center">
             <NumberedSectionHeading

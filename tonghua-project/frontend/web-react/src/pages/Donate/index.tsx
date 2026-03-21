@@ -391,6 +391,8 @@ export default function Donate() {
             <div className="md:col-span-5 relative">
               {/* Decorative corner accents */}
               <div className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+              <div className="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+              <div className="absolute -bottom-2 -left-2 w-4 h-4 border-b-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
               <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
 
               <h3 className="font-display text-h3 font-bold text-ink mb-4">
@@ -464,6 +466,8 @@ export default function Donate() {
                   >
                     {/* Corner accents */}
                     <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/20 pointer-events-none" aria-hidden="true" />
+                    <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/20 pointer-events-none" aria-hidden="true" />
+                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/20 pointer-events-none" aria-hidden="true" />
                     <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/20 pointer-events-none" aria-hidden="true" />
 
                     <span className="font-body text-caption text-sepia-mid tracking-[0.15em]">

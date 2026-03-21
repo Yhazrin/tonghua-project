@@ -575,7 +575,12 @@
         "description": "Average reply time is under 12 hours. Urgent matters are prioritized."
       }
     },
-    "officeCaption": "Our Shanghai office"
+    "officeCaption": "Our Shanghai office",
+    "pullQuote": {
+      "quote": "Every question is an invitation to understand our mission more deeply — and every answer is a chance to weave another thread of trust.",
+      "author": "VICOO Editorial",
+      "role": "Community Engagement"
+    }
   },
   "login": {
     "title": "Welcome Back",

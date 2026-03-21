@@ -71,7 +71,7 @@ export default function SepiaImageFrame({
         className={`
           ${aspectClasses[aspectRatio]}
           relative overflow-hidden
-          border border-warm-gray/60
+          border-2 border-rust/30
           bg-aged-stock
         `}
       >
@@ -84,6 +84,9 @@ export default function SepiaImageFrame({
             intensity={accent.intensity}
           />
         ))}
+        {/* Grain overlay */}
+        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" aria-hidden="true" style={{ backgroundImage: 'var(--grain-overlay)' }} />
+
         {/* Aged overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" aria-hidden="true" />
 
@@ -102,7 +105,7 @@ export default function SepiaImageFrame({
         <img
           src={src}
           alt={alt}
-          className={`w-full h-full object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+          className={`w-full h-full object-cover sepia-[0.08] transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
           loading="lazy"
           onLoad={() => setImageLoaded(true)}
         />

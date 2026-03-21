@@ -36,7 +36,7 @@ function TeamMemberCard({ member, index }: { member: { name: string; role: strin
     >
       <div className="relative aspect-[3/4] overflow-hidden border-2 border-warm-gray/50 bg-aged-stock mb-4">
         {/* Grain overlay */}
-        <div className="absolute inset-0 z-10 pointer-events-none opacity-12" style={{
+        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08]" style={{
           backgroundImage: 'var(--grain-overlay)'
         }} aria-hidden="true" />
 
@@ -45,6 +45,8 @@ function TeamMemberCard({ member, index }: { member: { name: string; role: strin
 
         {/* Decorative corner accents */}
         <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+        <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+        <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
         <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
 
         {/* Loading skeleton */}

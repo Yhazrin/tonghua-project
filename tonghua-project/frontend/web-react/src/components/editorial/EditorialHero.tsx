@@ -224,9 +224,9 @@ export default function EditorialHero({
       {/* Scroll indicator for full height sections */}
       {(fullHeight || fullBleed) && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.6 }}
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
+          animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { delay: 1, duration: 0.6 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
           aria-hidden="true"
         >
