@@ -301,10 +301,10 @@ export default function Campaigns() {
                     {/* Grain overlay */}
                     <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: 'var(--grain-overlay)' }} aria-hidden="true" />
                     {/* Corner accents */}
-                    <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
-                    <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
-                    <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
-                    <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
+                    <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                    <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                    <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                    <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
                     <Link to={`/campaigns/${campaign.id}`} className="group block cursor-pointer">
                       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                         {/* Image */}
@@ -415,10 +415,10 @@ export default function Campaigns() {
             transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
             className="text-center section-spacing"
           >
-            <span className="font-display text-7xl text-warm-gray/30 leading-none block mb-6 select-none">
+            <span className="font-display text-display text-warm-gray/30 leading-none block mb-6 select-none">
               &ldquo;
             </span>
-            <p className="font-display text-lg text-ink-faded mb-2">
+            <p className="font-display text-body-lg text-ink-faded mb-2">
               {t('campaigns.emptyState.title')}
             </p>
             <p className="font-body text-body-sm text-sepia-mid">

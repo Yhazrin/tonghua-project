@@ -175,7 +175,7 @@ function FAQItem({
         aria-expanded={isOpen}
         aria-controls={`faq-answer-${index}`}
       >
-        <span className="font-display text-base md:text-lg font-semibold text-ink group-hover:text-rust transition-colors duration-200">
+        <span className="font-display text-body md:text-body-lg font-semibold text-ink group-hover:text-rust transition-colors duration-200">
           {question}
         </span>
         <ChevronIcon isOpen={isOpen} />
@@ -192,7 +192,7 @@ function FAQItem({
             className="overflow-hidden"
             role="region"
           >
-            <p className="font-body text-body-sm md:text-base text-ink-faded leading-[1.75] pb-6 pr-8">
+            <p className="font-body text-body-sm md:text-body text-ink-faded leading-[1.75] pb-6 pr-8">
               {answer}
             </p>
           </motion.div>
@@ -257,7 +257,7 @@ function ContactInfoCard({
             <span className="text-rust/70">
               {card.icon}
             </span>
-            <h3 className="font-display text-lg font-semibold text-ink">
+            <h3 className="font-display text-body-lg font-semibold text-ink">
               {t(card.titleKey)}
             </h3>
           </div>
@@ -476,7 +476,7 @@ export default function Contact() {
                       {t('contact.form.successTitle')}
                     </h3>
 
-                    <p className="font-body text-body-sm md:text-base text-ink-faded mt-3 max-w-md leading-relaxed">
+                    <p className="font-body text-body-sm md:text-body text-ink-faded mt-3 max-w-md leading-relaxed">
                       {t('contact.form.success')}
                     </p>
 
@@ -682,7 +682,7 @@ export default function Contact() {
                 </span>
                 <a
                   href={`mailto:${t('contact.info.email')}`}
-                  className="block font-display text-xl font-semibold text-ink mt-2 hover:text-rust transition-colors cursor-pointer"
+                  className="block font-display text-h4 font-semibold text-ink mt-2 hover:text-rust transition-colors cursor-pointer"
                 >
                   {t('contact.info.email')}
                 </a>
@@ -692,7 +692,7 @@ export default function Contact() {
                 <span className="font-body text-caption text-sepia-mid tracking-[0.2em] uppercase">
                   {t('contact.info.wechatLabel')}
                 </span>
-                <p className="font-display text-xl font-semibold text-ink mt-2">
+                <p className="font-display text-h4 font-semibold text-ink mt-2">
                   {t('contact.info.wechat')}
                 </p>
               </div>
@@ -701,7 +701,7 @@ export default function Contact() {
                 <span className="font-body text-caption text-sepia-mid tracking-[0.2em] uppercase">
                   {t('contact.info.locationLabel')}
                 </span>
-                <p className="font-display text-xl font-semibold text-ink mt-2">
+                <p className="font-display text-h4 font-semibold text-ink mt-2">
                   {t('contact.info.address')}
                 </p>
               </div>

@@ -55,7 +55,7 @@ function TeamMemberCard({ member, index }: { member: { name: string; role: strin
         {/* Fallback initials placeholder */}
         {imgError && (
           <div className="absolute inset-0 z-[5] flex items-center justify-center bg-aged-stock">
-            <span className="font-display text-4xl font-bold text-rust/40">
+            <span className="font-display text-display font-bold text-rust/40">
               {member.initials}
             </span>
           </div>
@@ -70,7 +70,7 @@ function TeamMemberCard({ member, index }: { member: { name: string; role: strin
           onError={() => setImgError(true)}
         />
       </div>
-      <h4 className="font-display text-base font-semibold text-ink group-hover:text-rust transition-colors">
+      <h4 className="font-display text-body font-semibold text-ink group-hover:text-rust transition-colors">
         {member.name}
       </h4>
       <p className="font-body text-caption text-sepia-mid mt-1">{member.role}</p>
@@ -104,7 +104,7 @@ export default function About() {
           <div className="md:col-span-7 md:pt-8 relative">
             {/* Decorative vertical line alongside mission text */}
             <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-rust/40 via-rust/20 to-transparent" aria-hidden="true" />
-            <p className="font-body text-base md:text-lg text-ink-faded leading-[1.85] editorial-drop-cap pl-6">
+            <p className="font-body text-body md:text-body-lg text-ink-faded leading-[1.85] editorial-drop-cap pl-6">
               {t('about.mission.body')}
             </p>
           </div>

@@ -68,7 +68,7 @@ export default function ArtworkDetail() {
         <PaperTextureBackground variant="paper" className="section-spacing">
           <SectionContainer>
             <div className="text-center" role="alert" aria-live="assertive">
-              <h1 className="font-display text-2xl text-ink mb-4">
+              <h1 className="font-display text-h2 text-ink mb-4">
                 {t('artwork.notFound')}
               </h1>
               <Link
@@ -111,7 +111,7 @@ export default function ArtworkDetail() {
               <p className="font-body text-overline tracking-[0.3em] uppercase text-sepia-mid mb-2">
                 {t('artwork.detail.heading')}
               </p>
-              <h1 className="font-display text-3xl md:text-4xl text-ink font-bold leading-tight mb-4">
+              <h1 className="font-display text-h1 md:text-display text-ink font-bold leading-tight mb-4">
                 {artwork.title}
               </h1>
               <p className="font-body text-body-sm text-ink-faded leading-[1.8] mb-8">

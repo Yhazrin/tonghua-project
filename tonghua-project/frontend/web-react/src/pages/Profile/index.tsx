@@ -73,12 +73,12 @@ export default function Profile() {
                   className="flex items-center gap-6 pb-6 border-b border-warm-gray/20"
                 >
                   <div className="w-16 h-16 bg-warm-gray/20 flex items-center justify-center">
-                    <span className="font-display text-xl text-ink">
+                    <span className="font-display text-h4 text-ink">
                       {user.nickname ? user.nickname.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase()}
                     </span>
                   </div>
                   <div>
-                    <h2 className="font-display text-xl text-ink">{user.nickname || user.email}</h2>
+                    <h2 className="font-display text-h4 text-ink">{user.nickname || user.email}</h2>
                     <p className="font-body text-body-sm text-ink-faded">{user.email}</p>
                     <span className="inline-block mt-2 font-body text-overline tracking-[0.1em] uppercase text-sepia-mid bg-warm-gray/20 px-2 py-1">
                       {user.role}

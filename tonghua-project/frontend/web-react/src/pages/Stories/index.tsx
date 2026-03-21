@@ -455,9 +455,9 @@ export default function Stories() {
 
                             <div className="flex items-center gap-4 font-body text-caption text-sepia-mid">
                               <span>{story.author}</span>
-                              <span className="text-sepia-mid/40">|</span>
+                              <span className="text-sepia-mid/40" aria-hidden="true">|</span>
                               <span>{t('stories.readTimeWithMinutes', { minutes: story.readTimeMinutes })}</span>
-                              <span className="text-sepia-mid/40">|</span>
+                              <span className="text-sepia-mid/40" aria-hidden="true">|</span>
                               <span>{new Date(story.publishedAt).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                             </div>
 
@@ -515,7 +515,7 @@ export default function Stories() {
             />
 
             {/* Emotional hook */}
-            <p className="font-display text-lg md:text-xl italic text-ink-faded mt-4 mb-6">
+            <p className="font-display text-body-lg md:text-h4 italic text-ink-faded mt-4 mb-6">
               {t('stories.newsletter.hook')}
             </p>
 

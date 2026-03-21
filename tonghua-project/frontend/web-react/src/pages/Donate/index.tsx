@@ -184,7 +184,7 @@ function DonationStoryCard({
         showCornerAccents={true}
       />
       <div className="mt-4">
-        <span className="font-display text-lg font-bold text-rust">
+        <span className="font-display text-body-lg font-bold text-rust">
           {amount}
         </span>
         <p className="font-body text-body-sm text-ink mt-1 leading-relaxed">
@@ -458,22 +458,18 @@ export default function Donate() {
                     viewport={prefersReducedMotion ? undefined : { once: true }}
                     transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.1 }}
                     whileHover={prefersReducedMotion ? undefined : { y: -6 }}
-                    role="button"
-                    tabIndex={0}
-                    aria-label={`${quarter} ${t('donate.transparency.financialReport')}`}
-                    className="border border-warm-gray/30 p-6 bg-paper hover:border-rust/30 transition-colors cursor-pointer relative"
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); } }}
+                    className="border border-warm-gray/30 p-6 bg-paper hover:border-rust/30 transition-colors relative"
                   >
                     {/* Corner accents */}
-                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/20 pointer-events-none" aria-hidden="true" />
-                    <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/20 pointer-events-none" aria-hidden="true" />
-                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/20 pointer-events-none" aria-hidden="true" />
-                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/20 pointer-events-none" aria-hidden="true" />
+                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+                    <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
 
                     <span className="font-body text-caption text-sepia-mid tracking-[0.15em]">
                       {t('donate.transparency.financialReport')}
                     </span>
-                    <h4 className="font-display text-lg font-bold text-ink mt-2">
+                    <h4 className="font-display text-body-lg font-bold text-ink mt-2">
                       {quarter}
                     </h4>
                     <span className="font-body text-caption text-sepia-mid mt-2 block">

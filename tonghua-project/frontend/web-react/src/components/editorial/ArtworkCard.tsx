@@ -69,7 +69,7 @@ export default function ArtworkCard({
         {/* Info */}
         <div className="flex items-baseline justify-between gap-4">
           <div className="min-w-0">
-            <h3 className="font-display text-base md:text-lg font-semibold text-ink truncate group-hover:text-rust transition-colors">
+            <h3 className="font-display text-body md:text-body-lg font-semibold text-ink truncate group-hover:text-rust transition-colors">
               {artwork.title}
             </h3>
             <p className="font-body text-caption text-sepia-mid mt-1">

@@ -33,7 +33,7 @@ export default function FAQAccordion({ items, className = '' }: FAQAccordionProp
             aria-expanded={openIndex === index}
             aria-controls={`faq-answer-${index}`}
           >
-            <span className="font-display text-base md:text-lg text-ink group-hover:text-rust transition-colors pr-4">
+            <span className="font-display text-body md:text-body-lg text-ink group-hover:text-rust transition-colors pr-4">
               {item.question}
             </span>
             <motion.span

@@ -185,10 +185,10 @@ export default function ProductDetail() {
               <p className="font-body text-overline tracking-[0.3em] uppercase text-sepia-mid mb-2">
                 {product.category}
               </p>
-              <h1 className="font-display text-3xl md:text-4xl text-ink font-bold leading-tight mb-4">
+              <h1 className="font-display text-h1 md:text-display text-ink font-bold leading-tight mb-4">
                 {product.name}
               </h1>
-              <p className="font-display text-2xl text-ink mb-6">
+              <p className="font-display text-h2 text-ink mb-6">
                 {product.currency} {product.price.toFixed(2)}
               </p>
               <p className="font-body text-body-sm text-ink-faded leading-[1.8] mb-8">
