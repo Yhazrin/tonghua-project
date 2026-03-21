@@ -148,7 +148,7 @@ export default function Register() {
         </div>
       </div>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

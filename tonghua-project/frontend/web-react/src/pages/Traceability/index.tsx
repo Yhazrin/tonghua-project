@@ -186,11 +186,11 @@ function CertificationBadge({ title, description, delay }: {
       className="border-2 border-rust/20 bg-paper p-5 text-center transition-all duration-300 hover:shadow-cert relative overflow-hidden group"
     >
       {/* Grain overlay */}
-      <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} />
+      <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} aria-hidden="true" />
 
       {/* Corner accents */}
-      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rust/20 group-hover:border-rust/40 transition-colors" />
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/20 group-hover:border-rust/40 transition-colors" />
+      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rust/20 group-hover:border-rust/40 transition-colors" aria-hidden="true" />
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/20 group-hover:border-rust/40 transition-colors" aria-hidden="true" />
 
       <div className="relative z-20">
         {/* Badge icon */}
@@ -251,11 +251,11 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
         className="relative p-6 border-2 border-rust/30 bg-paper transition-all duration-300 hover:border-rust/50 overflow-hidden"
       >
         {/* Grain overlay */}
-        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08]" style={GRAIN_STYLE} />
+        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08]" style={GRAIN_STYLE} aria-hidden="true" />
 
         {/* Sepia corner accents */}
-        <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-rust/30" />
-        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-rust/30" />
+        <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-rust/30" aria-hidden="true" />
+        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-rust/30" aria-hidden="true" />
 
         <div className="relative z-20">
           {/* Header with status */}
@@ -661,11 +661,11 @@ export default function Traceability() {
                 className="border-2 border-eco-green/30 p-8 text-center bg-paper relative overflow-hidden"
               >
                 {/* Grain */}
-                <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} />
+                <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} aria-hidden="true" />
 
                 {/* Corner accents */}
-                <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-eco-green/20" />
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-eco-green/20" />
+                <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-eco-green/20" aria-hidden="true" />
+                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-eco-green/20" aria-hidden="true" />
 
                 <div className="relative z-20">
                   <span className="font-body text-overline tracking-[0.2em] uppercase text-eco-green block mb-3">
@@ -756,7 +756,7 @@ export default function Traceability() {
       </section>
 
       {/* Bottom CTA */}
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
 
       <SectionContainer narrow>
         <motion.div
@@ -784,7 +784,7 @@ export default function Traceability() {
         </motion.div>
       </SectionContainer>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

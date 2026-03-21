@@ -481,7 +481,7 @@ export default function Stories() {
                       )}
 
                       {index < filtered.length - 1 && index !== 0 && (
-                        <div className="editorial-divider mt-16 md:mt-24" />
+                        <div className="editorial-divider mt-16 md:mt-24" aria-hidden="true" />
                       )}
                     </motion.article>
                   </PagePeel>
@@ -616,7 +616,7 @@ export default function Stories() {
         </SectionContainer>
       </section>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

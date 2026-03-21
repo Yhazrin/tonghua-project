@@ -35,7 +35,7 @@ export default function Profile() {
           </div>
         </div>
 
-        <div className="editorial-divider" />
+        <div className="editorial-divider" aria-hidden="true" />
       </PageWrapper>
     );
   }
@@ -105,7 +105,7 @@ export default function Profile() {
         </div>
       </PaperTextureBackground>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

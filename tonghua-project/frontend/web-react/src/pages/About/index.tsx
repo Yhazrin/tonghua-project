@@ -38,14 +38,14 @@ function TeamMemberCard({ member, index }: { member: { name: string; role: strin
         {/* Grain overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none opacity-12" style={{
           backgroundImage: 'var(--grain-overlay)'
-        }} />
+        }} aria-hidden="true" />
 
         {/* Sepia frame effect */}
-        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" aria-hidden="true" />
 
         {/* Decorative corner accents */}
-        <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-rust/30 z-20 pointer-events-none" />
-        <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-rust/30 z-20 pointer-events-none" />
+        <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+        <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
 
         {/* Loading skeleton */}
         {!imageLoaded && !imgError && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-[3/4]" />}
@@ -101,7 +101,7 @@ export default function About() {
           </div>
           <div className="md:col-span-7 md:pt-8 relative">
             {/* Decorative vertical line alongside mission text */}
-            <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-rust/40 via-rust/20 to-transparent" />
+            <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-rust/40 via-rust/20 to-transparent" aria-hidden="true" />
             <p className="font-body text-base md:text-lg text-ink-faded leading-[1.85] editorial-drop-cap pl-6">
               {t('about.mission.body')}
             </p>
@@ -195,7 +195,7 @@ export default function About() {
         </div>
       </SectionContainer>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

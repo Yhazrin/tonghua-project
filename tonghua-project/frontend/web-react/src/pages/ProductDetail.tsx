@@ -298,7 +298,7 @@ export default function ProductDetail() {
         </Link>
       </SectionContainer>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

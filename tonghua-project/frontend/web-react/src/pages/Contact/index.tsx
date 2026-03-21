@@ -659,7 +659,7 @@ export default function Contact() {
                 </span>
                 <a
                   href={`mailto:${t('contact.info.email')}`}
-                  className="block font-display text-xl font-semibold text-ink mt-2 hover:text-rust transition-colors"
+                  className="block font-display text-xl font-semibold text-ink mt-2 hover:text-rust transition-colors cursor-pointer"
                 >
                   {t('contact.info.email')}
                 </a>
@@ -709,7 +709,7 @@ export default function Contact() {
         </div>
       </SectionContainer>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

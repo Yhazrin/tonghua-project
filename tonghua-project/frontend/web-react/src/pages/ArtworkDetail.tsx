@@ -186,7 +186,7 @@ export default function ArtworkDetail() {
         </Link>
       </SectionContainer>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

@@ -454,7 +454,7 @@ export default function Campaigns() {
         )}
       </SectionContainer>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

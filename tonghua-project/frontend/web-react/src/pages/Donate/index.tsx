@@ -456,14 +456,12 @@ export default function Donate() {
                     viewport={prefersReducedMotion ? undefined : { once: true }}
                     transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.1 }}
                     whileHover={prefersReducedMotion ? undefined : { y: -6 }}
-                    role="button"
-                    tabIndex={0}
                     aria-label={`${quarter} ${t('donate.transparency.financialReport')}`}
                     className="border border-warm-gray/30 p-6 bg-paper hover:border-rust/30 transition-colors cursor-pointer relative"
                   >
                     {/* Corner accents */}
-                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/20 pointer-events-none" />
-                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/20 pointer-events-none" />
+                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/20 pointer-events-none" aria-hidden="true" />
+                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/20 pointer-events-none" aria-hidden="true" />
 
                     <span className="font-body text-caption text-sepia-mid tracking-[0.15em]">
                       {t('donate.transparency.financialReport')}
@@ -591,7 +589,7 @@ export default function Donate() {
         </SectionContainer>
       </section>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }
