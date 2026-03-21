@@ -32,6 +32,8 @@ export default function Profile() {
             </motion.button>
           </div>
         </div>
+
+        <div className="editorial-divider" />
       </PageWrapper>
     );
   }
@@ -100,6 +102,8 @@ export default function Profile() {
           </div>
         </div>
       </PaperTextureBackground>
+
+      <div className="editorial-divider" />
     </PageWrapper>
   );
 }

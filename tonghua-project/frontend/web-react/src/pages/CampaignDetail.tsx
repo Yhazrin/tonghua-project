@@ -199,6 +199,8 @@ export default function CampaignDetail() {
           &larr; {t('common.back')} {t('campaigns.backToAll')}
         </Link>
       </SectionContainer>
+
+      <div className="editorial-divider" />
     </PageWrapper>
   );
 }

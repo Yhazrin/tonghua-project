@@ -183,6 +183,8 @@ export default function ArtworkDetail() {
           &larr; {t('common.back')} {t('nav.stories')}
         </Link>
       </SectionContainer>
+
+      <div className="editorial-divider" />
     </PageWrapper>
   );
 }

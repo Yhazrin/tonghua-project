@@ -182,8 +182,8 @@ function CertificationBadge({ title, description, delay }: {
       whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={prefersReducedMotion ? undefined : { once: true }}
       transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay }}
-      whileHover={prefersReducedMotion ? undefined : { y: -4, borderColor: 'rgba(139, 58, 42, 0.5)' }}
-      className="border-2 border-rust/20 bg-paper p-5 text-center transition-all duration-300 hover:shadow-[0_4px_20px_rgba(139,58,42,0.08)] relative overflow-hidden group"
+      whileHover={prefersReducedMotion ? undefined : { y: -4, borderColor: 'color-mix(in srgb, var(--color-rust), transparent 50%)' }}
+      className="border-2 border-rust/20 bg-paper p-5 text-center transition-all duration-300 hover:shadow-cert relative overflow-hidden group"
     >
       {/* Grain overlay */}
       <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} />

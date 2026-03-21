@@ -93,6 +93,8 @@ export default function NotFound() {
           </div>
         </div>
       </PaperTextureBackground>
+
+      <div className="editorial-divider" />
     </PageWrapper>
   );
 }

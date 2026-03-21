@@ -30,6 +30,9 @@ export default {
         'h2': 'clamp(28px, 4vw, 48px)',
         'h3': 'clamp(20px, 2.5vw, 32px)',
       },
+      boxShadow: {
+        'cert': '0 4px 20px color-mix(in srgb, var(--color-rust), transparent 92%)',
+      },
     },
   },
   plugins: [],

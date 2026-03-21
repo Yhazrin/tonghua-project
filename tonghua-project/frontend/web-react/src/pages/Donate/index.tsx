@@ -205,6 +205,7 @@ export default function Donate() {
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [donationSuccess, setDonationSuccess] = useState(false);
+  const [donationError, setDonationError] = useState<string | null>(null);
   const successRef = useRef<HTMLDivElement>(null);
 
   const handleDonate = async (data: {
@@ -215,6 +216,7 @@ export default function Donate() {
   }) => {
     setIsSubmitting(true);
     setDonationSuccess(false);
+    setDonationError(null);
     try {
       await donationsApi.create({
         amount: data.amount,
@@ -230,6 +232,9 @@ export default function Donate() {
       });
     } catch (error) {
       console.error('Donation failed:', error);
+      setDonationError(
+        error instanceof Error ? error.message : t('donate.form.error', 'Donation failed. Please try again.')
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -310,6 +315,28 @@ export default function Donate() {
               onSubmit={handleDonate}
               isSubmitting={isSubmitting}
             />
+
+            {/* Error feedback */}
+            {donationError && (
+              <motion.div
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
+                className="mt-6 p-5 border-l-2 border-rust bg-rust/5"
+                role="alert"
+                aria-live="assertive"
+              >
+                <p className="font-body text-sm text-rust font-medium">
+                  {donationError}
+                </p>
+                <button
+                  onClick={() => setDonationError(null)}
+                  className="font-body text-xs text-rust/70 mt-2 underline hover:text-rust transition-colors cursor-pointer"
+                >
+                  {t('common.dismiss', 'Dismiss')}
+                </button>
+              </motion.div>
+            )}
 
             {/* Success feedback */}
             {donationSuccess && (

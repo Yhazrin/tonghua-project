@@ -294,6 +294,8 @@ export default function ProductDetail() {
           &larr; {t('common.back')} {t('nav.shop')}
         </Link>
       </SectionContainer>
+
+      <div className="editorial-divider" />
     </PageWrapper>
   );
 }
