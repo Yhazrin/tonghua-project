@@ -232,6 +232,7 @@ const brandPillars = [
 
 export default function Home() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <PageWrapper>
@@ -398,10 +399,10 @@ export default function Home() {
       {/* Bottom feature strip — 3 brand pillars */}
       <SectionContainer>
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
+          whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
+          viewport={prefersReducedMotion ? undefined : { once: true }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8 }}
           className="section-spacing-sm"
         >
           <div className="flex items-baseline gap-3 mb-10">

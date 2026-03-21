@@ -8,6 +8,8 @@ import SectionContainer from '@/components/layout/SectionContainer';
 import EditorialHero from '@/components/editorial/EditorialHero';
 import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeading';
 import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
+import StoryQuoteBlock from '@/components/editorial/StoryQuoteBlock';
+import { ScrollPathDrawInline } from '@/components/animations/ScrollPathDraw';
 import { VintageInput } from '@/components/editorial/VintageInput';
 import { campaignsApi } from '@/services/campaigns';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -294,7 +296,13 @@ export default function Campaigns() {
                     whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                     viewport={prefersReducedMotion ? undefined : { once: true, margin: '-80px' }}
                     transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1] }}
+                    className="relative p-6 -m-6 overflow-hidden"
                   >
+                    {/* Grain overlay */}
+                    <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.04]" style={{ backgroundImage: 'var(--grain-overlay)' }} aria-hidden="true" />
+                    {/* Corner accents */}
+                    <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
+                    <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
                     <Link to={`/campaigns/${campaign.id}`} className="group block cursor-pointer">
                       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                         {/* Image */}
@@ -345,7 +353,7 @@ export default function Campaigns() {
                                 <span className="font-body text-xs text-sepia-mid">
                                   ¥{campaign.raisedAmount.toLocaleString()} / ¥{campaign.goalAmount.toLocaleString()}
                                 </span>
-                                <span className={`font-body text-xs ${isCompleted ? 'text-sepia-mid' : 'text-sepia-mid'}`}>
+                                <span className={`font-body text-xs ${isCompleted ? 'text-ink-faded' : 'text-sepia-mid'}`}>
                                   {isCompleted
                                     ? t('campaigns.funded', { percent: fundingPercent })
                                     : `${fundingPercent}%`
@@ -452,6 +460,24 @@ export default function Campaigns() {
             </button>
           </nav>
         )}
+      </SectionContainer>
+
+      {/* Editorial pull quote connector */}
+      <div className="flex justify-center py-2" aria-hidden="true">
+        <ScrollPathDrawInline
+          path="M0,10 L60,10 M80,10 L140,10 M160,10 L220,10"
+          strokeColor="var(--color-warm-gray)"
+          strokeWidth={1}
+          className="w-56 h-5"
+        />
+      </div>
+
+      <SectionContainer narrow>
+        <StoryQuoteBlock
+          quote={t('campaigns.quote.body', { defaultValue: 'Every child sees the world differently. Their art reminds us that sustainability begins with wonder.' })}
+          author={t('campaigns.quote.author', { defaultValue: 'Chen Wei' })}
+          role={t('campaigns.quote.role', { defaultValue: 'Program Director, VICOO Foundation' })}
+        />
       </SectionContainer>
 
       <div className="editorial-divider" aria-hidden="true" />
