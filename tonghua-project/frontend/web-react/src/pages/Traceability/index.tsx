@@ -189,8 +189,10 @@ function CertificationBadge({ title, description, delay }: {
       <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} aria-hidden="true" />
 
       {/* Corner accents */}
-      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rust/20 group-hover:border-rust/40 transition-colors" aria-hidden="true" />
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/20 group-hover:border-rust/40 transition-colors" aria-hidden="true" />
+      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rust/20 group-hover:border-rust/40 transition-colors pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-rust/20 group-hover:border-rust/40 transition-colors pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-rust/20 group-hover:border-rust/40 transition-colors pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/20 group-hover:border-rust/40 transition-colors pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-20">
         {/* Badge icon */}

@@ -123,7 +123,7 @@ export default function CampaignDetail() {
             {/* Main content */}
             <div className="md:col-span-7">
               <NumberedSectionHeading number="01" title={t('campaigns.about')} />
-              <p className="font-body text-sm text-ink-faded leading-[1.8] mb-6">
+              <p className="font-body text-body-sm text-ink-faded leading-[1.8] mb-6">
                 {campaign.description}
               </p>
 
@@ -141,7 +141,7 @@ export default function CampaignDetail() {
                 <div className="border border-warm-gray/30 p-6">
                   <div className="flex justify-between mb-3">
                     <span className="font-display text-3xl font-bold text-ink">{progress}%</span>
-                    <span className="font-body text-xs text-sepia-mid self-end">
+                    <span className="font-body text-caption text-sepia-mid self-end">
                       {t('campaigns.detail.progress')}
                     </span>
                   </div>
@@ -172,7 +172,7 @@ export default function CampaignDetail() {
 
                 {/* Donation */}
                 <div>
-                  <h3 className="font-body text-xs tracking-[0.15em] uppercase text-sepia-mid mb-4">
+                  <h3 className="font-body text-caption tracking-[0.15em] uppercase text-sepia-mid mb-4">
                     {t('campaigns.detail.donate')}
                   </h3>
                   <DonationPanel />
@@ -199,7 +199,7 @@ export default function CampaignDetail() {
       <SectionContainer className="py-8">
         <Link
           to="/campaigns"
-          className="font-body text-xs tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors cursor-pointer"
+          className="font-body text-caption tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors cursor-pointer"
         >
           &larr; {t('common.back')} {t('campaigns.backToAll')}
         </Link>

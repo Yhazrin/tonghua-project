@@ -46,7 +46,7 @@ export default function ArtworkCard({
         <div className="relative aspect-square overflow-hidden border-2 border-rust/30 bg-aged-stock mb-4">
           {/* Grain overlay */}
           <div
-            className="absolute inset-0 z-10 pointer-events-none opacity-10"
+            className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]"
             aria-hidden="true"
             style={{
               backgroundImage: 'var(--grain-overlay)'
@@ -72,13 +72,13 @@ export default function ArtworkCard({
             <h3 className="font-display text-base md:text-lg font-semibold text-ink truncate group-hover:text-rust transition-colors">
               {artwork.title}
             </h3>
-            <p className="font-body text-xs text-sepia-mid mt-1">
+            <p className="font-body text-caption text-sepia-mid mt-1">
               {t('artwork.card.age', { age: artwork.childParticipant.age })} &middot;{' '}
               {new Date(artwork.createdAt).getFullYear()}
             </p>
           </div>
 
-          <span className="font-body text-xs text-sepia-mid whitespace-nowrap flex-shrink-0">
+          <span className="font-body text-caption text-sepia-mid whitespace-nowrap flex-shrink-0">
             {t('artwork.card.votes', { count: artwork.voteCount })}
           </span>
         </div>

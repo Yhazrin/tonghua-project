@@ -304,7 +304,7 @@ export default function Donate() {
 
             {/* Impact counters */}
             <div className="grid grid-cols-2 gap-6 mt-12">
-              <ImpactCounter value={890000} label={t('donate.impact.fundsRaised')} prefix="¥" />
+              <ImpactCounter value={890000} label={t('donate.impact.fundsRaised')} prefix={t('common.currency.cny')} />
               <ImpactCounter value={2847} label={t('donate.impact.childrenHelped')} />
             </div>
           </div>

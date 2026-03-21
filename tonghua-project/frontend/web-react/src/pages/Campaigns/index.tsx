@@ -299,7 +299,7 @@ export default function Campaigns() {
                     className="relative p-6 -m-6 overflow-hidden"
                   >
                     {/* Grain overlay */}
-                    <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.04]" style={{ backgroundImage: 'var(--grain-overlay)' }} aria-hidden="true" />
+                    <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: 'var(--grain-overlay)' }} aria-hidden="true" />
                     {/* Corner accents */}
                     <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
                     <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
@@ -476,9 +476,9 @@ export default function Campaigns() {
 
       <SectionContainer narrow>
         <StoryQuoteBlock
-          quote={t('campaigns.quote.body', { defaultValue: 'Every child sees the world differently. Their art reminds us that sustainability begins with wonder.' })}
-          author={t('campaigns.quote.author', { defaultValue: 'Chen Wei' })}
-          role={t('campaigns.quote.role', { defaultValue: 'Program Director, VICOO Foundation' })}
+          quote={t('campaigns.quote')}
+          author={t('campaigns.quoteAuthor')}
+          role={t('campaigns.quoteRole')}
         />
       </SectionContainer>
 

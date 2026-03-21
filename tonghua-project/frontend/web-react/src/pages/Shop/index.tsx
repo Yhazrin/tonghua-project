@@ -186,7 +186,7 @@ export default function Shop() {
                 transition={prefersReducedMotion ? { duration: 0 } : { delay: index * 0.05 }}
                 whileHover={prefersReducedMotion ? undefined : { y: -2 }}
                 className={`
-                  font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
+                  font-body text-caption tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
                   ${activeCategory === cat
                     ? 'border-rust text-rust'
                     : 'border-transparent text-sepia-mid hover:text-ink'
@@ -235,11 +235,11 @@ export default function Shop() {
           </div>
         ) : error ? (
           <div className="text-center py-20" role="alert" aria-live="assertive">
-            <p className="font-body text-sm text-rust">{t('common.error')}</p>
-            <p className="font-body text-xs text-sepia-mid mt-2">{t('common.retry')}</p>
+            <p className="font-body text-body-sm text-rust">{t('common.error')}</p>
+            <p className="font-body text-caption text-sepia-mid mt-2">{t('common.retry')}</p>
           </div>
         ) : filtered.length === 0 ? (
-          <p className="font-body text-sm text-sepia-mid py-20 text-center">
+          <p className="font-body text-body-sm text-sepia-mid py-20 text-center">
             {t('shop.empty')}
           </p>
         ) : (
@@ -297,7 +297,7 @@ export default function Shop() {
                 <h4 className="font-display text-lg font-bold text-ink mt-2 mb-2">
                   {t(item.titleKey)}
                 </h4>
-                <p className="font-body text-xs text-ink-faded leading-relaxed">
+                <p className="font-body text-caption text-ink-faded leading-relaxed">
                   {t(item.descKey)}
                 </p>
               </motion.div>
@@ -338,10 +338,10 @@ export default function Shop() {
             viewport={prefersReducedMotion ? undefined : { once: true }}
             transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, delay: 0.15, ease: [0, 0, 0.2, 1] }}
           >
-            <p className="font-body text-xs text-ink-faded leading-relaxed mb-4">
+            <p className="font-body text-caption text-ink-faded leading-relaxed mb-4">
               {t('shop.behind.body1')}
             </p>
-            <p className="font-body text-xs text-ink-faded leading-relaxed mb-6">
+            <p className="font-body text-caption text-ink-faded leading-relaxed mb-6">
               {t('shop.behind.body2')}
             </p>
 

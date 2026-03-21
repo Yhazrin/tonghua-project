@@ -46,12 +46,14 @@ export default function EditorialFooter() {
         size="lg"
         intensity="medium"
         className="absolute top-6 left-0 pointer-events-none"
+        aria-hidden="true"
       />
       <OrigamiFoldAccent
         position="top-right"
         size="lg"
         intensity="subtle"
         className="absolute top-6 right-0 pointer-events-none"
+        aria-hidden="true"
       />
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 section-spacing relative z-10">

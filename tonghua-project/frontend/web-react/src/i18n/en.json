@@ -682,7 +682,10 @@
     "learnMore": "Learn More",
     "getStarted": "Get Started",
     "email": "Email",
-    "send": "Send"
+    "send": "Send",
+    "currency": {
+      "cny": "¥"
+    }
   },
   "error": {
     "title": "Something went wrong",
