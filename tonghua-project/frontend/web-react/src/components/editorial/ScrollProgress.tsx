@@ -1,16 +1,22 @@
 import { motion, useScroll, useSpring } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 /**
  * Thin editorial reading progress bar fixed at the top of the viewport.
  * Uses rust accent color, matches the 1990s print-magazine aesthetic.
  */
 export default function ScrollProgress() {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
   });
+
+  if (prefersReducedMotion) {
+    return null;
+  }
 
   return (
     <motion.div

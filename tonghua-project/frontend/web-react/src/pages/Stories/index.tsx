@@ -338,6 +338,13 @@ export default function Stories() {
       />
 
       <SectionContainer noTopSpacing>
+        {/* Grain overlay */}
+        <div
+          className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
+          style={{ backgroundImage: 'var(--grain-overlay)' }}
+          aria-hidden="true"
+        />
+
         {/* Category filter with count badges */}
         <div className="flex items-center gap-1 mb-12 border-b border-warm-gray/30 overflow-x-auto">
           {categories.map((cat) => (

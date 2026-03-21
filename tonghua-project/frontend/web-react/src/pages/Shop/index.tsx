@@ -163,6 +163,13 @@ export default function Shop() {
       />
 
       <SectionContainer noTopSpacing>
+        {/* Grain overlay */}
+        <div
+          className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
+          style={{ backgroundImage: 'var(--grain-overlay)' }}
+          aria-hidden="true"
+        />
+
         <NumberedSectionHeading number="01" title={t('shop.collection')} />
 
         {/* Filters and sort row */}
