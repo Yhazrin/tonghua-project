@@ -12,6 +12,7 @@ import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
 import MagneticButton from '@/components/animations/MagneticButton';
 import { ScrollPathDrawInline } from '@/components/animations/ScrollPathDraw';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 /* ─── Gallery Item (extracted to fix useState-in-map bug) ─── */
 
@@ -23,19 +24,20 @@ interface GalleryItemProps {
 
 function GalleryItem({ src, alt, index }: GalleryItemProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         type: 'spring',
         stiffness: 380,
         damping: 30,
         delay: index * 0.08,
       }}
-      whileHover={{ y: -4 }}
+      whileHover={prefersReducedMotion ? undefined : { y: -4 }}
       className="relative aspect-square overflow-hidden border-2 border-warm-gray/50 bg-aged-stock group"
     >
       {/* Grain overlay */}

@@ -10,6 +10,7 @@ import PaperTextureBackground from '@/components/editorial/PaperTextureBackgroun
 import DonationPanel from '@/components/editorial/DonationPanel';
 import ArtworkCard from '@/components/editorial/ArtworkCard';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import type { Campaign, Artwork } from '@/types';
 
 const MOCK_CAMPAIGN: Campaign = {
@@ -79,6 +80,7 @@ const MOCK_ARTWORKS: Artwork[] = [
 
 export default function CampaignDetail() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const campaign = MOCK_CAMPAIGN;
   const progress = Math.round((campaign.raisedAmount / campaign.goalAmount) * 100);
 
@@ -143,10 +145,11 @@ export default function CampaignDetail() {
                   </div>
                   <div className="w-full h-1.5 bg-warm-gray/30 overflow-hidden mb-4">
                     <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${progress}%` }}
-                      transition={{ duration: 1.2, ease: 'easeOut' }}
+                      initial={prefersReducedMotion ? false : { width: 0 }}
+                      animate={prefersReducedMotion ? undefined : { width: `${progress}%` }}
+                      transition={prefersReducedMotion ? { duration: 0 } : { duration: 1.2, ease: 'easeOut' }}
                       className="h-full bg-archive-brown"
+                      style={prefersReducedMotion ? { width: `${progress}%` } : undefined}
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-center">

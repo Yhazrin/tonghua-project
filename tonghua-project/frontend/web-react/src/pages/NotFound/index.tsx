@@ -65,7 +65,7 @@ export default function NotFound() {
                     >
                       <Link
                         to={item.path}
-                        className="group flex items-center justify-between py-4 border-b border-warm-gray/20 hover:border-rust/40 transition-colors"
+                        className="group flex items-center justify-between py-4 border-b border-warm-gray/20 hover:border-rust/40 transition-colors cursor-pointer"
                       >
                         <span className="font-body text-sm text-ink group-hover:text-rust transition-colors">
                           {t(`nav.${item.key}`)}
@@ -85,7 +85,7 @@ export default function NotFound() {
                 >
                   <Link
                     to="/"
-                    className="inline-block font-body text-xs tracking-[0.15em] uppercase bg-ink text-paper px-8 py-3.5 hover:bg-rust transition-colors duration-300"
+                    className="inline-block font-body text-xs tracking-[0.15em] uppercase bg-ink text-paper px-8 py-3.5 hover:bg-rust transition-colors duration-300 cursor-pointer"
                   >
                     {t('notFound.cta')}
                   </Link>
