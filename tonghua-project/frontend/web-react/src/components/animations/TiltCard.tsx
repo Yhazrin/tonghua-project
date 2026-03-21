@@ -114,7 +114,7 @@ export default function TiltCard({
           y: shadowY,
           filter: 'blur(28px)',
           opacity: shadowIntensity,
-          background: 'radial-gradient(circle at 50% 50%, rgba(20, 12, 6, 0.45) 0%, transparent 65%)',
+          background: 'radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--color-ink) 45%, transparent) 0%, transparent 65%)',
           transform: 'translateZ(-50px)',
           willChange: 'transform',
         }}

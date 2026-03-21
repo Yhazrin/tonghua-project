@@ -1,5 +1,6 @@
 import { type ReactNode, useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface PagePeelProps {
   children: ReactNode;
@@ -17,6 +18,7 @@ export default function PagePeel({
   className = '',
 }: PagePeelProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -94,6 +96,18 @@ export default function PagePeel({
       trRotateX, trRotateY, trTranslateX, trTranslateY,
       tlRotateX, tlRotateY, tlTranslateX, tlTranslateY]);
 
+  if (prefersReducedMotion) {
+    return (
+      <div ref={containerRef} className={`relative ${className}`}>
+        <div className="relative z-10">
+          <div className="bg-paper">
+            {children}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       ref={containerRef}
@@ -143,7 +157,7 @@ export default function PagePeel({
           className="absolute inset-0 pointer-events-none"
           style={{
             opacity: shadowOpacity,
-            boxShadow: `inset 0 0 60px rgba(26, 26, 22, ${shadowIntensity * 0.3})`,
+            boxShadow: `inset 0 0 60px color-mix(in srgb, var(--color-ink) ${shadowIntensity * 30}%, transparent)`,
             transform: 'translateZ(-1px)',
           }}
         />
@@ -165,7 +179,7 @@ export default function PagePeel({
             viewBox="0 0 80 80"
             aria-hidden="true"
           >
-            <path d="M0 80 Q0 0 80 0" fill="none" stroke="rgba(139, 58, 42, 0.2)" strokeWidth="1" />
+            <path d="M0 80 Q0 0 80 0" fill="none" stroke="color-mix(in srgb, var(--color-rust) 20%, transparent)" strokeWidth="1" />
           </svg>
         )}
         {corner === 'bottom-left' && (
@@ -175,7 +189,7 @@ export default function PagePeel({
             viewBox="0 0 80 80"
             aria-hidden="true"
           >
-            <path d="M0 80 Q0 0 80 0" fill="none" stroke="rgba(139, 58, 42, 0.2)" strokeWidth="1" />
+            <path d="M0 80 Q0 0 80 0" fill="none" stroke="color-mix(in srgb, var(--color-rust) 20%, transparent)" strokeWidth="1" />
           </svg>
         )}
         {corner === 'top-right' && (
@@ -185,7 +199,7 @@ export default function PagePeel({
             viewBox="0 0 80 80"
             aria-hidden="true"
           >
-            <path d="M0 80 Q0 0 80 0" fill="none" stroke="rgba(139, 58, 42, 0.2)" strokeWidth="1" />
+            <path d="M0 80 Q0 0 80 0" fill="none" stroke="color-mix(in srgb, var(--color-rust) 20%, transparent)" strokeWidth="1" />
           </svg>
         )}
         {corner === 'top-left' && (
@@ -195,7 +209,7 @@ export default function PagePeel({
             viewBox="0 0 80 80"
             aria-hidden="true"
           >
-            <path d="M0 80 Q0 0 80 0" fill="none" stroke="rgba(139, 58, 42, 0.2)" strokeWidth="1" />
+            <path d="M0 80 Q0 0 80 0" fill="none" stroke="color-mix(in srgb, var(--color-rust) 20%, transparent)" strokeWidth="1" />
           </svg>
         )}
       </motion.div>
