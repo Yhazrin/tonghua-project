@@ -37,7 +37,7 @@ export const VintageSelect = forwardRef<HTMLSelectElement, VintageSelectProps>(
             ref={ref}
             id={selectId}
             className={`
-              w-full font-body text-sm bg-transparent border-b-2 border-warm-gray/40
+              w-full font-body text-body-sm bg-transparent border-b-2 border-warm-gray/40
               py-2.5 pr-8 appearance-none cursor-pointer transition-all duration-300
               focus:outline-none focus:border-rust text-ink
               ${props.disabled ? 'opacity-50 cursor-not-allowed' : ''}
