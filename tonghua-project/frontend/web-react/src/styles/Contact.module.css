@@ -59,7 +59,7 @@
 .form__label {
   display: block;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-sepia-mid);
@@ -70,7 +70,7 @@
   width: 100%;
   padding: var(--space-md) 0;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   color: var(--color-ink);
   border-bottom: 1px solid var(--color-warm-gray);
   outline: none;
@@ -91,7 +91,7 @@
   width: 100%;
   padding: var(--space-md);
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   line-height: 1.7;
   color: var(--color-ink);
   border: 1px solid var(--color-warm-gray);
@@ -115,7 +115,7 @@
   width: 100%;
   padding: var(--space-lg);
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   background-color: var(--color-ink);
@@ -143,13 +143,13 @@
 
 .form__successText {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   color: var(--color-rust);
 }
 
 .form__error {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--color-rust);
   margin-top: var(--space-xs);
 }
@@ -178,7 +178,7 @@
 
 .info__itemLabel {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-sepia-mid);
@@ -187,7 +187,7 @@
 
 .info__itemValue {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   color: var(--color-ink-faded);
 }
 
@@ -210,7 +210,7 @@
 
 .social__title {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-caption);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--color-sepia-mid);
@@ -226,7 +226,7 @@
 
 .social__link {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--text-caption);
   color: var(--color-ink-faded);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-editorial);
@@ -276,7 +276,7 @@
 
 .office__detailLabel {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--text-overline);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--color-sepia-mid);
@@ -285,6 +285,6 @@
 
 .office__detailValue {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   color: var(--color-warm-gray);
 }

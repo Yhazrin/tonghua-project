@@ -37,7 +37,7 @@
 
 .filterBtn {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: var(--space-sm) var(--space-md);
@@ -102,7 +102,7 @@
   top: var(--space-md);
   left: var(--space-md);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--text-overline);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   padding: 4px 10px;
@@ -139,7 +139,7 @@
 
 .card__subtitle {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--text-caption);
   color: var(--color-sepia-mid);
   line-height: 1.6;
   margin-bottom: var(--space-lg);
@@ -153,7 +153,7 @@
 
 .card__stat {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--color-sepia-mid);
 }
 
@@ -174,13 +174,13 @@
 
 .card__progressText {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--color-sepia-mid);
 }
 
 .card__progressAmount {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--color-rust);
   font-weight: 600;
 }
@@ -212,6 +212,6 @@
 
 .empty__text {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   color: var(--color-sepia-mid);
 }

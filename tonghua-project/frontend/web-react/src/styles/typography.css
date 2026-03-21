@@ -90,7 +90,7 @@ select {
 /* ── Editorial Utilities ── */
 .editorial-subtitle {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--color-sepia-mid);
@@ -99,7 +99,7 @@ select {
 
 .editorial-body-large {
   font-family: var(--font-mono);
-  font-size: 18px;
+  font-size: var(--text-body-lg);
   line-height: 1.8;
   color: var(--color-ink-faded);
 }

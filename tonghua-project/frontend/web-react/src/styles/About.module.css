@@ -45,7 +45,7 @@
 
 .mission__body {
   font-family: var(--font-mono);
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 1.9;
   color: var(--color-ink-faded);
 }
@@ -88,7 +88,7 @@
 
 .valueCard__body {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   line-height: 1.8;
   color: var(--color-ink-faded);
 }
@@ -128,7 +128,7 @@
 
 .teamMember__name {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: var(--text-h4);
   font-weight: 600;
   color: var(--color-ink);
   margin-bottom: var(--space-xs);
@@ -136,7 +136,7 @@
 
 .teamMember__role {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-rust);
@@ -145,7 +145,7 @@
 
 .teamMember__bio {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--text-caption);
   color: var(--color-sepia-mid);
   line-height: 1.6;
   max-width: 280px;
@@ -197,7 +197,7 @@
 
 .milestone__description {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   line-height: 1.7;
   color: var(--color-warm-gray);
 }
