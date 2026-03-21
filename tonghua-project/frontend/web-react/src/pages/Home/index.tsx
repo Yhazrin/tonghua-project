@@ -190,10 +190,10 @@ function BrandPillar({ label, value, index }: BrandPillarProps) {
 /* ─── Static Data ─── */
 
 const galleryImages = [
-  { src: 'https://picsum.photos/seed/children-art-1/400/400', alt: "Child's watercolor landscape" },
-  { src: 'https://picsum.photos/seed/children-art-2/400/400', alt: "Child's abstract crayon drawing" },
-  { src: 'https://picsum.photos/seed/children-art-3/400/400', alt: "Child's pastel portrait" },
-  { src: 'https://picsum.photos/seed/children-art-4/400/400', alt: "Child's ink illustration" },
+  { src: 'https://picsum.photos/seed/children-art-1/400/400' },
+  { src: 'https://picsum.photos/seed/children-art-2/400/400' },
+  { src: 'https://picsum.photos/seed/children-art-3/400/400' },
+  { src: 'https://picsum.photos/seed/children-art-4/400/400' },
 ];
 
 const latestArtworks = [

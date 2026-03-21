@@ -180,7 +180,7 @@ export default function ProductDetail() {
 
             {/* Details */}
             <div className="md:col-span-5 md:col-start-8">
-              <p className="font-body text-[10px] tracking-[0.3em] uppercase text-sepia-mid mb-2">
+              <p className="font-body text-overline tracking-[0.3em] uppercase text-sepia-mid mb-2">
                 {product.category}
               </p>
               <h1 className="font-display text-3xl md:text-4xl text-ink font-bold leading-tight mb-4">
@@ -256,7 +256,8 @@ export default function ProductDetail() {
                 whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
                 onClick={handleAddToCart}
                 disabled={!product.inStock}
-                className={`w-full font-body text-sm tracking-[0.15em] uppercase py-4 transition-all duration-300 ${
+                aria-label={product.inStock ? t('shop.detail.addToCart') : t('shop.card.soldOut')}
+                className={`w-full font-body text-sm tracking-[0.15em] uppercase py-4 transition-all duration-300 cursor-pointer ${
                   added
                     ? 'bg-archive-brown text-paper'
                     : product.inStock

@@ -108,14 +108,14 @@ export default function ProductCard({
             <h3 className="font-display text-base md:text-lg font-semibold text-ink group-hover:text-rust transition-colors leading-tight">
               {product.name}
             </h3>
-            <span className="font-body text-[10px] text-sepia-mid uppercase tracking-wider flex-shrink-0 mt-1">
+            <span className="font-body text-overline text-sepia-mid uppercase tracking-wider flex-shrink-0 mt-1">
               {product.category}
             </span>
           </div>
 
           {/* Artwork attribution */}
           {product.artworkBy && (
-            <p className="font-body text-[10px] text-sepia-mid tracking-wide mb-2">
+            <p className="font-body text-overline text-sepia-mid tracking-wide mb-2">
               {t('shop.product.artworkBy', { name: product.artworkBy.childName, age: product.artworkBy.age })}
               {' '}&mdash; {t('shop.product.campaign', { campaign: product.artworkBy.campaign })}
             </p>
@@ -130,10 +130,10 @@ export default function ProductCard({
             {/* Sustainability score with tier */}
             <div className="flex flex-col items-end">
               <div className="flex items-center gap-1.5">
-                <span className="font-mono text-[10px] text-sepia-mid">
+                <span className="font-body text-overline text-sepia-mid">
                   {product.sustainabilityScore}
                 </span>
-                <span className={`font-body text-[10px] tracking-wide ${sustainability.colorClass}`}>
+                <span className={`font-body text-overline tracking-wide ${sustainability.colorClass}`}>
                   {sustainability.label}
                 </span>
               </div>
@@ -160,7 +160,8 @@ export default function ProductCard({
                     e.stopPropagation();
                     setShowNotifyInput(true);
                   }}
-                  className="w-full font-body text-[10px] tracking-[0.15em] uppercase text-sepia-mid py-2 px-4 border border-dashed border-sepia-mid/50 hover:border-sepia-mid hover:text-ink transition-all duration-200 bg-transparent"
+                  aria-label={t('shop.notifyMe')}
+                  className="w-full font-body text-overline tracking-[0.15em] uppercase text-sepia-mid py-2 px-4 border border-dashed border-sepia-mid/50 hover:border-sepia-mid hover:text-ink transition-all duration-200 bg-transparent cursor-pointer"
                 >
                   {t('shop.notifyMe')}
                 </motion.button>
@@ -168,7 +169,7 @@ export default function ProductCard({
                 <motion.p
                   initial={prefersReducedMotion ? false : { opacity: 0, y: 5 }}
                   animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-                  className="font-body text-[10px] text-eco-green tracking-wide text-center py-2"
+                  className="font-body text-overline text-eco-green tracking-wide text-center py-2"
                 >
                   {t('shop.notifyMeSuccess')}
                 </motion.p>
@@ -195,7 +196,7 @@ export default function ProductCard({
                       type="submit"
                       whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
                       whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
-                      className="font-body text-[10px] tracking-[0.1em] uppercase text-paper bg-rust px-3 py-3 border border-rust hover:bg-rust/90 transition-colors flex-shrink-0"
+                      className="font-body text-overline tracking-[0.1em] uppercase text-paper bg-rust px-3 py-3 border border-rust hover:bg-rust/90 transition-colors flex-shrink-0"
                     >
                       {t('common.send')}
                     </motion.button>

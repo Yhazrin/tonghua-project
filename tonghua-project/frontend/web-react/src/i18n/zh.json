@@ -16,7 +16,8 @@
     "toggleLanguage": "切换语言",
     "userMenu": "用户菜单",
     "mobileMenu": "移动导航菜单",
-    "userLabel": "用户"
+    "userLabel": "用户",
+    "skipToContent": "跳转到主要内容"
   },
   "profile": {
     "title": "个人中心",
@@ -156,7 +157,8 @@
     },
     "pagination": {
       "prev": "上一页",
-      "next": "下一页"
+      "next": "下一页",
+      "ariaLabel": "分页导航"
     },
     "empty": "没有找到符合条件的活动。",
     "goalReached": "目标已达成",
@@ -192,6 +194,7 @@
       "education": "教育"
     },
     "newsletter": {
+      "ariaLabel": "通讯订阅",
       "title": "保持联系",
       "subtitle": "每月接收关于活动、故事以及您的支持所创造的影响的通讯。",
       "hook": "让希望的故事送到您的邮箱",
@@ -664,6 +667,7 @@
     "next": "下一页",
     "previous": "上一页",
     "close": "关闭",
+    "dismiss": "关闭提示",
     "search": "搜索",
     "filter": "筛选",
     "sort": "排序",

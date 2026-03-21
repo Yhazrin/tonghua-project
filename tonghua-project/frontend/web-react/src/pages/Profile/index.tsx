@@ -65,7 +65,7 @@ export default function Profile() {
                   <div>
                     <h2 className="font-display text-xl text-ink">{user.nickname || user.email}</h2>
                     <p className="font-body text-sm text-ink-faded">{user.email}</p>
-                    <span className="inline-block mt-2 font-body text-[10px] tracking-[0.1em] uppercase text-sepia-mid bg-warm-gray/20 px-2 py-1">
+                    <span className="inline-block mt-2 font-body text-overline tracking-[0.1em] uppercase text-sepia-mid bg-warm-gray/20 px-2 py-1">
                       {user.role}
                     </span>
                   </div>

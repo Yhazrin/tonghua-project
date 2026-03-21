@@ -148,7 +148,7 @@ export default function Header() {
                   <div className="py-2">
                     <div className="px-4 py-2 border-b border-warm-gray/20">
                       <p className="font-body text-xs text-ink-faded">{user.nickname || user.email}</p>
-                      <p className="font-body text-[10px] text-sepia-mid capitalize">{user.role}</p>
+                      <p className="font-body text-overline text-sepia-mid capitalize">{user.role}</p>
                     </div>
                     <Link
                       to="/profile"
@@ -171,7 +171,7 @@ export default function Header() {
             /* Login link - shown when not authenticated */
             <Link
               to="/login"
-              className="hidden md:inline-block font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40"
+              className="hidden md:inline-block font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 cursor-pointer"
             >
               {t('nav.login')}
             </Link>

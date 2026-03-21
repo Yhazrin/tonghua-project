@@ -102,7 +102,7 @@ export default function CampaignDetail() {
         <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
           <div className="max-w-[1400px] mx-auto">
-            <span className="font-body text-[10px] tracking-[0.3em] uppercase text-pale-gold mb-3 block">
+            <span className="font-body text-overline tracking-[0.3em] uppercase text-pale-gold mb-3 block">
               {t(`campaigns.status.${campaign.status}`)} {t('campaigns.campaign')}
             </span>
             <BleedTitleBlock>
@@ -152,13 +152,13 @@ export default function CampaignDetail() {
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
                       <p className="font-display text-xl text-ink">{campaign.participantCount}</p>
-                      <p className="font-body text-[10px] text-sepia-mid tracking-wider uppercase">
+                      <p className="font-body text-overline text-sepia-mid tracking-wider uppercase">
                         {t('campaigns.detail.participants')}
                       </p>
                     </div>
                     <div>
                       <p className="font-display text-xl text-ink">{campaign.artworkCount}</p>
-                      <p className="font-body text-[10px] text-sepia-mid tracking-wider uppercase">
+                      <p className="font-body text-overline text-sepia-mid tracking-wider uppercase">
                         {t('campaigns.artworks')}
                       </p>
                     </div>

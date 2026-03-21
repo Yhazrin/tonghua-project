@@ -16,7 +16,8 @@
     "toggleLanguage": "Toggle language",
     "userMenu": "User menu",
     "mobileMenu": "Mobile navigation menu",
-    "userLabel": "User"
+    "userLabel": "User",
+    "skipToContent": "Skip to content"
   },
   "profile": {
     "title": "My Profile",
@@ -156,7 +157,8 @@
     },
     "pagination": {
       "prev": "Prev",
-      "next": "Next"
+      "next": "Next",
+      "ariaLabel": "Pagination"
     },
     "empty": "No campaigns found matching your criteria.",
     "goalReached": "Goal Reached",
@@ -192,6 +194,7 @@
       "education": "Education"
     },
     "newsletter": {
+      "ariaLabel": "Newsletter subscription",
       "title": "Stay in the Loop",
       "subtitle": "Get monthly dispatches on campaigns, stories, and the impact your support creates.",
       "hook": "Get stories of hope delivered to your inbox",
@@ -664,6 +667,7 @@
     "next": "Next",
     "previous": "Previous",
     "close": "Close",
+    "dismiss": "Dismiss",
     "search": "Search",
     "filter": "Filter",
     "sort": "Sort",

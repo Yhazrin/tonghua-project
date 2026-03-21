@@ -229,7 +229,7 @@ export default function Campaigns() {
                 }
               `}
             >
-              <span className="font-body text-[10px] text-sepia-mid/60 mr-1.5">
+              <span className="font-body text-overline text-sepia-mid/60 mr-1.5">
                 {String(index + 1).padStart(2, '0')}
               </span>
               {status === 'all'
@@ -313,7 +313,7 @@ export default function Campaigns() {
                         <div className={`md:col-span-5 ${index % 2 === 1 ? 'md:order-1' : ''}`}>
                           <div className="flex items-center gap-3 mb-4">
                             <span className={`
-                              font-body text-[10px] tracking-[0.2em] uppercase px-3 py-1 border
+                              font-body text-overline tracking-[0.2em] uppercase px-3 py-1 border
                               ${campaign.status === 'active' ? 'border-rust text-rust' : ''}
                               ${campaign.status === 'upcoming' ? 'border-pale-gold text-pale-gold' : ''}
                               ${campaign.status === 'completed' ? 'border-sepia-mid text-sepia-mid' : ''}
@@ -321,7 +321,7 @@ export default function Campaigns() {
                               {t(`campaigns.status.${campaign.status}`)}
                             </span>
                             {isCompleted && fundingPercent >= 100 && (
-                              <span className="font-body text-[10px] tracking-[0.2em] uppercase px-3 py-1 border border-sepia-mid text-sepia-mid flex items-center gap-1.5">
+                              <span className="font-body text-overline tracking-[0.2em] uppercase px-3 py-1 border border-sepia-mid text-sepia-mid flex items-center gap-1.5">
                                 <svg aria-hidden="true" className="w-3 h-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
                                   <path d="M3 8.5l3.5 3.5 6.5-7" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
@@ -376,7 +376,7 @@ export default function Campaigns() {
                               <p className="font-display italic text-sm text-ink-faded leading-relaxed">
                                 &ldquo;{campaign.featuredChild.quote}&rdquo;
                               </p>
-                              <p className="font-body text-[11px] text-sepia-mid mt-1.5 tracking-wider uppercase">
+                              <p className="font-body text-label text-sepia-mid mt-1.5 tracking-wider uppercase">
                                 {t('campaigns.featuredChild.ageLabel', { name: campaign.featuredChild.name, age: campaign.featuredChild.age })}
                               </p>
                             </motion.div>

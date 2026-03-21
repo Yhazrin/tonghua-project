@@ -28,7 +28,7 @@ export default function NotFound() {
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                 transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1] }}
-                className="font-body text-[10px] tracking-[0.3em] uppercase text-sepia-mid mb-4 block"
+                className="font-body text-overline tracking-[0.3em] uppercase text-sepia-mid mb-4 block"
               >
                 {t('notFound.subtitle')}
               </motion.span>
@@ -70,7 +70,7 @@ export default function NotFound() {
                         <span className="font-body text-sm text-ink group-hover:text-rust transition-colors">
                           {t(`nav.${item.key}`)}
                         </span>
-                        <span className="font-mono text-[10px] text-sepia-mid group-hover:text-rust transition-colors">
+                        <span className="font-body text-overline text-sepia-mid group-hover:text-rust transition-colors">
                           &rarr;
                         </span>
                       </Link>

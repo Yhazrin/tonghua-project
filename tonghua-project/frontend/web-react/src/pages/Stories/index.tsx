@@ -361,7 +361,7 @@ export default function Stories() {
                 {t(`stories.categories.${cat}`)}
                 <span
                   className={`
-                    inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-medium leading-none
+                    inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-overline font-medium leading-none
                     ${activeCategory === cat
                       ? 'bg-rust/10 text-rust'
                       : 'bg-warm-gray/20 text-sepia-mid/60'
@@ -429,7 +429,7 @@ export default function Stories() {
                           {/* Text */}
                           <div className={`md:col-span-5 ${index % 2 === 1 ? 'md:order-1' : ''}`}>
                             {/* Category pill tag */}
-                            <span className="inline-block font-body text-[10px] text-rust tracking-[0.25em] uppercase mb-4 px-3 py-1 border border-rust/30">
+                            <span className="inline-block font-body text-overline text-rust tracking-[0.25em] uppercase mb-4 px-3 py-1 border border-rust/30">
                               {t(`stories.categories.${story.category}`)}
                             </span>
 

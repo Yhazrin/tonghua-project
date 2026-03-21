@@ -505,7 +505,7 @@ export default function Contact() {
                   <div className="space-y-2">
                     <label
                       htmlFor="contact-subject"
-                      className="font-body text-[10px] tracking-[0.2em] uppercase text-sepia-mid block"
+                      className="font-body text-overline tracking-[0.2em] uppercase text-sepia-mid block"
                     >
                       {t('contact.form.subject')}
                     </label>
@@ -547,7 +547,7 @@ export default function Contact() {
                         initial={prefersReducedMotion ? false : { opacity: 0, y: -5 }}
                         animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                         transition={prefersReducedMotion ? { duration: 0 } : undefined}
-                        className="font-body text-[10px] text-archive-brown"
+                        className="font-body text-overline text-archive-brown"
                         role="alert"
                         aria-live="assertive"
                       >
@@ -560,7 +560,7 @@ export default function Contact() {
                   <div className="space-y-2">
                     <label
                       htmlFor="contact-message"
-                      className="font-body text-[10px] tracking-[0.2em] uppercase text-sepia-mid block"
+                      className="font-body text-overline tracking-[0.2em] uppercase text-sepia-mid block"
                     >
                       {t('contact.form.message')}
                     </label>
@@ -589,7 +589,7 @@ export default function Contact() {
                           initial={prefersReducedMotion ? false : { opacity: 0, y: -5 }}
                           animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                           transition={prefersReducedMotion ? { duration: 0 } : undefined}
-                          className="font-body text-[10px] text-archive-brown"
+                          className="font-body text-overline text-archive-brown"
                           role="alert"
                           aria-live="assertive"
                         >
@@ -599,7 +599,7 @@ export default function Contact() {
                         <span />
                       )}
                       <span
-                        className={`font-body text-[10px] tracking-wide transition-colors duration-200 ${
+                        className={`font-body text-overline tracking-wide transition-colors duration-200 ${
                           formData.message.length > MAX_MESSAGE_LENGTH * 0.9
                             ? 'text-archive-brown'
                             : 'text-sepia-mid/60'

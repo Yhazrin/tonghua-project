@@ -131,7 +131,7 @@ function CarbonBar({ label, value, maxValue, isEco, delay }: {
       className="space-y-2"
     >
       <div className="flex justify-between items-baseline">
-        <span className="font-body text-[11px] tracking-[0.15em] uppercase text-sepia-mid">
+        <span className="font-body text-label tracking-[0.15em] uppercase text-sepia-mid">
           {label}
         </span>
         <span className={`font-display text-h3 font-bold ${isEco ? 'text-eco-green' : 'text-archive-brown'}`}>
@@ -203,7 +203,7 @@ function CertificationBadge({ title, description, delay }: {
         <h4 className="font-display text-sm font-bold text-ink mb-1">
           {title}
         </h4>
-        <p className="font-body text-[10px] text-sepia-mid leading-relaxed tracking-wide">
+        <p className="font-body text-overline text-sepia-mid leading-relaxed tracking-wide">
           {description}
         </p>
       </div>
@@ -263,7 +263,7 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
             <h4 className="font-display text-[clamp(18px,2vw,24px)] font-bold text-ink">
               {t(`traceability.stages.${record.stage}`)}
             </h4>
-            <span className={`font-body text-[10px] tracking-[0.1em] uppercase px-3 py-1 ${config.bg} ${config.text} border ${config.border}`}>
+            <span className={`font-body text-overline tracking-[0.1em] uppercase px-3 py-1 ${config.bg} ${config.text} border ${config.border}`}>
               {config.label}
             </span>
           </div>
@@ -274,7 +274,7 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
               <p className="font-body text-sm text-ink-faded leading-relaxed mb-3">
                 {record.description}
               </p>
-              <p className="font-body text-[11px] italic text-sepia-mid leading-relaxed border-l-2 border-rust/20 pl-3">
+              <p className="font-body text-label italic text-sepia-mid leading-relaxed border-l-2 border-rust/20 pl-3">
                 "{record.story}"
               </p>
             </div>
@@ -294,15 +294,15 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
 
           {/* Meta info */}
           <div className="flex flex-wrap gap-6">
-            <div className="font-body text-[11px] text-sepia-mid">
+            <div className="font-body text-label text-sepia-mid">
               <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.location')}:</span>{' '}
               <span className="text-ink-faded font-medium">{record.location}</span>
             </div>
-            <div className="font-body text-[11px] text-sepia-mid">
+            <div className="font-body text-label text-sepia-mid">
               <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.partner')}:</span>{' '}
               <span className="text-ink-faded font-medium">{record.partnerName}</span>
             </div>
-            <div className="font-body text-[11px] text-sepia-mid">
+            <div className="font-body text-label text-sepia-mid">
               <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.date')}:</span>{' '}
               <span className="text-ink-faded font-medium">
                 {new Date(record.date).toLocaleDateString(locale, {
@@ -313,7 +313,7 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
               </span>
             </div>
             {record.carbonFootprint !== undefined && (
-              <div className="font-body text-[11px] text-sepia-mid">
+              <div className="font-body text-label text-sepia-mid">
                 <span className="uppercase tracking-[0.1em]">{t('traceability.carbonLabel')}:</span>{' '}
                 <span className="text-archive-brown font-medium">
                   {t('traceability.kgCO2', { value: record.carbonFootprint })}
@@ -463,7 +463,7 @@ export default function Traceability() {
             </div>
           </div>
 
-          <p className="font-body text-[10px] text-sepia-mid/70 mt-2 tracking-wide">
+          <p className="font-body text-overline text-sepia-mid/70 mt-2 tracking-wide">
             {t('traceability.lookup.hint')}
           </p>
 
@@ -564,7 +564,7 @@ export default function Traceability() {
                     transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4 }}
                     className="mt-4 border-2 border-eco-green/30 p-5 bg-eco-green/5"
                   >
-                    <span className="font-body text-[10px] text-eco-green tracking-[0.15em] uppercase">
+                    <span className="font-body text-overline text-eco-green tracking-[0.15em] uppercase">
                       {t('traceability.lookup.highlighted')}
                     </span>
                     <p className="font-body text-xs text-ink-faded mt-1 leading-relaxed">
@@ -668,7 +668,7 @@ export default function Traceability() {
                 <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-eco-green/20" />
 
                 <div className="relative z-20">
-                  <span className="font-body text-[10px] tracking-[0.2em] uppercase text-eco-green block mb-3">
+                  <span className="font-body text-overline tracking-[0.2em] uppercase text-eco-green block mb-3">
                     {t('traceability.carbon.reduction')}
                   </span>
                   <div className="font-display text-[clamp(48px,8vw,72px)] font-bold text-eco-green leading-none">
@@ -766,7 +766,7 @@ export default function Traceability() {
           transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1] }}
           className="text-center py-8"
         >
-          <span className="font-body text-[10px] tracking-[0.3em] uppercase text-sepia-mid block mb-4">
+          <span className="font-body text-overline tracking-[0.3em] uppercase text-sepia-mid block mb-4">
             {t('traceability.cta.label')}
           </span>
           <h2 className="font-display text-[clamp(28px,4vw,48px)] font-bold text-ink leading-tight mb-6">
@@ -777,7 +777,7 @@ export default function Traceability() {
           </p>
           <Link
             to="/shop"
-            className="inline-block font-body text-[11px] tracking-[0.2em] uppercase px-10 py-4 border-2 border-rust text-rust hover:bg-rust hover:text-paper transition-all duration-300"
+            className="inline-block font-body text-label tracking-[0.2em] uppercase px-10 py-4 border-2 border-rust text-rust hover:bg-rust hover:text-paper transition-all duration-300"
           >
             {t('traceability.cta.button')}
           </Link>
