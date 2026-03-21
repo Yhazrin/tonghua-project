@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import PageWrapper from '@/components/layout/PageWrapper';
@@ -6,6 +6,8 @@ import SectionContainer from '@/components/layout/SectionContainer';
 import EditorialHero from '@/components/editorial/EditorialHero';
 import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeading';
 import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
+import StoryQuoteBlock from '@/components/editorial/StoryQuoteBlock';
+import { ScrollPathDrawInline } from '@/components/animations/ScrollPathDraw';
 import { VintageInput } from '@/components/editorial/VintageInput';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -302,6 +304,7 @@ export default function Contact() {
   const [status, setStatus] = useState<FormStatus>('idle');
   const [errors, setErrors] = useState<FormErrors>({});
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const pullQuoteRef = useRef<HTMLDivElement>(null);
 
   // FAQ items from translations
   const faqItems = t('contact.faq.items', { returnObjects: true }) as Array<{
@@ -419,6 +422,22 @@ export default function Contact() {
             ))}
         </div>
       </SectionContainer>
+
+      {/* Pull quote connector */}
+      <div ref={pullQuoteRef} className="relative max-w-[1400px] mx-auto px-6 md:px-10">
+        <ScrollPathDrawInline
+          path="M 0 0 C 20 40, 40 60, 60 30 S 100 80, 120 50"
+          strokeColor="var(--color-rust)"
+          strokeWidth={1}
+          className="absolute left-0 top-0 h-full w-16 pointer-events-none opacity-20"
+          containerRef={pullQuoteRef}
+        />
+        <StoryQuoteBlock
+          quote={t('contact.pullQuote.quote', { defaultValue: 'Every question is an invitation to understand our mission more deeply — and every answer is a chance to weave another thread of trust.' })}
+          author={t('contact.pullQuote.author', { defaultValue: 'VICOO Editorial' })}
+          role={t('contact.pullQuote.role', { defaultValue: 'Community Engagement' })}
+        />
+      </div>
 
       {/* Contact Form + Info */}
       <SectionContainer>

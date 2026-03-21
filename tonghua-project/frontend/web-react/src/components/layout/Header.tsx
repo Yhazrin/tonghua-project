@@ -144,8 +144,15 @@ export default function Header() {
 
               {/* Dropdown menu */}
               {userMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 shadow-lg z-dropdown">
-                  <div className="py-2">
+                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 shadow-lg z-dropdown relative overflow-hidden">
+                  {/* Grain overlay */}
+                  <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} aria-hidden="true" />
+                  {/* Corner accents */}
+                  <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                  <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                  <div className="py-2 relative z-[1]">
                     <div className="px-4 py-2 border-b border-warm-gray/20">
                       <p className="font-body text-xs text-ink-faded">{user.nickname || user.email}</p>
                       <p className="font-body text-overline text-sepia-mid capitalize">{user.role}</p>

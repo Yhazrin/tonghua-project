@@ -75,7 +75,7 @@ export default function EditorialFooter() {
               className="absolute -bottom-1 -right-1 pointer-events-none"
             />
 
-            <h3 className="font-display text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+            <h3 className="font-display text-display font-bold mb-4 tracking-tight">
               VICOO
             </h3>
             <p className="font-body text-sm text-warm-gray leading-relaxed max-w-xs mb-6">

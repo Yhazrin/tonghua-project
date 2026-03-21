@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,6 +9,7 @@ import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeadin
 import ProductCard from '@/components/editorial/ProductCard';
 import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import StoryQuoteBlock from '@/components/editorial/StoryQuoteBlock';
+import { ScrollPathDrawInline } from '@/components/animations/ScrollPathDraw';
 import VintageSelect from '@/components/editorial/VintageSelect';
 import { productsApi } from '@/services/products';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -109,6 +110,7 @@ export default function Shop() {
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const [sortBy, setSortBy] = useState<SortOption>('default');
+  const sustainabilityRef = useRef<HTMLDivElement>(null);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['products', { category: activeCategory }],
@@ -253,60 +255,44 @@ export default function Shop() {
 
       {/* Sustainability note */}
       <SectionContainer>
-        <div className="border-t border-warm-gray/30 pt-12 mt-8 relative">
+        <div ref={sustainabilityRef} className="border-t border-warm-gray/30 pt-12 mt-8 relative">
           {/* Decorative corner accents */}
           <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
           <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
 
+          {/* Scroll path connector */}
+          <ScrollPathDrawInline
+            path="M 0 20 C 30 0, 60 40, 90 20 S 150 60, 180 30"
+            strokeColor="var(--color-pale-gold)"
+            strokeWidth={1}
+            className="absolute left-0 top-1/2 h-20 w-full pointer-events-none opacity-15"
+            containerRef={sustainabilityRef}
+          />
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={prefersReducedMotion ? undefined : { once: true }}
-              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.1 }}
-            >
-              <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
-                01
-              </span>
-              <h4 className="font-display text-lg font-bold text-ink mt-2 mb-2">
-                {t('shop.sustainability.materials')}
-              </h4>
-              <p className="font-body text-xs text-ink-faded leading-relaxed">
-                {t('shop.sustainability.materialsDesc')}
-              </p>
-            </motion.div>
-            <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={prefersReducedMotion ? undefined : { once: true }}
-              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.2 }}
-            >
-              <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
-                02
-              </span>
-              <h4 className="font-display text-lg font-bold text-ink mt-2 mb-2">
-                {t('shop.sustainability.production')}
-              </h4>
-              <p className="font-body text-xs text-ink-faded leading-relaxed">
-                {t('shop.sustainability.productionDesc')}
-              </p>
-            </motion.div>
-            <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={prefersReducedMotion ? undefined : { once: true }}
-              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.3 }}
-            >
-              <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
-                03
-              </span>
-              <h4 className="font-display text-lg font-bold text-ink mt-2 mb-2">
-                {t('shop.sustainability.carbon')}
-              </h4>
-              <p className="font-body text-xs text-ink-faded leading-relaxed">
-                {t('shop.sustainability.carbonDesc')}
-              </p>
-            </motion.div>
+            {[
+              { key: 'materials', titleKey: 'shop.sustainability.materials', descKey: 'shop.sustainability.materialsDesc' },
+              { key: 'production', titleKey: 'shop.sustainability.production', descKey: 'shop.sustainability.productionDesc' },
+              { key: 'carbon', titleKey: 'shop.sustainability.carbon', descKey: 'shop.sustainability.carbonDesc' },
+            ].map((item, i) => (
+              <motion.div
+                key={item.key}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={prefersReducedMotion ? undefined : { once: true }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.1 * (i + 1) }}
+              >
+                <span className="font-body text-overline tracking-[0.2em] uppercase text-sepia-mid">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h4 className="font-display text-lg font-bold text-ink mt-2 mb-2">
+                  {t(item.titleKey)}
+                </h4>
+                <p className="font-body text-xs text-ink-faded leading-relaxed">
+                  {t(item.descKey)}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </SectionContainer>
