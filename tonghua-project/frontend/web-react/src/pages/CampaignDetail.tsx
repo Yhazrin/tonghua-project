@@ -92,6 +92,8 @@ export default function CampaignDetail() {
         <img
           src={campaign.coverImageUrl}
           alt={campaign.title}
+          width={1200}
+          height={800}
           className="w-full h-full object-cover"
           style={{ filter: 'sepia(0.2) contrast(1.05) brightness(0.97)', opacity: 0, transition: 'opacity 0.3s' }}
           onLoad={(e) => {
@@ -115,7 +117,7 @@ export default function CampaignDetail() {
       </section>
 
       {/* Content — asymmetric grid */}
-      <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+      <PaperTextureBackground variant="paper" className="section-spacing">
         <SectionContainer>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
             {/* Main content */}
@@ -182,7 +184,7 @@ export default function CampaignDetail() {
       </PaperTextureBackground>
 
       {/* Campaign Artworks */}
-      <PaperTextureBackground variant="aged" className="py-16 md:py-24">
+      <PaperTextureBackground variant="aged" className="section-spacing">
         <SectionContainer>
           <NumberedSectionHeading number="02" title={t('campaigns.detail.artworks')} />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">

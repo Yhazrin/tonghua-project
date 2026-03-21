@@ -31,6 +31,8 @@ function ThumbnailButton({ url, index, isSelected, onSelect }: {
         src={url}
         alt=""
         aria-hidden="true"
+        width={64}
+        height={64}
         className={`w-full h-full object-cover ${thumbLoaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ filter: 'sepia(0.2) contrast(1.05) brightness(0.97)' }}
         onLoad={() => setThumbLoaded(true)}
@@ -146,7 +148,7 @@ export default function ProductDetail() {
   return (
     <PageWrapper>
       {/* Product section */}
-      <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+      <PaperTextureBackground variant="paper" className="section-spacing">
         <SectionContainer>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
             {/* Images */}
@@ -277,7 +279,7 @@ export default function ProductDetail() {
       </PaperTextureBackground>
 
       {/* Supply Chain Journey */}
-      <PaperTextureBackground variant="aged" className="py-16 md:py-24">
+      <PaperTextureBackground variant="aged" className="section-spacing">
         <SectionContainer>
           <NumberedSectionHeading
             number="01"

@@ -54,7 +54,7 @@ export default function EditorialFooter() {
         className="absolute top-6 right-0 pointer-events-none"
       />
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-16 md:py-24 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 section-spacing relative z-10">
         {/* Top section — Magazine colophon style */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16">
           {/* Brand column */}

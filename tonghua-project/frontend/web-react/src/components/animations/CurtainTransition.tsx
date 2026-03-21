@@ -101,7 +101,7 @@ export default function CurtainTransition({ children }: CurtainTransitionProps) 
               initial="initial"
               animate="animate"
               exit="exit"
-              className="absolute inset-0 z-50 pointer-events-none"
+              className="absolute inset-0 z-overlay pointer-events-none"
               style={{
                 background:
                   'linear-gradient(90deg, var(--color-paper) 0%, color-mix(in srgb, var(--color-paper) 60%, var(--color-aged-stock)) 50%, var(--color-aged-stock) 100%)',
@@ -115,7 +115,7 @@ export default function CurtainTransition({ children }: CurtainTransitionProps) 
               initial="initial"
               animate="animate"
               exit="exit"
-              className="absolute inset-0 z-50 pointer-events-none"
+              className="absolute inset-0 z-overlay pointer-events-none"
               style={{
                 background:
                   'linear-gradient(90deg, var(--color-aged-stock) 50%, color-mix(in srgb, var(--color-paper) 60%, var(--color-aged-stock)) 100%, var(--color-paper) 100%)',

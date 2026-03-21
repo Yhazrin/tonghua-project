@@ -53,7 +53,7 @@ export default function ArtworkDetail() {
   if (loading) {
     return (
       <PageWrapper>
-        <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+        <PaperTextureBackground variant="paper" className="section-spacing">
           <SectionContainer>
             <p className="font-body text-sepia-mid">{t('common.loading')}</p>
           </SectionContainer>
@@ -65,7 +65,7 @@ export default function ArtworkDetail() {
   if (error || !artwork) {
     return (
       <PageWrapper>
-        <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+        <PaperTextureBackground variant="paper" className="section-spacing">
           <SectionContainer>
             <div className="text-center" role="alert" aria-live="assertive">
               <h1 className="font-display text-2xl text-ink mb-4">
@@ -87,7 +87,7 @@ export default function ArtworkDetail() {
   return (
     <PageWrapper>
       {/* Artwork section */}
-      <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+      <PaperTextureBackground variant="paper" className="section-spacing">
         <SectionContainer>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
             {/* Image */}

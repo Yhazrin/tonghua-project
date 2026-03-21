@@ -72,11 +72,11 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-warm-gray/30">
+    <header className="fixed top-0 left-0 right-0 z-overlay bg-paper/95 backdrop-blur-sm border-b border-warm-gray/30">
       {/* Skip to content - visible on focus for keyboard users */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-ink focus:text-paper focus:font-body focus:text-sm focus:tracking-wide"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-modal focus:px-4 focus:py-2 focus:bg-ink focus:text-paper focus:font-body focus:text-sm focus:tracking-wide"
       >
         {t('nav.skipToContent', 'Skip to content')}
       </a>
@@ -106,7 +106,7 @@ export default function Header() {
                     ${isActive ? 'text-rust' : 'text-ink-faded hover:text-ink'}
                   `}
                 >
-                  <span className="text-[9px] tracking-[0.2em] text-sepia-mid mr-2 font-body">
+                  <span className="text-overline tracking-[0.2em] text-sepia-mid mr-2 font-body">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   {t(`nav.${item.key}`)}
@@ -135,7 +135,7 @@ export default function Header() {
                 aria-label={t('nav.userMenu')}
                 aria-expanded={userMenuOpen}
               >
-                <span className="text-[9px] tracking-[0.2em] text-sepia-mid font-body">{t('nav.userLabel')}</span>
+                <span className="text-overline tracking-[0.2em] text-sepia-mid font-body">{t('nav.userLabel')}</span>
                 <span className="max-w-[120px] truncate">{user.nickname || user.email}</span>
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -144,7 +144,7 @@ export default function Header() {
 
               {/* Dropdown menu */}
               {userMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 shadow-lg z-50">
+                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 shadow-lg z-dropdown">
                   <div className="py-2">
                     <div className="px-4 py-2 border-b border-warm-gray/20">
                       <p className="font-body text-xs text-ink-faded">{user.nickname || user.email}</p>

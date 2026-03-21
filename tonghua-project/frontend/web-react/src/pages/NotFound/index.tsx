@@ -20,7 +20,7 @@ export default function NotFound() {
   return (
     <PageWrapper>
       <PaperTextureBackground variant="paper" className="min-h-[100dvh] flex items-center">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-10 w-full py-16 md:py-24">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-10 w-full section-spacing">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center">
             {/* Left: Large 404 */}
             <div className="md:col-span-5">
