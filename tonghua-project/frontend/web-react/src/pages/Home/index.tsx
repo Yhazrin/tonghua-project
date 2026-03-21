@@ -402,7 +402,7 @@ export default function Home() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="py-12 md:py-16"
+          className="section-spacing-sm"
         >
           <div className="flex items-baseline gap-3 mb-10">
             <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">

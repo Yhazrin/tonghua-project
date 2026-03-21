@@ -20,6 +20,9 @@ const Contact = lazy(() => import('@/pages/Contact'));
 const Login = lazy(() => import('@/pages/Login'));
 const Register = lazy(() => import('@/pages/Register'));
 const Profile = lazy(() => import('@/pages/Profile'));
+const Privacy = lazy(() => import('@/pages/Privacy'));
+const Terms = lazy(() => import('@/pages/Terms'));
+const ChildrenSafety = lazy(() => import('@/pages/ChildrenSafety'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 function PageLoader() {
@@ -55,6 +58,9 @@ function AnimatedRoutes() {
             <Route path="login" element={<ErrorBoundary><Login /></ErrorBoundary>} />
             <Route path="register" element={<ErrorBoundary><Register /></ErrorBoundary>} />
             <Route path="profile" element={<ErrorBoundary><Profile /></ErrorBoundary>} />
+            <Route path="privacy" element={<ErrorBoundary><Privacy /></ErrorBoundary>} />
+            <Route path="terms" element={<ErrorBoundary><Terms /></ErrorBoundary>} />
+            <Route path="children" element={<ErrorBoundary><ChildrenSafety /></ErrorBoundary>} />
             <Route path="*" element={<NotFound />} />
           </Route>
           </Routes>

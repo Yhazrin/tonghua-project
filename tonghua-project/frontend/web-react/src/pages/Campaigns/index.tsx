@@ -403,7 +403,7 @@ export default function Campaigns() {
             initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
             animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
             transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
-            className="text-center py-24"
+            className="text-center section-spacing"
           >
             <span className="font-display text-7xl text-warm-gray/30 leading-none block mb-6 select-none">
               &ldquo;

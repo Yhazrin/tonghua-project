@@ -36,7 +36,7 @@ export default function StoryQuoteBlock({
       initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
       animate={prefersReducedMotion ? {} : (isVisible ? { opacity: 1, y: 0 } : {})}
       transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0, 0, 0.2, 1] }}
-      className={`relative py-12 md:py-16 ${className}`}
+      className={`relative section-spacing-sm ${className}`}
     >
       {/* Decorative quote mark */}
       <span
