@@ -172,10 +172,10 @@ export default function Shop() {
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 aria-pressed={activeCategory === cat}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-                whileHover={{ y: -2 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { delay: index * 0.05 }}
+                whileHover={prefersReducedMotion ? undefined : { y: -2 }}
                 className={`
                   font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
                   ${activeCategory === cat
@@ -187,9 +187,9 @@ export default function Shop() {
                 {t(`shop.filters.${cat}`)}
                 {activeCategory === cat && (
                   <motion.span
-                    layoutId="category-indicator"
+                    layoutId={prefersReducedMotion ? undefined : "category-indicator"}
                     className="absolute bottom-0 left-0 right-0 h-px bg-rust"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
               </motion.button>
@@ -237,10 +237,10 @@ export default function Shop() {
           <AnimatePresence mode="wait">
             <motion.div
               key={`${activeCategory}-${sortBy}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={prefersReducedMotion ? false : { opacity: 0 }}
+              animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+              exit={prefersReducedMotion ? undefined : { opacity: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
               className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-14"
             >
               {filtered.map((product, index) => (
@@ -260,10 +260,10 @@ export default function Shop() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.1 }}
             >
               <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
                 01
@@ -276,10 +276,10 @@ export default function Shop() {
               </p>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.2 }}
             >
               <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
                 02
@@ -292,10 +292,10 @@ export default function Shop() {
               </p>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.3 }}
             >
               <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
                 03
@@ -319,10 +319,10 @@ export default function Shop() {
           {/* Left: Workshop image — 8/12 columns */}
           <motion.div
             className="md:col-span-8"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: -30 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+            viewport={prefersReducedMotion ? undefined : { once: true }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1] }}
           >
             <SepiaImageFrame
               src="https://picsum.photos/seed/vicoo-workshop-art/800/500"
@@ -338,10 +338,10 @@ export default function Shop() {
           {/* Right: Editorial text — 4/12 columns */}
           <motion.div
             className="md:col-span-4 flex flex-col justify-center"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0, 0, 0.2, 1] }}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: 30 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+            viewport={prefersReducedMotion ? undefined : { once: true }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, delay: 0.15, ease: [0, 0, 0.2, 1] }}
           >
             <p className="font-body text-xs text-ink-faded leading-relaxed mb-4">
               {t('shop.behind.body1')}

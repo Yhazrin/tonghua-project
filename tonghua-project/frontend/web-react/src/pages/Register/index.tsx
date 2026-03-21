@@ -6,6 +6,7 @@ import PageWrapper from '@/components/layout/PageWrapper';
 import { VintageInput } from '@/components/editorial/VintageInput';
 import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeading';
 import { useAuth } from '@/hooks/useAuth';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function Register() {
   const { t } = useTranslation();
@@ -16,6 +17,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [localError, setLocalError] = useState('');
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,9 +59,9 @@ export default function Register() {
 
           {/* Form */}
           <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.2 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.2 }}
             onSubmit={handleSubmit}
             className="space-y-6"
           >
@@ -104,8 +106,8 @@ export default function Register() {
             <motion.button
               type="submit"
               disabled={isRegistering}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
               className="w-full font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300 disabled:opacity-50 cursor-pointer"
             >
               {isRegistering ? t('common.loading') : t('register.submit')}
@@ -124,8 +126,8 @@ export default function Register() {
 
             <motion.button
               type="button"
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
               className="w-full font-body text-sm tracking-[0.1em] border border-warm-gray/40 text-ink px-10 py-4 hover:border-ink transition-colors duration-300 cursor-pointer"
             >
               {t('register.wechat')}

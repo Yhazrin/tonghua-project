@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
 import type { Artwork } from '@/types';
 
@@ -19,14 +20,15 @@ export default function ArtworkCard({
 }: ArtworkCardProps) {
   const { t } = useTranslation();
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <motion.article
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : {}}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
+      animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         duration: 0.7,
         ease: [0, 0, 0.2, 1],
         delay: index * 0.1,

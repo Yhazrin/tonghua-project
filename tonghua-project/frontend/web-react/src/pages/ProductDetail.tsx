@@ -9,6 +9,7 @@ import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import PaperTextureBackground from '@/components/editorial/PaperTextureBackground';
 import TraceabilityTimeline from '@/components/editorial/TraceabilityTimeline';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useCartStore } from '@/stores/cartStore';
 import type { Product, SupplyChainRecord } from '@/types';
 
@@ -124,6 +125,7 @@ const MOCK_PRODUCT: Product = {
 
 export default function ProductDetail() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const product = MOCK_PRODUCT;
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -150,9 +152,9 @@ export default function ProductDetail() {
             {/* Images */}
             <div className="md:col-span-6">
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
+                initial={prefersReducedMotion ? false : { opacity: 0 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
               >
                 <SepiaImageFrame
                   src={product.imageUrls[selectedImage]}
@@ -250,8 +252,8 @@ export default function ProductDetail() {
               </div>
 
               <motion.button
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+                whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
                 onClick={handleAddToCart}
                 disabled={!product.inStock}
                 className={`w-full font-body text-sm tracking-[0.15em] uppercase py-4 transition-all duration-300 ${

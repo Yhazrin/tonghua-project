@@ -1,5 +1,6 @@
 import { forwardRef, useId } from 'react';
 import { motion } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface VintageInputProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   label?: string;
@@ -12,6 +13,7 @@ interface VintageInputProps extends React.InputHTMLAttributes<HTMLInputElement |
 export const VintageInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, VintageInputProps>(
   ({ label, type = 'text', helperText, error, icon, className = '', ...props }, ref) => {
     const id = useId();
+    const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
     const inputId = `${id}-input`;
     const helperId = `${id}-helper`;
     const errorId = `${id}-error`;
@@ -83,7 +85,7 @@ export const VintageInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, V
                 {...inputProps}
                 ref={ref as React.Ref<HTMLTextAreaElement>}
                 rows={4}
-                whileFocus={{ scale: 1.01 }}
+                whileFocus={prefersReducedMotion ? undefined : { scale: 1.01 }}
                 className={baseClasses + ' ' + className + ' pt-3 pl-3 pr-3'}
               />
             </div>
@@ -94,7 +96,7 @@ export const VintageInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, V
                 {...inputProps}
                 ref={ref as React.Ref<HTMLInputElement>}
                 type={type}
-                whileFocus={{ scale: 1.01 }}
+                whileFocus={prefersReducedMotion ? undefined : { scale: 1.01 }}
                 className={baseClasses + ' ' + className + ' border-none pl-0'}
               />
             </div>
@@ -104,7 +106,7 @@ export const VintageInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, V
                 {...inputProps}
                 ref={ref as React.Ref<HTMLInputElement>}
                 type={type}
-                whileFocus={{ scale: 1.01 }}
+                whileFocus={prefersReducedMotion ? undefined : { scale: 1.01 }}
                 className={baseClasses + ' ' + className + ' pt-3 pl-3 pr-3'}
               />
             </div>
@@ -120,8 +122,8 @@ export const VintageInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, V
         {error && (
           <motion.p
             id={errorId}
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: -5 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
             className="font-body text-[10px] text-archive-brown"
           >
             {error}

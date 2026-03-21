@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import PageWrapper from '@/components/layout/PageWrapper';
 import PaperTextureBackground from '@/components/editorial/PaperTextureBackground';
 import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeading';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const NAV_SUGGESTIONS = [
   { key: 'home', path: '/' },
@@ -14,6 +15,7 @@ const NAV_SUGGESTIONS = [
 
 export default function NotFound() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <PageWrapper>
@@ -23,17 +25,17 @@ export default function NotFound() {
             {/* Left: Large 404 */}
             <div className="md:col-span-5">
               <motion.span
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1] }}
                 className="font-body text-[10px] tracking-[0.3em] uppercase text-sepia-mid mb-4 block"
               >
                 {t('notFound.subtitle')}
               </motion.span>
               <motion.h1
-                initial={{ opacity: 0, x: -40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: [0, 0, 0.2, 1], delay: 0.1 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, x: -40 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0, 0, 0.2, 1], delay: 0.1 }}
                 className="font-display text-[10rem] md:text-[14rem] leading-none font-black text-ink/10 select-none"
                 aria-hidden="true"
               >
@@ -44,9 +46,9 @@ export default function NotFound() {
             {/* Right: Message + suggestions */}
             <div className="md:col-span-5 md:col-start-8">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.2 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.2 }}
               >
                 <NumberedSectionHeading number="--" title={t('notFound.subtitle')} />
                 <p className="font-body text-sm text-ink-faded leading-[1.8] mb-10 max-w-sm">
@@ -57,9 +59,9 @@ export default function NotFound() {
                   {NAV_SUGGESTIONS.map((item, index) => (
                     <motion.div
                       key={item.key}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: 0.3 + index * 0.08 }}
+                      initial={prefersReducedMotion ? false : { opacity: 0, x: 20 }}
+                      animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+                      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4, delay: 0.3 + index * 0.08 }}
                     >
                       <Link
                         to={item.path}
@@ -77,9 +79,9 @@ export default function NotFound() {
                 </div>
 
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
+                  initial={prefersReducedMotion ? false : { opacity: 0 }}
+                  animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: 0.6 }}
                 >
                   <Link
                     to="/"

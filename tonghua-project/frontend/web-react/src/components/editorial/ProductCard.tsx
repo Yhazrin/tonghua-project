@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import TiltCard from '@/components/animations/TiltCard';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
 import { VintageInput } from '@/components/editorial/VintageInput';
@@ -26,6 +27,7 @@ export default function ProductCard({
   className = '',
 }: ProductCardProps) {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showNotifyInput, setShowNotifyInput] = useState(false);
@@ -52,9 +54,9 @@ export default function ProductCard({
     >
       <motion.article
         ref={ref}
-        initial={{ opacity: 0, y: 40 }}
-        animate={isVisible ? { opacity: 1, y: 0 } : {}}
-        transition={{
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
+        animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
+        transition={prefersReducedMotion ? { duration: 0 } : {
           duration: 0.7,
           ease: [0, 0, 0.2, 1],
           delay: index * 0.1,
@@ -138,9 +140,9 @@ export default function ProductCard({
               <div className="w-12 h-px bg-warm-gray/30 mt-0.5">
                 <motion.div
                   className={`h-full ${sustainability.barColor}`}
-                  initial={{ width: 0 }}
-                  animate={isVisible ? { width: `${product.sustainabilityScore}%` } : {}}
-                  transition={{ duration: 0.8, delay: 0.3, ease: [0, 0, 0.2, 1] }}
+                  initial={prefersReducedMotion ? false : { width: 0 }}
+                  animate={prefersReducedMotion ? undefined : (isVisible ? { width: `${product.sustainabilityScore}%` } : {})}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, delay: 0.3, ease: [0, 0, 0.2, 1] }}
                 />
               </div>
             </div>
@@ -151,8 +153,8 @@ export default function ProductCard({
             <div className="mt-3" onClick={(e) => e.preventDefault()} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); } }} role="button" tabIndex={0}>
               {!showNotifyInput ? (
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
+                  whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -164,8 +166,8 @@ export default function ProductCard({
                 </motion.button>
               ) : notifySubmitted ? (
                 <motion.p
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 5 }}
+                  animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                   className="font-body text-[10px] text-eco-green tracking-wide text-center py-2"
                 >
                   {t('shop.notifyMeSuccess')}
@@ -173,9 +175,9 @@ export default function ProductCard({
               ) : (
                 <AnimatePresence>
                   <motion.form
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
+                    initial={prefersReducedMotion ? false : { opacity: 0, height: 0 }}
+                    animate={prefersReducedMotion ? undefined : { opacity: 1, height: 'auto' }}
+                    exit={prefersReducedMotion ? undefined : { opacity: 0, height: 0 }}
                     onSubmit={handleNotifySubmit}
                     className="flex items-end gap-2"
                   >
@@ -191,8 +193,8 @@ export default function ProductCard({
                     </div>
                     <motion.button
                       type="submit"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
+                      whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
                       className="font-body text-[10px] tracking-[0.1em] uppercase text-paper bg-rust px-3 py-3 border border-rust hover:bg-rust/90 transition-colors flex-shrink-0"
                     >
                       {t('common.send')}

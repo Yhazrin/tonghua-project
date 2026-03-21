@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { useUIStore } from '@/stores/uiStore';
 import { useAuthStore } from '@/stores/authStore';
-import { useIsMobile } from '@/hooks/useMediaQuery';
+import { useIsMobile, useMediaQuery } from '@/hooks/useMediaQuery';
 import { useRef, useEffect, useState } from 'react';
 
 const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
@@ -24,6 +24,7 @@ export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const { mobileNavOpen, toggleMobileNav, setMobileNavOpen, currentLocale, setLocale, setMenuTriggerRef } =
     useUIStore();
   const { user, isAuthenticated, logout } = useAuthStore();
@@ -187,15 +188,15 @@ export default function Header() {
               aria-controls="mobile-navigation"
             >
               <motion.span
-                animate={mobileNavOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                animate={prefersReducedMotion ? undefined : (mobileNavOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 })}
                 className="block w-6 h-px bg-ink"
               />
               <motion.span
-                animate={mobileNavOpen ? { opacity: 0 } : { opacity: 1 }}
+                animate={prefersReducedMotion ? undefined : (mobileNavOpen ? { opacity: 0 } : { opacity: 1 })}
                 className="block w-6 h-px bg-ink"
               />
               <motion.span
-                animate={mobileNavOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                animate={prefersReducedMotion ? undefined : (mobileNavOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 })}
                 className="block w-6 h-px bg-ink"
               />
             </button>

@@ -2,12 +2,14 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { OrigamiCorner, OrigamiDivider, OrigamiFoldAccent } from '@/components/animations/OrigamiFold';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
 const SEPIA_GRADIENT_STYLE: React.CSSProperties = { background: 'linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--color-pale-gold) 10%, transparent) 100%)' };
 
 export default function EditorialFooter() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const year = new Date().getFullYear();
 
   return (
@@ -93,7 +95,7 @@ export default function EditorialFooter() {
             <ul className="space-y-3">
               {['about', 'campaigns', 'stories'].map((key) => (
                 <li key={key}>
-                  <motion.div whileHover={{ x: 4 }}>
+                  <motion.div whileHover={prefersReducedMotion ? undefined : { x: 4 }}>
                     <Link
                       to={`/${key}`}
                       className="font-body text-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block"
@@ -114,7 +116,7 @@ export default function EditorialFooter() {
             <ul className="space-y-3">
               {['shop', 'donate', 'contact'].map((key) => (
                 <li key={key}>
-                  <motion.div whileHover={{ x: 4 }}>
+                  <motion.div whileHover={prefersReducedMotion ? undefined : { x: 4 }}>
                     <Link
                       to={`/${key}`}
                       className="font-body text-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block"
@@ -135,7 +137,7 @@ export default function EditorialFooter() {
             <ul className="space-y-3">
               {['privacy', 'terms', 'children'].map((key) => (
                 <li key={key}>
-                  <motion.div whileHover={{ x: 4 }}>
+                  <motion.div whileHover={prefersReducedMotion ? undefined : { x: 4 }}>
                     <Link
                       to={`/${key}`}
                       className="font-body text-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block"
@@ -175,9 +177,9 @@ export default function EditorialFooter() {
             <motion.form
               onSubmit={(e) => e.preventDefault()}
               className="flex flex-col gap-3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1 }}
+              initial={prefersReducedMotion ? false : { opacity: 0 }}
+              animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.1 }}
             >
               <label htmlFor="newsletter-email" className="sr-only">
                 {t('footer.newsletter.ariaLabel')}
@@ -187,12 +189,12 @@ export default function EditorialFooter() {
                 type="email"
                 placeholder={t('footer.newsletter.placeholder')}
                 className="bg-transparent border-b border-sepia-mid/30 text-paper font-body text-xs py-2 outline-none focus:border-pale-gold transition-colors placeholder:text-sepia-mid/40"
-                whileFocus={{ scale: 1.01 }}
+                whileFocus={prefersReducedMotion ? undefined : { scale: 1.01 }}
               />
               <motion.button
                 type="submit"
                 className="font-body text-[10px] tracking-[0.15em] uppercase text-pale-gold hover:text-paper transition-colors text-left cursor-pointer"
-                whileHover={{ x: 4 }}
+                whileHover={prefersReducedMotion ? undefined : { x: 4 }}
               >
                 {t('footer.newsletter.subscribe')} &rarr;
               </motion.button>

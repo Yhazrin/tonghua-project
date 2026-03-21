@@ -5,11 +5,13 @@ import PageWrapper from '@/components/layout/PageWrapper';
 import PaperTextureBackground from '@/components/editorial/PaperTextureBackground';
 import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeading';
 import { useAuthStore } from '@/stores/authStore';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function Profile() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuthStore();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   const handleLogout = () => {
     logout();
@@ -23,8 +25,8 @@ export default function Profile() {
           <div className="text-center">
             <p className="font-body text-ink-faded mb-4">{t('profile.notLoggedIn')}</p>
             <motion.button
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
               onClick={() => navigate('/login')}
               className="font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300 cursor-pointer"
             >
@@ -47,9 +49,9 @@ export default function Profile() {
 
             {/* Profile Card */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.2 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.2 }}
               className="bg-paper border border-warm-gray/30 p-8"
             >
               <div className="space-y-6">
@@ -89,8 +91,8 @@ export default function Profile() {
                 {/* Actions */}
                 <div className="flex gap-4 pt-4">
                   <motion.button
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
+                    whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
                     onClick={handleLogout}
                     className="flex-1 font-body text-sm tracking-[0.1em] uppercase border border-warm-gray/40 text-ink px-6 py-3 hover:bg-warm-gray/10 transition-colors duration-300 cursor-pointer"
                   >
