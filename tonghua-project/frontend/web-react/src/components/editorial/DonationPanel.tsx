@@ -102,6 +102,7 @@ export default function DonationPanel({
             <motion.button
               key={amount}
               type="button"
+              aria-pressed={selectedAmount === amount && !customAmount}
               initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
               animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
               transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, delay: index * 0.05 }}

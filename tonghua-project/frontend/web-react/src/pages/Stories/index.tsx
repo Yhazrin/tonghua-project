@@ -532,6 +532,7 @@ export default function Stories() {
                 >
                   <VintageInput
                     type="email"
+                    label={t('common.email')}
                     placeholder={t('stories.newsletter.placeholder')}
                     className="flex-1"
                     value={email}
