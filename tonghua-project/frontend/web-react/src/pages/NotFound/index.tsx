@@ -44,14 +44,20 @@ export default function NotFound() {
             </div>
 
             {/* Right: Message + suggestions */}
-            <div className="md:col-span-5 md:col-start-8">
+            <div className="md:col-span-5 md:col-start-8 relative">
+              {/* Corner accents */}
+              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+
               <motion.div
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                 transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.2 }}
               >
                 <NumberedSectionHeading number="--" title={t('notFound.subtitle')} />
-                <p className="font-body text-sm text-ink-faded leading-[1.8] mb-10 max-w-sm">
+                <p className="font-body text-body-sm text-ink-faded leading-[1.8] mb-10 max-w-sm">
                   {t('notFound.body', { defaultValue: 'The page you are looking for may have been moved, renamed, or no longer exists. Here are some places to start.' })}
                 </p>
 
@@ -67,7 +73,7 @@ export default function NotFound() {
                         to={item.path}
                         className="group flex items-center justify-between py-4 border-b border-warm-gray/20 hover:border-rust/40 transition-colors cursor-pointer"
                       >
-                        <span className="font-body text-sm text-ink group-hover:text-rust transition-colors">
+                        <span className="font-body text-body-sm text-ink group-hover:text-rust transition-colors">
                           {t(`nav.${item.key}`)}
                         </span>
                         <span className="font-body text-overline text-sepia-mid group-hover:text-rust transition-colors">
@@ -85,7 +91,7 @@ export default function NotFound() {
                 >
                   <Link
                     to="/"
-                    className="inline-block font-body text-xs tracking-[0.15em] uppercase bg-ink text-paper px-8 py-3.5 hover:bg-rust transition-colors duration-300 cursor-pointer"
+                    className="inline-block font-body text-caption tracking-[0.15em] uppercase bg-ink text-paper px-8 py-3.5 hover:bg-rust transition-colors duration-300 cursor-pointer"
                   >
                     {t('notFound.cta')}
                   </Link>

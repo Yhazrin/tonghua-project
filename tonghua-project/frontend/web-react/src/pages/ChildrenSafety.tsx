@@ -36,10 +36,10 @@ export default function ChildrenSafety() {
             <h1 className="font-display text-h1 font-bold text-ink leading-tight mb-4">
               {t('legal.children.title', { defaultValue: "Children's Safety" })}
             </h1>
-            <p className="font-body text-sm text-ink-faded leading-[1.8] max-w-[65ch] mb-4">
+            <p className="font-body text-body-sm text-ink-faded leading-[1.8] max-w-[65ch] mb-4">
               {t('legal.children.intro', { defaultValue: 'Tonghua is committed to protecting the privacy and safety of every child who participates in our programs. This policy outlines how we collect, use, and safeguard children\'s personal information in compliance with applicable laws and regulations.' })}
             </p>
-            <p className="font-body text-xs text-sepia-mid tracking-wide mb-12">
+            <p className="font-body text-caption text-sepia-mid tracking-wide mb-12">
               {t('legal.children.lastUpdated', { defaultValue: 'Last updated: March 2026' })}
             </p>
           </motion.div>
@@ -56,7 +56,7 @@ export default function ChildrenSafety() {
                   number={String(i + 1).padStart(2, '0')}
                   title={t(`legal.children.sections.${section.key}.title`, { defaultValue: section.key.charAt(0).toUpperCase() + section.key.slice(1).replace(/([A-Z])/g, ' $1') })}
                 />
-                <p className="font-body text-sm text-ink-faded leading-[1.8] max-w-[65ch]">
+                <p className="font-body text-body-sm text-ink-faded leading-[1.8] max-w-[65ch]">
                   {t(`legal.children.sections.${section.key}.body`, { defaultValue: 'This section is being prepared. Please check back later for the complete content.' })}
                 </p>
               </motion.section>

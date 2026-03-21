@@ -42,19 +42,19 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
           <h2 className="font-display text-h2 text-ink mb-4">
             {i18n.t('error.subtitle')}
           </h2>
-          <p className="font-body text-sm text-ink-faded max-w-md leading-relaxed mb-8">
+          <p className="font-body text-body-sm text-ink-faded max-w-md leading-relaxed mb-8">
             {i18n.t('error.body')}
           </p>
           <div className="flex gap-4">
             <button
               onClick={this.handleReset}
-              className="font-body text-xs tracking-[0.15em] uppercase px-6 py-3 bg-ink text-paper hover:bg-ink-faded transition-colors cursor-pointer"
+              className="font-body text-caption tracking-[0.15em] uppercase px-6 py-3 bg-ink text-paper hover:bg-ink-faded transition-colors cursor-pointer"
             >
               {i18n.t('error.retry')}
             </button>
             <a
               href="/"
-              className="font-body text-xs tracking-[0.15em] uppercase px-6 py-3 border border-warm-gray/50 text-ink hover:bg-warm-gray/20 transition-colors cursor-pointer"
+              className="font-body text-caption tracking-[0.15em] uppercase px-6 py-3 border border-warm-gray/50 text-ink hover:bg-warm-gray/20 transition-colors cursor-pointer"
             >
               {i18n.t('error.home')}
             </a>

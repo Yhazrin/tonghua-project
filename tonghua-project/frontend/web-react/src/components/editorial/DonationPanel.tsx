@@ -89,8 +89,14 @@ export default function DonationPanel({
       whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={prefersReducedMotion ? undefined : { once: true }}
       transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
-      className={className}
+      className={`relative ${className}`}
     >
+      {/* Corner accents */}
+      <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+
       <h3 className="font-display text-h2 font-bold text-ink mb-8">
         {t('donate.form.title')}
       </h3>
@@ -102,6 +108,7 @@ export default function DonationPanel({
             <motion.button
               key={amount}
               type="button"
+              aria-pressed={selectedAmount === amount && !customAmount}
               initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
               animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
               transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, delay: index * 0.05 }}
@@ -120,7 +127,7 @@ export default function DonationPanel({
               `}
             >
               {/* Grain overlay */}
-              <div className="absolute inset-0 z-10 pointer-events-none opacity-10" aria-hidden="true" style={GRAIN_STYLE} />
+              <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" aria-hidden="true" style={GRAIN_STYLE} />
 
               {/* Sepia accent gradient */}
               <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/3 via-transparent to-archive-brown/5" aria-hidden="true" />
@@ -170,13 +177,13 @@ export default function DonationPanel({
             role="alert"
             aria-live="assertive"
           >
-            <p className="font-body text-xs text-archive-brown">{error}</p>
+            <p className="font-body text-caption text-archive-brown">{error}</p>
           </motion.div>
         )}
 
         {/* Frequency */}
         <div className="mb-8">
-          <label className="block font-body text-xs tracking-[0.05em] text-sepia-mid mb-3">
+          <label className="block font-body text-caption tracking-[0.05em] text-sepia-mid mb-3">
             {t('donate.form.frequency.title')}
           </label>
           <div className="flex" role="group" aria-label={t('donate.form.frequency.title')}>
@@ -193,7 +200,7 @@ export default function DonationPanel({
                   }
                 }}
                 className={`
-                  flex-1 py-3 font-body text-xs tracking-[0.05em] uppercase text-center border transition-all cursor-pointer
+                  flex-1 py-3 font-body text-caption tracking-[0.05em] uppercase text-center border transition-all cursor-pointer
                   ${freq === 'once' ? 'border-r-0' : ''}
                   ${
                     frequency === freq
@@ -224,7 +231,7 @@ export default function DonationPanel({
               onChange={(e) => setAnonymous(e.target.checked)}
               className="w-4 h-4 accent-[var(--color-rust)] cursor-pointer"
             />
-            <span className="font-body text-xs text-sepia-mid">
+            <span className="font-body text-caption text-sepia-mid">
               {t('donate.form.anonymous')}
             </span>
           </label>
@@ -234,7 +241,7 @@ export default function DonationPanel({
         <button
           type="submit"
           disabled={activeAmount <= 0 || isSubmitting}
-          className="w-full py-4 font-body text-xs tracking-[0.1em] uppercase bg-rust text-paper border-none cursor-pointer transition-colors hover:bg-archive-brown disabled:bg-warm-gray disabled:cursor-not-allowed"
+          className="w-full py-4 font-body text-caption tracking-[0.1em] uppercase bg-rust text-paper border-none cursor-pointer transition-colors hover:bg-archive-brown disabled:bg-warm-gray disabled:cursor-not-allowed"
         >
           {isSubmitting ? t('donate.form.processing') : t('donate.form.submit')}
         </button>

@@ -37,7 +37,7 @@ export default function Terms() {
             <h1 className="font-display text-h1 font-bold text-ink leading-tight mb-4">
               {t('legal.terms.title', { defaultValue: 'Terms of Service' })}
             </h1>
-            <p className="font-body text-xs text-sepia-mid tracking-wide mb-12">
+            <p className="font-body text-caption text-sepia-mid tracking-wide mb-12">
               {t('legal.terms.lastUpdated', { defaultValue: 'Last updated: March 2026' })}
             </p>
           </motion.div>
@@ -54,7 +54,7 @@ export default function Terms() {
                   number={String(i + 1).padStart(2, '0')}
                   title={t(`legal.terms.sections.${section.key}.title`, { defaultValue: section.key.charAt(0).toUpperCase() + section.key.slice(1) })}
                 />
-                <p className="font-body text-sm text-ink-faded leading-[1.8] max-w-[65ch]">
+                <p className="font-body text-body-sm text-ink-faded leading-[1.8] max-w-[65ch]">
                   {t(`legal.terms.sections.${section.key}.body`, { defaultValue: 'This section is being prepared. Please check back later for the complete content.' })}
                 </p>
               </motion.section>

@@ -70,9 +70,15 @@ export default function ProductCard({
           <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/3 via-transparent to-archive-brown/5" aria-hidden="true" />
 
           {/* Grain overlay */}
-          <div className="absolute inset-0 z-20 pointer-events-none opacity-10"
+          <div className="absolute inset-0 z-20 pointer-events-none opacity-[0.06]"
                aria-hidden="true"
                style={{ backgroundImage: 'var(--grain-overlay)' }} />
+
+          {/* Corner accents */}
+          <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+          <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+          <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+          <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
 
           {/* Loading skeleton */}
           {!imageLoaded && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-[3/4]" />}
@@ -105,7 +111,7 @@ export default function ProductCard({
         {/* Info */}
         <div className="px-1">
           <div className="flex items-start justify-between gap-2 mb-1">
-            <h3 className="font-display text-base md:text-lg font-semibold text-ink group-hover:text-rust transition-colors leading-tight">
+            <h3 className="font-display text-body md:text-body-lg font-semibold text-ink group-hover:text-rust transition-colors leading-tight">
               {product.name}
             </h3>
             <span className="font-body text-overline text-sepia-mid uppercase tracking-wider flex-shrink-0 mt-1">
@@ -122,7 +128,7 @@ export default function ProductCard({
           )}
 
           <div className="flex items-center justify-between">
-            <span className="font-body text-sm text-ink font-medium">
+            <span className="font-body text-body-sm text-ink font-medium">
               {product.currency === 'CNY' ? '¥' : '$'}
               {product.price.toLocaleString()}
             </span>
@@ -150,7 +156,7 @@ export default function ProductCard({
 
           {/* Notify Me for out-of-stock */}
           {!product.inStock && (
-            <div className="mt-3" onClick={(e) => e.preventDefault()} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); } }}>
+            <div className="mt-3" role="presentation" tabIndex={-1} onClick={(e) => e.preventDefault()} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); } }}>
               {!showNotifyInput ? (
                 <motion.button
                   whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
@@ -196,7 +202,7 @@ export default function ProductCard({
                       type="submit"
                       whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
                       whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
-                      className="font-body text-overline tracking-[0.1em] uppercase text-paper bg-rust px-3 py-3 border border-rust hover:bg-rust/90 transition-colors flex-shrink-0"
+                      className="font-body text-overline tracking-[0.1em] uppercase text-paper bg-rust px-3 py-3 border border-rust hover:bg-rust/90 transition-colors flex-shrink-0 cursor-pointer"
                     >
                       {t('common.send')}
                     </motion.button>

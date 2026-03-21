@@ -467,7 +467,7 @@ input, textarea, select {
 
 /* ── Image Caption ── */
 .image-caption {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   color: var(--color-sepia-mid);
   text-align: center;
@@ -613,7 +613,7 @@ input, textarea, select {
 }
 
 .advertisement-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-overline);
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
@@ -630,7 +630,7 @@ input, textarea, select {
   padding: var(--space-3) var(--space-4);
   background: var(--color-paper);
   border: 1px solid var(--color-warm-gray);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   color: var(--color-ink);
   transition: border-color var(--duration-fast) var(--ease-editorial);

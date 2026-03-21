@@ -76,17 +76,17 @@ export default function Header() {
       {/* Skip to content - visible on focus for keyboard users */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-modal focus:px-4 focus:py-2 focus:bg-ink focus:text-paper focus:font-body focus:text-sm focus:tracking-wide"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-modal focus:px-4 focus:py-2 focus:bg-ink focus:text-paper focus:font-body focus:text-body-sm focus:tracking-wide"
       >
         {t('nav.skipToContent', 'Skip to content')}
       </a>
       {/* Grain overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]" aria-hidden="true" style={GRAIN_STYLE} />
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" aria-hidden="true" style={GRAIN_STYLE} />
       <div className="relative max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link
           to="/"
-          className="font-display text-ink text-lg md:text-xl font-bold tracking-tight cursor-pointer"
+          className="font-display text-ink text-body-lg md:text-xl font-bold tracking-tight cursor-pointer"
           onClick={() => setMobileNavOpen(false)}
         >
           VICOO
@@ -144,22 +144,29 @@ export default function Header() {
 
               {/* Dropdown menu */}
               {userMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 shadow-lg z-dropdown">
-                  <div className="py-2">
+                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 shadow-lg z-dropdown relative overflow-hidden">
+                  {/* Grain overlay */}
+                  <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} aria-hidden="true" />
+                  {/* Corner accents */}
+                  <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                  <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                  <div className="py-2 relative z-[1]">
                     <div className="px-4 py-2 border-b border-warm-gray/20">
-                      <p className="font-body text-xs text-ink-faded">{user.nickname || user.email}</p>
+                      <p className="font-body text-caption text-ink-faded">{user.nickname || user.email}</p>
                       <p className="font-body text-overline text-sepia-mid capitalize">{user.role}</p>
                     </div>
                     <Link
                       to="/profile"
-                      className="block px-4 py-2 font-body text-sm text-ink hover:bg-warm-gray/10 transition-colors cursor-pointer"
+                      className="block px-4 py-2 font-body text-body-sm text-ink hover:bg-warm-gray/10 transition-colors cursor-pointer"
                       onClick={() => setUserMenuOpen(false)}
                     >
                       {t('nav.profile')}
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 font-body text-sm text-ink hover:bg-warm-gray/10 transition-colors cursor-pointer"
+                      className="w-full text-left px-4 py-2 font-body text-body-sm text-ink hover:bg-warm-gray/10 transition-colors cursor-pointer"
                     >
                       {t('nav.logout')}
                     </button>

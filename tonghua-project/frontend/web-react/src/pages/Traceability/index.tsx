@@ -162,7 +162,7 @@ function SearchSpinner() {
         animate={prefersReducedMotion ? {} : { rotate: 360 }}
         transition={prefersReducedMotion ? { duration: 0 } : { duration: 1, repeat: Infinity, ease: 'linear' }}
       />
-      <span className="font-body text-xs text-sepia-mid tracking-[0.1em] uppercase">
+      <span className="font-body text-caption text-sepia-mid tracking-[0.1em] uppercase">
         {t('traceability.searching')}
       </span>
     </div>
@@ -183,14 +183,16 @@ function CertificationBadge({ title, description, delay }: {
       viewport={prefersReducedMotion ? undefined : { once: true }}
       transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay }}
       whileHover={prefersReducedMotion ? undefined : { y: -4, borderColor: 'color-mix(in srgb, var(--color-rust), transparent 50%)' }}
-      className="border-2 border-rust/20 bg-paper p-5 text-center transition-all duration-300 hover:shadow-cert relative overflow-hidden group"
+      className="border-2 border-rust/20 bg-paper p-5 text-center transition-all duration-300 hover:shadow-cert relative overflow-hidden group cursor-pointer"
     >
       {/* Grain overlay */}
       <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} aria-hidden="true" />
 
       {/* Corner accents */}
-      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rust/20 group-hover:border-rust/40 transition-colors" aria-hidden="true" />
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/20 group-hover:border-rust/40 transition-colors" aria-hidden="true" />
+      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rust/20 group-hover:border-rust/40 transition-colors pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-rust/20 group-hover:border-rust/40 transition-colors pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-rust/20 group-hover:border-rust/40 transition-colors pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/20 group-hover:border-rust/40 transition-colors pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-20">
         {/* Badge icon */}
@@ -200,7 +202,7 @@ function CertificationBadge({ title, description, delay }: {
           </svg>
         </div>
 
-        <h4 className="font-display text-sm font-bold text-ink mb-1">
+        <h4 className="font-display text-body-sm font-bold text-ink mb-1">
           {title}
         </h4>
         <p className="font-body text-overline text-sepia-mid leading-relaxed tracking-wide">
@@ -251,10 +253,12 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
         className="relative p-6 border-2 border-rust/30 bg-paper transition-all duration-300 hover:border-rust/50 overflow-hidden"
       >
         {/* Grain overlay */}
-        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08]" style={GRAIN_STYLE} aria-hidden="true" />
+        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} aria-hidden="true" />
 
         {/* Sepia corner accents */}
         <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-rust/30" aria-hidden="true" />
+        <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-rust/30" aria-hidden="true" />
+        <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-rust/30" aria-hidden="true" />
         <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-rust/30" aria-hidden="true" />
 
         <div className="relative z-20">
@@ -271,7 +275,7 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
           {/* Main content with image */}
           <div className="flex gap-5 mb-4">
             <div className="flex-1">
-              <p className="font-body text-sm text-ink-faded leading-relaxed mb-3">
+              <p className="font-body text-body-sm text-ink-faded leading-relaxed mb-3">
                 {record.description}
               </p>
               <p className="font-body text-label italic text-sepia-mid leading-relaxed border-l-2 border-rust/20 pl-3">
@@ -446,6 +450,8 @@ export default function Traceability() {
           <div className="relative">
             {/* Decorative corner accents */}
             <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+            <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+            <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
             <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
 
             <div className="flex items-center border-b-2 border-warm-gray/60 focus-within:border-rust transition-colors">
@@ -457,7 +463,7 @@ export default function Traceability() {
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder={t('traceability.lookup.placeholder')}
-                className="w-full font-body text-sm py-3 px-3 bg-transparent focus:outline-none placeholder:text-ink-faded/60"
+                className="w-full font-body text-body-sm py-3 px-3 bg-transparent focus:outline-none placeholder:text-ink-faded/60"
                 aria-label={t('traceability.lookup.ariaLabel')}
               />
             </div>
@@ -489,8 +495,8 @@ export default function Traceability() {
                 transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4 }}
                 className="mt-4 p-5 border-2 border-eco-green/30 bg-eco-green/5 relative overflow-hidden"
               >
-                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-eco-green/30" />
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-eco-green/30" />
+                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-eco-green/30" aria-hidden="true" />
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-eco-green/30" aria-hidden="true" />
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 flex-shrink-0 border border-eco-green/30 flex items-center justify-center bg-eco-green/10">
                     <svg className="w-4 h-4 text-eco-green" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -498,10 +504,10 @@ export default function Traceability() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-display text-sm font-bold text-ink mb-1">
+                    <h4 className="font-display text-body-sm font-bold text-ink mb-1">
                       {t('traceability.lookup.found')}
                     </h4>
-                    <p className="font-body text-xs text-ink-faded leading-relaxed">
+                    <p className="font-body text-caption text-ink-faded leading-relaxed">
                       {searchResult.partnerName} &mdash; {searchResult.location},{' '}
                       {new Date(searchResult.date).toLocaleDateString(i18n.language, {
                         year: 'numeric',
@@ -549,7 +555,7 @@ export default function Traceability() {
                 <div className="font-display text-h3 font-bold text-ink mt-2">
                   {t('traceability.carbonValue')}
                 </div>
-                <p className="font-body text-xs text-ink-faded mt-2 leading-relaxed">
+                <p className="font-body text-caption text-ink-faded mt-2 leading-relaxed">
                   {t('traceability.offsetDesc')}
                 </p>
               </motion.div>
@@ -567,7 +573,7 @@ export default function Traceability() {
                     <span className="font-body text-overline text-eco-green tracking-[0.15em] uppercase">
                       {t('traceability.lookup.highlighted')}
                     </span>
-                    <p className="font-body text-xs text-ink-faded mt-1 leading-relaxed">
+                    <p className="font-body text-caption text-ink-faded mt-1 leading-relaxed">
                       {MOCK_RECORDS.find((r) => r.id === highlightedId)?.description}
                     </p>
                   </motion.div>
@@ -645,7 +651,7 @@ export default function Traceability() {
                 whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
                 viewport={prefersReducedMotion ? undefined : { once: true }}
                 transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: 0.5 }}
-                className="font-body text-xs text-ink-faded leading-relaxed border-l-2 border-eco-green/30 pl-4 mt-4"
+                className="font-body text-caption text-ink-faded leading-relaxed border-l-2 border-eco-green/30 pl-4 mt-4"
               >
                 {t('traceability.carbon.explanation')}
               </motion.p>
@@ -665,6 +671,8 @@ export default function Traceability() {
 
                 {/* Corner accents */}
                 <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-eco-green/20" aria-hidden="true" />
+                <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-eco-green/20" aria-hidden="true" />
+                <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-eco-green/20" aria-hidden="true" />
                 <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-eco-green/20" aria-hidden="true" />
 
                 <div className="relative z-20">
@@ -674,7 +682,7 @@ export default function Traceability() {
                   <div className="font-display text-display font-bold text-eco-green leading-none">
                     <ImpactCounter value={reductionPercent} suffix="%" label="" />
                   </div>
-                  <p className="font-body text-xs text-sepia-mid mt-4 leading-relaxed">
+                  <p className="font-body text-caption text-sepia-mid mt-4 leading-relaxed">
                     {t('traceability.carbon.reductionDesc')}
                   </p>
                 </div>
@@ -724,7 +732,7 @@ export default function Traceability() {
                 <h3 className="font-display text-h3 font-bold text-ink mt-2 mb-3">
                   {step.title}
                 </h3>
-                <p className="font-body text-sm text-ink-faded leading-relaxed">
+                <p className="font-body text-body-sm text-ink-faded leading-relaxed">
                   {step.desc}
                 </p>
               </motion.div>
@@ -772,7 +780,7 @@ export default function Traceability() {
           <h2 className="font-display text-h2 font-bold text-ink leading-tight mb-6">
             {t('traceability.cta.headline')}
           </h2>
-          <p className="font-body text-sm text-ink-faded max-w-md mx-auto mb-8 leading-relaxed">
+          <p className="font-body text-body-sm text-ink-faded max-w-md mx-auto mb-8 leading-relaxed">
             {t('traceability.cta.body')}
           </p>
           <Link

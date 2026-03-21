@@ -8,6 +8,8 @@ import SectionContainer from '@/components/layout/SectionContainer';
 import EditorialHero from '@/components/editorial/EditorialHero';
 import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeading';
 import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
+import StoryQuoteBlock from '@/components/editorial/StoryQuoteBlock';
+import { ScrollPathDrawInline } from '@/components/animations/ScrollPathDraw';
 import { VintageInput } from '@/components/editorial/VintageInput';
 import { campaignsApi } from '@/services/campaigns';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -222,7 +224,7 @@ export default function Campaigns() {
               transition={prefersReducedMotion ? { duration: 0 } : { delay: index * 0.05 }}
               whileHover={prefersReducedMotion ? undefined : { y: -2 }}
               className={`
-                font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
+                font-body text-caption tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
                 ${filter === status
                   ? 'border-rust text-rust'
                   : 'border-transparent text-sepia-mid hover:text-ink'
@@ -254,8 +256,8 @@ export default function Campaigns() {
         {/* Campaign list */}
         {error ? (
           <div className="text-center py-20" role="alert" aria-live="assertive">
-            <p className="font-body text-sm text-rust">{t('common.error')}</p>
-            <p className="font-body text-xs text-sepia-mid mt-2">{t('common.retry')}</p>
+            <p className="font-body text-body-sm text-rust">{t('common.error')}</p>
+            <p className="font-body text-caption text-sepia-mid mt-2">{t('common.retry')}</p>
           </div>
         ) : isLoading ? (
           <div className="space-y-16">
@@ -294,7 +296,15 @@ export default function Campaigns() {
                     whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                     viewport={prefersReducedMotion ? undefined : { once: true, margin: '-80px' }}
                     transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1] }}
+                    className="relative p-6 -m-6 overflow-hidden"
                   >
+                    {/* Grain overlay */}
+                    <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: 'var(--grain-overlay)' }} aria-hidden="true" />
+                    {/* Corner accents */}
+                    <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
+                    <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
+                    <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
+                    <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
                     <Link to={`/campaigns/${campaign.id}`} className="group block cursor-pointer">
                       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                         {/* Image */}
@@ -334,7 +344,7 @@ export default function Campaigns() {
                             {campaign.title}
                           </h3>
 
-                          <p className="font-body text-sm text-ink-faded leading-relaxed mb-6">
+                          <p className="font-body text-body-sm text-ink-faded leading-relaxed mb-6">
                             {campaign.subtitle}
                           </p>
 
@@ -342,13 +352,13 @@ export default function Campaigns() {
                           {campaign.goalAmount > 0 && (
                             <div className="mb-4">
                               <div className="flex items-baseline justify-between mb-2">
-                                <span className="font-body text-xs text-sepia-mid">
+                                <span className="font-body text-caption text-sepia-mid">
                                   ¥{campaign.raisedAmount.toLocaleString()} / ¥{campaign.goalAmount.toLocaleString()}
                                 </span>
-                                <span className={`font-body text-xs ${isCompleted ? 'text-sepia-mid' : 'text-sepia-mid'}`}>
+                                <span className={`font-body text-caption ${isCompleted ? 'text-ink-faded' : 'text-sepia-mid'}`}>
                                   {isCompleted
                                     ? t('campaigns.funded', { percent: fundingPercent })
-                                    : `${fundingPercent}%`
+                                    : t('campaigns.fundingPercent', { percent: fundingPercent })
                                   }
                                 </span>
                               </div>
@@ -373,7 +383,7 @@ export default function Campaigns() {
                               transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: 0.5 }}
                               className="border-l-2 border-rust/40 pl-4 mt-5"
                             >
-                              <p className="font-display italic text-sm text-ink-faded leading-relaxed">
+                              <p className="font-display italic text-body-sm text-ink-faded leading-relaxed">
                                 &ldquo;{campaign.featuredChild.quote}&rdquo;
                               </p>
                               <p className="font-body text-label text-sepia-mid mt-1.5 tracking-wider uppercase">
@@ -382,7 +392,7 @@ export default function Campaigns() {
                             </motion.div>
                           )}
 
-                          <div className="flex gap-6 font-body text-xs text-sepia-mid mt-4">
+                          <div className="flex gap-6 font-body text-caption text-sepia-mid mt-4">
                             <span>{campaign.artworkCount} {t('campaigns.detail.artworks')}</span>
                             <span>{campaign.participantCount} {t('campaigns.detail.participants')}</span>
                           </div>
@@ -411,7 +421,7 @@ export default function Campaigns() {
             <p className="font-display text-lg text-ink-faded mb-2">
               {t('campaigns.emptyState.title')}
             </p>
-            <p className="font-body text-sm text-sepia-mid">
+            <p className="font-body text-body-sm text-sepia-mid">
               {t('campaigns.emptyState.subtitle')}
             </p>
           </motion.div>
@@ -452,6 +462,24 @@ export default function Campaigns() {
             </button>
           </nav>
         )}
+      </SectionContainer>
+
+      {/* Editorial pull quote connector */}
+      <div className="flex justify-center py-2" aria-hidden="true">
+        <ScrollPathDrawInline
+          path="M0,10 L60,10 M80,10 L140,10 M160,10 L220,10"
+          strokeColor="var(--color-warm-gray)"
+          strokeWidth={1}
+          className="w-56 h-5"
+        />
+      </div>
+
+      <SectionContainer narrow>
+        <StoryQuoteBlock
+          quote={t('campaigns.quote')}
+          author={t('campaigns.quoteAuthor')}
+          role={t('campaigns.quoteRole')}
+        />
       </SectionContainer>
 
       <div className="editorial-divider" aria-hidden="true" />

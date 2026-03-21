@@ -32,7 +32,7 @@ export default function TraceabilityTimeline({
   if (records.length === 0) {
     return (
       <div className={`text-center py-16 ${className}`}>
-        <p className="font-body text-sm text-sepia-mid">
+        <p className="font-body text-body-sm text-sepia-mid">
           {t('traceability.noRecords')}
         </p>
       </div>
@@ -154,11 +154,13 @@ export default function TraceabilityTimeline({
               className="relative p-6 border-2 border-rust/30 bg-paper transition-all duration-300 hover:border-rust/50 overflow-hidden"
             >
               {/* Grain overlay */}
-              <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08]" aria-hidden="true" style={GRAIN_STYLE} />
+              <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" aria-hidden="true" style={GRAIN_STYLE} />
 
               {/* Sepia corner accents */}
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-rust/30" aria-hidden="true" />
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-rust/30" aria-hidden="true" />
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
 
               <div className="relative z-20">
                 <div className="flex justify-between items-start flex-wrap gap-3 mb-3">
@@ -172,7 +174,7 @@ export default function TraceabilityTimeline({
                   )}
                 </div>
 
-                <p className="font-body text-sm text-ink-faded leading-relaxed mb-4">
+                <p className="font-body text-body-sm text-ink-faded leading-relaxed mb-4">
                   {record.description}
                 </p>
 

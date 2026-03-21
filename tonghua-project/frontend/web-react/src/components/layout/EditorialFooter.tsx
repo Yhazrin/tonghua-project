@@ -16,7 +16,7 @@ export default function EditorialFooter() {
     <footer className="bg-ink text-paper mt-auto relative overflow-hidden">
       {/* Grain overlay */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none opacity-10"
+        className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
         style={GRAIN_STYLE}
         aria-hidden="true"
       />
@@ -46,12 +46,14 @@ export default function EditorialFooter() {
         size="lg"
         intensity="medium"
         className="absolute top-6 left-0 pointer-events-none"
+        aria-hidden="true"
       />
       <OrigamiFoldAccent
         position="top-right"
         size="lg"
         intensity="subtle"
         className="absolute top-6 right-0 pointer-events-none"
+        aria-hidden="true"
       />
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 section-spacing relative z-10">
@@ -68,6 +70,20 @@ export default function EditorialFooter() {
               className="absolute -top-1 -left-1 pointer-events-none"
             />
             <OrigamiCorner
+              position="top-right"
+              size="sm"
+              color="sepia"
+              showBackside={true}
+              className="absolute -top-1 -right-1 pointer-events-none"
+            />
+            <OrigamiCorner
+              position="bottom-left"
+              size="sm"
+              color="sepia"
+              showBackside={true}
+              className="absolute -bottom-1 -left-1 pointer-events-none"
+            />
+            <OrigamiCorner
               position="bottom-right"
               size="sm"
               color="sepia"
@@ -75,10 +91,10 @@ export default function EditorialFooter() {
               className="absolute -bottom-1 -right-1 pointer-events-none"
             />
 
-            <h3 className="font-display text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+            <h3 className="font-display text-display font-bold mb-4 tracking-tight">
               VICOO
             </h3>
-            <p className="font-body text-sm text-warm-gray leading-relaxed max-w-xs mb-6">
+            <p className="font-body text-body-sm text-warm-gray leading-relaxed max-w-xs mb-6">
               {t('footer.brandTagline')}
             </p>
             <div className="w-12 h-px bg-pale-gold mb-6" aria-hidden="true" />
@@ -98,7 +114,7 @@ export default function EditorialFooter() {
                   <motion.div whileHover={prefersReducedMotion ? undefined : { x: 4 }}>
                     <Link
                       to={`/${key}`}
-                      className="font-body text-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block cursor-pointer"
+                      className="font-body text-body-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block cursor-pointer"
                     >
                       {t(`footer.links.${key}`)}
                     </Link>
@@ -119,7 +135,7 @@ export default function EditorialFooter() {
                   <motion.div whileHover={prefersReducedMotion ? undefined : { x: 4 }}>
                     <Link
                       to={`/${key}`}
-                      className="font-body text-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block cursor-pointer"
+                      className="font-body text-body-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block cursor-pointer"
                     >
                       {t(`footer.links.${key}`)}
                     </Link>
@@ -140,7 +156,7 @@ export default function EditorialFooter() {
                   <motion.div whileHover={prefersReducedMotion ? undefined : { x: 4 }}>
                     <Link
                       to={`/${key}`}
-                      className="font-body text-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block cursor-pointer"
+                      className="font-body text-body-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block cursor-pointer"
                     >
                       {t(`footer.links.${key}`)}
                     </Link>
@@ -161,6 +177,20 @@ export default function EditorialFooter() {
               className="absolute -top-1 -left-1 pointer-events-none"
             />
             <OrigamiCorner
+              position="top-right"
+              size="sm"
+              color="sepia"
+              showBackside={true}
+              className="absolute -top-1 -right-1 pointer-events-none"
+            />
+            <OrigamiCorner
+              position="bottom-left"
+              size="sm"
+              color="sepia"
+              showBackside={true}
+              className="absolute -bottom-1 -left-1 pointer-events-none"
+            />
+            <OrigamiCorner
               position="bottom-right"
               size="sm"
               color="sepia"
@@ -171,7 +201,7 @@ export default function EditorialFooter() {
             <h4 className="font-body text-overline tracking-[0.2em] uppercase text-sepia-mid mb-6">
               {t('footer.newsletter.title')}
             </h4>
-            <p className="font-body text-xs text-warm-gray mb-4 leading-relaxed">
+            <p className="font-body text-caption text-warm-gray mb-4 leading-relaxed">
               {t('footer.newsletter.body')}
             </p>
             <motion.form
@@ -188,7 +218,7 @@ export default function EditorialFooter() {
                 id="newsletter-email"
                 type="email"
                 placeholder={t('footer.newsletter.placeholder')}
-                className="bg-transparent border-b border-sepia-mid/30 text-paper font-body text-xs py-2 outline-none focus:border-pale-gold transition-colors placeholder:text-sepia-mid/40"
+                className="bg-transparent border-b border-sepia-mid/30 text-paper font-body text-caption py-2 outline-none focus:border-pale-gold transition-colors placeholder:text-sepia-mid/40"
                 whileFocus={prefersReducedMotion ? undefined : { scale: 1.01 }}
               />
               <motion.button
