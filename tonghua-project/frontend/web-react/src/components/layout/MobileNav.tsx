@@ -133,7 +133,7 @@ export default function MobileNav() {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="inline-block font-body text-sm bg-ink text-paper border border-ink px-6 py-3 hover:bg-rust transition-colors text-left"
+                  className="inline-block font-body text-sm bg-ink text-paper border border-ink px-6 py-3 hover:bg-rust transition-colors text-left cursor-pointer"
                 >
                   {t('nav.logout')}
                 </button>

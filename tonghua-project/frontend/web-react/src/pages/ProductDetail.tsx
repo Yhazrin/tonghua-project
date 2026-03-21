@@ -22,7 +22,7 @@ function ThumbnailButton({ url, index, isSelected, onSelect }: {
     <button
       onClick={onSelect}
       aria-label={t('shop.detail.viewImage', { number: index + 1 })}
-      className={`w-16 h-16 overflow-hidden border-2 transition-colors relative ${
+      className={`w-16 h-16 overflow-hidden border-2 transition-colors relative cursor-pointer ${
         isSelected ? 'border-ink' : 'border-transparent'
       }`}
     >

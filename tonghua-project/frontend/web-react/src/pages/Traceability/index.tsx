@@ -671,7 +671,7 @@ export default function Traceability() {
                   <span className="font-body text-overline tracking-[0.2em] uppercase text-eco-green block mb-3">
                     {t('traceability.carbon.reduction')}
                   </span>
-                  <div className="font-display text-[clamp(48px,8vw,72px)] font-bold text-eco-green leading-none">
+                  <div className="font-display text-display font-bold text-eco-green leading-none">
                     <ImpactCounter value={reductionPercent} suffix="%" label="" />
                   </div>
                   <p className="font-body text-xs text-sepia-mid mt-4 leading-relaxed">

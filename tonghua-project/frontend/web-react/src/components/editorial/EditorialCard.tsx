@@ -39,13 +39,6 @@ export const EditorialCard = ({
     border: 'hover:border-ink/40',
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (onClick && (e.key === 'Enter' || e.key === ' ')) {
-      e.preventDefault();
-      onClick();
-    }
-  };
-
   return (
     <motion.article
       ref={ref}
@@ -64,9 +57,6 @@ export const EditorialCard = ({
         ${className}
       `}
       onClick={onClick}
-      role={onClick ? 'button' : undefined}
-      tabIndex={onClick ? 0 : undefined}
-      onKeyDown={onClick ? handleKeyDown : undefined}
     >
       {/* Grain overlay */}
       <div
