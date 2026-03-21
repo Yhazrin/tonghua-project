@@ -162,7 +162,7 @@ export default function TraceabilityTimeline({
 
               <div className="relative z-20">
                 <div className="flex justify-between items-start flex-wrap gap-3 mb-3">
-                  <h4 className="font-display text-[clamp(18px,2vw,24px)] font-bold text-ink">
+                  <h4 className="font-display text-h3 font-bold text-ink">
                     {record.stage}
                   </h4>
                   {record.verified && (

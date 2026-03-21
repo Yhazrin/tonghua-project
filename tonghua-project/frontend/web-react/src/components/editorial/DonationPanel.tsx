@@ -91,7 +91,7 @@ export default function DonationPanel({
       transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
       className={className}
     >
-      <h3 className="font-display text-[clamp(24px,3vw,36px)] font-bold text-ink mb-8">
+      <h3 className="font-display text-h2 font-bold text-ink mb-8">
         {t('donate.form.title')}
       </h3>
 
@@ -135,7 +135,7 @@ export default function DonationPanel({
               )}
 
               <div className="relative z-20">
-                <span className="block font-display text-[clamp(20px,2.5vw,28px)] font-extrabold text-ink">
+                <span className="block font-display text-h3 font-extrabold text-ink">
                   {amount}
                 </span>
                 <span className="block font-body text-overline tracking-[0.1em] uppercase text-sepia-mid mt-1">

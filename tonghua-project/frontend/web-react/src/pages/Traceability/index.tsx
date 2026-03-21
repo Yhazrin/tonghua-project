@@ -260,7 +260,7 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
         <div className="relative z-20">
           {/* Header with status */}
           <div className="flex justify-between items-start flex-wrap gap-3 mb-4">
-            <h4 className="font-display text-[clamp(18px,2vw,24px)] font-bold text-ink">
+            <h4 className="font-display text-h3 font-bold text-ink">
               {t(`traceability.stages.${record.stage}`)}
             </h4>
             <span className={`font-body text-overline tracking-[0.1em] uppercase px-3 py-1 ${config.bg} ${config.text} border ${config.border}`}>
@@ -769,7 +769,7 @@ export default function Traceability() {
           <span className="font-body text-overline tracking-[0.3em] uppercase text-sepia-mid block mb-4">
             {t('traceability.cta.label')}
           </span>
-          <h2 className="font-display text-[clamp(28px,4vw,48px)] font-bold text-ink leading-tight mb-6">
+          <h2 className="font-display text-h2 font-bold text-ink leading-tight mb-6">
             {t('traceability.cta.headline')}
           </h2>
           <p className="font-body text-sm text-ink-faded max-w-md mx-auto mb-8 leading-relaxed">
