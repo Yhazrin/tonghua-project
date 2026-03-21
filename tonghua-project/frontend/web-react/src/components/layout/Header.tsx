@@ -22,11 +22,11 @@ export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const prefersReducedMotion = useReducedMotion();
   const { mobileNavOpen, toggleMobileNav, setMobileNavOpen, currentLocale, setLocale, setMenuTriggerRef } =
     useUIStore();
   const { user, isAuthenticated, logout } = useAuthStore();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const prefersReducedMotion = useReducedMotion();
 
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -35,20 +35,25 @@ export default function Header() {
     setMenuTriggerRef(menuTriggerRef);
   }, [setMenuTriggerRef]);
 
-  // Close user menu when clicking outside
+  // Close user menu when clicking outside or pressing Escape
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
         setUserMenuOpen(false);
       }
     };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setUserMenuOpen(false);
+    };
 
     if (userMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [userMenuOpen]);
 
@@ -65,7 +70,14 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-paper/90 backdrop-blur-sm border-b border-warm-gray/30">
+    <header className="fixed top-0 left-0 right-0 z-overlay bg-paper/95 backdrop-blur-sm border-b border-warm-gray/30">
+      {/* Skip to content - visible on focus for keyboard users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-modal focus:px-4 focus:py-2 focus:bg-ink focus:text-paper focus:font-body focus:text-body-sm focus:tracking-wide"
+      >
+        {t('nav.skipToContent', 'Skip to content')}
+      </a>
       {/* Grain overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" style={{
         backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
@@ -77,7 +89,7 @@ export default function Header() {
           className="font-display text-ink text-lg md:text-xl font-bold tracking-tight cursor-pointer"
           onClick={() => setMobileNavOpen(false)}
         >
-          Tonghua
+          VICOO
         </Link>
 
         {/* Desktop Navigation */}
@@ -109,7 +121,7 @@ export default function Header() {
           <button
             onClick={toggleLocale}
             className="font-body text-caption text-ink-faded hover:text-ink transition-colors px-2 py-1 border border-warm-gray/40 cursor-pointer"
-            aria-label="Toggle language"
+            aria-label={t('nav.toggleLanguage')}
           >
             {currentLocale === 'en' ? '中文' : 'EN'}
           </button>
@@ -120,10 +132,10 @@ export default function Header() {
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="hidden md:flex items-center gap-2 font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 cursor-pointer"
-                aria-label="User menu"
+                aria-label={t('nav.userMenu')}
                 aria-expanded={userMenuOpen}
               >
-                <span className="text-overline tracking-[0.2em] text-sepia-mid font-body">USER</span>
+                <span className="text-overline tracking-[0.2em] text-sepia-mid font-body">{t('nav.userLabel')}</span>
                 <span className="max-w-[120px] truncate">{user.nickname || user.email}</span>
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -132,8 +144,17 @@ export default function Header() {
 
               {/* Dropdown menu */}
               {userMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 shadow-lg z-50">
-                  <div className="py-2">
+                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 shadow-lg z-dropdown relative overflow-hidden">
+                  {/* Grain overlay */}
+                  <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+                  }} aria-hidden="true" />
+                  {/* Corner accents */}
+                  <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                  <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                  <div className="py-2 relative z-[1]">
                     <div className="px-4 py-2 border-b border-warm-gray/20">
                       <p className="font-body text-caption text-ink-faded">{user.nickname || user.email}</p>
                       <p className="font-body text-overline text-sepia-mid capitalize">{user.role}</p>
@@ -171,7 +192,7 @@ export default function Header() {
               ref={menuTriggerRef}
               onClick={toggleMobileNav}
               className="flex flex-col gap-1.5 p-2 cursor-pointer"
-              aria-label="Toggle menu"
+              aria-label={t('nav.toggleMenu')}
               aria-expanded={mobileNavOpen}
               aria-controls="mobile-navigation"
             >

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface TextScrambleProps {
   text: string;
@@ -21,12 +22,13 @@ export const TextScramble = memo(function TextScramble({
   as: Component = 'span',
   reducedMotion = false,
 }: TextScrambleProps) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [displayedText, setDisplayedText] = useState(
-    reducedMotion || trigger !== 'onMount' ? text : ''
+    reducedMotion || trigger !== 'onMount' || prefersReducedMotion ? text : ''
   );
   const frameRef = useRef<number>(0);
   const startTimeRef = useRef<number>(0);
-  const hasTriggeredRef = useRef<boolean>(trigger === 'onMount' && !reducedMotion);
+  const hasTriggeredRef = useRef<boolean>(trigger === 'onMount' && !reducedMotion && !prefersReducedMotion);
 
   const getRandomCharacter = useCallback(() => {
     return characters.charAt(Math.floor(Math.random() * characters.length));
@@ -83,7 +85,8 @@ export const TextScramble = memo(function TextScramble({
   }, [trigger, startAnimation]);
 
   useEffect(() => {
-    if (reducedMotion) return;
+    if (reducedMotion || prefersReducedMotion) return;
+
     if (trigger === 'onMount' && !hasTriggeredRef.current) {
       hasTriggeredRef.current = true;
       startTimeRef.current = performance.now();
@@ -95,7 +98,7 @@ export const TextScramble = memo(function TextScramble({
         cancelAnimationFrame(frameRef.current);
       }
     };
-  }, [trigger, animate, reducedMotion]);
+  }, [trigger, animate, reducedMotion, prefersReducedMotion]);
 
   const Tag = Component as React.ElementType;
 

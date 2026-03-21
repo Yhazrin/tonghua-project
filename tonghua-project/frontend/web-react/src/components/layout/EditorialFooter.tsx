@@ -46,12 +46,14 @@ export default function EditorialFooter() {
         size="lg"
         intensity="medium"
         className="absolute top-6 left-0 pointer-events-none"
+        aria-hidden="true"
       />
       <OrigamiFoldAccent
         position="top-right"
         size="lg"
         intensity="subtle"
         className="absolute top-6 right-0 pointer-events-none"
+        aria-hidden="true"
       />
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-16 md:py-24 relative z-10">
@@ -68,6 +70,20 @@ export default function EditorialFooter() {
               className="absolute -top-1 -left-1 pointer-events-none"
             />
             <OrigamiCorner
+              position="top-right"
+              size="sm"
+              color="sepia"
+              showBackside={true}
+              className="absolute -top-1 -right-1 pointer-events-none"
+            />
+            <OrigamiCorner
+              position="bottom-left"
+              size="sm"
+              color="sepia"
+              showBackside={true}
+              className="absolute -bottom-1 -left-1 pointer-events-none"
+            />
+            <OrigamiCorner
               position="bottom-right"
               size="sm"
               color="sepia"
@@ -75,7 +91,7 @@ export default function EditorialFooter() {
               className="absolute -bottom-1 -right-1 pointer-events-none"
             />
 
-            <h3 className="font-display text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+            <h3 className="font-display text-display font-bold mb-4 tracking-tight">
               VICOO
             </h3>
             <p className="font-body text-body-sm text-warm-gray leading-relaxed max-w-xs mb-6">
@@ -161,6 +177,20 @@ export default function EditorialFooter() {
               className="absolute -top-1 -left-1 pointer-events-none"
             />
             <OrigamiCorner
+              position="top-right"
+              size="sm"
+              color="sepia"
+              showBackside={true}
+              className="absolute -top-1 -right-1 pointer-events-none"
+            />
+            <OrigamiCorner
+              position="bottom-left"
+              size="sm"
+              color="sepia"
+              showBackside={true}
+              className="absolute -bottom-1 -left-1 pointer-events-none"
+            />
+            <OrigamiCorner
               position="bottom-right"
               size="sm"
               color="sepia"
@@ -177,11 +207,15 @@ export default function EditorialFooter() {
             <motion.form
               onSubmit={(e) => e.preventDefault()}
               className="flex flex-col gap-3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1 }}
+              initial={prefersReducedMotion ? false : { opacity: 0 }}
+              animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.1 }}
             >
+              <label htmlFor="newsletter-email" className="sr-only">
+                {t('footer.newsletter.ariaLabel')}
+              </label>
               <motion.input
+                id="newsletter-email"
                 type="email"
                 placeholder="your@email.com"
                 className="bg-transparent border-b border-sepia-mid/30 text-paper font-body text-caption py-2 outline-none focus-visible:ring-2 focus-visible:ring-pale-gold/50 focus:border-pale-gold transition-colors placeholder:text-sepia-on-dark/40"

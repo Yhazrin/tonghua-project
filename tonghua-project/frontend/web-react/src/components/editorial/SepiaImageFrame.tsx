@@ -50,10 +50,12 @@ export default function SepiaImageFrame({
     if (accentPosition === 'diagonal') {
       return [
         { position: 'top-left' as const, intensity: 'subtle' as const },
+        { position: 'top-right' as const, intensity: 'subtle' as const },
+        { position: 'bottom-left' as const, intensity: 'medium' as const },
         { position: 'bottom-right' as const, intensity: 'medium' as const },
       ];
     }
-    return [{ position: accentPosition as any, intensity: 'medium' as const }];
+    return [{ position: accentPosition as 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right', intensity: 'medium' as const }];
   };
 
   const cornerAccents = getCornerAccents();
@@ -62,7 +64,7 @@ export default function SepiaImageFrame({
     <motion.figure
       ref={ref}
       initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
-      animate={isVisible ? (prefersReducedMotion ? {} : { opacity: 1, y: 0 }) : {}}
+      animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
       transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1] }}
       className={`${sizeClasses[size]} ${className}`}
     >
@@ -70,7 +72,7 @@ export default function SepiaImageFrame({
         className={`
           ${aspectClasses[aspectRatio]}
           relative overflow-hidden
-          border border-warm-gray/60
+          border-2 border-rust/30
           bg-aged-stock
         `}
       >
@@ -83,12 +85,16 @@ export default function SepiaImageFrame({
             intensity={accent.intensity}
           />
         ))}
+        {/* Grain overlay */}
+        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" aria-hidden="true" style={{ backgroundImage: 'var(--grain-overlay)' }} />
+
         {/* Aged overlay */}
-        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" aria-hidden="true" />
 
         {/* Vignette */}
         <div
           className="absolute inset-0 z-10 pointer-events-none"
+          aria-hidden="true"
           style={{
             boxShadow: 'inset 0 0 60px color-mix(in srgb, var(--color-ink) 12%, transparent)',
           }}
@@ -100,7 +106,7 @@ export default function SepiaImageFrame({
         <img
           src={src}
           alt={alt}
-          className={`w-full h-full object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+          className={`w-full h-full object-cover sepia-[0.08] transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
           loading="lazy"
           onLoad={() => setImageLoaded(true)}
         />

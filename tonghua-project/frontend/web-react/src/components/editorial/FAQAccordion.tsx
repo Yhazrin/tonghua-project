@@ -32,11 +32,11 @@ export default function FAQAccordion({ items, className = '' }: FAQAccordionProp
             aria-expanded={openIndex === index}
             aria-controls={`faq-answer-${index}`}
           >
-            <span className="font-display text-base md:text-lg text-ink group-hover:text-rust transition-colors pr-4">
+            <span className="font-display text-body md:text-body-lg text-ink group-hover:text-rust transition-colors pr-4">
               {item.question}
             </span>
             <motion.span
-              animate={prefersReducedMotion ? {} : { rotate: openIndex === index ? 180 : 0 }}
+              animate={prefersReducedMotion ? undefined : { rotate: openIndex === index ? 180 : 0 }}
               transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
               className="flex-shrink-0 w-6 h-6 flex items-center justify-center"
             >
@@ -58,8 +58,8 @@ export default function FAQAccordion({ items, className = '' }: FAQAccordionProp
               <motion.div
                 id={`faq-answer-${index}`}
                 initial={prefersReducedMotion ? false : { opacity: 0, height: 0 }}
-                animate={prefersReducedMotion ? {} : { opacity: 1, height: 'auto' }}
-                exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1, height: 'auto' }}
+                exit={prefersReducedMotion ? undefined : { opacity: 0, height: 0 }}
                 transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, ease: [0, 0, 0.2, 1] }}
                 className="overflow-hidden"
               >

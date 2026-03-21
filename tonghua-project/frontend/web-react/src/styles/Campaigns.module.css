@@ -5,7 +5,7 @@
 }
 
 .hero__overline {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -14,7 +14,7 @@
 }
 
 .hero__subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.8;
   color: var(--color-ink-faded);
@@ -36,8 +36,8 @@
 }
 
 .filterBtn {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: var(--space-sm) var(--space-md);
@@ -88,7 +88,7 @@
 .card:hover {
   border-color: var(--color-rust);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(26, 26, 22, 0.08);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-ink) 8%, transparent);
 }
 
 .card__image {
@@ -101,8 +101,8 @@
   position: absolute;
   top: var(--space-md);
   left: var(--space-md);
-  font-family: var(--font-mono);
-  font-size: 10px;
+  font-family: var(--font-body);
+  font-size: var(--text-overline);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   padding: 4px 10px;
@@ -138,8 +138,8 @@
 }
 
 .card__subtitle {
-  font-family: var(--font-mono);
-  font-size: 13px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   color: var(--color-sepia-mid);
   line-height: 1.6;
   margin-bottom: var(--space-lg);
@@ -152,8 +152,8 @@
 }
 
 .card__stat {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: var(--text-label);
   color: var(--color-sepia-mid);
 }
 
@@ -173,14 +173,14 @@
 }
 
 .card__progressText {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: var(--text-label);
   color: var(--color-sepia-mid);
 }
 
 .card__progressAmount {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: var(--text-label);
   color: var(--color-rust);
   font-weight: 600;
 }
@@ -211,7 +211,7 @@
 }
 
 .empty__text {
-  font-family: var(--font-mono);
-  font-size: 14px;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
   color: var(--color-sepia-mid);
 }

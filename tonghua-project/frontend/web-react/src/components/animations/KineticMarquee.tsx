@@ -62,9 +62,17 @@ export default function KineticMarquee({
     };
 
     measureWidth();
-    // Re-measure on resize
-    window.addEventListener('resize', measureWidth);
-    return () => window.removeEventListener('resize', measureWidth);
+    // Re-measure on resize with debounce
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const debouncedMeasure = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(measureWidth, 150);
+    };
+    window.addEventListener('resize', debouncedMeasure);
+    return () => {
+      clearTimeout(resizeTimer);
+      window.removeEventListener('resize', debouncedMeasure);
+    };
   }, [children]);
 
   // Calculate translation distance (negative for left, positive for right)
@@ -84,7 +92,7 @@ export default function KineticMarquee({
       <motion.div
         className={`flex ${gap} whitespace-nowrap marquee-content`}
         animate={{
-          x: prefersReducedMotion ? undefined : isPaused ? undefined : [0, translateDistance],
+          x: prefersReducedMotion || isPaused ? undefined : [0, translateDistance],
         }}
         transition={prefersReducedMotion ? undefined : {
           x: {

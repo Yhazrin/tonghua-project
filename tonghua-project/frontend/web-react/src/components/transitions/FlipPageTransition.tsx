@@ -6,7 +6,7 @@ interface FlipPageTransitionProps {
   children: ReactNode;
 }
 
-const pageVariants = {
+const motionPageVariants = {
   initial: {
     opacity: 0,
     rotateY: -3,
@@ -47,7 +47,7 @@ export default function FlipPageTransition({ children }: FlipPageTransitionProps
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={location.pathname}
-        variants={prefersReducedMotion ? reducedMotionVariants : pageVariants}
+        variants={prefersReducedMotion ? reducedMotionVariants : motionPageVariants}
         initial="initial"
         animate="animate"
         exit="exit"

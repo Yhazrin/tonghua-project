@@ -76,36 +76,40 @@ export const VintageInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, V
 
         <div className="relative">
           {/* Decorative corner accents */}
-          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" />
-          <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" />
+          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+          <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
 
           {type === 'textarea' ? (
-            <motion.textarea
-              {...inputProps}
-              ref={ref as React.Ref<HTMLTextAreaElement>}
-              rows={4}
-              whileFocus={{ scale: 1.01 }}
-              className={baseClasses + ' ' + className + ' pt-3 pl-3 pr-3'}
-            />
+            <div className="vintage-input-line">
+              <motion.textarea
+                {...inputProps}
+                ref={ref as React.Ref<HTMLTextAreaElement>}
+                rows={4}
+                whileFocus={prefersReducedMotion ? undefined : { scale: 1.01 }}
+                className={baseClasses + ' ' + className + ' pt-3 pl-3 pr-3'}
+              />
+            </div>
           ) : icon ? (
-            <div className="flex items-center border-b-2 border-warm-gray/60 focus-within:border-rust transition-colors">
+            <div className="vintage-input-line flex items-center border-b-2 border-warm-gray/60 focus-within:border-rust transition-colors">
               {iconSvg}
               <motion.input
                 {...inputProps}
                 ref={ref as React.Ref<HTMLInputElement>}
                 type={type}
-                whileFocus={{ scale: 1.01 }}
+                whileFocus={prefersReducedMotion ? undefined : { scale: 1.01 }}
                 className={baseClasses + ' ' + className + ' border-none pl-0'}
               />
             </div>
           ) : (
-            <motion.input
-              {...inputProps}
-              ref={ref as React.Ref<HTMLInputElement>}
-              type={type}
-              whileFocus={{ scale: 1.01 }}
-              className={baseClasses + ' ' + className + ' pt-3 pl-3 pr-3'}
-            />
+            <div className="vintage-input-line">
+              <motion.input
+                {...inputProps}
+                ref={ref as React.Ref<HTMLInputElement>}
+                type={type}
+                whileFocus={prefersReducedMotion ? undefined : { scale: 1.01 }}
+                className={baseClasses + ' ' + className + ' pt-3 pl-3 pr-3'}
+              />
+            </div>
           )}
         </div>
 
@@ -120,7 +124,7 @@ export const VintageInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, V
             role="alert"
             id={errorId}
             initial={prefersReducedMotion ? false : { opacity: 0, y: -5 }}
-            animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
             transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
             className="font-body text-overline text-archive-brown"
           >

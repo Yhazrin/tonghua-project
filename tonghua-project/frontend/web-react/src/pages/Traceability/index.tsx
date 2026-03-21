@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, useInView, AnimatePresence, useReducedMotion } from 'framer-motion';
+=======
+import { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+>>>>>>> origin/main
 import { Link } from 'react-router-dom';
 import PageWrapper from '@/components/layout/PageWrapper';
 import SectionContainer from '@/components/layout/SectionContainer';
@@ -9,8 +15,17 @@ import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeadin
 import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import StoryQuoteBlock from '@/components/editorial/StoryQuoteBlock';
 import { ScrollPathDrawInline } from '@/components/animations/ScrollPathDraw';
+<<<<<<< HEAD
 import type { SupplyChainRecord } from '@/types';
 
+=======
+import ImpactCounter from '@/components/editorial/ImpactCounter';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import type { SupplyChainRecord } from '@/types';
+
+const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
+
+>>>>>>> origin/main
 // Extended record with story, image, and status for enhanced timeline
 interface EnhancedSupplyChainRecord extends SupplyChainRecord {
   story: string;
@@ -104,6 +119,7 @@ const CARBON_DATA = {
   vicoo: 8.2,
 };
 
+<<<<<<< HEAD
 // Animated counter for reduction percentage
 function AnimatedCounter({ value, suffix = '' }: { value: number; suffix?: string }) {
   const [displayValue, setDisplayValue] = useState(0);
@@ -138,6 +154,8 @@ function AnimatedCounter({ value, suffix = '' }: { value: number; suffix?: strin
   );
 }
 
+=======
+>>>>>>> origin/main
 // Animated bar for carbon comparison
 function CarbonBar({ label, value, maxValue, isEco, delay }: {
   label: string;
@@ -146,6 +164,7 @@ function CarbonBar({ label, value, maxValue, isEco, delay }: {
   isEco: boolean;
   delay: number;
 }) {
+<<<<<<< HEAD
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const prefersReducedMotion = useReducedMotion();
@@ -419,6 +438,275 @@ function EnhancedTimeline({ records, t }: { records: EnhancedSupplyChainRecord[]
 export default function Traceability() {
   const { t } = useTranslation();
   const prefersReducedMotion = useReducedMotion();
+=======
+  const { t } = useTranslation();
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const percentage = (value / maxValue) * 100;
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
+      animate={prefersReducedMotion ? {} : (isInView ? { opacity: 1, x: 0 } : {})}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay }}
+      className="space-y-2"
+    >
+      <div className="flex justify-between items-baseline">
+        <span className="font-body text-label tracking-[0.15em] uppercase text-sepia-mid">
+          {label}
+        </span>
+        <span className={`font-display text-h3 font-bold ${isEco ? 'text-eco-green' : 'text-archive-brown'}`}>
+          {t('traceability.kgCO2', { value })}
+        </span>
+      </div>
+      <div className="h-3 bg-warm-gray/20 border border-warm-gray/30 overflow-hidden">
+        <motion.div
+          className={`h-full ${isEco ? 'bg-eco-green' : 'bg-archive-brown/60'}`}
+          initial={prefersReducedMotion ? false : { width: 0 }}
+          animate={prefersReducedMotion ? {} : (isInView ? { width: `${percentage}%` } : {})}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 1.2, delay: delay + 0.3, ease: [0, 0, 0.2, 1] }}
+          style={prefersReducedMotion ? { width: `${percentage}%` } : undefined}
+        />
+      </div>
+    </motion.div>
+  );
+}
+
+// Loading spinner for product lookup
+function SearchSpinner() {
+  const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  return (
+    <div className="flex items-center gap-3 py-4" role="status" aria-live="polite">
+      <motion.div
+        className="w-5 h-5 border-2 border-warm-gray/30 border-t-rust"
+        animate={prefersReducedMotion ? {} : { rotate: 360 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 1, repeat: Infinity, ease: 'linear' }}
+      />
+      <span className="font-body text-caption text-sepia-mid tracking-[0.1em] uppercase">
+        {t('traceability.searching')}
+      </span>
+    </div>
+  );
+}
+
+// Certification badge component
+function CertificationBadge({ title, description, delay }: {
+  title: string;
+  description: string;
+  delay: number;
+}) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  return (
+    <motion.div
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') e.preventDefault(); }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay }}
+      whileHover={prefersReducedMotion ? undefined : { y: -4, borderColor: 'color-mix(in srgb, var(--color-rust), transparent 50%)' }}
+      className="border-2 border-rust/20 bg-paper p-5 text-center transition-all duration-300 hover:shadow-cert relative overflow-hidden group cursor-pointer"
+    >
+      {/* Grain overlay */}
+      <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} aria-hidden="true" />
+
+      {/* Corner accents */}
+      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rust/30 group-hover:border-rust/40 transition-colors pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-rust/30 group-hover:border-rust/40 transition-colors pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-rust/30 group-hover:border-rust/40 transition-colors pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/30 group-hover:border-rust/40 transition-colors pointer-events-none" aria-hidden="true" />
+
+      <div className="relative z-20">
+        {/* Badge icon */}
+        <div className="w-12 h-12 mx-auto mb-3 border border-rust/30 flex items-center justify-center bg-aged-stock">
+          <svg aria-hidden="true" className="w-5 h-5 text-rust" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+          </svg>
+        </div>
+
+        <h4 className="font-display text-body-sm font-bold text-ink mb-1">
+          {title}
+        </h4>
+        <p className="font-body text-overline text-sepia-mid leading-relaxed tracking-wide">
+          {description}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+// Enhanced timeline entry with status indicator, story, and image
+function EnhancedTimelineEntry({ record, index, t, locale }: {
+  record: EnhancedSupplyChainRecord;
+  index: number;
+  t: (key: string, options?: Record<string, unknown>) => string;
+  locale: string;
+}) {
+  const statusConfig = {
+    verified: { label: t('traceability.status.verified'), bg: 'bg-eco-green/10', text: 'text-eco-green', border: 'border-eco-green/30', dot: 'bg-eco-green' },
+    'in-progress': { label: t('traceability.status.inProgress'), bg: 'bg-pale-gold/20', text: 'text-archive-brown', border: 'border-archive-brown/30', dot: 'bg-archive-brown' },
+    pending: { label: t('traceability.status.pending'), bg: 'bg-warm-gray/10', text: 'text-warm-gray', border: 'border-warm-gray/30', dot: 'bg-warm-gray' },
+  };
+
+  const config = statusConfig[record.status];
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
+  return (
+    <motion.div
+      initial={prefersReducedMotion ? false : { opacity: 0, x: -30 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true, margin: '-40px' }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
+        duration: 0.6,
+        delay: index * 0.12,
+        ease: [0.25, 0.1, 0.25, 1],
+      }}
+      className="relative pb-12 last:pb-0"
+    >
+      {/* Dot */}
+      <div
+        className={`absolute left-[-33px] top-1 w-4 h-4 rotate-45 border-[3px] border-paper z-[2] ${config.dot}`}
+      />
+
+      {/* Card */}
+      <motion.div
+        whileHover={prefersReducedMotion ? undefined : { y: -3, borderColor: 'var(--color-rust)' }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
+        className="relative p-6 border-2 border-rust/30 bg-paper transition-all duration-300 hover:border-rust/50 overflow-hidden"
+      >
+        {/* Grain overlay */}
+        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} aria-hidden="true" />
+
+        {/* Sepia corner accents */}
+        <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-rust/30" aria-hidden="true" />
+        <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-rust/30" aria-hidden="true" />
+        <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-rust/30" aria-hidden="true" />
+        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-rust/30" aria-hidden="true" />
+
+        <div className="relative z-20">
+          {/* Header with status */}
+          <div className="flex justify-between items-start flex-wrap gap-3 mb-4">
+            <h4 className="font-display text-h3 font-bold text-ink">
+              {t(`traceability.stages.${record.stage}`)}
+            </h4>
+            <span className={`font-body text-overline tracking-[0.1em] uppercase px-3 py-1 ${config.bg} ${config.text} border ${config.border}`}>
+              {config.label}
+            </span>
+          </div>
+
+          {/* Main content with image */}
+          <div className="flex gap-5 mb-4">
+            <div className="flex-1">
+              <p className="font-body text-body-sm text-ink-faded leading-relaxed mb-3">
+                {record.description}
+              </p>
+              <p className="font-body text-label italic text-sepia-mid leading-relaxed border-l-2 border-rust/20 pl-3">
+                "{record.story}"
+              </p>
+            </div>
+            <motion.div
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.03 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
+              className="hidden sm:block flex-shrink-0 w-[100px] h-[100px] overflow-hidden border border-warm-gray/40"
+            >
+              <img
+                src={record.imageUrl}
+                alt={record.partnerName}
+                className="w-full h-full object-cover sepia-[0.3] contrast-[1.05]"
+                loading="lazy"
+              />
+            </motion.div>
+          </div>
+
+          {/* Meta info */}
+          <div className="flex flex-wrap gap-6">
+            <div className="font-body text-label text-sepia-mid">
+              <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.location')}:</span>{' '}
+              <span className="text-ink-faded font-medium">{record.location}</span>
+            </div>
+            <div className="font-body text-label text-sepia-mid">
+              <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.partner')}:</span>{' '}
+              <span className="text-ink-faded font-medium">{record.partnerName}</span>
+            </div>
+            <div className="font-body text-label text-sepia-mid">
+              <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.date')}:</span>{' '}
+              <span className="text-ink-faded font-medium">
+                {new Date(record.date).toLocaleDateString(locale, {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                })}
+              </span>
+            </div>
+            {record.carbonFootprint !== undefined && (
+              <div className="font-body text-label text-sepia-mid">
+                <span className="uppercase tracking-[0.1em]">{t('traceability.carbonLabel')}:</span>{' '}
+                <span className="text-archive-brown font-medium">
+                  {t('traceability.kgCO2', { value: record.carbonFootprint })}
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// Enhanced timeline with staggered reveal entries
+function EnhancedTimeline({ records, t, locale }: { records: EnhancedSupplyChainRecord[]; t: (key: string) => string; locale: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const pathHeight = records.length * 220;
+
+  return (
+    <div ref={containerRef} className="relative pl-12">
+      {/* Static decorative path line */}
+      <svg
+        className="absolute left-[15px] top-0 w-4 h-full overflow-visible pointer-events-none"
+        aria-hidden="true"
+        preserveAspectRatio="none"
+      >
+        <line
+          x1="7" y1="0" x2="7" y2={pathHeight}
+          style={{ stroke: 'var(--color-warm-gray)' }}
+          strokeWidth="1"
+          strokeLinecap="round"
+        />
+        <circle cx="7" cy="0" r="3" style={{ fill: 'var(--color-rust)' }} />
+        <circle cx="7" cy={pathHeight} r="3" style={{ fill: 'var(--color-rust)' }} />
+        <path
+          d="M 7 20 Q 15 25 7 35"
+          fill="none"
+          style={{ stroke: 'var(--color-rust)' }}
+          strokeWidth="1"
+          strokeLinecap="round"
+        />
+        <path
+          d="M 7 60 Q 15 65 7 75"
+          fill="none"
+          style={{ stroke: 'var(--color-rust)' }}
+          strokeWidth="1"
+          strokeLinecap="round"
+        />
+      </svg>
+
+      <div className="space-y-0">
+        {records.map((record, index) => (
+          <EnhancedTimelineEntry key={record.id} record={record} index={index} t={t} locale={locale} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function Traceability() {
+  const { t, i18n } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+>>>>>>> origin/main
   const timelineRef = useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
@@ -457,10 +745,17 @@ export default function Traceability() {
   );
 
   const certifications = [
+<<<<<<< HEAD
     { title: 'GOTS Certified', description: 'Global Organic Textile Standard verified organic fibers and responsible processing.' },
     { title: 'Fair Trade Verified', description: 'Living wages, safe conditions, and ethical treatment for every worker.' },
     { title: 'Carbon Neutral', description: 'Operations offset through verified reforestation and renewable energy.' },
     { title: 'Child-Safe Production', description: 'Full compliance with child protection regulations and consent protocols.' },
+=======
+    { title: t('traceability.certifications.gots'), description: t('traceability.certifications.gotsDesc') },
+    { title: t('traceability.certifications.fairTrade'), description: t('traceability.certifications.fairTradeDesc') },
+    { title: t('traceability.certifications.carbonNeutral'), description: t('traceability.certifications.carbonNeutralDesc') },
+    { title: t('traceability.certifications.childSafe'), description: t('traceability.certifications.childSafeDesc') },
+>>>>>>> origin/main
   ];
 
   return (
@@ -480,21 +775,38 @@ export default function Traceability() {
         />
 
         <motion.div
+<<<<<<< HEAD
           {...(prefersReducedMotion ? {} : {
             initial: { opacity: 0, y: 20 },
             whileInView: { opacity: 1, y: 0 },
             viewport: { once: true },
             transition: { duration: 0.6 },
           })}
+=======
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={prefersReducedMotion ? undefined : { once: true }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
+>>>>>>> origin/main
           className="max-w-xl mb-16"
         >
           <div className="relative">
             {/* Decorative corner accents */}
+<<<<<<< HEAD
             <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" />
             <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" />
 
             <div className="flex items-center border-b-2 border-warm-gray/60 focus-within:border-rust transition-colors">
               <svg className="w-4 h-4 text-sepia-mid ml-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+=======
+            <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+            <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+            <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+            <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+
+            <div className="flex items-center border-b-2 border-warm-gray/60 focus-within:border-rust transition-colors">
+              <svg aria-hidden="true" className="w-4 h-4 text-sepia-mid ml-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+>>>>>>> origin/main
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <input
@@ -502,7 +814,11 @@ export default function Traceability() {
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder={t('traceability.lookup.placeholder')}
+<<<<<<< HEAD
                 className="w-full font-body text-body-sm py-3 px-3 bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-rust/50 placeholder:text-ink-faded/60"
+=======
+                className="w-full font-body text-body-sm py-3 px-3 bg-transparent focus:outline-none placeholder:text-ink-faded/60"
+>>>>>>> origin/main
                 aria-label={t('traceability.lookup.ariaLabel')}
               />
             </div>
@@ -515,10 +831,17 @@ export default function Traceability() {
           <AnimatePresence>
             {isSearching && (
               <motion.div
+<<<<<<< HEAD
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
+=======
+                initial={prefersReducedMotion ? false : { opacity: 0, height: 0 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, height: 'auto' }}
+                exit={prefersReducedMotion ? {} : { opacity: 0, height: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
+>>>>>>> origin/main
               >
                 <SearchSpinner />
               </motion.div>
@@ -528,6 +851,7 @@ export default function Traceability() {
           <AnimatePresence>
             {searchResult && !isSearching && (
               <motion.div
+<<<<<<< HEAD
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -539,6 +863,19 @@ export default function Traceability() {
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 flex-shrink-0 border border-eco-green/30 rounded-sm flex items-center justify-center bg-eco-green/10">
                     <svg className="w-4 h-4 text-eco-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+=======
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                exit={prefersReducedMotion ? {} : { opacity: 0, y: -10 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4 }}
+                className="mt-4 p-5 border-2 border-eco-green/30 bg-eco-green/5 relative overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-eco-green/30" aria-hidden="true" />
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-eco-green/30" aria-hidden="true" />
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 flex-shrink-0 border border-eco-green/30 flex items-center justify-center bg-eco-green/10">
+                    <svg className="w-4 h-4 text-eco-green" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+>>>>>>> origin/main
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
@@ -548,7 +885,11 @@ export default function Traceability() {
                     </h4>
                     <p className="font-body text-caption text-ink-faded leading-relaxed">
                       {searchResult.partnerName} &mdash; {searchResult.location},{' '}
+<<<<<<< HEAD
                       {new Date(searchResult.date).toLocaleDateString('en-US', {
+=======
+                      {new Date(searchResult.date).toLocaleDateString(i18n.language, {
+>>>>>>> origin/main
                         year: 'numeric',
                         month: 'short',
                       })}
@@ -565,8 +906,13 @@ export default function Traceability() {
       <SectionContainer>
         <NumberedSectionHeading
           number="02"
+<<<<<<< HEAD
           title="Dreamscape Tee — Full Journey"
           subtitle="Follow the complete lifecycle of one product, from a child's brushstroke to your wardrobe."
+=======
+          title={t('traceability.featuredTitle')}
+          subtitle={t('traceability.journeySubtitle')}
+>>>>>>> origin/main
         />
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
@@ -575,28 +921,46 @@ export default function Traceability() {
             <div className="sticky top-28">
               <SepiaImageFrame
                 src="https://picsum.photos/seed/dreamscape-tee/600/800"
+<<<<<<< HEAD
                 alt="Dreamscape Tee"
+=======
+                alt={t('traceability.featuredProduct')}
+>>>>>>> origin/main
                 aspectRatio="portrait"
                 size="full"
               />
 
               {/* Carbon total */}
               <motion.div
+<<<<<<< HEAD
                 {...(prefersReducedMotion ? {} : {
                   initial: { opacity: 0 },
                   whileInView: { opacity: 1 },
                   viewport: { once: true },
                 })}
+=======
+                initial={prefersReducedMotion ? false : { opacity: 0 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
+                viewport={prefersReducedMotion ? undefined : { once: true }}
+                transition={prefersReducedMotion ? { duration: 0 } : undefined}
+>>>>>>> origin/main
                 className="mt-6 border border-warm-gray/30 p-6 bg-aged-stock"
               >
                 <span className="font-body text-caption text-sepia-mid tracking-[0.2em] uppercase">
-                  {t('traceability.carbon')} — Total
+                  {t('traceability.carbonLabel')} — {t('traceability.total')}
                 </span>
                 <div className="font-display text-h3 font-bold text-ink mt-2">
+<<<<<<< HEAD
                   5.3 kg CO2
                 </div>
                 <p className="font-body text-caption text-ink-faded mt-2 leading-relaxed">
                   Offset through verified reforestation project in Yunnan Province.
+=======
+                  {t('traceability.carbonValue')}
+                </div>
+                <p className="font-body text-caption text-ink-faded mt-2 leading-relaxed">
+                  {t('traceability.offsetDesc')}
+>>>>>>> origin/main
                 </p>
               </motion.div>
 
@@ -604,10 +968,17 @@ export default function Traceability() {
               <AnimatePresence>
                 {highlightedId && (
                   <motion.div
+<<<<<<< HEAD
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.4 }}
+=======
+                    initial={prefersReducedMotion ? false : { opacity: 0, height: 0 }}
+                    animate={prefersReducedMotion ? {} : { opacity: 1, height: 'auto' }}
+                    exit={prefersReducedMotion ? {} : { opacity: 0, height: 0 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4 }}
+>>>>>>> origin/main
                     className="mt-4 border-2 border-eco-green/30 p-5 bg-eco-green/5"
                   >
                     <span className="font-body text-overline text-eco-green tracking-[0.15em] uppercase">
@@ -624,13 +995,21 @@ export default function Traceability() {
 
           {/* Enhanced Timeline with scroll-drawn connector */}
           <div className="md:col-span-7 md:order-1 relative" ref={timelineRef}>
+<<<<<<< HEAD
             <EnhancedTimeline records={MOCK_RECORDS} t={t} />
+=======
+            <EnhancedTimeline records={MOCK_RECORDS} t={t} locale={i18n.language} />
+>>>>>>> origin/main
 
             {/* Vertical scroll-drawn connecting line alongside timeline */}
             <div className="absolute top-0 -left-6 bottom-0 w-px hidden md:block" aria-hidden="true">
               <ScrollPathDrawInline
                 path="M0,0 L0,800"
+<<<<<<< HEAD
                 strokeColor="#A0896E"
+=======
+                strokeColor="var(--color-warm-gray)"
+>>>>>>> origin/main
                 strokeWidth={1}
                 className="h-full w-4"
                 containerRef={timelineRef}
@@ -643,9 +1022,9 @@ export default function Traceability() {
       {/* Quote */}
       <SectionContainer narrow>
         <StoryQuoteBlock
-          quote="If you can trace it, you can trust it. Every stitch tells a story worth knowing."
-          author="Supply Chain Manifesto"
-          role="Tonghua Public Welfare, 2025"
+          quote={t('traceability.quote')}
+          author={t('traceability.quoteAuthor')}
+          role={t('traceability.quoteRole')}
         />
       </SectionContainer>
 
@@ -653,7 +1032,11 @@ export default function Traceability() {
       <div className="flex justify-center py-4" aria-hidden="true">
         <ScrollPathDrawInline
           path="M0,20 C60,5 120,35 180,20 S300,5 360,20"
+<<<<<<< HEAD
           strokeColor="#A0896E"
+=======
+          strokeColor="var(--color-warm-gray)"
+>>>>>>> origin/main
           strokeWidth={1}
           className="w-64 h-10"
         />
@@ -687,12 +1070,19 @@ export default function Traceability() {
               />
 
               <motion.p
+<<<<<<< HEAD
                 {...(prefersReducedMotion ? {} : {
                   initial: { opacity: 0 },
                   whileInView: { opacity: 1 },
                   viewport: { once: true },
                   transition: { duration: 0.6, delay: 0.5 },
                 })}
+=======
+                initial={prefersReducedMotion ? false : { opacity: 0 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
+                viewport={prefersReducedMotion ? undefined : { once: true }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: 0.5 }}
+>>>>>>> origin/main
                 className="font-body text-caption text-ink-faded leading-relaxed border-l-2 border-eco-green/30 pl-4 mt-4"
               >
                 {t('traceability.carbon.explanation')}
@@ -702,6 +1092,7 @@ export default function Traceability() {
             {/* Reduction counter */}
             <div className="md:col-span-5">
               <motion.div
+<<<<<<< HEAD
                 {...(prefersReducedMotion ? {} : {
                   initial: { opacity: 0, scale: 0.95 },
                   whileInView: { opacity: 1, scale: 1 },
@@ -718,13 +1109,34 @@ export default function Traceability() {
                 {/* Corner accents */}
                 <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-eco-green/20" />
                 <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-eco-green/20" />
+=======
+                initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.95 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1, scale: 1 }}
+                viewport={prefersReducedMotion ? undefined : { once: true }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: 0.3 }}
+                className="border-2 border-eco-green/30 p-8 text-center bg-paper relative overflow-hidden"
+              >
+                {/* Grain */}
+                <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} aria-hidden="true" />
+
+                {/* Corner accents */}
+                <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-eco-green/20" aria-hidden="true" />
+                <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-eco-green/20" aria-hidden="true" />
+                <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-eco-green/20" aria-hidden="true" />
+                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-eco-green/20" aria-hidden="true" />
+>>>>>>> origin/main
 
                 <div className="relative z-20">
                   <span className="font-body text-overline tracking-[0.2em] uppercase text-eco-green block mb-3">
                     {t('traceability.carbon.reduction')}
                   </span>
+<<<<<<< HEAD
                   <div className="font-display text-[clamp(48px,8vw,72px)] font-bold text-eco-green leading-none">
                     <AnimatedCounter value={reductionPercent} suffix="%" />
+=======
+                  <div className="font-display text-display font-bold text-eco-green leading-none">
+                    <ImpactCounter value={reductionPercent} suffix="%" label="" />
+>>>>>>> origin/main
                   </div>
                   <p className="font-body text-caption text-sepia-mid mt-4 leading-relaxed">
                     {t('traceability.carbon.reductionDesc')}
@@ -741,35 +1153,46 @@ export default function Traceability() {
         <SectionContainer>
           <NumberedSectionHeading
             number="04"
+<<<<<<< HEAD
             title="How Traceability Works"
+=======
+            title={t('traceability.howItWorks.title')}
+>>>>>>> origin/main
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 num: '01',
-                title: 'Record',
-                desc: 'Every step in the supply chain is documented with photos, dates, locations, and partner verification.',
+                title: t('traceability.howItWorks.record'),
+                desc: t('traceability.howItWorks.recordDesc'),
               },
               {
                 num: '02',
-                title: 'Verify',
-                desc: 'Third-party auditors verify each record. Unverified steps are flagged transparently.',
+                title: t('traceability.howItWorks.verify'),
+                desc: t('traceability.howItWorks.verifyDesc'),
               },
               {
                 num: '03',
-                title: 'Publish',
-                desc: 'The complete journey is published on our platform for every customer to inspect.',
+                title: t('traceability.howItWorks.publish'),
+                desc: t('traceability.howItWorks.publishDesc'),
               },
-            ].map((step) => (
+            ].map((step, i) => (
               <motion.div
                 key={step.num}
+<<<<<<< HEAD
                 {...(prefersReducedMotion ? {} : {
                   initial: { opacity: 0, y: 30 },
                   whileInView: { opacity: 1, y: 0 },
                   viewport: { once: true },
                   transition: { duration: 0.6, ease: [0, 0, 0.2, 1] },
                 })}
+=======
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={prefersReducedMotion ? undefined : { once: true }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: i * 0.12, ease: [0, 0, 0.2, 1] }}
+>>>>>>> origin/main
                 className="border-t border-warm-gray/30 pt-6"
               >
                 <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
@@ -810,6 +1233,7 @@ export default function Traceability() {
       </section>
 
       {/* Bottom CTA */}
+<<<<<<< HEAD
       <div className="editorial-divider" />
 
       <SectionContainer narrow>
@@ -820,12 +1244,26 @@ export default function Traceability() {
             viewport: { once: true },
             transition: { duration: 0.7, ease: [0, 0, 0.2, 1] },
           })}
+=======
+      <div className="editorial-divider" aria-hidden="true" />
+
+      <SectionContainer narrow>
+        <motion.div
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+          whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={prefersReducedMotion ? undefined : { once: true }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1] }}
+>>>>>>> origin/main
           className="text-center py-8"
         >
           <span className="font-body text-overline tracking-[0.3em] uppercase text-sepia-mid block mb-4">
             {t('traceability.cta.label')}
           </span>
+<<<<<<< HEAD
           <h2 className="font-display text-[clamp(28px,4vw,48px)] font-bold text-ink leading-tight mb-6">
+=======
+          <h2 className="font-display text-h2 font-bold text-ink leading-tight mb-6">
+>>>>>>> origin/main
             {t('traceability.cta.headline')}
           </h2>
           <p className="font-body text-body-sm text-ink-faded max-w-md mx-auto mb-8 leading-relaxed">
@@ -833,14 +1271,22 @@ export default function Traceability() {
           </p>
           <Link
             to="/shop"
+<<<<<<< HEAD
             className="inline-block font-body text-label tracking-[0.2em] uppercase px-10 py-4 border-2 border-rust text-rust hover:bg-rust hover:text-paper transition-all duration-300"
+=======
+            className="inline-block font-body text-label tracking-[0.2em] uppercase px-10 py-4 border-2 border-rust text-rust hover:bg-rust hover:text-paper transition-all duration-300 cursor-pointer"
+>>>>>>> origin/main
           >
             {t('traceability.cta.button')}
           </Link>
         </motion.div>
       </SectionContainer>
 
+<<<<<<< HEAD
       <div className="editorial-divider" />
+=======
+      <div className="editorial-divider" aria-hidden="true" />
+>>>>>>> origin/main
     </PageWrapper>
   );
 }

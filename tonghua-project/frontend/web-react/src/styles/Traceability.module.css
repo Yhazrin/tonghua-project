@@ -5,7 +5,7 @@
 }
 
 .hero__overline {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -14,7 +14,7 @@
 }
 
 .hero__subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.8;
   color: var(--color-ink-faded);
@@ -29,8 +29,8 @@
 }
 
 .selector__label {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-sepia-mid);
@@ -65,20 +65,20 @@
 
 .selector__item--active {
   border-color: var(--color-rust);
-  background-color: rgba(139, 58, 42, 0.04);
+  background-color: color-mix(in srgb, var(--color-rust) 4%, transparent);
 }
 
 .selector__itemName {
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: var(--text-body-sm);
   font-weight: 600;
   color: var(--color-ink);
   margin-bottom: var(--space-xs);
 }
 
 .selector__itemCategory {
-  font-family: var(--font-mono);
-  font-size: 10px;
+  font-family: var(--font-body);
+  font-size: var(--text-overline);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-sepia-mid);
@@ -140,7 +140,7 @@
 }
 
 .timeline__stepContent:hover {
-  border-color: rgba(139, 58, 42, 0.3);
+  border-color: color-mix(in srgb, var(--color-rust) 30%, transparent);
 }
 
 .timeline__stepHeader {
@@ -160,18 +160,18 @@
 }
 
 .timeline__stepVerified {
-  font-family: var(--font-mono);
-  font-size: 10px;
+  font-family: var(--font-body);
+  font-size: var(--text-overline);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 3px 10px;
-  background-color: rgba(139, 58, 42, 0.1);
+  background-color: color-mix(in srgb, var(--color-rust) 10%, transparent);
   color: var(--color-rust);
 }
 
 .timeline__stepDescription {
-  font-family: var(--font-mono);
-  font-size: 14px;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
   line-height: 1.7;
   color: var(--color-ink-faded);
   margin-bottom: var(--space-md);
@@ -184,8 +184,8 @@
 }
 
 .timeline__stepMetaItem {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: var(--text-label);
   color: var(--color-sepia-mid);
 }
 
@@ -220,8 +220,8 @@
 }
 
 .carbon__label {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-sepia-mid);
@@ -236,8 +236,8 @@
 }
 
 .carbon__unit {
-  font-family: var(--font-mono);
-  font-size: 14px;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
   color: var(--color-sepia-mid);
   margin-left: var(--space-sm);
 }
@@ -284,15 +284,15 @@
 
 .certificate__name {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: var(--text-body);
   font-weight: 600;
   color: var(--color-ink);
   margin-bottom: var(--space-sm);
 }
 
 .certificate__issuer {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: var(--text-label);
   color: var(--color-sepia-mid);
   letter-spacing: 0.05em;
 }
@@ -304,7 +304,7 @@
 }
 
 .empty__text {
-  font-family: var(--font-mono);
-  font-size: 14px;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
   color: var(--color-sepia-mid);
 }

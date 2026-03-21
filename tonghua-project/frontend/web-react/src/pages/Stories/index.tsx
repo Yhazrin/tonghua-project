@@ -1,7 +1,12 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+<<<<<<< HEAD
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+=======
+import { motion, AnimatePresence } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+>>>>>>> origin/main
 import PageWrapper from '@/components/layout/PageWrapper';
 import SectionContainer from '@/components/layout/SectionContainer';
 import EditorialHero from '@/components/editorial/EditorialHero';
@@ -94,6 +99,7 @@ const MOCK_STORIES: StoryItem[] = [
 ];
 
 // Decorative SVG ornament for the newsletter section
+<<<<<<< HEAD
 function EditorialOrnament({ className = '', prefersReducedMotion = false }: { className?: string; prefersReducedMotion?: boolean }) {
   return (
     <svg
@@ -157,11 +163,80 @@ function EditorialOrnament({ className = '', prefersReducedMotion = false }: { c
           transition: { duration: 1, ease: 'easeInOut' as const, delay: 0.3 },
         })}
       />
+=======
+function EditorialOrnament({ className = '' }: { className?: string }) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  return (
+    <svg
+      viewBox="0 0 200 24"
+      className={`w-32 mx-auto text-rust ${className}`}
+      aria-hidden="true"
+    >
+      {prefersReducedMotion ? (
+        <>
+          <line x1="0" y1="12" x2="70" y2="12" stroke="currentColor" strokeWidth="0.5" />
+          <circle cx="85" cy="12" r="3" fill="none" stroke="currentColor" strokeWidth="0.75" />
+          <circle cx="100" cy="12" r="1.5" fill="currentColor" />
+          <circle cx="115" cy="12" r="3" fill="none" stroke="currentColor" strokeWidth="0.75" />
+          <line x1="130" y1="12" x2="200" y2="12" stroke="currentColor" strokeWidth="0.5" />
+        </>
+      ) : (
+        <>
+          <motion.line
+            x1="0" y1="12" x2="70" y2="12"
+            stroke="currentColor"
+            strokeWidth="0.5"
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: 'easeInOut' }}
+          />
+          <motion.circle
+            cx="85" cy="12" r="3"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="0.75"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.5, type: 'spring', stiffness: 300 }}
+          />
+          <motion.circle
+            cx="100" cy="12" r="1.5"
+            fill="currentColor"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.7, type: 'spring', stiffness: 300 }}
+          />
+          <motion.circle
+            cx="115" cy="12" r="3"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="0.75"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.9, type: 'spring', stiffness: 300 }}
+          />
+          <motion.line
+            x1="130" y1="12" x2="200" y2="12"
+            stroke="currentColor"
+            strokeWidth="0.5"
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: 'easeInOut', delay: 0.3 }}
+          />
+        </>
+      )}
+>>>>>>> origin/main
     </svg>
   );
 }
 
 // Reading progress bar at the bottom of story cards
+<<<<<<< HEAD
 function ReadingProgressBar({ readTimeMinutes, prefersReducedMotion = false }: { readTimeMinutes: number; prefersReducedMotion?: boolean }) {
   const maxReadTime = 20;
   const widthPercent = Math.min((readTimeMinutes / maxReadTime) * 100, 100);
@@ -177,6 +252,26 @@ function ReadingProgressBar({ readTimeMinutes, prefersReducedMotion = false }: {
           transition: { duration: 0.8, delay: 0.3, ease: [0, 0, 0.2, 1] },
         })}
       />
+=======
+function ReadingProgressBar({ readTimeMinutes }: { readTimeMinutes: number }) {
+  const maxReadTime = 20;
+  const widthPercent = Math.min((readTimeMinutes / maxReadTime) * 100, 100);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
+  return (
+    <div className="mt-4 h-[2px] w-full bg-warm-gray/20 overflow-hidden">
+      {prefersReducedMotion ? (
+        <div className="h-full bg-rust/60" style={{ width: `${widthPercent}%` }} />
+      ) : (
+        <motion.div
+          className="h-full bg-rust/60"
+          initial={{ width: 0 }}
+          whileInView={{ width: `${widthPercent}%` }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0, 0, 0.2, 1] }}
+        />
+      )}
+>>>>>>> origin/main
     </div>
   );
 }
@@ -184,6 +279,7 @@ function ReadingProgressBar({ readTimeMinutes, prefersReducedMotion = false }: {
 // Beautiful empty state with SVG illustration
 function EmptyState({ onBrowseAll }: { onBrowseAll: () => void }) {
   const { t } = useTranslation();
+<<<<<<< HEAD
   const prefersReducedMotion = useReducedMotion();
 
   return (
@@ -192,6 +288,16 @@ function EmptyState({ onBrowseAll }: { onBrowseAll: () => void }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
+=======
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
+  return (
+    <motion.div
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+      exit={prefersReducedMotion ? {} : { opacity: 0, y: -20 }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1] }}
+>>>>>>> origin/main
       className="py-20 md:py-32 flex flex-col items-center text-center"
     >
       {/* Decorative SVG illustration */}
@@ -200,6 +306,7 @@ function EmptyState({ onBrowseAll }: { onBrowseAll: () => void }) {
         className="w-24 h-24 mb-8 text-warm-gray"
         aria-hidden="true"
       >
+<<<<<<< HEAD
         {/* Open book */}
         <motion.path
           d="M60 85 C55 85 30 82 20 78 L20 35 C30 39 55 42 60 42 C65 42 90 39 100 35 L100 78 C90 82 65 85 60 85Z"
@@ -250,6 +357,59 @@ function EmptyState({ onBrowseAll }: { onBrowseAll: () => void }) {
           <line x1="88" y1="38" x2="98" y2="22" stroke="#8B3A2A" strokeWidth="1.5" strokeLinecap="round" />
           <polygon points="98,22 100,19 96,19" fill="#8B3A2A" />
         </motion.g>
+=======
+        {prefersReducedMotion ? (
+          <>
+            {/* Open book - static */}
+            <path
+              d="M60 85 C55 85 30 82 20 78 L20 35 C30 39 55 42 60 42 C65 42 90 39 100 35 L100 78 C90 82 65 85 60 85Z"
+              fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+            />
+            <line x1="60" y1="42" x2="60" y2="85" stroke="currentColor" strokeWidth="1" />
+            <line x1="30" y1="52" x2="52" y2="52" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+            <line x1="30" y1="58" x2="50" y2="58" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+            <line x1="30" y1="64" x2="48" y2="64" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+            <line x1="68" y1="52" x2="90" y2="52" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+            <line x1="68" y1="58" x2="88" y2="58" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+            <line x1="68" y1="64" x2="86" y2="64" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+            <g>
+              <line x1="88" y1="38" x2="98" y2="22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <polygon points="98,22 100,19 96,19" fill="currentColor" />
+            </g>
+          </>
+        ) : (
+          <>
+            {/* Open book */}
+            <motion.path
+              d="M60 85 C55 85 30 82 20 78 L20 35 C30 39 55 42 60 42 C65 42 90 39 100 35 L100 78 C90 82 65 85 60 85Z"
+              fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, ease: 'easeInOut' }}
+            />
+            <motion.line x1="60" y1="42" x2="60" y2="85" stroke="currentColor" strokeWidth="1"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
+            <motion.line x1="30" y1="52" x2="52" y2="52" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1 }} />
+            <motion.line x1="30" y1="58" x2="50" y2="58" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1.1 }} />
+            <motion.line x1="30" y1="64" x2="48" y2="64" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1.2 }} />
+            <motion.line x1="68" y1="52" x2="90" y2="52" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1 }} />
+            <motion.line x1="68" y1="58" x2="88" y2="58" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1.1 }} />
+            <motion.line x1="68" y1="64" x2="86" y2="64" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1.2 }} />
+            <motion.g
+              initial={{ opacity: 0, rotate: -20 }} animate={{ opacity: 1, rotate: 0 }}
+              transition={{ duration: 0.6, delay: 1.4, type: 'spring', stiffness: 200 }}
+              style={{ transformOrigin: '95px 30px' }}
+            >
+              <line x1="88" y1="38" x2="98" y2="22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <polygon points="98,22 100,19 96,19" fill="currentColor" />
+            </motion.g>
+          </>
+        )}
+>>>>>>> origin/main
       </svg>
 
       <h3 className="font-display text-h3 text-ink mb-3">
@@ -258,6 +418,7 @@ function EmptyState({ onBrowseAll }: { onBrowseAll: () => void }) {
       <p className="font-body text-body-sm text-sepia-mid max-w-sm leading-relaxed mb-8">
         {t('stories.empty.body')}
       </p>
+<<<<<<< HEAD
       <motion.button
         onClick={onBrowseAll}
         whileHover={prefersReducedMotion ? undefined : { y: -2 }}
@@ -266,13 +427,36 @@ function EmptyState({ onBrowseAll }: { onBrowseAll: () => void }) {
       >
         {t('stories.empty.browseAll')}
       </motion.button>
+=======
+      {prefersReducedMotion ? (
+        <button
+          onClick={onBrowseAll}
+          className="font-body text-caption tracking-[0.15em] uppercase text-rust border-b border-rust/40 pb-1 hover:text-ink hover:border-ink/40 transition-colors cursor-pointer"
+        >
+          {t('stories.empty.browseAll')}
+        </button>
+      ) : (
+        <motion.button
+          onClick={onBrowseAll}
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.98 }}
+          className="font-body text-caption tracking-[0.15em] uppercase text-rust border-b border-rust/40 pb-1 hover:text-ink hover:border-ink/40 transition-colors cursor-pointer"
+        >
+          {t('stories.empty.browseAll')}
+        </motion.button>
+      )}
+>>>>>>> origin/main
     </motion.div>
   );
 }
 
 export default function Stories() {
   const { t } = useTranslation();
+<<<<<<< HEAD
   const prefersReducedMotion = useReducedMotion();
+=======
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+>>>>>>> origin/main
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -321,18 +505,38 @@ export default function Stories() {
       />
 
       <SectionContainer noTopSpacing>
+<<<<<<< HEAD
+=======
+        {/* Grain overlay */}
+        <div
+          className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
+          style={{ backgroundImage: 'var(--grain-overlay)' }}
+          aria-hidden="true"
+        />
+
+>>>>>>> origin/main
         {/* Category filter with count badges */}
         <div className="flex items-center gap-1 mb-12 border-b border-warm-gray/30 overflow-x-auto">
           {categories.map((cat) => (
             <motion.button
               key={cat}
               onClick={() => setActiveCategory(cat)}
+<<<<<<< HEAD
               initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
               animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
               whileHover={prefersReducedMotion ? undefined : { y: -2 }}
               className={`
                 font-body text-caption tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative
+=======
+              aria-pressed={activeCategory === cat}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+              animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -2 }}
+              className={`
+                font-body text-caption tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
+>>>>>>> origin/main
                 ${activeCategory === cat
                   ? 'border-rust text-rust'
                   : 'border-transparent text-sepia-mid hover:text-ink'
@@ -343,7 +547,11 @@ export default function Stories() {
                 {t(`stories.categories.${cat}`)}
                 <span
                   className={`
+<<<<<<< HEAD
                     inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-sm text-overline font-medium leading-none
+=======
+                    inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-overline font-medium leading-none
+>>>>>>> origin/main
                     ${activeCategory === cat
                       ? 'bg-rust/10 text-rust'
                       : 'bg-warm-gray/20 text-sepia-mid/60'
@@ -354,11 +562,15 @@ export default function Stories() {
                 </span>
               </span>
               {activeCategory === cat && (
-                <motion.span
-                  layoutId="story-category-indicator"
-                  className="absolute bottom-0 left-0 right-0 h-px bg-rust"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
+                prefersReducedMotion ? (
+                  <span className="absolute bottom-0 left-0 right-0 h-px bg-rust" />
+                ) : (
+                  <motion.span
+                    layoutId="story-category-indicator"
+                    className="absolute bottom-0 left-0 right-0 h-px bg-rust"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )
               )}
             </motion.button>
           ))}
@@ -369,10 +581,17 @@ export default function Stories() {
           {filtered.length > 0 ? (
             <motion.div
               key={activeCategory}
+<<<<<<< HEAD
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
+=======
+              initial={prefersReducedMotion ? false : { opacity: 0 }}
+              animate={prefersReducedMotion ? {} : { opacity: 1 }}
+              exit={prefersReducedMotion ? {} : { opacity: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
+>>>>>>> origin/main
               className="space-y-0"
             >
               {filtered.map((story, index) => {
@@ -387,12 +606,19 @@ export default function Stories() {
                     className="mb-16 md:mb-24"
                   >
                     <motion.article
+<<<<<<< HEAD
                       initial={{ opacity: 0, y: 50 }}
                       {...(prefersReducedMotion ? {} : {
                         whileInView: { opacity: 1, y: 0 },
                         viewport: { once: true, margin: '-100px' },
                         transition: { duration: 0.8, ease: [0, 0, 0.2, 1] },
                       })}
+=======
+                      initial={prefersReducedMotion ? false : { opacity: 0, y: 50 }}
+                      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                      viewport={prefersReducedMotion ? undefined : { once: true, margin: '-100px' }}
+                      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0, 0, 0.2, 1] }}
+>>>>>>> origin/main
                     >
                       <Link to={`/stories/${story.id}`} className="group block cursor-pointer">
                         <div className={`grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center ${index % 2 === 1 ? '' : ''}`}>
@@ -409,7 +635,11 @@ export default function Stories() {
                           {/* Text */}
                           <div className={`md:col-span-5 ${index % 2 === 1 ? 'md:order-1' : ''}`}>
                             {/* Category pill tag */}
+<<<<<<< HEAD
                             <span className="inline-block font-body text-overline text-rust tracking-[0.25em] uppercase mb-4 px-3 py-1 border border-rust/30 rounded-sm">
+=======
+                            <span className="inline-block font-body text-overline text-rust tracking-[0.25em] uppercase mb-4 px-3 py-1 border border-rust/30">
+>>>>>>> origin/main
                               {t(`stories.categories.${story.category}`)}
                             </span>
 
@@ -422,12 +652,17 @@ export default function Stories() {
                             </p>
 
                             {/* Pull quote / key stat */}
+<<<<<<< HEAD
                             <p className="font-body text-caption text-rust/80 italic mb-4 pl-3 border-l-2 border-rust/30">
+=======
+                            <p className="font-display text-body-sm text-rust/80 italic mb-4 pl-3 border-l-2 border-rust/20">
+>>>>>>> origin/main
                               {story.pullQuote}
                             </p>
 
                             <div className="flex items-center gap-4 font-body text-caption text-sepia-mid">
                               <span>{story.author}</span>
+<<<<<<< HEAD
                               <span className="text-sepia-mid/40">|</span>
                               <span>{story.readTimeMinutes} {t('stories.readTime')}</span>
                               <span className="text-sepia-mid/40">|</span>
@@ -436,6 +671,16 @@ export default function Stories() {
 
                             {/* Reading progress indicator */}
                             <ReadingProgressBar readTimeMinutes={story.readTimeMinutes} prefersReducedMotion={prefersReducedMotion ?? false} />
+=======
+                              <span className="text-sepia-mid/40" aria-hidden="true">|</span>
+                              <span>{t('stories.readTimeWithMinutes', { minutes: story.readTimeMinutes })}</span>
+                              <span className="text-sepia-mid/40" aria-hidden="true">|</span>
+                              <span>{new Date(story.publishedAt).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                            </div>
+
+                            {/* Reading progress indicator */}
+                            <ReadingProgressBar readTimeMinutes={story.readTimeMinutes} />
+>>>>>>> origin/main
 
                             {/* Read more link */}
                             <div className="mt-4">
@@ -452,16 +697,26 @@ export default function Stories() {
                         <div className="mt-16 md:mt-24">
                           <PagePeel corner="top-right" maxRotation={8} shadowIntensity={0.2}>
                             <StoryQuoteBlock
+<<<<<<< HEAD
                               quote="Every brushstroke a child makes is a window into a world they imagine. Our job is to make that world visible."
                               author="Chen Wei"
                               role="Founder, VICOO"
+=======
+                              quote={t('stories.quote.text')}
+                              author={t('stories.quote.author')}
+                              role={t('stories.quote.role')}
+>>>>>>> origin/main
                             />
                           </PagePeel>
                         </div>
                       )}
 
                       {index < filtered.length - 1 && index !== 0 && (
+<<<<<<< HEAD
                         <div className="editorial-divider mt-16 md:mt-24" />
+=======
+                        <div className="editorial-divider mt-16 md:mt-24" aria-hidden="true" />
+>>>>>>> origin/main
                       )}
                     </motion.article>
                   </PagePeel>
@@ -475,7 +730,10 @@ export default function Stories() {
       </SectionContainer>
 
       {/* Newsletter CTA */}
-      <section className="bg-aged-stock section-spacing">
+      <section className="bg-aged-stock section-spacing relative">
+        {/* Grain overlay */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" aria-hidden="true" style={{ backgroundImage: 'var(--grain-overlay)' }} />
+
         <SectionContainer narrow>
           <div className="text-center">
             <NumberedSectionHeading
@@ -485,11 +743,16 @@ export default function Stories() {
             />
 
             {/* Emotional hook */}
+<<<<<<< HEAD
             <p className="font-display text-lg md:text-xl italic text-ink-faded mt-4 mb-6">
+=======
+            <p className="font-display text-body-lg md:text-h4 italic text-ink-faded mt-4 mb-6">
+>>>>>>> origin/main
               {t('stories.newsletter.hook')}
             </p>
 
             {/* Decorative ornament */}
+<<<<<<< HEAD
             <EditorialOrnament className="mb-8" prefersReducedMotion={prefersReducedMotion ?? false} />
 
             <AnimatePresence mode="wait">
@@ -503,10 +766,29 @@ export default function Stories() {
                 >
                   <VintageInput
                     type="email"
+=======
+            <EditorialOrnament className="mb-8" />
+
+            <AnimatePresence mode="wait">
+              {!isSubscribed ? (
+                <motion.form
+                  key="form"
+                  initial={prefersReducedMotion ? false : { opacity: 1 }}
+                  exit={prefersReducedMotion ? {} : { opacity: 0, y: -10 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
+                  className="flex items-center gap-4 max-w-md mx-auto border-b border-warm-gray/40 pb-2"
+                  onSubmit={(e) => { e.preventDefault(); handleSubscribe(); }}
+                  aria-label={t('stories.newsletter.ariaLabel', 'Newsletter subscription')}
+                >
+                  <VintageInput
+                    type="email"
+                    label={t('common.email')}
+>>>>>>> origin/main
                     placeholder={t('stories.newsletter.placeholder')}
                     className="flex-1"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+<<<<<<< HEAD
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') handleSubscribe();
                     }}
@@ -555,6 +837,84 @@ export default function Stories() {
                   </motion.svg>
                   <motion.p
                     {...(prefersReducedMotion ? {} : { initial: { opacity: 0, y: 5 }, animate: { opacity: 1, y: 0 }, transition: { delay: 0.7, duration: 0.4 } })}
+=======
+                  />
+                  <motion.button
+                    type="submit"
+                    whileHover={prefersReducedMotion ? undefined : { y: -1 }}
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
+                    className="font-body text-caption tracking-[0.15em] uppercase text-rust hover:text-ink transition-colors flex-shrink-0 cursor-pointer"
+                  >
+                    {t('stories.newsletter.subscribe')} &rarr;
+                  </motion.button>
+                </motion.form>
+              ) : (
+                <motion.div
+                  key="success"
+                  initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.9 }}
+                  animate={prefersReducedMotion ? {} : { opacity: 1, scale: 1 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 20 }}
+                  className="flex flex-col items-center gap-3 py-4"
+                >
+                  {/* Animated checkmark */}
+                  {prefersReducedMotion ? (
+                    <svg
+                      viewBox="0 0 40 40"
+                      className="w-10 h-10 text-rust"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="18"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M12 20 L18 26 L28 14"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ) : (
+                    <motion.svg
+                      viewBox="0 0 40 40"
+                      className="w-10 h-10 text-rust"
+                      aria-hidden="true"
+                    >
+                      <motion.circle
+                        cx="20"
+                        cy="20"
+                        r="18"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.6, ease: 'easeOut' }}
+                      />
+                      <motion.path
+                        d="M12 20 L18 26 L28 14"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.4, delay: 0.4, ease: 'easeOut' }}
+                      />
+                    </motion.svg>
+                  )}
+                  <motion.p
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: 5 }}
+                    animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.7, duration: 0.4 }}
+>>>>>>> origin/main
                     className="font-body text-body-sm text-ink-faded"
                   >
                     {t('stories.newsletter.success')}
@@ -566,7 +926,7 @@ export default function Stories() {
         </SectionContainer>
       </section>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

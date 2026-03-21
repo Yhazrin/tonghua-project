@@ -5,7 +5,7 @@
 }
 
 .hero__overline {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -14,7 +14,7 @@
 }
 
 .hero__subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.8;
   color: var(--color-ink-faded);
@@ -74,7 +74,7 @@
 
 .tier__active {
   border-color: var(--color-rust);
-  background-color: rgba(139, 58, 42, 0.04);
+  background-color: color-mix(in srgb, var(--color-rust) 4%, transparent);
 }
 
 .tier__amount {
@@ -86,8 +86,8 @@
 }
 
 .tier__label {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: var(--text-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-rust);
@@ -95,8 +95,8 @@
 }
 
 .tier__description {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   color: var(--color-sepia-mid);
   line-height: 1.5;
 }
@@ -107,8 +107,8 @@
 }
 
 .customAmount__label {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   letter-spacing: 0.05em;
   color: var(--color-sepia-mid);
   margin-bottom: var(--space-sm);
@@ -142,8 +142,8 @@
 }
 
 .frequency__label {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   letter-spacing: 0.05em;
   color: var(--color-sepia-mid);
   margin-bottom: var(--space-md);
@@ -158,8 +158,8 @@
 .frequency__option {
   flex: 1;
   padding: var(--space-md);
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   text-align: center;
@@ -188,8 +188,8 @@
 .messageInput {
   width: 100%;
   padding: var(--space-md) 0;
-  font-family: var(--font-mono);
-  font-size: 14px;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
   color: var(--color-ink);
   border-bottom: 1px solid var(--color-warm-gray);
   outline: none;
@@ -221,8 +221,8 @@
 }
 
 .checkbox__label {
-  font-family: var(--font-mono);
-  font-size: 13px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   color: var(--color-sepia-mid);
 }
 
@@ -230,8 +230,8 @@
 .submit {
   width: 100%;
   padding: var(--space-lg);
-  font-family: var(--font-mono);
-  font-size: 13px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   background-color: var(--color-rust);
@@ -281,14 +281,14 @@
 }
 
 .impact__barLabel {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   color: var(--color-ink-faded);
 }
 
 .impact__barPercent {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
   font-weight: 600;
   color: var(--color-rust);
 }
@@ -325,7 +325,7 @@
 }
 
 .transparency__subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   color: var(--color-ink-faded);
   margin-bottom: var(--space-xl);
@@ -357,7 +357,7 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-md) 0;
-  border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-paper) 10%, transparent);
 }
 
 .donor:last-child {
@@ -365,21 +365,21 @@
 }
 
 .donor__name {
-  font-family: var(--font-mono);
-  font-size: 14px;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
   color: var(--color-warm-gray);
 }
 
 .donor__amount {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: var(--text-body-lg);
   font-weight: 700;
   color: var(--color-pale-gold);
 }
 
 .donor__time {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: var(--text-label);
   color: var(--color-sepia-mid);
   margin-left: var(--space-md);
 }

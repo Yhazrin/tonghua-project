@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useState } from 'react';
+=======
+import { useState, useMemo, useRef } from 'react';
+>>>>>>> origin/main
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -13,6 +17,11 @@ import ImpactCounter from '@/components/editorial/ImpactCounter';
 import FAQAccordion from '@/components/editorial/FAQAccordion';
 import MagneticButton from '@/components/animations/MagneticButton';
 import { donationsApi } from '@/services/donations';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+
+const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
+
+/* ─── Impact Area Data ─── */
 
 /* ─── Impact Area Data ─── */
 
@@ -28,25 +37,41 @@ const IMPACT_AREAS = [
 function ImpactIcon({ type }: { type: string }) {
   const icons: Record<string, JSX.Element> = {
     brush: (
+<<<<<<< HEAD
       <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+=======
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+>>>>>>> origin/main
         <path d="M18.37 2.63a1.5 1.5 0 0 1 2.12 0l.88.88a1.5 1.5 0 0 1 0 2.12L9.12 17.88a4 4 0 0 1-2.83 1.17H4v-2.25a4 4 0 0 1 1.17-2.83L17.42 1.68z" />
         <path d="M4 20h4" />
       </svg>
     ),
     fabric: (
+<<<<<<< HEAD
       <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+=======
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+>>>>>>> origin/main
         <rect x="3" y="3" width="18" height="18" rx="2" />
         <path d="M3 9h18M3 15h18M9 3v18M15 3v18" />
       </svg>
     ),
     gear: (
+<<<<<<< HEAD
       <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+=======
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+>>>>>>> origin/main
         <circle cx="12" cy="12" r="3" />
         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
       </svg>
     ),
     heart: (
+<<<<<<< HEAD
       <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+=======
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+>>>>>>> origin/main
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
       </svg>
     ),
@@ -62,13 +87,17 @@ function ImpactProgressBar({
   pct,
   icon,
   index,
+<<<<<<< HEAD
   prefersReducedMotion,
+=======
+>>>>>>> origin/main
 }: {
   label: string;
   description: string;
   pct: number;
   icon: string;
   index: number;
+<<<<<<< HEAD
   prefersReducedMotion: boolean | null;
 }) {
   return (
@@ -84,6 +113,21 @@ function ImpactProgressBar({
           delay: index * 0.12,
         },
       })}
+=======
+}) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  return (
+    <motion.div
+      initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
+        type: 'spring',
+        stiffness: 300,
+        damping: 30,
+        delay: index * 0.12,
+      }}
+>>>>>>> origin/main
     >
       <div className="flex items-center gap-3 mb-2">
         <ImpactIcon type={icon} />
@@ -96,6 +140,7 @@ function ImpactProgressBar({
           </span>
         </div>
       </div>
+<<<<<<< HEAD
       <div className="h-2 bg-warm-gray/15 rounded-sm overflow-hidden">
         <motion.div
           {...(prefersReducedMotion ? {} : {
@@ -125,6 +170,7 @@ function ImpactProgressBar({
 
 /* ─── Trust Badge ─── */
 
+<<<<<<< HEAD
 function TrustBadge({ label, index, prefersReducedMotion }: { label: string; index: number; prefersReducedMotion: boolean | null }) {
   return (
     <motion.div
@@ -142,6 +188,24 @@ function TrustBadge({ label, index, prefersReducedMotion }: { label: string; ind
       className="flex items-center gap-2 border border-warm-gray/30 px-4 py-2.5 bg-paper"
     >
       <span className="w-2 h-2 bg-rust/60 rounded-sm" />
+=======
+function TrustBadge({ label, index }: { label: string; index: number }) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  return (
+    <motion.div
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
+        type: 'spring',
+        stiffness: 380,
+        damping: 30,
+        delay: index * 0.08,
+      }}
+      className="flex items-center gap-2 border border-warm-gray/30 px-4 py-2.5 bg-paper"
+    >
+      <span className="w-2 h-2 bg-rust/60 rotate-45" />
+>>>>>>> origin/main
       <span className="font-body text-caption text-ink tracking-[0.08em] uppercase">
         {label}
       </span>
@@ -164,6 +228,7 @@ function DonationStoryCard({
   imageSeed: string;
   index: number;
 }) {
+<<<<<<< HEAD
   const prefersReducedMotion = useReducedMotion();
   return (
     <motion.div
@@ -175,6 +240,19 @@ function DonationStoryCard({
         stiffness: 380,
         damping: 30,
         delay: index * 0.15,
+=======
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  return (
+    <motion.div
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
+        type: 'spring',
+        stiffness: 380,
+        damping: 30,
+        delay: index * 0.12,
+>>>>>>> origin/main
       }}
       whileHover={prefersReducedMotion ? undefined : { y: -6 }}
       className="group"
@@ -187,7 +265,11 @@ function DonationStoryCard({
         showCornerAccents={true}
       />
       <div className="mt-4">
+<<<<<<< HEAD
         <span className="font-display text-lg font-bold text-rust">
+=======
+        <span className="font-display text-body-lg font-bold text-rust">
+>>>>>>> origin/main
           {amount}
         </span>
         <p className="font-body text-body-sm text-ink mt-1 leading-relaxed">
@@ -207,6 +289,9 @@ export default function Donate() {
   const { t } = useTranslation();
   const prefersReducedMotion = useReducedMotion();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [donationSuccess, setDonationSuccess] = useState(false);
+  const [donationError, setDonationError] = useState<string | null>(null);
+  const successRef = useRef<HTMLDivElement>(null);
 
   const handleDonate = async (data: {
     amount: number;
@@ -215,6 +300,8 @@ export default function Donate() {
     message: string;
   }) => {
     setIsSubmitting(true);
+    setDonationSuccess(false);
+    setDonationError(null);
     try {
       await donationsApi.create({
         amount: data.amount,
@@ -223,15 +310,32 @@ export default function Donate() {
         message: data.message,
         frequency: data.frequency,
       });
+<<<<<<< HEAD
       console.log('Donation successful');
     } catch (error) {
       console.error('Donation failed:', error);
+=======
+      setDonationSuccess(true);
+      // Scroll to success feedback area
+      requestAnimationFrame(() => {
+        successRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    } catch (error) {
+      console.error('Donation failed:', error);
+      setDonationError(
+        error instanceof Error ? error.message : t('donate.form.error', 'Donation failed. Please try again.')
+      );
+>>>>>>> origin/main
     } finally {
       setIsSubmitting(false);
     }
   };
 
+<<<<<<< HEAD
   const donationStories = [
+=======
+  const donationStories = useMemo(() => [
+>>>>>>> origin/main
     {
       amount: t('donate.stories.items.0.amount'),
       impact: t('donate.stories.items.0.impact'),
@@ -250,7 +354,11 @@ export default function Donate() {
       caption: t('donate.stories.items.2.caption'),
       imageSeed: 'donation-workshop-rural',
     },
+<<<<<<< HEAD
   ];
+=======
+  ], [t]);
+>>>>>>> origin/main
 
   return (
     <PageWrapper>
@@ -289,15 +397,18 @@ export default function Donate() {
                   pct={area.pct}
                   icon={area.icon}
                   index={index}
+<<<<<<< HEAD
                   prefersReducedMotion={prefersReducedMotion}
+=======
+>>>>>>> origin/main
                 />
               ))}
             </div>
 
             {/* Impact counters */}
             <div className="grid grid-cols-2 gap-6 mt-12">
-              <ImpactCounter value={890000} label="Funds Raised" prefix="¥" />
-              <ImpactCounter value={2847} label="Children Helped" />
+              <ImpactCounter value={890000} label={t('donate.impact.fundsRaised')} prefix={t('common.currency.cny')} />
+              <ImpactCounter value={2847} label={t('donate.impact.childrenHelped')} />
             </div>
           </div>
 
@@ -307,6 +418,44 @@ export default function Donate() {
               onSubmit={handleDonate}
               isSubmitting={isSubmitting}
             />
+
+            {/* Error feedback */}
+            {donationError && (
+              <motion.div
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
+                className="mt-6 p-5 border-l-2 border-rust bg-rust/5"
+                role="alert"
+                aria-live="assertive"
+              >
+                <p className="font-body text-body-sm text-rust font-medium">
+                  {donationError}
+                </p>
+                <button
+                  onClick={() => setDonationError(null)}
+                  className="font-body text-caption text-rust/70 mt-2 underline hover:text-rust transition-colors cursor-pointer"
+                >
+                  {t('common.dismiss', 'Dismiss')}
+                </button>
+              </motion.div>
+            )}
+
+            {/* Success feedback */}
+            {donationSuccess && (
+              <motion.div
+                ref={successRef}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
+                className="mt-6 p-5 border-2 border-eco-green/30 bg-eco-green/5"
+                role="status"
+              >
+                <p className="font-body text-body-sm text-eco-green font-medium">
+                  {t('donate.form.success', 'Thank you for your donation!')}
+                </p>
+              </motion.div>
+            )}
           </div>
         </div>
       </SectionContainer>
@@ -336,9 +485,7 @@ export default function Donate() {
         {/* Grain overlay */}
         <div
           className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
-          style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
-          }}
+          style={GRAIN_STYLE}
           aria-hidden="true"
         />
 
@@ -346,8 +493,10 @@ export default function Donate() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start relative z-10">
             <div className="md:col-span-5 relative">
               {/* Decorative corner accents */}
-              <div className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-rust/30 pointer-events-none" />
-              <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-rust/30 pointer-events-none" />
+              <div className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+              <div className="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+              <div className="absolute -bottom-2 -left-2 w-4 h-4 border-b-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+              <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
 
               <h3 className="font-display text-h3 font-bold text-ink mb-4">
                 {t('donate.transparency.title')}
@@ -359,19 +508,31 @@ export default function Donate() {
               {/* Specific transparency data points */}
               <div className="space-y-3 mb-8">
                 <div className="flex items-start gap-3">
+<<<<<<< HEAD
                   <span className="w-1.5 h-1.5 bg-rust/60 rounded-sm mt-2 shrink-0" />
+=======
+                  <span className="w-1.5 h-1.5 bg-rust/60 rotate-45 mt-2 shrink-0" />
+>>>>>>> origin/main
                   <span className="font-body text-body-sm text-ink">
                     {t('donate.transparency.lastAudit')}
                   </span>
                 </div>
                 <div className="flex items-start gap-3">
+<<<<<<< HEAD
                   <span className="w-1.5 h-1.5 bg-rust/60 rounded-sm mt-2 shrink-0" />
+=======
+                  <span className="w-1.5 h-1.5 bg-rust/60 rotate-45 mt-2 shrink-0" />
+>>>>>>> origin/main
                   <span className="font-body text-body-sm text-ink">
                     {t('donate.transparency.onChain')}
                   </span>
                 </div>
                 <div className="flex items-start gap-3">
+<<<<<<< HEAD
                   <span className="w-1.5 h-1.5 bg-rust/60 rounded-sm mt-2 shrink-0" />
+=======
+                  <span className="w-1.5 h-1.5 bg-rust/60 rotate-45 mt-2 shrink-0" />
+>>>>>>> origin/main
                   <span className="font-body text-body-sm text-ink">
                     {t('donate.transparency.quarterly')}
                   </span>
@@ -381,7 +542,7 @@ export default function Donate() {
               {/* Trust Indicators */}
               <div className="mb-8">
                 <span className="font-body text-caption text-sepia-mid tracking-[0.15em] uppercase block mb-3">
-                  Trust Indicators
+                  {t('donate.transparency.trustIndicators')}
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {[
@@ -390,7 +551,11 @@ export default function Donate() {
                     t('donate.transparency.trust.transparent'),
                     t('donate.transparency.trust.impactReported'),
                   ].map((badge, i) => (
+<<<<<<< HEAD
                     <TrustBadge key={badge} label={badge} index={i} prefersReducedMotion={prefersReducedMotion} />
+=======
+                    <TrustBadge key={badge} label={badge} index={i} />
+>>>>>>> origin/main
                   ))}
                 </div>
               </div>
@@ -407,6 +572,7 @@ export default function Donate() {
                 {['Q1 2026', 'Q4 2025', 'Q3 2025', 'Q2 2025'].map((quarter, index) => (
                   <motion.div
                     key={quarter}
+<<<<<<< HEAD
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -417,15 +583,33 @@ export default function Donate() {
                     {/* Corner accents */}
                     <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none" />
                     <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none" />
+=======
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+                    whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                    viewport={prefersReducedMotion ? undefined : { once: true }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.1 }}
+                    whileHover={prefersReducedMotion ? undefined : { y: -6 }}
+                    className="border border-warm-gray/30 p-6 bg-paper hover:border-rust/30 transition-colors relative"
+                  >
+                    {/* Corner accents */}
+                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+                    <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+                    <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+>>>>>>> origin/main
 
                     <span className="font-body text-caption text-sepia-mid tracking-[0.15em]">
-                      FINANCIAL REPORT
+                      {t('donate.transparency.financialReport')}
                     </span>
-                    <h4 className="font-display text-lg font-bold text-ink mt-2">
+                    <h4 className="font-display text-body-lg font-bold text-ink mt-2">
                       {quarter}
                     </h4>
                     <span className="font-body text-caption text-sepia-mid mt-2 block">
+<<<<<<< HEAD
                       PDF &middot; 2.4 MB
+=======
+                      {t('donate.transparency.pdfSize')}
+>>>>>>> origin/main
                     </span>
                   </motion.div>
                 ))}
@@ -438,8 +622,13 @@ export default function Donate() {
       {/* Quote */}
       <SectionContainer narrow>
         <StoryQuoteBlock
+<<<<<<< HEAD
           quote="Transparency is not a feature. It is a responsibility."
           author="Annual Report 2025"
+=======
+          quote={t('donate.transparency.quote')}
+          author={t('donate.transparency.quoteAuthor')}
+>>>>>>> origin/main
         />
       </SectionContainer>
 
@@ -480,9 +669,7 @@ export default function Donate() {
         {/* Grain overlay */}
         <div
           className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
-          style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
-          }}
+          style={GRAIN_STYLE}
           aria-hidden="true"
         />
 
@@ -490,18 +677,35 @@ export default function Donate() {
           <div className="relative z-10 text-center max-w-2xl mx-auto">
             {/* Decorative line above */}
             <motion.div
+<<<<<<< HEAD
               {...(prefersReducedMotion ? {} : { initial: { width: 0 }, whileInView: { width: '80px' }, viewport: { once: true }, transition: { duration: 0.8, ease: [0, 0, 0.2, 1] } })}
               className="h-px bg-rust/50 mx-auto mb-10"
             />
 
             <motion.h2
               {...(prefersReducedMotion ? {} : { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { type: 'spring', stiffness: 300, damping: 30 } })}
+=======
+              initial={prefersReducedMotion ? false : { width: 0 }}
+              whileInView={prefersReducedMotion ? undefined : { width: '80px' }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0, 0, 0.2, 1] }}
+              className="h-px bg-rust/50 mx-auto mb-10"
+              style={prefersReducedMotion ? { width: '80px' } : undefined}
+            />
+
+            <motion.h2
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 30 }}
+>>>>>>> origin/main
               className="font-display text-h2 md:text-h1 font-bold leading-[0.95] mb-10"
             >
               {t('donate.cta.title')}
             </motion.h2>
 
             <motion.div
+<<<<<<< HEAD
               {...(prefersReducedMotion ? {} : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { type: 'spring', stiffness: 300, damping: 30, delay: 0.15 } })}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
@@ -512,6 +716,21 @@ export default function Donate() {
                 >
                   {t('donate.cta.donate')}
                 </a>
+=======
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 30, delay: 0.15 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            >
+              <MagneticButton strength={0.35}>
+                <button
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="inline-block font-body text-body-sm tracking-[0.15em] uppercase bg-rust text-paper px-10 py-4 hover:bg-pale-gold hover:text-ink transition-all duration-300 cursor-pointer"
+                >
+                  {t('donate.cta.donate')}
+                </button>
+>>>>>>> origin/main
               </MagneticButton>
               <MagneticButton strength={0.35}>
                 <Link
@@ -525,14 +744,27 @@ export default function Donate() {
 
             {/* Decorative line below */}
             <motion.div
+<<<<<<< HEAD
               {...(prefersReducedMotion ? {} : { initial: { width: 0 }, whileInView: { width: '80px' }, viewport: { once: true }, transition: { duration: 0.8, ease: [0, 0, 0.2, 1], delay: 0.3 } })}
               className="h-px bg-rust/50 mx-auto mt-10"
+=======
+              initial={prefersReducedMotion ? false : { width: 0 }}
+              whileInView={prefersReducedMotion ? undefined : { width: '80px' }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0, 0, 0.2, 1], delay: 0.3 }}
+              className="h-px bg-rust/50 mx-auto mt-10"
+              style={prefersReducedMotion ? { width: '80px' } : undefined}
+>>>>>>> origin/main
             />
           </div>
         </SectionContainer>
       </section>
 
+<<<<<<< HEAD
       <div className="editorial-divider" />
+=======
+      <div className="editorial-divider" aria-hidden="true" />
+>>>>>>> origin/main
     </PageWrapper>
   );
 }

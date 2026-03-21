@@ -11,7 +11,13 @@
     "login": "登录",
     "register": "注册",
     "profile": "个人中心",
-    "logout": "退出"
+    "logout": "退出",
+    "toggleMenu": "切换导航菜单",
+    "toggleLanguage": "切换语言",
+    "userMenu": "用户菜单",
+    "mobileMenu": "移动导航菜单",
+    "userLabel": "用户",
+    "skipToContent": "跳转到主要内容"
   },
   "profile": {
     "title": "个人中心",
@@ -32,7 +38,18 @@
       "heading": "小手创造大梦想",
       "body": "每一次活动都始于一间教室、一个社区中心、一处庇护所。我们收集孩子们的画作——原始、真挚、不加修饰——并将其转化为可持续时尚，为他们的未来提供资金。",
       "imageAlt": "孩子们在社区工作坊中创作",
-      "caption": "2026春季活动 — 作品征集阶段"
+      "caption": "2026春季活动 — 作品征集阶段",
+      "alt": "孩子们在社区工作坊中创作艺术",
+      "body1": "每一次活动都始于一间教室、一个社区中心、一处庇护所。我们收集孩子们的画作——原始、真诚、未经修饰——并将它们转化为可持续时尚，为孩子们的未来提供资金。",
+      "body2": "这个系列中的每一件服装都以同样的方式开始——一个孩子、一张白纸、以及自由想象的空间。我们与十二座城市的学校和社区中心合作，举办工作坊，让孩子们画出他们对世界的期望。",
+      "body3": "我们的设计师将这些原始、真诚的画作转化为图案、印花和刺绣——绝不改变孩子最初的愿景。最终呈现的是承载真实故事的服装，而非批量生产的商品。",
+      "heading": "小手塑造大创意"
+    },
+    "gallery": {
+      "alt1": "儿童水彩风景画",
+      "alt2": "儿童抽象蜡笔画",
+      "alt3": "儿童粉彩肖像画",
+      "alt4": "儿童墨水插画"
     },
     "artworks": {
       "sectionTitle": "儿童画廊",
@@ -47,6 +64,7 @@
       }
     },
     "pillars": {
+      "supplyChain": "可追溯供应链",
       "traceable": "可追溯供应链",
       "children": "赋能儿童",
       "reinvested": "再投资善款"
@@ -61,11 +79,19 @@
       "donated": "筹集善款",
       "products": "售出商品"
     },
+    "location": "中国 · 上海",
+    "estYear": "创立于 2026",
+    "artworkAlt": "{{childName}} 的作品",
     "cta": {
       "title": "加入这场运动",
       "description": "无论是捐赠、购物还是分享我们的故事——每一个行动都很重要。",
       "donate": "立即捐赠",
       "shop": "可持续购物"
+    },
+    "quote": {
+      "body": "每一针都承载着一个孩子的梦想。每一件服装都是一个尚未书写的故事中的篇章。",
+      "author": "陈伟",
+      "role": "创始人，VICOO"
     }
   },
   "about": {
@@ -151,13 +177,30 @@
     },
     "pagination": {
       "prev": "上一页",
-      "next": "下一页"
+      "next": "下一页",
+      "ariaLabel": "分页导航"
     },
     "empty": "没有找到符合条件的活动。",
     "empty.title": "该类别下暂无活动",
     "empty.subtitle": "请稍后再来",
     "goalReached": "目标达成",
-    "funded": "已筹{{percent}}%"
+    "funded": "已筹{{percent}}%",
+    "emptyState": {
+      "title": "此分类下没有找到活动。",
+      "subtitle": "请稍后再来查看。"
+    },
+    "campaign": "活动",
+    "about": "关于此活动",
+    "artworks": "作品",
+    "backToAll": "返回全部活动",
+    "quote": "我画了一条裙子，走路时会发出雨声。这样每个人都知道你来了。",
+    "quoteAuthor": "小美，8岁",
+    "quoteRole": "贵州",
+    "funded": "{{percent}}% 已筹",
+    "fundingPercent": "{{percent}}%",
+    "featuredChild": {
+      "ageLabel": "{{name}}，{{age}}岁"
+    }
   },
   "stories": {
     "hero": {
@@ -166,6 +209,7 @@
     },
     "readMore": "阅读全文",
     "readTime": "分钟阅读",
+    "readTimeWithMinutes": "{{minutes}} 分钟阅读",
     "categories": {
       "all": "全部",
       "impact": "影响力",
@@ -174,6 +218,7 @@
       "education": "教育"
     },
     "newsletter": {
+      "ariaLabel": "通讯订阅",
       "title": "保持联系",
       "subtitle": "每月接收关于活动、故事以及您的支持所创造的影响的通讯。",
       "hook": "让希望的故事送到您的邮箱",
@@ -185,6 +230,11 @@
       "title": "这里还没有故事",
       "body": "每本伟大的出版物都有等待被书写的空白页。试试其他分类——有故事等待被发现。",
       "browseAll": "浏览全部故事"
+    },
+    "quote": {
+      "text": "孩子画下的每一笔都是他们想象中世界的一扇窗。我们的工作是让那个世界被看见。",
+      "author": "陈伟",
+      "role": "VICOO 创始人"
     }
   },
   "donate": {
@@ -211,7 +261,9 @@
         "minAmount": "最低捐赠金额为 ¥{{min}}",
         "maxAmount": "最高捐赠金额为 ¥{{max}}"
       },
-      "amountRange": "范围：¥{{min}} – ¥{{max}}"
+      "amountRange": "范围：¥{{min}} – ¥{{max}}",
+      "error": "捐赠失败，请重试。",
+      "success": "感谢您的捐赠！"
     },
     "tiers": {
       "seedling": {
@@ -242,6 +294,8 @@
     },
     "impact": {
       "title": "您的资金去向",
+      "fundsRaised": "已筹资金",
+      "childrenHelped": "受助儿童",
       "artSupplies": "美术用品与工作坊",
       "artSuppliesDesc": "颜料、画笔、画布和专业的工作坊导师。",
       "production": "可持续生产",
@@ -263,7 +317,12 @@
         "verified": "已验证",
         "transparent": "透明公开",
         "impactReported": "影响报告"
-      }
+      },
+      "trustIndicators": "信任指标",
+      "financialReport": "财务报告",
+      "pdfSize": "PDF · 2.4 MB",
+      "quote": "透明不是一种功能，而是一种责任。",
+      "quoteAuthor": "2025 年度报告"
     },
     "stories": {
       "title": "您的捐赠在行动",
@@ -319,6 +378,18 @@
       "soldOut": "已售罄",
       "lowStock": "仅剩 {{count}} 件"
     },
+    "sustainabilityTiers": {
+      "exceptional": "卓越",
+      "excellent": "优秀",
+      "good": "良好"
+    },
+    "product": {
+      "artworkBy": "基于 {{name}} 的作品，{{age}} 岁",
+      "campaign": "{{campaign}} 活动"
+    },
+    "notifyMe": "到货通知",
+    "notifyMeSuccess": "到货后我们会通知您。",
+    "notifyMePlaceholder": "your@email.com",
     "detail": {
       "addToCart": "加入购物车",
       "added": "已加入购物车",
@@ -326,7 +397,12 @@
       "sustainability": "可持续评分",
       "artwork": "基于作品",
       "size": "尺码",
-      "quantity": "数量"
+      "quantity": "数量",
+      "origin": "贵州省，2025年11月",
+      "decreaseQuantity": "减少数量",
+      "increaseQuantity": "增加数量",
+      "carbonFootprint": "总碳足迹：{{value}} 千克 CO₂e · 通过认证项目抵消",
+      "viewImage": "查看图片 {{number}}"
     },
     "sort": {
       "label": "排序",
@@ -336,13 +412,34 @@
       "sustainability": "可持续评分"
     },
     "results": "{{count}} 件商品",
-    "empty": "此分类下没有商品。"
+    "empty": "此分类下没有商品。",
+    "collection": "精选系列",
+    "sustainability": {
+      "materials": "认证材料",
+      "materialsDesc": "所有面料均为 GOTS 认证有机棉或再生聚酯纤维。",
+      "production": "道德生产",
+      "productionDesc": "公平薪酬、安全条件、完整供应链透明。",
+      "carbon": "碳足迹可溯",
+      "carbonDesc": "每件产品的碳足迹均经过计算和抵消。"
+    },
+    "behind": {
+      "title": "系列背后",
+      "caption": "成都一个周六早晨的工作坊，孩子们在那里画出将成为我们下一个系列的梦想。",
+      "alt": "孩子们在VICOO工作坊创作艺术作品",
+      "body1": "这个系列的每一件服装都以相同的方式开始——一个孩子、一张白纸和想象的自由。我们与十二座城市的学校和社区中心合作，举办工作坊，让孩子们画出他们对世界的期望。",
+      "body2": "我们的设计师随后将这些原始、真诚的艺术作品转化为图案、印花和刺绣——从不改变孩子最初的愿景。结果是承载真实故事的服装，而非制造出来的故事。",
+      "quote": "我画了大海，因为我希望它永远是蓝色的。",
+      "quoteAuthor": "小林",
+      "quoteRole": "8 岁，海洋之梦活动"
+    }
   },
   "traceability": {
     "hero": {
       "title": "溯源",
       "subtitle": "从孩子绘制设计的双手，到缝制它的工匠——跟随每一步旅程。"
     },
+    "subtitle": "完整旅程",
+    "journeySubtitle": "从原材料到成品的可验证、逐步记录。",
     "stages": {
       "artwork": "艺术创作",
       "design": "设计转化",
@@ -353,6 +450,12 @@
     },
     "verified": "已验证",
     "carbon": "碳足迹",
+    "carbonLabel": "碳足迹",
+    "total": "总计",
+    "noRecords": "暂无供应链记录。",
+    "kgCO2": "{{value}} 千克 CO2",
+    "carbonValue": "5.3 千克 CO2",
+    "offsetDesc": "通过云南省经认证的再造林项目实现碳抵消。",
     "lookup": {
       "title": "追溯您的产品",
       "subtitle": "输入订单号或产品 ID，追踪从创作到交付的完整旅程。",
@@ -367,6 +470,15 @@
       "inProgress": "进行中",
       "pending": "待处理"
     },
+    "timeline": {
+      "location": "地点",
+      "partner": "合作方",
+      "date": "日期",
+      "locationLabel": "地点：",
+      "partnerLabel": "合作方：",
+      "dateLabel": "日期："
+    },
+    "searching": "正在追溯供应链…",
     "carbon": {
       "title": "碳足迹对比",
       "subtitle": "我们对可持续发展的承诺意味着测量、减少并抵消每一克排放。",
@@ -374,12 +486,34 @@
       "vicoo": "VICOO 服装",
       "reduction": "碳减排",
       "reductionDesc": "通过有机材料、整合运输和经认证的碳抵消实现更低排放。",
-      "explanation": "基于生命周期分析，将传统快时尚生产与我们的认证供应链进行比较。包括原材料采购、制造、质量控制和最后一公里配送。"
+      "explanation": "基于生命周期分析，将传统快时尚生产与我们的认证供应链进行比较。包括原材料采购，制造、质量控制和最后一公里配送。"
     },
     "certifications": {
       "title": "认证与标准",
-      "subtitle": "我们做出的每一项声明都有独立第三方验证的支持。"
+      "subtitle": "我们做出的每一项声明都有独立第三方验证的支持。",
+      "gots": "GOTS 有机认证",
+      "fairTrade": "公平贸易认证",
+      "carbonNeutral": "碳中和认证",
+      "childSafe": "儿童安全生产",
+      "gotsDesc": "全球有机纺织品标准认证的有机纤维和负责任加工。",
+      "fairTradeDesc": "为每位工人提供生活工资、安全条件和道德待遇。",
+      "carbonNeutralDesc": "通过经认证的再造林和可再生能源实现运营碳抵消。",
+      "childSafeDesc": "完全遵守儿童保护法规和知情同意协议。"
     },
+    "howItWorks": {
+      "title": "溯源工作原理",
+      "record": "记录",
+      "recordDesc": "供应链的每一步都记录了照片、日期、地点和合作方验证。",
+      "verify": "验证",
+      "verifyDesc": "第三方审核员验证每条记录。未验证的步骤会被透明标记。",
+      "publish": "发布",
+      "publishDesc": "完整旅程发布在我们的平台上，供每位客户查验。"
+    },
+    "featuredTitle": "产品溯源之旅",
+    "featuredProduct": "梦境T恤",
+    "quote": "可追溯，方可信。每一针每一线都讲述着值得了解的故事。",
+    "quoteAuthor": "供应链宣言",
+    "quoteRole": "童画公益，2025",
     "cta": {
       "label": "放心购物",
       "headline": "知你所穿，信你所购。",
@@ -432,7 +566,7 @@
         "other": "其他"
       },
       "message": "您的留言",
-      "characterCount": "{count} / {max} 字符",
+      "characterCount": "{{count}} / {{max}} 字符",
       "requiredField": "此字段为必填项",
       "invalidEmail": "请输入有效的电子邮箱",
       "submit": "发送消息",
@@ -441,11 +575,16 @@
       "success": "感谢您的来信，我们将在24小时内回复您。",
       "error": "出了点问题，请重试。"
     },
+    "formTitle": "给我们写信",
+    "contactTitle": "联系方式",
     "info": {
       "title": "其他联系方式",
       "email": "hello@tonghua.org",
       "wechat": "TonghuaOfficial",
-      "address": "中国上海"
+      "address": "中国上海",
+      "emailLabel": "邮箱",
+      "wechatLabel": "微信",
+      "locationLabel": "地址"
     },
     "cards": {
       "email": {
@@ -460,6 +599,12 @@
         "title": "回复时间",
         "description": "平均回复时间在12小时以内，紧急事项会优先处理。"
       }
+    },
+    "officeCaption": "我们的上海办公室",
+    "pullQuote": {
+      "quote": "每一个问题都是深入了解我们使命的邀请——而每一个回答都是编织信任之线的机会。",
+      "author": "VICOO 编辑部",
+      "role": "社区运营"
     }
   },
   "login": {
@@ -496,6 +641,7 @@
   "notFound": {
     "title": "页面未找到",
     "subtitle": "这个章节似乎从我们的出版物中遗失了。",
+    "body": "您访问的页面可能已被移动、重命名或不再存在。以下是一些可以开始的地方。",
     "cta": "返回目录"
   },
   "footer": {
@@ -521,24 +667,37 @@
     "newsletter": {
       "title": "通讯订阅",
       "description": "来自编辑部的季度通讯。不发垃圾邮件，只发故事。",
-      "subscribe": "订阅"
+      "subscribe": "订阅",
+      "body": "每季度来自编辑台的通讯。绝不发送垃圾邮件，只分享故事。",
+      "placeholder": "your@email.com",
+      "subscribe": "订阅",
+      "ariaLabel": "电子邮箱地址"
     },
     "brand": {
       "description": "创意机遇中的愿景"
     },
-    "builtWith": "用心打造"
+    "brandTagline": "创意机遇中的远见",
+    "location": "中国 · 上海",
+    "builtWith": "用心打造",
+    "copyrightTonghua": "© 2026 童画公益。保留所有权利。"
   },
   "artwork": {
+    "card": {
+      "age": "{{age}} 岁",
+      "votes": "{{count}} 票"
+    },
     "detail": {
       "heading": "作品详情",
       "artist": "创作者",
+      "artistInfo": "{{name}}，{{age}} 岁",
       "vote": "为作品投票",
       "votes": "票",
       "tags": "标签"
     },
     "loading": "加载中...",
     "notFound": "未找到作品",
-    "backToStories": "返回故事"
+    "backToStories": "返回故事",
+    "loadError": "加载作品失败"
   },
   "common": {
     "loading": "加载中...",
@@ -548,6 +707,7 @@
     "next": "下一页",
     "previous": "上一页",
     "close": "关闭",
+    "dismiss": "关闭提示",
     "search": "搜索",
     "filter": "筛选",
     "sort": "排序",
@@ -559,18 +719,160 @@
     },
     "emailAriaLabel": "电子邮箱",
     "emailPlaceholder": "your@email.com",
-    "allRightsReserved": "保留所有权利。"
+    "allRightsReserved": "保留所有权利。",
+    "email": "邮箱",
+    "send": "发送",
+    "currency": {
+      "cny": "¥"
+    }
   },
   "error": {
     "somethingWentWrong": "出了点问题",
     "weHitASnag": "遇到了问题",
     "unexpectedError": "页面遇到了意外错误，请尝试刷新页面。",
     "tryAgain": "重试",
-    "goHome": "首页"
+    "goHome": "首页",
+    "title": "出了点问题",
+    "subtitle": "遇到了障碍",
+    "body": "页面遇到了意外错误。我们的团队已收到通知。您可以重试或返回首页。",
+    "retry": "重试",
+    "home": "首页"
   },
   "campaigns.detail.about": "关于此活动",
   "campaigns.detail.backToAll": "返回全部活动",
   "traceability.location": "地点",
   "traceability.partner": "合作方",
-  "traceability.date": "日期"
+  "traceability.date": "日期",
+  "hero": {
+    "scroll": "向下滚动",
+    "brandTagline": "创意机遇中的愿景"
+  },
+  "legal": {
+    "privacy": {
+      "overline": "法律信息",
+      "title": "隐私政策",
+      "lastUpdated": "最后更新：2026年3月",
+      "sections": {
+        "overview": {
+          "title": "概述",
+          "body": "童画公益重视您的隐私。本政策说明我们收集哪些信息、为何收集以及如何保护这些信息。我们致力于在所有数据实践中保持透明，并遵守适用的数据保护法规，包括《中华人民共和国个人信息保护法》。"
+        },
+        "collection": {
+          "title": "我们收集的信息",
+          "body": "我们收集您直接提供的信息——例如您在捐赠、购物或创建账户时的姓名、电子邮箱和支付详情。我们还收集使用数据，包括页面访问、停留时间和设备信息，以改善我们的平台。对于参与我们项目的儿童，我们仅在获得明确家长同意的前提下收集最少量的必要信息。"
+        },
+        "usage": {
+          "title": "信息使用方式",
+          "body": "您的信息用于处理捐赠和订单、发送您关注的活动和故事更新、改善我们的平台和服务，以及确保参与项目的儿童的安全。我们绝不会将您的数据用于本政策所述目的以外的用途。"
+        },
+        "sharing": {
+          "title": "信息共享",
+          "body": "我们不出售您的个人信息。我们仅与帮助运营平台的可信服务提供商共享数据——支付处理商、物流合作伙伴和分析工具——并在严格的数据处理协议下进行。在法律要求或为保护用户安全时，我们可能披露相关信息。"
+        },
+        "children": {
+          "title": "儿童隐私",
+          "body": "保护儿童隐私是我们的最高优先事项。我们遵守所有适用的儿童隐私法律。对于14岁以下的参与者，我们在收集任何个人信息前须获得可验证的家长同意。儿童数据经过加密处理、访问控制，除项目参与所需外绝不与第三方共享。"
+        },
+        "cookies": {
+          "title": "Cookie 与追踪",
+          "body": "我们使用必要性 Cookie 维持平台运行，以及分析性 Cookie 了解网站使用情况。您可以通过浏览器设置管理 Cookie 偏好。我们不使用广告追踪器或第三方营销 Cookie。"
+        },
+        "security": {
+          "title": "数据安全",
+          "body": "我们实施行业标准的安全措施，包括敏感数据的 AES-256 加密、传输中的 TLS 1.3 加密、定期安全审计和严格的访问控制。儿童数据享有额外保护，包括加密存储和审计日志。"
+        },
+        "rights": {
+          "title": "您的权利",
+          "body": "您有权随时访问、更正或删除您的个人信息。您还可以请求获取数据副本或撤回数据处理同意。如需行使这些权利，请联系 privacy@tonghua.org。我们将在15个工作日内回复所有请求。"
+        },
+        "contact": {
+          "title": "联系我们",
+          "body": "如果您对本隐私政策或我们如何处理您的数据有疑问，请联系我们的数据保护团队 privacy@tonghua.org，或致函我们的上海办公室。我们致力于及时、透明地解决您的疑虑。"
+        }
+      }
+    },
+    "terms": {
+      "overline": "法律信息",
+      "title": "使用条款",
+      "lastUpdated": "最后更新：2026年3月",
+      "sections": {
+        "acceptance": {
+          "title": "条款接受",
+          "body": "访问和使用童画公益平台，即表示您同意受本使用条款的约束。如果您不同意这些条款，请勿使用我们的平台。这些条款适用于所有访问我们服务的访客、用户和其他人员。"
+        },
+        "services": {
+          "title": "服务描述",
+          "body": "童画公益提供一个将儿童艺术作品与可持续时尚相连接的平台。我们的服务包括艺术作品征集活动、捐赠处理、可持续商品在线商城和供应链溯源工具。我们保留在合理通知后修改或终止任何服务的权利。"
+        },
+        "accounts": {
+          "title": "用户账户",
+          "body": "创建账户时，您必须提供准确完整的信息。您有责任维护账户凭证的安全。如发现任何未经授权的访问，须立即通知我们。14岁以下用户的账户需经家长或监护人同意和监督。"
+        },
+        "donations": {
+          "title": "捐赠",
+          "body": "所有捐赠通过经验证的安全支付渠道处理。除法律要求外，捐赠不可退还。我们每季度发布财务报告，详细说明捐赠资金的使用情况。可根据需要提供可抵税收据。"
+        },
+        "purchases": {
+          "title": "购买与退换",
+          "body": "通过我们商城购买的商品适用退换货政策。商品可在收货后30天内以原始状态退回。退货运费由买方承担，商品存在缺陷的情况除外。"
+        },
+        "ip": {
+          "title": "知识产权",
+          "body": "儿童的艺术作品仍为儿童及其家庭的知识产权。提交作品即表示家庭授权童画公益为慈善目的在商品上复制该作品。所有平台内容、品牌和设计元素均为童画公益的财产。"
+        },
+        "liability": {
+          "title": "责任限制",
+          "body": "童画公益按"现状"提供平台，不对不间断访问作任何保证。我们不对间接、附带或后果性损害承担责任。我们的总责任不超过您最近一次捐赠或购买的金额。"
+        },
+        "changes": {
+          "title": "条款变更",
+          "body": "我们可能不时更新这些条款。重大变更将通过电子邮件和平台公告通知。在变更后继续使用平台即表示接受更新后的条款。"
+        },
+        "governing": {
+          "title": "适用法律",
+          "body": "本条款受中华人民共和国法律管辖。因本条款产生的任何争议将通过协商解决，必要时依据中国适用法律在上海进行仲裁。"
+        }
+      }
+    },
+    "children": {
+      "overline": "法律信息",
+      "title": "儿童安全",
+      "intro": "童画公益致力于保护每一位参与项目的儿童的隐私和安全。本政策概述了我们如何在遵守适用法律法规的前提下收集、使用和保护儿童的个人信息。",
+      "lastUpdated": "最后更新：2026年3月",
+      "sections": {
+        "commitment": {
+          "title": "我们的承诺",
+          "body": "儿童的安全和福祉是我们一切工作的基础。我们遵守《中华人民共和国个人信息保护法》、《联合国儿童权利公约》以及数字环境下儿童保护的国际最佳实践。"
+        },
+        "collection": {
+          "title": "信息收集",
+          "body": "我们仅收集项目参与所需的最少信息：儿童的名字（或化名）、年龄和艺术作品。我们绝不收集儿童的家庭住址、学校名称或精确位置数据。所有收集均在家长充分知情和同意的前提下进行。"
+        },
+        "parentalConsent": {
+          "title": "家长同意",
+          "body": "在任何儿童参与我们的项目之前，我们会获得家长或法定监护人的可验证同意。同意书清楚说明收集哪些信息、如何使用这些信息，以及家长随时撤回同意的权利。我们通过双重验证流程确认同意。"
+        },
+        "dataUse": {
+          "title": "儿童数据使用方式",
+          "body": "儿童信息仅用于项目目的：在平台上展示附有儿童名字和年龄的艺术作品、基于其设计制作商品，以及生成匿名化影响报告。儿童数据绝不用于营销、画像或项目以外的商业目的。"
+        },
+        "storage": {
+          "title": "数据存储与保护",
+          "body": "所有儿童数据存储在具有严格访问控制的加密数据库中。访问权限仅限于经过背景调查和儿童保护培训的授权工作人员。我们定期进行安全审计，并维护所有儿童数据的详细访问日志。"
+        },
+        "thirdParty": {
+          "title": "第三方共享",
+          "body": "儿童的个人信息绝不为任何商业目的与第三方共享。唯一例外是项目运营所必需的服务提供商（如印刷商品）——所有这些提供商均在严格的数据处理协议下运营，无权保留或进一步处理儿童数据。"
+        },
+        "rights": {
+          "title": "儿童和家长的权利",
+          "body": "家长和监护人有权随时查看、更正或删除其子女的信息。他们可以撤回参与同意、请求从平台移除子女的艺术作品，以及获取我们持有的关于其子女的所有数据副本。请求将在5个工作日内处理。"
+        },
+        "contact": {
+          "title": "联系儿童安全团队",
+          "body": "如果您对我们如何处理儿童信息有任何疑虑，请联系我们的专职儿童安全团队 safety@tonghua.org。所有咨询均以最高优先级和保密性处理。我们也欢迎任何人在发现平台上的潜在儿童安全问题时向我们报告。"
+        }
+      }
+    }
+  }
 }

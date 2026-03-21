@@ -31,6 +31,10 @@
   --color-editorial-olive: #4A5240;
   --color-editorial-burgundy: #6B2D3D;
 
+  /* ── Sustainability Accent ── */
+  --color-olive-green: #6B7C3E;
+  --color-eco-green: #5a7a5a;
+
   /* ── Functional Colors ── */
   --color-success: #3D5A3D;
   --color-error: #8B3A2A;
@@ -39,12 +43,14 @@
 
   /* ── Typography ── */
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --font-mono: 'IBM Plex Mono', 'Courier New', Courier, monospace;
+  --font-body: 'IBM Plex Mono', 'Courier New', Courier, monospace;
+  --font-mono: var(--font-body); /* legacy alias — prefer --font-body */
   --font-ui: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* ── Font Sizes — Modular Scale (1.25 ratio) ── */
   --text-hero: clamp(56px, 10vw, 120px);
   --text-display: clamp(40px, 7vw, 80px);
+  --text-stat: clamp(36px, 5vw, 56px);
   --text-h1: clamp(32px, 5vw, 56px);
   --text-h2: clamp(24px, 3.5vw, 40px);
   --text-h3: clamp(20px, 2.5vw, 28px);
@@ -89,7 +95,7 @@
 
   /* ── Borders ── */
   --border-thin: 1px solid var(--color-warm-gray);
-  --border-divider: 1px solid rgba(212, 207, 196, 0.4);
+  --border-divider: 1px solid color-mix(in srgb, var(--color-warm-gray) 40%, transparent);
   --border-accent: 2px solid var(--color-rust);
   --border-heavy: 3px solid var(--color-ink);
 
@@ -99,11 +105,11 @@
   --radius-lg: 8px;
 
   /* ── Shadows — Subtle, print-inspired ── */
-  --shadow-sm: 0 1px 2px rgba(26, 26, 22, 0.04);
-  --shadow-md: 0 4px 12px rgba(26, 26, 22, 0.06);
-  --shadow-lg: 0 8px 24px rgba(26, 26, 22, 0.08);
-  --shadow-xl: 0 16px 48px rgba(26, 26, 22, 0.1);
-  --shadow-inset: inset 0 2px 8px rgba(26, 26, 22, 0.04);
+  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--color-ink) 4%, transparent);
+  --shadow-md: 0 4px 12px color-mix(in srgb, var(--color-ink) 6%, transparent);
+  --shadow-lg: 0 8px 24px color-mix(in srgb, var(--color-ink) 8%, transparent);
+  --shadow-xl: 0 16px 48px color-mix(in srgb, var(--color-ink) 10%, transparent);
+  --shadow-inset: inset 0 2px 8px color-mix(in srgb, var(--color-ink) 4%, transparent);
 
   /* ── Transitions ── */
   --ease-editorial: cubic-bezier(0.4, 0, 0.2, 1);

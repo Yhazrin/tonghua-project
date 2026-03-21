@@ -2,15 +2,23 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import PageWrapper from '@/components/layout/PageWrapper';
+<<<<<<< HEAD
 import SectionContainer from '@/components/layout/SectionContainer';
+=======
+import PaperTextureBackground from '@/components/editorial/PaperTextureBackground';
+>>>>>>> origin/main
 import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeading';
 import { useAuthStore } from '@/stores/authStore';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+
+const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
 
 export default function Profile() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const prefersReducedMotion = useReducedMotion();
   const { user, isAuthenticated, logout } = useAuthStore();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   const handleLogout = () => {
     logout();
@@ -27,18 +35,25 @@ export default function Profile() {
               whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
               whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
               onClick={() => navigate('/login')}
+<<<<<<< HEAD
               className="cursor-pointer font-body text-body-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300"
+=======
+              className="font-body text-body-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300 cursor-pointer"
+>>>>>>> origin/main
             >
               {t('nav.login')}
             </motion.button>
           </div>
         </div>
+
+        <div className="editorial-divider" aria-hidden="true" />
       </PageWrapper>
     );
   }
 
   return (
     <PageWrapper>
+<<<<<<< HEAD
       <SectionContainer>
         <NumberedSectionHeading number="10" title={t('profile.title')} />
 
@@ -94,15 +109,103 @@ export default function Profile() {
                   whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
                   onClick={handleLogout}
                   className="cursor-pointer flex-1 font-body text-body-sm tracking-[0.1em] uppercase border border-warm-gray/40 text-ink px-6 py-3 hover:bg-warm-gray/10 transition-colors duration-300"
+=======
+      <PaperTextureBackground>
+        <div className="min-h-[100dvh] py-12 px-4">
+          <div className="max-w-2xl mx-auto">
+            <NumberedSectionHeading number="11" title={t('profile.title')} />
+
+            {/* Profile Card */}
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.2 }}
+              className="bg-paper border border-warm-gray/30 p-8 relative overflow-hidden"
+            >
+              {/* Grain overlay */}
+              <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" style={GRAIN_STYLE} aria-hidden="true" />
+              {/* Corner accents */}
+              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+
+              <div className="space-y-6 relative z-[1]">
+                {/* User Info */}
+                <motion.div
+                  initial={prefersReducedMotion ? false : { opacity: 0, x: -10 }}
+                  animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.3 }}
+                  className="flex items-center gap-6 pb-6 border-b border-warm-gray/20"
+>>>>>>> origin/main
                 >
-                  {t('nav.logout')}
-                </motion.button>
+                  <div className="w-16 h-16 bg-warm-gray/20 flex items-center justify-center">
+                    <span className="font-display text-h4 text-ink">
+                      {user.nickname ? user.nickname.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
+                  <div>
+                    <h2 className="font-display text-h4 text-ink">{user.nickname || user.email}</h2>
+                    <p className="font-body text-body-sm text-ink-faded">{user.email}</p>
+                    <span className="inline-block mt-2 font-body text-overline tracking-[0.1em] uppercase text-sepia-mid bg-warm-gray/20 px-2 py-1">
+                      {user.role}
+                    </span>
+                  </div>
+                </motion.div>
+
+                {/* Account Details */}
+                <motion.div
+                  initial={prefersReducedMotion ? false : { opacity: 0, x: -10 }}
+                  animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.45 }}
+                  className="space-y-4"
+                >
+                  <h3 className="font-body text-body-sm tracking-[0.1em] uppercase text-sepia-mid">
+                    {t('profile.accountDetails')}
+                  </h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <p className="font-body text-caption text-ink-faded mb-1">{t('profile.userId')}</p>
+                      <p className="font-body text-body-sm text-ink">{user.id}</p>
+                    </div>
+                    <div>
+                      <p className="font-body text-caption text-ink-faded mb-1">{t('profile.role')}</p>
+                      <p className="font-body text-body-sm text-ink capitalize">{user.role}</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Actions */}
+                <motion.div
+                  initial={prefersReducedMotion ? false : { opacity: 0, x: -10 }}
+                  animate={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.6 }}
+                  className="flex gap-4 pt-4"
+                >
+                  <motion.button
+                    whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
+                    onClick={handleLogout}
+                    className="flex-1 font-body text-body-sm tracking-[0.1em] uppercase border border-warm-gray/40 text-ink px-6 py-3 hover:bg-warm-gray/10 transition-colors duration-300 cursor-pointer"
+                  >
+                    {t('nav.logout')}
+                  </motion.button>
+                </motion.div>
               </div>
+<<<<<<< HEAD
             </div>
           </motion.div>
       </SectionContainer>
 
       <div className="editorial-divider" />
+=======
+            </motion.div>
+          </div>
+        </div>
+      </PaperTextureBackground>
+
+      <div className="editorial-divider" aria-hidden="true" />
+>>>>>>> origin/main
     </PageWrapper>
   );
 }

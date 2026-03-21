@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
@@ -16,6 +17,7 @@ export default function ArtworkCard({
   index = 0,
   className = '',
 }: ArtworkCardProps) {
+  const { t } = useTranslation();
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
   const prefersReducedMotion = useReducedMotion();
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -24,7 +26,7 @@ export default function ArtworkCard({
     <motion.article
       ref={ref}
       initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
-      animate={isVisible ? (prefersReducedMotion ? {} : { opacity: 1, y: 0 }) : {}}
+      animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
       transition={prefersReducedMotion ? { duration: 0 } : {
         duration: 0.7,
         ease: [0, 0, 0.2, 1],
@@ -32,9 +34,11 @@ export default function ArtworkCard({
       }}
       className={`group relative ${className}`}
     >
-      {/* Corner accents — diagonal pattern */}
-      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none z-20" aria-hidden="true" />
-      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none z-20" aria-hidden="true" />
+      {/* Decorative corner accents */}
+      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 z-20" aria-hidden="true" />
+      <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 z-20" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 z-20" aria-hidden="true" />
+      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 z-20" aria-hidden="true" />
 
       <Link to={`/artworks/${artwork.id}`} className="block cursor-pointer">
         {/* Image */}
@@ -44,10 +48,10 @@ export default function ArtworkCard({
             className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]"
             aria-hidden="true"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+              backgroundImage: 'var(--grain-overlay)'
             }}
           />
-          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
+          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" aria-hidden="true" />
 
           {/* Loading skeleton */}
           {!imageLoaded && <ImageSkeleton className="absolute inset-0" />}
@@ -64,17 +68,17 @@ export default function ArtworkCard({
         {/* Info */}
         <div className="flex items-baseline justify-between gap-4">
           <div className="min-w-0">
-            <h3 className="font-display text-base md:text-lg font-semibold text-ink truncate group-hover:text-rust transition-colors">
+            <h3 className="font-display text-body md:text-body-lg font-semibold text-ink truncate group-hover:text-rust transition-colors">
               {artwork.title}
             </h3>
             <p className="font-body text-caption text-sepia-mid mt-1">
-              Age {artwork.childParticipant.age} &middot;{' '}
+              {t('artwork.card.age', { age: artwork.childParticipant.age })} &middot;{' '}
               {new Date(artwork.createdAt).getFullYear()}
             </p>
           </div>
 
           <span className="font-body text-caption text-sepia-mid whitespace-nowrap flex-shrink-0">
-            {artwork.voteCount} votes
+            {t('artwork.card.votes', { count: artwork.voteCount })}
           </span>
         </div>
       </Link>

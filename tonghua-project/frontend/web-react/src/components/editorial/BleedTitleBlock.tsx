@@ -27,7 +27,7 @@ export default function BleedTitleBlock({
     >
       <motion.div
         initial={prefersReducedMotion ? false : { opacity: 0, y: 60 }}
-        animate={isVisible ? (prefersReducedMotion ? {} : { opacity: 1, y: 0 }) : {}}
+        animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
         transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.9, ease: [0, 0, 0.2, 1] }}
         className={`
           font-display font-black leading-[0.88] tracking-[-0.04em] text-ink

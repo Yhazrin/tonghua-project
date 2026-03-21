@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { TextScramble } from '@/components/animations/TextScramble';
 import { OrigamiPaperStrip } from '@/components/animations/OrigamiFold';
 
@@ -28,8 +28,9 @@ export default function EditorialHero({
   scrambleTitle = false,
   scrambleDuration = 1200,
 }: EditorialHeroProps) {
+  const { t } = useTranslation();
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
-  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const prefersReducedMotion = useReducedMotion();
 
   // Scroll-linked parallax values
   const { scrollYProgress } = useScroll({
@@ -81,7 +82,7 @@ export default function EditorialHero({
       `}
     >
       {/* Top gradient fade for smooth transition from header */}
-      <div className="absolute inset-0 bg-gradient-to-b from-paper/80 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-paper/80 to-transparent pointer-events-none" aria-hidden="true" />
 
       {/* Parallax decorative layers - only when visible and motion allowed */}
       {isVisible && !prefersReducedMotion && (
@@ -125,7 +126,7 @@ export default function EditorialHero({
 
           {/* Foreground layer - subtle grain texture overlay, moves fastest */}
           <motion.div
-            className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.015]"
+            className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.06]"
             style={{ y: foregroundY }}
             aria-hidden="true"
           >
@@ -155,6 +156,12 @@ export default function EditorialHero({
         </>
       )}
 
+      {/* Corner accents */}
+      <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+
       <div
         className={`
           relative z-10 w-full px-6 md:px-10 pt-24 md:pt-28
@@ -163,18 +170,18 @@ export default function EditorialHero({
         `}
       >
         <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          animate={prefersReducedMotion ? (isVisible ? { opacity: 1 } : {}) : (isVisible ? { opacity: 1, y: 0 } : {})}
-          transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+          animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1] }}
           className="block font-body text-caption text-sepia-mid tracking-[0.3em] mb-6 md:mb-8"
         >
-          Vision In Creative Opportunity
+          {t('hero.brandTagline')}
         </motion.span>
 
         <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={prefersReducedMotion ? (isVisible ? { opacity: 1 } : {}) : (isVisible ? { opacity: 1, y: 0 } : {})}
-          transition={{ duration: 0.8, ease: [0, 0, 0.2, 1], delay: 0.1 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
+          animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0, 0, 0.2, 1], delay: 0.1 }}
           className="font-display text-hero font-black leading-[0.92] tracking-[-0.035em] text-ink"
           style={{
             marginLeft: align === 'left' ? '-0.04em' : undefined,
@@ -196,11 +203,11 @@ export default function EditorialHero({
 
         {subtitle && (
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={prefersReducedMotion ? (isVisible ? { opacity: 1 } : {}) : (isVisible ? { opacity: 1, y: 0 } : {})}
-            transition={{ duration: 0.7, ease: [0, 0, 0.2, 1], delay: 0.25 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+            animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1], delay: 0.25 }}
             className={`
-              font-body text-base md:text-lg text-ink-faded mt-6 md:mt-8 leading-relaxed max-w-xl
+              font-body text-body md:text-body-lg text-ink-faded mt-6 md:mt-8 leading-relaxed max-w-xl
               ${align === 'center' ? 'max-w-2xl text-center mx-auto' : ''}
             `}
           >
@@ -210,9 +217,9 @@ export default function EditorialHero({
 
         {children && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={prefersReducedMotion ? (isVisible ? { opacity: 1 } : {}) : (isVisible ? { opacity: 1, y: 0 } : {})}
-            transition={{ duration: 0.7, ease: [0, 0, 0.2, 1], delay: 0.4 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+            animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1], delay: 0.4 }}
             className="mt-8 md:mt-10"
           >
             {children}
@@ -223,13 +230,14 @@ export default function EditorialHero({
       {/* Scroll indicator for full height sections */}
       {(fullHeight || fullBleed) && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
+          animate={prefersReducedMotion ? undefined : { opacity: 1 }}
           transition={prefersReducedMotion ? { duration: 0 } : { delay: 1, duration: 0.6 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          aria-hidden="true"
         >
           <span className="font-body text-overline tracking-[0.2em] uppercase text-sepia-mid">
-            Scroll
+            {t('hero.scroll')}
           </span>
           {prefersReducedMotion ? (
             <div className="w-px h-8 bg-gradient-to-b from-sepia-mid/40 to-transparent" />
@@ -244,13 +252,13 @@ export default function EditorialHero({
       )}
 
       {/* Decorative bottom line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-warm-gray/40 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-warm-gray/40 to-transparent" aria-hidden="true" />
 
       {/* Origami folded paper effect at bottom */}
       <motion.div
-        initial={prefersReducedMotion ? undefined : { opacity: 0, scaleX: 0 }}
-        animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scaleX: 1 }}
-        transition={{ duration: 0.8, delay: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+        initial={prefersReducedMotion ? false : { opacity: 0, scaleX: 0 }}
+        animate={prefersReducedMotion ? undefined : { opacity: 1, scaleX: 1 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, delay: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
         className="absolute bottom-0 left-0 right-0 flex justify-center"
         aria-hidden="true"
       >

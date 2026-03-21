@@ -14,10 +14,10 @@ interface ProductCardProps {
   className?: string;
 }
 
-function getSustainabilityTier(score: number): { label: string; colorClass: string; barColor: string } {
-  if (score >= 90) return { label: 'Exceptional', colorClass: 'text-rust', barColor: 'bg-rust' };
-  if (score >= 80) return { label: 'Excellent', colorClass: 'text-eco-green', barColor: 'bg-eco-green' };
-  return { label: 'Good', colorClass: 'text-sepia-mid', barColor: 'bg-sepia-mid' };
+function getSustainabilityTier(score: number, t: (key: string) => string): { label: string; colorClass: string; barColor: string } {
+  if (score >= 90) return { label: t('shop.sustainabilityTiers.exceptional'), colorClass: 'text-rust', barColor: 'bg-rust' };
+  if (score >= 80) return { label: t('shop.sustainabilityTiers.excellent'), colorClass: 'text-eco-green', barColor: 'bg-eco-green' };
+  return { label: t('shop.sustainabilityTiers.good'), colorClass: 'text-sepia-mid', barColor: 'bg-sepia-mid' };
 }
 
 export default function ProductCard({
@@ -33,7 +33,7 @@ export default function ProductCard({
   const [notifyEmail, setNotifyEmail] = useState('');
   const [notifySubmitted, setNotifySubmitted] = useState(false);
 
-  const sustainability = getSustainabilityTier(product.sustainabilityScore);
+  const sustainability = getSustainabilityTier(product.sustainabilityScore, t);
 
   const handleNotifySubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,9 +53,9 @@ export default function ProductCard({
     >
       <motion.article
         ref={ref}
-        initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 40 }}
-        animate={prefersReducedMotion ? (isVisible ? { opacity: 1 } : {}) : (isVisible ? { opacity: 1, y: 0 } : {})}
-        transition={{
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
+        animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
+        transition={prefersReducedMotion ? { duration: 0 } : {
           duration: 0.7,
           ease: [0, 0, 0.2, 1],
           delay: index * 0.1,
@@ -86,13 +86,13 @@ export default function ProductCard({
 
           {/* Stock badge */}
           {!product.inStock && (
-            <div className="absolute top-3 right-3 z-30 bg-ink/90 text-paper font-body text-caption px-3 py-1 tracking-wider border border-ink">
+            <div className="absolute top-3 right-3 z-30 bg-ink/90 text-paper font-body text-caption px-3 py-1 tracking-wider border border-ink" role="status">
               {t('shop.card.soldOut')}
             </div>
           )}
 
           {product.inStock && product.stockCount <= 5 && (
-            <div className="absolute top-3 right-3 z-30 bg-rust/95 text-paper font-body text-caption px-3 py-1 tracking-wider border border-rust">
+            <div className="absolute top-3 right-3 z-30 bg-rust/95 text-paper font-body text-caption px-3 py-1 tracking-wider border border-rust" role="status">
               {t('shop.card.lowStock', { count: product.stockCount })}
             </div>
           )}
@@ -104,6 +104,7 @@ export default function ProductCard({
         {/* Info */}
         <div className="px-1">
           <div className="flex items-start justify-between gap-2 mb-1">
+<<<<<<< HEAD
             <h3 className="font-display text-base md:text-lg font-semibold text-ink group-hover:text-rust transition-colors leading-tight">
               {product.name}
             </h3>
@@ -115,8 +116,8 @@ export default function ProductCard({
           {/* Artwork attribution */}
           {product.artworkBy && (
             <p className="font-body text-overline text-sepia-mid tracking-wide mb-2">
-              Artwork by {product.artworkBy.childName}, age {product.artworkBy.age}
-              {' '}&mdash; {product.artworkBy.campaign} campaign
+              {t('shop.product.artworkBy', { name: product.artworkBy.childName, age: product.artworkBy.age })}
+              {' '}&mdash; {t('shop.product.campaign', { campaign: product.artworkBy.campaign })}
             </p>
           )}
 
@@ -139,9 +140,9 @@ export default function ProductCard({
               <div className="w-12 h-px bg-warm-gray/30 mt-0.5">
                 <motion.div
                   className={`h-full ${sustainability.barColor}`}
-                  initial={{ width: 0 }}
-                  animate={isVisible ? { width: `${product.sustainabilityScore}%` } : {}}
-                  transition={{ duration: 0.8, delay: 0.3, ease: [0, 0, 0.2, 1] }}
+                  initial={prefersReducedMotion ? false : { width: 0 }}
+                  animate={prefersReducedMotion ? undefined : (isVisible ? { width: `${product.sustainabilityScore}%` } : {})}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, delay: 0.3, ease: [0, 0, 0.2, 1] }}
                 />
               </div>
             </div>
@@ -159,32 +160,33 @@ export default function ProductCard({
                     e.stopPropagation();
                     setShowNotifyInput(true);
                   }}
-                  className="w-full font-body text-overline tracking-[0.15em] uppercase text-sepia-mid py-2 px-4 border border-dashed border-sepia-mid/50 hover:border-sepia-mid hover:text-ink transition-all duration-200 bg-transparent"
+                  aria-label={t('shop.notifyMe')}
+                  className="w-full font-body text-overline tracking-[0.15em] uppercase text-sepia-mid py-2 px-4 border border-dashed border-sepia-mid/50 hover:border-sepia-mid hover:text-ink transition-all duration-200 bg-transparent cursor-pointer"
                 >
-                  Notify Me
+                  {t('shop.notifyMe')}
                 </motion.button>
               ) : notifySubmitted ? (
                 <motion.p
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 5 }}
+                  animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                   className="font-body text-overline text-eco-green tracking-wide text-center py-2"
                 >
-                  We will let you know when this is back.
+                  {t('shop.notifyMeSuccess')}
                 </motion.p>
               ) : (
                 <AnimatePresence>
                   <motion.form
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
+                    initial={prefersReducedMotion ? false : { opacity: 0, height: 0 }}
+                    animate={prefersReducedMotion ? undefined : { opacity: 1, height: 'auto' }}
+                    exit={prefersReducedMotion ? undefined : { opacity: 0, height: 0 }}
                     onSubmit={handleNotifySubmit}
                     className="flex items-end gap-2"
                   >
                     <div className="flex-1">
                       <VintageInput
                         type="email"
-                        label="Email"
-                        placeholder="your@email.com"
+                        label={t('common.email')}
+                        placeholder={t('shop.notifyMePlaceholder')}
                         value={notifyEmail}
                         onChange={(e) => setNotifyEmail(e.target.value)}
                         icon="email"
@@ -194,9 +196,9 @@ export default function ProductCard({
                       type="submit"
                       whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
                       whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
-                      className="font-body text-overline tracking-[0.1em] uppercase text-paper bg-rust px-3 py-3 border border-rust hover:bg-rust/90 transition-colors flex-shrink-0"
+                      className="font-body text-overline tracking-[0.1em] uppercase text-paper bg-rust px-3 py-3 border border-rust hover:bg-rust/90 transition-colors flex-shrink-0 cursor-pointer"
                     >
-                      Send
+                      {t('common.send')}
                     </motion.button>
                   </motion.form>
                 </AnimatePresence>

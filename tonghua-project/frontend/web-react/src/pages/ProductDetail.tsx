@@ -9,8 +9,37 @@ import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import PaperTextureBackground from '@/components/editorial/PaperTextureBackground';
 import TraceabilityTimeline from '@/components/editorial/TraceabilityTimeline';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useCartStore } from '@/stores/cartStore';
 import type { Product, SupplyChainRecord } from '@/types';
+
+function ThumbnailButton({ url, index, isSelected, onSelect }: {
+  url: string; index: number; isSelected: boolean; onSelect: () => void;
+}) {
+  const { t } = useTranslation();
+  const [thumbLoaded, setThumbLoaded] = useState(false);
+  return (
+    <button
+      onClick={onSelect}
+      aria-label={t('shop.detail.viewImage', { number: index + 1 })}
+      className={`w-16 h-16 overflow-hidden border-2 transition-colors relative cursor-pointer ${
+        isSelected ? 'border-ink' : 'border-transparent'
+      }`}
+    >
+      {!thumbLoaded && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-square" />}
+      <img
+        src={url}
+        alt=""
+        aria-hidden="true"
+        width={64}
+        height={64}
+        className={`w-full h-full object-cover ${thumbLoaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ filter: 'sepia(0.2) contrast(1.05) brightness(0.97)' }}
+        onLoad={() => setThumbLoaded(true)}
+      />
+    </button>
+  );
+}
 
 const MOCK_SUPPLY_CHAIN: SupplyChainRecord[] = [
   {
@@ -86,8 +115,8 @@ const MOCK_PRODUCT: Product = {
   price: 380,
   currency: 'CNY',
   imageUrls: [
-    'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=800&h=1000&fit=crop',
-    'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=400&fit=crop',
+    'https://picsum.photos/seed/silk-scarf-1/800/1000',
+    'https://picsum.photos/seed/silk-scarf-2/400/400',
   ],
   category: 'accessories',
   inStock: true,
@@ -98,7 +127,11 @@ const MOCK_PRODUCT: Product = {
 
 export default function ProductDetail() {
   const { t } = useTranslation();
+<<<<<<< HEAD
   const prefersReducedMotion = useReducedMotion();
+=======
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+>>>>>>> origin/main
   const product = MOCK_PRODUCT;
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -119,15 +152,15 @@ export default function ProductDetail() {
   return (
     <PageWrapper>
       {/* Product section */}
-      <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+      <PaperTextureBackground variant="paper" className="section-spacing">
         <SectionContainer>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
             {/* Images */}
             <div className="md:col-span-6">
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
+                initial={prefersReducedMotion ? false : { opacity: 0 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
               >
                 <SepiaImageFrame
                   src={product.imageUrls[selectedImage]}
@@ -138,6 +171,7 @@ export default function ProductDetail() {
               </motion.div>
               {product.imageUrls.length > 1 && (
                 <div className="flex gap-3 mt-4">
+<<<<<<< HEAD
                   {product.imageUrls.map((url, index) => {
                     const [thumbLoaded, setThumbLoaded] = useState(false);
                     return (
@@ -161,6 +195,17 @@ export default function ProductDetail() {
                       </button>
                     );
                   })}
+=======
+                  {product.imageUrls.map((url, index) => (
+                    <ThumbnailButton
+                      key={index}
+                      url={url}
+                      index={index}
+                      isSelected={selectedImage === index}
+                      onSelect={() => setSelectedImage(index)}
+                    />
+                  ))}
+>>>>>>> origin/main
                 </div>
               )}
             </div>
@@ -170,10 +215,10 @@ export default function ProductDetail() {
               <p className="font-body text-overline tracking-[0.3em] uppercase text-sepia-mid mb-2">
                 {product.category}
               </p>
-              <h1 className="font-display text-3xl md:text-4xl text-ink font-bold leading-tight mb-4">
+              <h1 className="font-display text-h1 md:text-display text-ink font-bold leading-tight mb-4">
                 {product.name}
               </h1>
-              <p className="font-display text-2xl text-ink mb-6">
+              <p className="font-display text-h2 text-ink mb-6">
                 {product.currency} {product.price.toFixed(2)}
               </p>
               <p className="font-body text-body-sm text-ink-faded leading-[1.8] mb-8">
@@ -183,10 +228,17 @@ export default function ProductDetail() {
               {/* Artwork source */}
               <div className="border border-warm-gray/30 p-4 mb-8">
                 <p className="font-body text-caption text-sepia-mid tracking-wider uppercase mb-1">
+<<<<<<< HEAD
                   {t('shop.detail.artwork')} Mei, age 8
                 </p>
                 <p className="font-body text-caption text-ink-faded">
                   Guizhou Province, November 2025
+=======
+                  {t('shop.product.artworkBy', { name: 'Mei', age: 8 })}
+                </p>
+                <p className="font-body text-caption text-ink-faded">
+                  {t('shop.detail.origin')}
+>>>>>>> origin/main
                 </p>
               </div>
 
@@ -200,7 +252,11 @@ export default function ProductDetail() {
                     {[1, 2, 3, 4, 5].map((level) => (
                       <div
                         key={level}
+<<<<<<< HEAD
                         className={`w-4 h-4 rounded-sm ${
+=======
+                        className={`w-4 h-4 ${
+>>>>>>> origin/main
                           level <= product.sustainabilityScore / 20
                             ? 'bg-archive-brown'
                             : 'bg-warm-gray/40'
@@ -222,7 +278,11 @@ export default function ProductDetail() {
                 <div className="flex items-center border border-warm-gray/50">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
+<<<<<<< HEAD
                     aria-label="Decrease quantity"
+=======
+                    aria-label={t('shop.detail.decreaseQuantity')}
+>>>>>>> origin/main
                     className="px-3 py-2 text-ink hover:bg-warm-gray/20 transition-colors cursor-pointer"
                   >
                     -
@@ -230,7 +290,11 @@ export default function ProductDetail() {
                   <span className="font-body text-body-sm px-4 py-2 text-ink" aria-live="polite">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
+<<<<<<< HEAD
                     aria-label="Increase quantity"
+=======
+                    aria-label={t('shop.detail.increaseQuantity')}
+>>>>>>> origin/main
                     className="px-3 py-2 text-ink hover:bg-warm-gray/20 transition-colors cursor-pointer"
                   >
                     +
@@ -243,7 +307,12 @@ export default function ProductDetail() {
                 whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
                 onClick={handleAddToCart}
                 disabled={!product.inStock}
+<<<<<<< HEAD
                 className={`w-full font-body text-body-sm tracking-[0.15em] uppercase py-4 transition-all duration-300 ${
+=======
+                aria-label={product.inStock ? t('shop.detail.addToCart') : t('shop.card.soldOut')}
+                className={`w-full font-body text-body-sm tracking-[0.15em] uppercase py-4 transition-all duration-300 cursor-pointer ${
+>>>>>>> origin/main
                   added
                     ? 'bg-archive-brown text-paper'
                     : product.inStock
@@ -263,12 +332,12 @@ export default function ProductDetail() {
       </PaperTextureBackground>
 
       {/* Supply Chain Journey */}
-      <PaperTextureBackground variant="aged" className="py-16 md:py-24">
+      <PaperTextureBackground variant="aged" className="section-spacing">
         <SectionContainer>
           <NumberedSectionHeading
             number="01"
             title={t('shop.detail.supplyChain')}
-            subtitle={`Total carbon footprint: ${totalCarbon.toFixed(1)} kg CO\u2082e \u00b7 Offset via verified programs`}
+            subtitle={t('shop.detail.carbonFootprint', { value: totalCarbon.toFixed(1) })}
           />
           <TraceabilityTimeline records={product.supplyChain} />
         </SectionContainer>
@@ -280,9 +349,11 @@ export default function ProductDetail() {
           to="/shop"
           className="font-body text-caption tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors cursor-pointer"
         >
-          &larr; {t('common.back')} to shop
+          &larr; {t('common.back')} {t('nav.shop')}
         </Link>
       </SectionContainer>
+
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

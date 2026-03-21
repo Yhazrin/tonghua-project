@@ -42,7 +42,7 @@ export const EditorialCard = ({
     <motion.article
       ref={ref}
       initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
-      animate={isVisible ? (prefersReducedMotion ? undefined : { opacity: 1, y: 0 }) : {}}
+      animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
       transition={prefersReducedMotion ? { duration: 0 } : {
         duration: 0.6,
         ease: [0, 0, 0.2, 1],
@@ -64,12 +64,14 @@ export const EditorialCard = ({
       <div
         className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+          backgroundImage: 'var(--grain-overlay)'
         }}
         aria-hidden="true"
       />
-      {/* Decorative corner accents — diagonal pattern */}
+      {/* Decorative corner accents */}
       <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
       <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
 
       {/* Image section */}
@@ -79,7 +81,7 @@ export const EditorialCard = ({
           <div
             className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+              backgroundImage: 'var(--grain-overlay)'
             }}
             aria-hidden="true"
           />
@@ -106,7 +108,7 @@ export const EditorialCard = ({
           </span>
         )}
 
-        <h3 className="font-display text-lg font-semibold text-ink leading-tight mb-2">
+        <h3 className="font-display text-body-lg font-semibold text-ink leading-tight mb-2">
           {title}
         </h3>
 
@@ -122,7 +124,7 @@ export const EditorialCard = ({
       {/* Hover indicator */}
       {onClick && (
         <div className="absolute bottom-4 right-4 w-6 h-6 rounded-sm border border-ink/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span className="font-body text-overline text-ink/50">→</span>
+          <span className="font-body text-overline text-ink/50" aria-hidden="true">→</span>
         </div>
       )}
     </motion.article>

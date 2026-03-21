@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -6,6 +6,7 @@ import PageWrapper from '@/components/layout/PageWrapper';
 import SectionContainer from '@/components/layout/SectionContainer';
 import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import PaperTextureBackground from '@/components/editorial/PaperTextureBackground';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { artworksApi } from '@/services/artworks';
 import type { Artwork } from '@/types';
 
@@ -18,20 +19,28 @@ export default function ArtworkDetail() {
   const [error, setError] = useState<string | null>(null);
 
   // Load artwork data
-  if (loading && id) {
+  useEffect(() => {
+    if (!id) return;
+    let cancelled = false;
+    setLoading(true);
     artworksApi
       .getById(id)
       .then((data) => {
-        setArtwork(data);
-        setLoading(false);
+        if (!cancelled) {
+          setArtwork(data);
+          setLoading(false);
+        }
       })
       .catch((err) => {
-        setError(err.message || 'Failed to load artwork');
-        setLoading(false);
+        if (!cancelled) {
+          setError(err.message || t('artwork.loadError'));
+          setLoading(false);
+        }
       });
-  }
+    return () => { cancelled = true; };
+  }, [id]);
 
-  const handleVote = async () => {
+  const handleVote = useCallback(async () => {
     if (!id) return;
     try {
       const result = await artworksApi.vote(id);
@@ -39,12 +48,12 @@ export default function ArtworkDetail() {
     } catch (err) {
       console.error('Failed to vote', err);
     }
-  };
+  }, [id]);
 
   if (loading) {
     return (
       <PageWrapper>
-        <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+        <PaperTextureBackground variant="paper" className="section-spacing">
           <SectionContainer>
             <p className="font-body text-sepia-mid">{t('artwork.loading')}</p>
           </SectionContainer>
@@ -56,9 +65,9 @@ export default function ArtworkDetail() {
   if (error || !artwork) {
     return (
       <PageWrapper>
-        <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+        <PaperTextureBackground variant="paper" className="section-spacing">
           <SectionContainer>
-            <div className="text-center" role="alert">
+            <div className="text-center" role="alert" aria-live="assertive">
               <h1 className="font-display text-2xl text-ink mb-4">
                 {t('artwork.notFound')}
               </h1>
@@ -78,15 +87,15 @@ export default function ArtworkDetail() {
   return (
     <PageWrapper>
       {/* Artwork section */}
-      <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+      <PaperTextureBackground variant="paper" className="section-spacing">
         <SectionContainer>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
             {/* Image */}
             <div className="md:col-span-6">
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
+                initial={prefersReducedMotion ? false : { opacity: 0 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
               >
                 <SepiaImageFrame
                   src={artwork.imageUrl}
@@ -102,7 +111,7 @@ export default function ArtworkDetail() {
               <p className="font-body text-overline tracking-[0.3em] uppercase text-sepia-mid mb-2">
                 {t('artwork.detail.heading')}
               </p>
-              <h1 className="font-display text-3xl md:text-4xl text-ink font-bold leading-tight mb-4">
+              <h1 className="font-display text-h1 md:text-display text-ink font-bold leading-tight mb-4">
                 {artwork.title}
               </h1>
               <p className="font-body text-body-sm text-ink-faded leading-[1.8] mb-8">
@@ -176,6 +185,8 @@ export default function ArtworkDetail() {
           &larr; {t('artwork.backToStories')}
         </Link>
       </SectionContainer>
+
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

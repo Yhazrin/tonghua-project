@@ -18,12 +18,12 @@ const NAV_ITEMS = [
 
 export default function MobileNav() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useReducedMotion();
   const location = useLocation();
   const navigate = useNavigate();
   const { mobileNavOpen, setMobileNavOpen, menuTriggerRef } = useUIStore();
   const { user, isAuthenticated, logout } = useAuthStore();
   const [_userMenuOpen, setUserMenuOpen] = useState(false);
-  const prefersReducedMotion = useReducedMotion();
 
   // ref for the dialog container
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -76,7 +76,7 @@ export default function MobileNav() {
           id="mobile-navigation"
           role="dialog"
           aria-modal="true"
-          aria-label="Mobile navigation menu"
+          aria-label={t('nav.mobileMenu')}
         >
           <nav className="flex flex-col items-start px-8 gap-0">
             {NAV_ITEMS.map((item, index) => {

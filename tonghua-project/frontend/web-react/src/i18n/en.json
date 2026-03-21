@@ -11,7 +11,13 @@
     "login": "Login",
     "register": "Register",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "toggleMenu": "Toggle navigation menu",
+    "toggleLanguage": "Toggle language",
+    "userMenu": "User menu",
+    "mobileMenu": "Mobile navigation menu",
+    "userLabel": "User",
+    "skipToContent": "Skip to content"
   },
   "profile": {
     "title": "My Profile",
@@ -32,7 +38,11 @@
       "heading": "Where Little Hands Shape Big Ideas",
       "body": "Each campaign begins in a classroom, a community center, a shelter. We collect children's artwork — raw, honest, unfiltered — and transform it into sustainable fashion that funds their future.",
       "imageAlt": "Children creating art in a community workshop",
-      "caption": "Spring Campaign 2026 — Artwork Collection Phase"
+      "caption": "Spring Campaign 2026 — Artwork Collection Phase",
+      "alt": "Children creating art in a community workshop",
+      "body1": "Each campaign begins in a classroom, a community center, a shelter. We collect children's artwork — raw, honest, unfiltered — and transform it into sustainable fashion that funds their future.",
+      "body2": "Every garment in this collection begins the same way — with a child, a blank page, and the freedom to imagine. We partner with schools and community centres across twelve cities, running workshops where children draw their hopes for the world.",
+      "body3": "Our designers then translate these raw, honest artworks into patterns, prints, and embroideries — never altering the child's original vision. The result is clothing that carries real stories, not manufactured ones."
     },
     "artworks": {
       "sectionTitle": "Children's Gallery",
@@ -44,10 +54,15 @@
         "crayon": "Child's abstract crayon drawing",
         "pastel": "Child's pastel portrait",
         "ink": "Child's ink illustration"
-      }
+      },
+      "alt1": "Child's watercolor landscape",
+      "alt2": "Child's abstract crayon drawing",
+      "alt3": "Child's pastel portrait",
+      "alt4": "Child's ink illustration"
     },
     "pillars": {
       "traceable": "Traceable Supply Chain",
+      "traceableSupplyChain": "Traceable Supply Chain",
       "children": "Children Empowered",
       "reinvested": "Yuan Reinvested"
     },
@@ -61,11 +76,19 @@
       "donated": "Funds Raised",
       "products": "Products Sold"
     },
+    "location": "Shanghai, China",
+    "estYear": "Est. 2026",
+    "artworkAlt": "Artwork by {{childName}}",
     "cta": {
       "title": "Join the Movement",
       "description": "Whether you donate, shop, or share our story — every action counts.",
       "donate": "Make a Donation",
       "shop": "Shop Sustainably"
+    },
+    "quote": {
+      "body": "Every stitch carries a child's dream. Every garment is a chapter in a story that hasn't been written yet.",
+      "author": "Chen Wei",
+      "role": "Founder, VICOO"
     }
   },
   "about": {
@@ -151,13 +174,29 @@
     },
     "pagination": {
       "prev": "Prev",
-      "next": "Next"
+      "next": "Next",
+      "ariaLabel": "Pagination"
     },
     "empty": "No campaigns found matching your criteria.",
     "empty.title": "No campaigns found in this category.",
     "empty.subtitle": "Check back soon.",
     "goalReached": "Goal Reached",
-    "funded": "{{percent}}% funded"
+    "funded": "{{percent}}% funded",
+    "emptyState": {
+      "title": "No campaigns found in this category.",
+      "subtitle": "Check back soon."
+    },
+    "campaign": "Campaign",
+    "about": "About This Campaign",
+    "artworks": "Artworks",
+    "backToAll": "to all campaigns",
+    "quote": "I drew a dress that makes rain sounds when you walk. That way, everyone knows you're coming.",
+    "quoteAuthor": "Mei, age 8",
+    "quoteRole": "Guizhou",
+    "fundingPercent": "{{percent}}%",
+    "featuredChild": {
+      "ageLabel": "{{name}}, age {{age}}"
+    }
   },
   "stories": {
     "hero": {
@@ -166,6 +205,7 @@
     },
     "readMore": "Read Full Story",
     "readTime": "min read",
+    "readTimeWithMinutes": "{{minutes}} min read",
     "categories": {
       "all": "All",
       "impact": "Impact",
@@ -174,6 +214,7 @@
       "education": "Education"
     },
     "newsletter": {
+      "ariaLabel": "Newsletter subscription",
       "title": "Stay in the Loop",
       "subtitle": "Get monthly dispatches on campaigns, stories, and the impact your support creates.",
       "hook": "Get stories of hope delivered to your inbox",
@@ -185,6 +226,11 @@
       "title": "No stories here yet",
       "body": "Every great publication has blank pages waiting to be filled. Try another category — there are stories waiting to be discovered.",
       "browseAll": "Browse All Stories"
+    },
+    "quote": {
+      "text": "Every brushstroke a child makes is a window into a world they imagine. Our job is to make that world visible.",
+      "author": "Chen Wei",
+      "role": "Founder, VICOO"
     }
   },
   "donate": {
@@ -211,7 +257,9 @@
         "minAmount": "Minimum donation is ¥{{min}}",
         "maxAmount": "Maximum donation is ¥{{max}}"
       },
-      "amountRange": "Range: ¥{{min}} – ¥{{max}}"
+      "amountRange": "Range: ¥{{min}} – ¥{{max}}",
+      "error": "Donation failed. Please try again.",
+      "success": "Thank you for your donation!"
     },
     "tiers": {
       "seedling": {
@@ -242,6 +290,8 @@
     },
     "impact": {
       "title": "Where Your Money Goes",
+      "fundsRaised": "Funds Raised",
+      "childrenHelped": "Children Helped",
       "artSupplies": "Art Supplies & Workshops",
       "artSuppliesDesc": "Paints, brushes, canvases, and skilled workshop facilitators.",
       "production": "Sustainable Production",
@@ -263,7 +313,12 @@
         "verified": "Verified",
         "transparent": "Transparent",
         "impactReported": "Impact-Reported"
-      }
+      },
+      "trustIndicators": "Trust Indicators",
+      "financialReport": "FINANCIAL REPORT",
+      "pdfSize": "PDF · 2.4 MB",
+      "quote": "Transparency is not a feature. It is a responsibility.",
+      "quoteAuthor": "Annual Report 2025"
     },
     "stories": {
       "title": "Your Donations at Work",
@@ -319,6 +374,18 @@
       "soldOut": "Sold Out",
       "lowStock": "Only {{count}} left"
     },
+    "sustainabilityTiers": {
+      "exceptional": "Exceptional",
+      "excellent": "Excellent",
+      "good": "Good"
+    },
+    "product": {
+      "artworkBy": "Artwork by {{name}}, age {{age}}",
+      "campaign": "{{campaign}} campaign"
+    },
+    "notifyMe": "Notify Me",
+    "notifyMeSuccess": "We will let you know when this is back.",
+    "notifyMePlaceholder": "your@email.com",
     "detail": {
       "addToCart": "Add to Cart",
       "added": "Added to Cart",
@@ -326,7 +393,12 @@
       "sustainability": "Sustainability Score",
       "artwork": "Based on artwork by",
       "size": "Size",
-      "quantity": "Quantity"
+      "quantity": "Quantity",
+      "origin": "Guizhou Province, November 2025",
+      "decreaseQuantity": "Decrease quantity",
+      "increaseQuantity": "Increase quantity",
+      "carbonFootprint": "Total carbon footprint: {{value}} kg CO₂e · Offset via verified programs",
+      "viewImage": "View image {{number}}"
     },
     "sort": {
       "label": "Sort by",
@@ -336,13 +408,34 @@
       "sustainability": "Sustainability"
     },
     "results": "{{count}} products",
-    "empty": "No products found in this category."
+    "empty": "No products found in this category.",
+    "collection": "Collection",
+    "sustainability": {
+      "materials": "Certified Materials",
+      "materialsDesc": "All fabrics are GOTS-certified organic cotton or recycled polyester.",
+      "production": "Ethical Production",
+      "productionDesc": "Fair wages, safe conditions, full supply chain transparency.",
+      "carbon": "Carbon Measured",
+      "carbonDesc": "Every product's carbon footprint is calculated and offset."
+    },
+    "behind": {
+      "title": "Behind the Collection",
+      "caption": "A Saturday morning workshop in Chengdu, where children paint the dreams that will become our next collection.",
+      "alt": "Children creating artwork in a VICOO workshop",
+      "body1": "Every garment in this collection begins the same way — with a child, a blank page, and the freedom to imagine. We partner with schools and community centres across twelve cities, running workshops where children draw their hopes for the world.",
+      "body2": "Our designers then translate these raw, honest artworks into patterns, prints, and embroideries — never altering the child's original vision. The result is clothing that carries real stories, not manufactured ones.",
+      "quote": "I drew the ocean because I want it to stay blue forever.",
+      "quoteAuthor": "Xiao Lin",
+      "quoteRole": "Age 8, Ocean Dreams campaign"
+    }
   },
   "traceability": {
     "hero": {
       "title": "Traceability",
       "subtitle": "From the child's hand that drew the design to the artisan who stitched it — follow every step of the journey."
     },
+    "subtitle": "Full Journey",
+    "journeySubtitle": "A verifiable, step-by-step record from raw material to finished garment.",
     "stages": {
       "artwork": "Artwork Creation",
       "design": "Design Adaptation",
@@ -353,6 +446,12 @@
     },
     "verified": "Verified",
     "carbon": "Carbon Footprint",
+    "carbonLabel": "Carbon Footprint",
+    "total": "Total",
+    "noRecords": "No supply chain records available.",
+    "kgCO2": "{{value}} kg CO2",
+    "carbonValue": "5.3 kg CO2",
+    "offsetDesc": "Offset through verified reforestation project in Yunnan Province.",
     "lookup": {
       "title": "Trace Your Product",
       "subtitle": "Enter an order number or product ID to follow its complete journey from creation to delivery.",
@@ -367,6 +466,15 @@
       "inProgress": "In Progress",
       "pending": "Pending"
     },
+    "timeline": {
+      "location": "Location",
+      "partner": "Partner",
+      "date": "Date",
+      "locationLabel": "Location:",
+      "partnerLabel": "Partner:",
+      "dateLabel": "Date:"
+    },
+    "searching": "Tracing supply chain…",
     "carbon": {
       "title": "Carbon Footprint Comparison",
       "subtitle": "Our commitment to sustainability means measuring, reducing, and offsetting every gram of emissions.",
@@ -378,8 +486,30 @@
     },
     "certifications": {
       "title": "Certifications and Standards",
-      "subtitle": "Every claim we make is backed by independent third-party verification."
+      "subtitle": "Every claim we make is backed by independent third-party verification.",
+      "gots": "GOTS Certified Organic",
+      "fairTrade": "Fair Trade Verified",
+      "carbonNeutral": "Carbon Neutral",
+      "childSafe": "Child-Safe Production",
+      "gotsDesc": "Global Organic Textile Standard verified organic fibers and responsible processing.",
+      "fairTradeDesc": "Living wages, safe conditions, and ethical treatment for every worker.",
+      "carbonNeutralDesc": "Operations offset through verified reforestation and renewable energy.",
+      "childSafeDesc": "Full compliance with child protection regulations and consent protocols."
     },
+    "howItWorks": {
+      "title": "How Traceability Works",
+      "record": "Record",
+      "recordDesc": "Every step in the supply chain is documented with photos, dates, locations, and partner verification.",
+      "verify": "Verify",
+      "verifyDesc": "Third-party auditors verify each record. Unverified steps are flagged transparently.",
+      "publish": "Publish",
+      "publishDesc": "The complete journey is published on our platform for every customer to inspect."
+    },
+    "featuredTitle": "Product Journey",
+    "featuredProduct": "Dreamscape Tee",
+    "quote": "If you can trace it, you can trust it. Every stitch tells a story worth knowing.",
+    "quoteAuthor": "Supply Chain Manifesto",
+    "quoteRole": "Tonghua Public Welfare, 2025",
     "cta": {
       "label": "Shop with Confidence",
       "headline": "Know what you wear. Trust what you buy.",
@@ -432,7 +562,7 @@
         "other": "Other"
       },
       "message": "Your Message",
-      "characterCount": "{count} / {max} characters",
+      "characterCount": "{{count}} / {{max}} characters",
       "requiredField": "This field is required",
       "invalidEmail": "Please enter a valid email address",
       "submit": "Send Message",
@@ -441,11 +571,16 @@
       "success": "Thank you for reaching out. We'll get back to you within 24 hours.",
       "error": "Something went wrong. Please try again."
     },
+    "formTitle": "Write to Us",
+    "contactTitle": "Get in Touch",
     "info": {
       "title": "Other Ways to Reach Us",
       "email": "hello@tonghua.org",
       "wechat": "TonghuaOfficial",
-      "address": "Shanghai, China"
+      "address": "Shanghai, China",
+      "emailLabel": "Email",
+      "wechatLabel": "WeChat",
+      "locationLabel": "Location"
     },
     "cards": {
       "email": {
@@ -460,6 +595,12 @@
         "title": "Response Time",
         "description": "Average reply time is under 12 hours. Urgent matters are prioritized."
       }
+    },
+    "officeCaption": "Our Shanghai office",
+    "pullQuote": {
+      "quote": "Every question is an invitation to understand our mission more deeply — and every answer is a chance to weave another thread of trust.",
+      "author": "VICOO Editorial",
+      "role": "Community Engagement"
     }
   },
   "login": {
@@ -496,6 +637,7 @@
   "notFound": {
     "title": "Page Not Found",
     "subtitle": "This chapter seems to be missing from our publication.",
+    "body": "The page you are looking for may have been moved, renamed, or no longer exists. Here are some places to start.",
     "cta": "Return to Table of Contents"
   },
   "footer": {
@@ -521,24 +663,36 @@
     "newsletter": {
       "title": "Newsletter",
       "description": "Quarterly dispatches from the editor's desk. No spam, only stories.",
-      "subscribe": "Subscribe"
+      "subscribe": "Subscribe",
+      "body": "Quarterly dispatches from the editor's desk. No spam, only stories.",
+      "placeholder": "your@email.com",
+      "ariaLabel": "Email address for newsletter"
     },
     "brand": {
       "description": "Vision In Creative Opportunity"
     },
-    "builtWith": "Built with care"
+    "brandTagline": "Vision In Creative Opportunity",
+    "location": "Shanghai, China",
+    "builtWith": "Built with care",
+    "copyrightTonghua": "© 2026 Tonghua Public Welfare. All rights reserved."
   },
   "artwork": {
+    "card": {
+      "age": "Age {{age}}",
+      "votes": "{{count}} votes"
+    },
     "detail": {
       "heading": "Artwork",
       "artist": "Artist",
+      "artistInfo": "{{name}}, age {{age}}",
       "vote": "Vote for this Artwork",
       "votes": "Votes",
       "tags": "Tags"
     },
     "loading": "Loading...",
     "notFound": "Artwork not found",
-    "backToStories": "Back to Stories"
+    "backToStories": "Back to Stories",
+    "loadError": "Failed to load artwork"
   },
   "common": {
     "loading": "Loading...",
@@ -548,6 +702,7 @@
     "next": "Next",
     "previous": "Previous",
     "close": "Close",
+    "dismiss": "Dismiss",
     "search": "Search",
     "filter": "Filter",
     "sort": "Sort",
@@ -559,18 +714,160 @@
     },
     "emailAriaLabel": "Email address",
     "emailPlaceholder": "your@email.com",
-    "allRightsReserved": "All rights reserved."
+    "allRightsReserved": "All rights reserved.",
+    "email": "Email",
+    "send": "Send",
+    "currency": {
+      "cny": "¥"
+    }
   },
   "error": {
     "somethingWentWrong": "Something went wrong",
     "weHitASnag": "We hit a snag",
     "unexpectedError": "The page encountered an unexpected error. Please try refreshing.",
     "tryAgain": "Try again",
-    "goHome": "Home"
+    "goHome": "Home",
+    "title": "Something went wrong",
+    "subtitle": "We hit a snag",
+    "body": "The page encountered an unexpected error. Our team has been notified. You can try again or return to the home page.",
+    "retry": "Try again",
+    "home": "Home"
   },
   "campaigns.detail.about": "About This Campaign",
   "campaigns.detail.backToAll": "to all campaigns",
   "traceability.location": "Location",
   "traceability.partner": "Partner",
-  "traceability.date": "Date"
+  "traceability.date": "Date",
+  "hero": {
+    "scroll": "Scroll",
+    "brandTagline": "Vision In Creative Opportunity"
+  },
+  "legal": {
+    "privacy": {
+      "overline": "Legal",
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: March 2026",
+      "sections": {
+        "overview": {
+          "title": "Overview",
+          "body": "Tonghua Public Welfare values your privacy. This policy explains what information we collect, why we collect it, and how we protect it. We are committed to transparency in all data practices and comply with applicable data protection regulations, including the Personal Information Protection Law of the People's Republic of China."
+        },
+        "collection": {
+          "title": "Information We Collect",
+          "body": "We collect information you provide directly — such as your name, email address, and payment details when you donate, shop, or create an account. We also collect usage data including pages visited, time spent, and device information to improve our platform. For children participating in our programs, we collect only the minimum information necessary with explicit parental consent."
+        },
+        "usage": {
+          "title": "How We Use Your Information",
+          "body": "Your information is used to process donations and orders, communicate updates about campaigns and stories you care about, improve our platform and services, and ensure the safety of children participating in our programs. We never use your data for purposes beyond what is described in this policy."
+        },
+        "sharing": {
+          "title": "Information Sharing",
+          "body": "We do not sell your personal information. We share data only with trusted service providers who help us operate our platform — payment processors, shipping partners, and analytics tools — under strict data processing agreements. We may disclose information when required by law or to protect the safety of our users."
+        },
+        "children": {
+          "title": "Children's Privacy",
+          "body": "Protecting children's privacy is our highest priority. We comply with all applicable children's privacy laws. For participants under 14, we require verifiable parental consent before collecting any personal information. Children's data is encrypted, access-controlled, and never shared with third parties except as required for program participation."
+        },
+        "cookies": {
+          "title": "Cookies and Tracking",
+          "body": "We use essential cookies to keep our platform functioning and analytical cookies to understand how our site is used. You can manage cookie preferences through your browser settings. We do not use advertising trackers or third-party cookies for marketing purposes."
+        },
+        "security": {
+          "title": "Data Security",
+          "body": "We implement industry-standard security measures including AES-256 encryption for sensitive data, TLS 1.3 for data in transit, regular security audits, and strict access controls. Children's data receives additional protections including encrypted storage and audit logging."
+        },
+        "rights": {
+          "title": "Your Rights",
+          "body": "You have the right to access, correct, or delete your personal information at any time. You may also request a copy of your data or withdraw consent for data processing. To exercise these rights, contact us at privacy@tonghua.org. We respond to all requests within 15 business days."
+        },
+        "contact": {
+          "title": "Contact Us",
+          "body": "If you have questions about this privacy policy or how we handle your data, please reach out to our data protection team at privacy@tonghua.org or write to us at our Shanghai office. We are committed to addressing your concerns promptly and transparently."
+        }
+      }
+    },
+    "terms": {
+      "overline": "Legal",
+      "title": "Terms of Service",
+      "lastUpdated": "Last updated: March 2026",
+      "sections": {
+        "acceptance": {
+          "title": "Acceptance of Terms",
+          "body": "By accessing and using the Tonghua Public Welfare platform, you agree to be bound by these terms of service. If you do not agree to these terms, please do not use our platform. These terms apply to all visitors, users, and others who access our services."
+        },
+        "services": {
+          "title": "Description of Services",
+          "body": "Tonghua Public Welfare provides a platform connecting children's artwork with sustainable fashion. Our services include artwork collection campaigns, donation processing, an online shop for sustainable merchandise, and supply chain traceability tools. We reserve the right to modify or discontinue any service with reasonable notice."
+        },
+        "accounts": {
+          "title": "User Accounts",
+          "body": "When you create an account, you must provide accurate and complete information. You are responsible for maintaining the security of your account credentials. You must notify us immediately of any unauthorized access. Accounts for users under 14 require parental or guardian consent and supervision."
+        },
+        "donations": {
+          "title": "Donations",
+          "body": "All donations are processed securely through verified payment channels. Donations are non-refundable except where required by law. We publish quarterly financial reports detailing how donations are used. Tax-deductible receipts are provided upon request."
+        },
+        "purchases": {
+          "title": "Purchases and Returns",
+          "body": "Products purchased through our shop are subject to our return and exchange policy. Items may be returned within 30 days of delivery in original condition. Shipping costs for returns are the responsibility of the buyer unless the item is defective."
+        },
+        "ip": {
+          "title": "Intellectual Property",
+          "body": "Children's artwork remains the intellectual property of the child and their family. By submitting artwork, families grant Tonghua a license to reproduce the artwork on merchandise for charitable purposes. All platform content, branding, and design elements are the property of Tonghua Public Welfare."
+        },
+        "liability": {
+          "title": "Limitation of Liability",
+          "body": "Tonghua Public Welfare provides the platform as-is and makes no warranties regarding uninterrupted access. We are not liable for indirect, incidental, or consequential damages. Our total liability shall not exceed the amount of your most recent donation or purchase."
+        },
+        "changes": {
+          "title": "Changes to Terms",
+          "body": "We may update these terms from time to time. Significant changes will be communicated via email and a notice on our platform. Continued use of the platform after changes constitutes acceptance of the updated terms."
+        },
+        "governing": {
+          "title": "Governing Law",
+          "body": "These terms are governed by the laws of the People's Republic of China. Any disputes arising from these terms will be resolved through negotiation, and if necessary, arbitration in Shanghai in accordance with applicable Chinese law."
+        }
+      }
+    },
+    "children": {
+      "overline": "Legal",
+      "title": "Children's Safety",
+      "intro": "Tonghua is committed to protecting the privacy and safety of every child who participates in our programs. This policy outlines how we collect, use, and safeguard children's personal information in compliance with applicable laws and regulations.",
+      "lastUpdated": "Last updated: March 2026",
+      "sections": {
+        "commitment": {
+          "title": "Our Commitment",
+          "body": "The safety and wellbeing of children is the foundation of everything we do. We adhere to the Personal Information Protection Law of the People's Republic of China, the United Nations Convention on the Rights of the Child, and international best practices for child protection in digital environments."
+        },
+        "collection": {
+          "title": "Information Collection",
+          "body": "We collect only the minimum information necessary for program participation: the child's first name (or pseudonym), age, and artwork. We never collect home addresses, school names, or precise location data from children. All collection is done with full parental awareness and consent."
+        },
+        "parentalConsent": {
+          "title": "Parental Consent",
+          "body": "Before any child participates in our programs, we obtain verifiable consent from a parent or legal guardian. Consent forms clearly explain what information is collected, how it will be used, and the parent's right to withdraw consent at any time. We verify consent through a two-step process."
+        },
+        "dataUse": {
+          "title": "How Children's Data Is Used",
+          "body": "Children's information is used solely for program purposes: displaying artwork on our platform with the child's first name and age, creating merchandise based on their designs, and generating anonymized impact reports. Children's data is never used for marketing, profiling, or commercial purposes beyond the program."
+        },
+        "storage": {
+          "title": "Data Storage and Protection",
+          "body": "All children's data is stored in encrypted databases with strict access controls. Access is limited to authorized staff who have undergone background checks and child protection training. We conduct regular security audits and maintain detailed access logs for all children's data."
+        },
+        "thirdParty": {
+          "title": "Third-Party Sharing",
+          "body": "Children's personal information is never shared with third parties for any commercial purpose. The only exceptions are service providers essential to program operations (such as printing merchandise) — all operating under strict data processing agreements with no right to retain or further process children's data."
+        },
+        "rights": {
+          "title": "Children's and Parents' Rights",
+          "body": "Parents and guardians have the right to review, correct, or delete their child's information at any time. They may withdraw consent for participation, request removal of their child's artwork from the platform, and obtain a copy of all data we hold about their child. Requests are processed within 5 business days."
+        },
+        "contact": {
+          "title": "Contact Our Child Safety Team",
+          "body": "If you have any concerns about how we handle children's information, please contact our dedicated child safety team at safety@tonghua.org. All inquiries are treated with the highest priority and confidentiality. We also welcome reports from anyone who observes potential child safety issues on our platform."
+        }
+      }
+    }
+  }
 }

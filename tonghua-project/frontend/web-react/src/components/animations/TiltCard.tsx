@@ -1,6 +1,7 @@
 import { useRef, type ReactNode, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface TiltCardProps {
   children: ReactNode;
@@ -73,7 +74,11 @@ export default function TiltCard({
     mouseY.set(0);
   }, [mouseX, mouseY]);
 
+<<<<<<< HEAD
   // Static presentation for touch devices or reduced-motion users
+=======
+  // Static presentation for touch devices or reduced motion preference
+>>>>>>> origin/main
   if (isTouchDevice || prefersReducedMotion) {
     return (
       <div
@@ -113,7 +118,7 @@ export default function TiltCard({
           y: shadowY,
           filter: 'blur(28px)',
           opacity: shadowIntensity,
-          background: 'radial-gradient(circle at 50% 50%, rgba(20, 12, 6, 0.45) 0%, transparent 65%)',
+          background: 'radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--color-ink) 45%, transparent) 0%, transparent 65%)',
           transform: 'translateZ(-50px)',
           willChange: 'transform',
         }}
