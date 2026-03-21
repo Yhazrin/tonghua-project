@@ -140,7 +140,7 @@ export default function CampaignDetail() {
                 {/* Progress */}
                 <div className="border border-warm-gray/30 p-6">
                   <div className="flex justify-between mb-3">
-                    <span className="font-display text-3xl font-bold text-ink">{progress}%</span>
+                    <span className="font-display text-h1 font-bold text-ink">{progress}%</span>
                     <span className="font-body text-caption text-sepia-mid self-end">
                       {t('campaigns.detail.progress')}
                     </span>
@@ -156,13 +156,13 @@ export default function CampaignDetail() {
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
-                      <p className="font-display text-xl text-ink">{campaign.participantCount}</p>
+                      <p className="font-display text-h4 text-ink">{campaign.participantCount}</p>
                       <p className="font-body text-overline text-sepia-mid tracking-wider uppercase">
                         {t('campaigns.detail.participants')}
                       </p>
                     </div>
                     <div>
-                      <p className="font-display text-xl text-ink">{campaign.artworkCount}</p>
+                      <p className="font-display text-h4 text-ink">{campaign.artworkCount}</p>
                       <p className="font-body text-overline text-sepia-mid tracking-wider uppercase">
                         {t('campaigns.artworks')}
                       </p>

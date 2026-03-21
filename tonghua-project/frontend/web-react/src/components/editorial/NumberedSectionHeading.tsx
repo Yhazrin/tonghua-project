@@ -55,7 +55,7 @@ export default function NumberedSectionHeading({
           initial={prefersReducedMotion ? false : { opacity: 0, y: 15 }}
           animate={animateState ? { opacity: 1, y: 0 } : {}}
           transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.25 }}
-          className={`font-body text-body-sm md:text-base text-ink-faded mt-4 leading-relaxed ${centered ? 'mx-auto' : 'max-w-lg'}`}
+          className={`font-body text-body-sm md:text-body text-ink-faded mt-4 leading-relaxed ${centered ? 'mx-auto' : 'max-w-lg'}`}
         >
           {subtitle}
         </motion.p>

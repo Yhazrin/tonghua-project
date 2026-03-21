@@ -294,7 +294,7 @@ export default function Shop() {
                 <span className="font-body text-overline tracking-[0.2em] uppercase text-sepia-mid">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <h4 className="font-display text-lg font-bold text-ink mt-2 mb-2">
+                <h4 className="font-display text-body-lg font-bold text-ink mt-2 mb-2">
                   {t(item.titleKey)}
                 </h4>
                 <p className="font-body text-caption text-ink-faded leading-relaxed">

@@ -415,10 +415,10 @@ export default function Campaigns() {
             transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
             className="text-center section-spacing"
           >
-            <span className="font-display text-7xl text-warm-gray/30 leading-none block mb-6 select-none">
+            <span className="font-display text-display text-warm-gray/30 leading-none block mb-6 select-none">
               &ldquo;
             </span>
-            <p className="font-display text-lg text-ink-faded mb-2">
+            <p className="font-display text-body-lg text-ink-faded mb-2">
               {t('campaigns.emptyState.title')}
             </p>
             <p className="font-body text-body-sm text-sepia-mid">

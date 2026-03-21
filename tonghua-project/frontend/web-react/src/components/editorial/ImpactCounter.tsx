@@ -88,7 +88,7 @@ export default function ImpactCounter({
       transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1] }}
       className={`text-center ${className}`}
     >
-      <div className="font-display text-5xl md:text-6xl font-bold text-ink leading-none tracking-tight">
+      <div className="font-display text-stat md:text-display font-bold text-ink leading-none tracking-tight">
         {prefix}
         <AnimatedNumber value={value} duration={duration} reducedMotion={prefersReducedMotion} />
         {suffix}

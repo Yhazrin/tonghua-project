@@ -184,7 +184,7 @@ function DonationStoryCard({
         showCornerAccents={true}
       />
       <div className="mt-4">
-        <span className="font-display text-lg font-bold text-rust">
+        <span className="font-display text-body-lg font-bold text-rust">
           {amount}
         </span>
         <p className="font-body text-body-sm text-ink mt-1 leading-relaxed">
@@ -473,7 +473,7 @@ export default function Donate() {
                     <span className="font-body text-caption text-sepia-mid tracking-[0.15em]">
                       {t('donate.transparency.financialReport')}
                     </span>
-                    <h4 className="font-display text-lg font-bold text-ink mt-2">
+                    <h4 className="font-display text-body-lg font-bold text-ink mt-2">
                       {quarter}
                     </h4>
                     <span className="font-body text-caption text-sepia-mid mt-2 block">

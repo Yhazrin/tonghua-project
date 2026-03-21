@@ -86,7 +86,7 @@ export default function Header() {
         {/* Logo */}
         <Link
           to="/"
-          className="font-display text-ink text-body-lg md:text-xl font-bold tracking-tight cursor-pointer"
+          className="font-display text-ink text-body-lg md:text-h4 font-bold tracking-tight cursor-pointer"
           onClick={() => setMobileNavOpen(false)}
         >
           VICOO

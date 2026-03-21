@@ -515,7 +515,7 @@ export default function Stories() {
             />
 
             {/* Emotional hook */}
-            <p className="font-display text-lg md:text-xl italic text-ink-faded mt-4 mb-6">
+            <p className="font-display text-body-lg md:text-h4 italic text-ink-faded mt-4 mb-6">
               {t('stories.newsletter.hook')}
             </p>
 
