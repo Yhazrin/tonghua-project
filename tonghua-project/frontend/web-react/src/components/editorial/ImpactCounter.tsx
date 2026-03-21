@@ -65,7 +65,7 @@ function AnimatedNumber({
     return () => cancelAnimationFrame(animationFrame);
   }, [isInView, value, duration, reducedMotion]);
 
-  return <span ref={ref} role="status" aria-label={`${value.toLocaleString()}`}><span ref={spanRef}>{displayValue.toLocaleString()}</span></span>;
+  return <span ref={ref}><span ref={spanRef}>{displayValue.toLocaleString()}</span></span>;
 }
 
 export default function ImpactCounter({
@@ -80,6 +80,8 @@ export default function ImpactCounter({
 
   return (
     <motion.div
+      role="status"
+      aria-label={`${prefix}${value.toLocaleString()}${suffix} ${label}`}
       initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
       whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={prefersReducedMotion ? undefined : { once: true, margin: '-80px' }}

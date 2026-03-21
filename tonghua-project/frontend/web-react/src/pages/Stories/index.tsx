@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import PageWrapper from '@/components/layout/PageWrapper';
 import SectionContainer from '@/components/layout/SectionContainer';
 import EditorialHero from '@/components/editorial/EditorialHero';
@@ -95,58 +96,71 @@ const MOCK_STORIES: StoryItem[] = [
 
 // Decorative SVG ornament for the newsletter section
 function EditorialOrnament({ className = '' }: { className?: string }) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   return (
     <svg
       viewBox="0 0 200 24"
       className={`w-32 mx-auto text-rust ${className}`}
       aria-hidden="true"
     >
-      <motion.line
-        x1="0" y1="12" x2="70" y2="12"
-        stroke="currentColor"
-        strokeWidth="0.5"
-        initial={{ pathLength: 0 }}
-        whileInView={{ pathLength: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: 'easeInOut' }}
-      />
-      <motion.circle
-        cx="85" cy="12" r="3"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="0.75"
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.5, type: 'spring', stiffness: 300 }}
-      />
-      <motion.circle
-        cx="100" cy="12" r="1.5"
-        fill="currentColor"
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.7, type: 'spring', stiffness: 300 }}
-      />
-      <motion.circle
-        cx="115" cy="12" r="3"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="0.75"
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.9, type: 'spring', stiffness: 300 }}
-      />
-      <motion.line
-        x1="130" y1="12" x2="200" y2="12"
-        stroke="currentColor"
-        strokeWidth="0.5"
-        initial={{ pathLength: 0 }}
-        whileInView={{ pathLength: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: 'easeInOut', delay: 0.3 }}
-      />
+      {prefersReducedMotion ? (
+        <>
+          <line x1="0" y1="12" x2="70" y2="12" stroke="currentColor" strokeWidth="0.5" />
+          <circle cx="85" cy="12" r="3" fill="none" stroke="currentColor" strokeWidth="0.75" />
+          <circle cx="100" cy="12" r="1.5" fill="currentColor" />
+          <circle cx="115" cy="12" r="3" fill="none" stroke="currentColor" strokeWidth="0.75" />
+          <line x1="130" y1="12" x2="200" y2="12" stroke="currentColor" strokeWidth="0.5" />
+        </>
+      ) : (
+        <>
+          <motion.line
+            x1="0" y1="12" x2="70" y2="12"
+            stroke="currentColor"
+            strokeWidth="0.5"
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: 'easeInOut' }}
+          />
+          <motion.circle
+            cx="85" cy="12" r="3"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="0.75"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.5, type: 'spring', stiffness: 300 }}
+          />
+          <motion.circle
+            cx="100" cy="12" r="1.5"
+            fill="currentColor"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.7, type: 'spring', stiffness: 300 }}
+          />
+          <motion.circle
+            cx="115" cy="12" r="3"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="0.75"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.9, type: 'spring', stiffness: 300 }}
+          />
+          <motion.line
+            x1="130" y1="12" x2="200" y2="12"
+            stroke="currentColor"
+            strokeWidth="0.5"
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: 'easeInOut', delay: 0.3 }}
+          />
+        </>
+      )}
     </svg>
   );
 }
@@ -155,16 +169,21 @@ function EditorialOrnament({ className = '' }: { className?: string }) {
 function ReadingProgressBar({ readTimeMinutes }: { readTimeMinutes: number }) {
   const maxReadTime = 20;
   const widthPercent = Math.min((readTimeMinutes / maxReadTime) * 100, 100);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <div className="mt-4 h-[2px] w-full bg-warm-gray/20 overflow-hidden">
-      <motion.div
-        className="h-full bg-rust/60"
-        initial={{ width: 0 }}
-        whileInView={{ width: `${widthPercent}%` }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.3, ease: [0, 0, 0.2, 1] }}
-      />
+      {prefersReducedMotion ? (
+        <div className="h-full bg-rust/60" style={{ width: `${widthPercent}%` }} />
+      ) : (
+        <motion.div
+          className="h-full bg-rust/60"
+          initial={{ width: 0 }}
+          whileInView={{ width: `${widthPercent}%` }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0, 0, 0.2, 1] }}
+        />
+      )}
     </div>
   );
 }
@@ -172,13 +191,14 @@ function ReadingProgressBar({ readTimeMinutes }: { readTimeMinutes: number }) {
 // Beautiful empty state with SVG illustration
 function EmptyState({ onBrowseAll }: { onBrowseAll: () => void }) {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+      exit={prefersReducedMotion ? {} : { opacity: 0, y: -20 }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1] }}
       className="py-20 md:py-32 flex flex-col items-center text-center"
     >
       {/* Decorative SVG illustration */}
@@ -187,50 +207,57 @@ function EmptyState({ onBrowseAll }: { onBrowseAll: () => void }) {
         className="w-24 h-24 mb-8 text-warm-gray"
         aria-hidden="true"
       >
-        {/* Open book */}
-        <motion.path
-          d="M60 85 C55 85 30 82 20 78 L20 35 C30 39 55 42 60 42 C65 42 90 39 100 35 L100 78 C90 82 65 85 60 85Z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 1.5, ease: 'easeInOut' }}
-        />
-        {/* Spine */}
-        <motion.line
-          x1="60" y1="42" x2="60" y2="85"
-          stroke="currentColor"
-          strokeWidth="1"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        />
-        {/* Blank page lines left */}
-        <motion.line x1="30" y1="52" x2="52" y2="52" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
-          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1 }} />
-        <motion.line x1="30" y1="58" x2="50" y2="58" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
-          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1.1 }} />
-        <motion.line x1="30" y1="64" x2="48" y2="64" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
-          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1.2 }} />
-        {/* Blank page lines right */}
-        <motion.line x1="68" y1="52" x2="90" y2="52" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
-          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1 }} />
-        <motion.line x1="68" y1="58" x2="88" y2="58" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
-          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1.1 }} />
-        <motion.line x1="68" y1="64" x2="86" y2="64" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
-          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1.2 }} />
-        {/* Small pencil */}
-        <motion.g
-          initial={{ opacity: 0, rotate: -20 }}
-          animate={{ opacity: 1, rotate: 0 }}
-          transition={{ duration: 0.6, delay: 1.4, type: 'spring', stiffness: 200 }}
-          style={{ transformOrigin: '95px 30px' }}
-        >
-          <line x1="88" y1="38" x2="98" y2="22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          <polygon points="98,22 100,19 96,19" fill="currentColor" />
-        </motion.g>
+        {prefersReducedMotion ? (
+          <>
+            {/* Open book - static */}
+            <path
+              d="M60 85 C55 85 30 82 20 78 L20 35 C30 39 55 42 60 42 C65 42 90 39 100 35 L100 78 C90 82 65 85 60 85Z"
+              fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+            />
+            <line x1="60" y1="42" x2="60" y2="85" stroke="currentColor" strokeWidth="1" />
+            <line x1="30" y1="52" x2="52" y2="52" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+            <line x1="30" y1="58" x2="50" y2="58" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+            <line x1="30" y1="64" x2="48" y2="64" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+            <line x1="68" y1="52" x2="90" y2="52" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+            <line x1="68" y1="58" x2="88" y2="58" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+            <line x1="68" y1="64" x2="86" y2="64" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+            <g>
+              <line x1="88" y1="38" x2="98" y2="22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <polygon points="98,22 100,19 96,19" fill="currentColor" />
+            </g>
+          </>
+        ) : (
+          <>
+            {/* Open book */}
+            <motion.path
+              d="M60 85 C55 85 30 82 20 78 L20 35 C30 39 55 42 60 42 C65 42 90 39 100 35 L100 78 C90 82 65 85 60 85Z"
+              fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, ease: 'easeInOut' }}
+            />
+            <motion.line x1="60" y1="42" x2="60" y2="85" stroke="currentColor" strokeWidth="1"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.5 }} />
+            <motion.line x1="30" y1="52" x2="52" y2="52" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1 }} />
+            <motion.line x1="30" y1="58" x2="50" y2="58" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1.1 }} />
+            <motion.line x1="30" y1="64" x2="48" y2="64" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1.2 }} />
+            <motion.line x1="68" y1="52" x2="90" y2="52" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1 }} />
+            <motion.line x1="68" y1="58" x2="88" y2="58" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1.1 }} />
+            <motion.line x1="68" y1="64" x2="86" y2="64" stroke="currentColor" strokeWidth="0.5" opacity="0.4"
+              initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 1.2 }} />
+            <motion.g
+              initial={{ opacity: 0, rotate: -20 }} animate={{ opacity: 1, rotate: 0 }}
+              transition={{ duration: 0.6, delay: 1.4, type: 'spring', stiffness: 200 }}
+              style={{ transformOrigin: '95px 30px' }}
+            >
+              <line x1="88" y1="38" x2="98" y2="22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <polygon points="98,22 100,19 96,19" fill="currentColor" />
+            </motion.g>
+          </>
+        )}
       </svg>
 
       <h3 className="font-display text-h3 text-ink mb-3">
@@ -239,20 +266,30 @@ function EmptyState({ onBrowseAll }: { onBrowseAll: () => void }) {
       <p className="font-body text-sm text-sepia-mid max-w-sm leading-relaxed mb-8">
         {t('stories.empty.body')}
       </p>
-      <motion.button
-        onClick={onBrowseAll}
-        whileHover={{ y: -2 }}
-        whileTap={{ scale: 0.98 }}
-        className="font-body text-xs tracking-[0.15em] uppercase text-rust border-b border-rust/40 pb-1 hover:text-ink hover:border-ink/40 transition-colors"
-      >
-        {t('stories.empty.browseAll')}
-      </motion.button>
+      {prefersReducedMotion ? (
+        <button
+          onClick={onBrowseAll}
+          className="font-body text-xs tracking-[0.15em] uppercase text-rust border-b border-rust/40 pb-1 hover:text-ink hover:border-ink/40 transition-colors cursor-pointer"
+        >
+          {t('stories.empty.browseAll')}
+        </button>
+      ) : (
+        <motion.button
+          onClick={onBrowseAll}
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.98 }}
+          className="font-body text-xs tracking-[0.15em] uppercase text-rust border-b border-rust/40 pb-1 hover:text-ink hover:border-ink/40 transition-colors cursor-pointer"
+        >
+          {t('stories.empty.browseAll')}
+        </motion.button>
+      )}
     </motion.div>
   );
 }
 
 export default function Stories() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -308,10 +345,10 @@ export default function Stories() {
               key={cat}
               onClick={() => setActiveCategory(cat)}
               aria-pressed={activeCategory === cat}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              whileHover={{ y: -2 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+              animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -2 }}
               className={`
                 font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
                 ${activeCategory === cat
@@ -335,11 +372,15 @@ export default function Stories() {
                 </span>
               </span>
               {activeCategory === cat && (
-                <motion.span
-                  layoutId="story-category-indicator"
-                  className="absolute bottom-0 left-0 right-0 h-px bg-rust"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
+                prefersReducedMotion ? (
+                  <span className="absolute bottom-0 left-0 right-0 h-px bg-rust" />
+                ) : (
+                  <motion.span
+                    layoutId="story-category-indicator"
+                    className="absolute bottom-0 left-0 right-0 h-px bg-rust"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )
               )}
             </motion.button>
           ))}
@@ -350,10 +391,10 @@ export default function Stories() {
           {filtered.length > 0 ? (
             <motion.div
               key={activeCategory}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={prefersReducedMotion ? false : { opacity: 0 }}
+              animate={prefersReducedMotion ? {} : { opacity: 1 }}
+              exit={prefersReducedMotion ? {} : { opacity: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
               className="space-y-0"
             >
               {filtered.map((story, index) => {
@@ -368,10 +409,10 @@ export default function Stories() {
                     className="mb-16 md:mb-24"
                   >
                     <motion.article
-                      initial={{ opacity: 0, y: 50 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: '-100px' }}
-                      transition={{ duration: 0.8, ease: [0, 0, 0.2, 1] }}
+                      initial={prefersReducedMotion ? false : { opacity: 0, y: 50 }}
+                      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                      viewport={prefersReducedMotion ? undefined : { once: true, margin: '-100px' }}
+                      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0, 0, 0.2, 1] }}
                     >
                       <Link to={`/stories/${story.id}`} className="group block">
                         <div className={`grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center ${index % 2 === 1 ? '' : ''}`}>
@@ -473,12 +514,14 @@ export default function Stories() {
 
             <AnimatePresence mode="wait">
               {!isSubscribed ? (
-                <motion.div
+                <motion.form
                   key="form"
-                  initial={{ opacity: 1 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
+                  initial={prefersReducedMotion ? false : { opacity: 1 }}
+                  exit={prefersReducedMotion ? {} : { opacity: 0, y: -10 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
                   className="flex items-center gap-4 max-w-md mx-auto border-b border-warm-gray/40 pb-2"
+                  onSubmit={(e) => { e.preventDefault(); handleSubscribe(); }}
+                  aria-label={t('stories.newsletter.ariaLabel', 'Newsletter subscription')}
                 >
                   <VintageInput
                     type="email"
@@ -486,60 +529,82 @@ export default function Stories() {
                     className="flex-1"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') handleSubscribe();
-                    }}
                   />
                   <motion.button
-                    onClick={handleSubscribe}
-                    whileHover={{ y: -1 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="font-body text-xs tracking-[0.15em] uppercase text-rust hover:text-ink transition-colors flex-shrink-0"
+                    type="submit"
+                    whileHover={prefersReducedMotion ? undefined : { y: -1 }}
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
+                    className="font-body text-xs tracking-[0.15em] uppercase text-rust hover:text-ink transition-colors flex-shrink-0 cursor-pointer"
                   >
                     {t('stories.newsletter.subscribe')} &rarr;
                   </motion.button>
-                </motion.div>
+                </motion.form>
               ) : (
                 <motion.div
                   key="success"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.9 }}
+                  animate={prefersReducedMotion ? {} : { opacity: 1, scale: 1 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 20 }}
                   className="flex flex-col items-center gap-3 py-4"
                 >
                   {/* Animated checkmark */}
-                  <motion.svg
-                    viewBox="0 0 40 40"
-                    className="w-10 h-10 text-rust"
-                    aria-hidden="true"
-                  >
-                    <motion.circle
-                      cx="20"
-                      cy="20"
-                      r="18"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 0.6, ease: 'easeOut' }}
-                    />
-                    <motion.path
-                      d="M12 20 L18 26 L28 14"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 0.4, delay: 0.4, ease: 'easeOut' }}
-                    />
-                  </motion.svg>
+                  {prefersReducedMotion ? (
+                    <svg
+                      viewBox="0 0 40 40"
+                      className="w-10 h-10 text-rust"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="18"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M12 20 L18 26 L28 14"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ) : (
+                    <motion.svg
+                      viewBox="0 0 40 40"
+                      className="w-10 h-10 text-rust"
+                      aria-hidden="true"
+                    >
+                      <motion.circle
+                        cx="20"
+                        cy="20"
+                        r="18"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.6, ease: 'easeOut' }}
+                      />
+                      <motion.path
+                        d="M12 20 L18 26 L28 14"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.4, delay: 0.4, ease: 'easeOut' }}
+                      />
+                    </motion.svg>
+                  )}
                   <motion.p
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7, duration: 0.4 }}
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: 5 }}
+                    animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.7, duration: 0.4 }}
                     className="font-body text-sm text-ink-faded"
                   >
                     {t('stories.newsletter.success')}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
 
 interface EditorialCardProps {
@@ -30,6 +31,7 @@ export const EditorialCard = ({
 }: EditorialCardProps) => {
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   const hoverClasses = {
     lift: 'hover:-translate-y-1 hover:shadow-lg',
@@ -47,9 +49,9 @@ export const EditorialCard = ({
   return (
     <motion.article
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : {}}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
+      animate={prefersReducedMotion ? {} : (isVisible ? { opacity: 1, y: 0 } : {})}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         duration: 0.6,
         ease: [0, 0, 0.2, 1],
         delay: index * 0.08,
@@ -109,7 +111,7 @@ export const EditorialCard = ({
       {/* Content section */}
       <div className="p-5">
         {subtitle && (
-          <span className="font-mono text-[10px] text-rust tracking-[0.2em] uppercase mb-2 block">
+          <span className="font-body text-[10px] text-rust tracking-[0.2em] uppercase mb-2 block">
             {subtitle}
           </span>
         )}

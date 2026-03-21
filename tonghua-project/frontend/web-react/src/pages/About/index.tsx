@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import PageWrapper from '@/components/layout/PageWrapper';
 import SectionContainer from '@/components/layout/SectionContainer';
 import EditorialHero from '@/components/editorial/EditorialHero';
@@ -22,14 +23,15 @@ const TEAM_MEMBERS = [
 function TeamMemberCard({ member, index }: { member: { name: string; role: string; initials: string }; index: number }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.12 }}
-      whileHover={{ y: -4 }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.12 }}
+      whileHover={prefersReducedMotion ? undefined : { y: -4 }}
       className="group"
     >
       <div className="relative aspect-[3/4] overflow-hidden border-2 border-warm-gray/50 bg-aged-stock mb-4">
@@ -76,6 +78,7 @@ function TeamMemberCard({ member, index }: { member: { name: string; role: strin
 
 export default function About() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <PageWrapper>
@@ -150,11 +153,11 @@ export default function About() {
           {VALUES.map((key, i) => (
             <motion.article
               key={key}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
-              whileHover={{ y: -3 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true, margin: '-50px' }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: i * 0.12 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -3 }}
               className="border-t border-warm-gray/30 pt-6 cursor-default"
             >
               <h3 className="font-display text-h3 font-bold text-ink mb-3">

@@ -50,6 +50,27 @@ function ClockIcon() {
 }
 
 function CheckmarkIcon() {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
+  if (prefersReducedMotion) {
+    return (
+      <svg
+        aria-hidden="true"
+        className="w-12 h-12 text-rust"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.5}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    );
+  }
+
   return (
     <motion.svg
       aria-hidden="true"
@@ -75,6 +96,8 @@ function CheckmarkIcon() {
 }
 
 function ChevronIcon({ isOpen }: { isOpen: boolean }) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
   return (
     <motion.svg
       aria-hidden="true"
@@ -83,8 +106,9 @@ function ChevronIcon({ isOpen }: { isOpen: boolean }) {
       viewBox="0 0 24 24"
       stroke="currentColor"
       strokeWidth={1.5}
-      animate={{ rotate: isOpen ? 180 : 0 }}
-      transition={{ duration: 0.3, ease: [0, 0, 0.2, 1] }}
+      animate={prefersReducedMotion ? {} : { rotate: isOpen ? 180 : 0 }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, ease: [0, 0, 0.2, 1] }}
+      style={prefersReducedMotion ? { transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' } : undefined}
     >
       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
     </motion.svg>
@@ -132,19 +156,22 @@ function FAQItem({
   onToggle: () => void;
   index: number;
 }) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true, margin: '-40px' }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.08 }}
       className="border-b border-warm-gray/30"
     >
       <button
         type="button"
         onClick={onToggle}
-        className="w-full flex items-start justify-between gap-4 py-5 text-left group"
+        className="w-full flex items-start justify-between gap-4 py-5 text-left group cursor-pointer"
         aria-expanded={isOpen}
+        aria-controls={`faq-answer-${index}`}
       >
         <span className="font-display text-base md:text-lg font-semibold text-ink group-hover:text-rust transition-colors duration-200">
           {question}
@@ -155,11 +182,13 @@ function FAQItem({
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0, 0, 0.2, 1] }}
+            id={`faq-answer-${index}`}
+            initial={prefersReducedMotion ? false : { height: 0, opacity: 0 }}
+            animate={prefersReducedMotion ? {} : { height: 'auto', opacity: 1 }}
+            exit={prefersReducedMotion ? {} : { height: 0, opacity: 0 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.35, ease: [0, 0, 0.2, 1] }}
             className="overflow-hidden"
+            role="region"
           >
             <p className="font-body text-sm md:text-base text-ink-faded leading-[1.75] pb-6 pr-8">
               {answer}
@@ -180,13 +209,14 @@ function ContactInfoCard({
 }) {
   const { t } = useTranslation();
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : {}}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+      animate={prefersReducedMotion ? {} : (isVisible ? { opacity: 1, y: 0 } : {})}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         duration: 0.6,
         ease: [0, 0, 0.2, 1],
         delay: index * 0.12,
@@ -262,6 +292,7 @@ function LoadingDots() {
 
 export default function Contact() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -400,10 +431,10 @@ export default function Contact() {
               {status === 'success' ? (
                 <motion.div
                   key="success"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5, ease: [0, 0, 0.2, 1] }}
+                  initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.95 }}
+                  animate={prefersReducedMotion ? {} : { opacity: 1, scale: 1 }}
+                  exit={prefersReducedMotion ? {} : { opacity: 0, scale: 0.95 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: [0, 0, 0.2, 1] }}
                   className="border-2 border-rust/30 bg-paper p-10 md:p-14 text-center relative"
                 >
                   {/* Grain overlay */}
@@ -433,9 +464,9 @@ export default function Contact() {
                     <motion.button
                       type="button"
                       onClick={resetForm}
-                      whileHover={{ scale: 1.01 }}
-                      whileTap={{ scale: 0.99 }}
-                      className="mt-8 font-body text-sm tracking-[0.15em] uppercase border-2 border-ink text-ink px-8 py-3 hover:bg-ink hover:text-paper transition-colors duration-300"
+                      whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+                      whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
+                      className="mt-8 font-body text-sm tracking-[0.15em] uppercase border-2 border-ink text-ink px-8 py-3 hover:bg-ink hover:text-paper transition-colors duration-300 cursor-pointer"
                     >
                       {t('contact.form.submit')}
                     </motion.button>
@@ -446,9 +477,9 @@ export default function Contact() {
                   key="form"
                   onSubmit={handleSubmit}
                   className="space-y-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  initial={prefersReducedMotion ? false : { opacity: 0 }}
+                  animate={prefersReducedMotion ? {} : { opacity: 1 }}
+                  exit={prefersReducedMotion ? {} : { opacity: 0 }}
                   noValidate
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -513,8 +544,9 @@ export default function Contact() {
                     </div>
                     {errors.subject && (
                       <motion.p
-                        initial={{ opacity: 0, y: -5 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        initial={prefersReducedMotion ? false : { opacity: 0, y: -5 }}
+                        animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                        transition={prefersReducedMotion ? { duration: 0 } : undefined}
                         className="font-body text-[10px] text-archive-brown"
                         role="alert"
                         aria-live="assertive"
@@ -540,7 +572,7 @@ export default function Contact() {
                         value={formData.message}
                         onChange={handleChange('message')}
                         rows={5}
-                        whileFocus={{ scale: 1.005 }}
+                        whileFocus={prefersReducedMotion ? undefined : { scale: 1.005 }}
                         className={`
                           w-full font-body text-sm py-3 px-3
                           border-b-2 bg-transparent
@@ -554,8 +586,9 @@ export default function Contact() {
                     <div className="flex items-center justify-between">
                       {errors.message ? (
                         <motion.p
-                          initial={{ opacity: 0, y: -5 }}
-                          animate={{ opacity: 1, y: 0 }}
+                          initial={prefersReducedMotion ? false : { opacity: 0, y: -5 }}
+                          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                          transition={prefersReducedMotion ? { duration: 0 } : undefined}
                           className="font-body text-[10px] text-archive-brown"
                           role="alert"
                           aria-live="assertive"
@@ -582,9 +615,9 @@ export default function Contact() {
                     <motion.button
                       type="submit"
                       disabled={status === 'sending'}
-                      whileHover={{ scale: 1.01 }}
-                      whileTap={{ scale: 0.99 }}
-                      className="font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300 disabled:opacity-60 flex items-center gap-3"
+                      whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+                      whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
+                      className="font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300 disabled:opacity-60 flex items-center gap-3 cursor-pointer"
                     >
                       {status === 'sending' ? (
                         <>
@@ -600,8 +633,9 @@ export default function Contact() {
                   {/* Error state */}
                   {status === 'error' && (
                     <motion.p
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                      animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                      transition={prefersReducedMotion ? { duration: 0 } : undefined}
                       className="font-body text-sm text-archive-brown"
                       role="alert"
                       aria-live="assertive"

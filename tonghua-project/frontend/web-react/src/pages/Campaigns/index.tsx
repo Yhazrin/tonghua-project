@@ -419,11 +419,11 @@ export default function Campaigns() {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-center gap-2 mt-16">
+          <nav className="flex items-center justify-center gap-2 mt-16" aria-label={t('campaigns.pagination.ariaLabel', 'Pagination')}>
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="font-body text-caption tracking-wider uppercase px-4 py-2 border border-warm-gray/30 text-sepia-mid hover:border-rust hover:text-rust disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="font-body text-caption tracking-wider uppercase px-4 py-2 border border-warm-gray/30 text-sepia-mid hover:border-rust hover:text-rust disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
             >
               {t('campaigns.pagination.prev')}
             </button>
@@ -431,12 +431,13 @@ export default function Campaigns() {
               <button
                 key={p}
                 onClick={() => setPage(p)}
+                aria-current={page === p ? 'page' : undefined}
                 className={`
                   w-10 h-10 font-body text-caption border transition-all
                   ${page === p
                     ? 'border-rust bg-rust text-paper'
                     : 'border-warm-gray/30 text-sepia-mid hover:border-rust hover:text-rust'
-                  }
+                  } cursor-pointer
                 `}
               >
                 {String(p).padStart(2, '0')}
@@ -445,11 +446,11 @@ export default function Campaigns() {
             <button
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
-              className="font-body text-caption tracking-wider uppercase px-4 py-2 border border-warm-gray/30 text-sepia-mid hover:border-rust hover:text-rust disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="font-body text-caption tracking-wider uppercase px-4 py-2 border border-warm-gray/30 text-sepia-mid hover:border-rust hover:text-rust disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
             >
               {t('campaigns.pagination.next')}
             </button>
-          </div>
+          </nav>
         )}
       </SectionContainer>
 

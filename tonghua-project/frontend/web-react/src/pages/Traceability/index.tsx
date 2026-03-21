@@ -120,13 +120,14 @@ function CarbonBar({ label, value, maxValue, isEco, delay }: {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const percentage = (value / maxValue) * 100;
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: -20 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
+      initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
+      animate={prefersReducedMotion ? {} : (isInView ? { opacity: 1, x: 0 } : {})}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay }}
       className="space-y-2"
     >
       <div className="flex justify-between items-baseline">
@@ -140,9 +141,10 @@ function CarbonBar({ label, value, maxValue, isEco, delay }: {
       <div className="h-3 bg-warm-gray/20 border border-warm-gray/30 overflow-hidden">
         <motion.div
           className={`h-full ${isEco ? 'bg-eco-green' : 'bg-archive-brown/60'}`}
-          initial={{ width: 0 }}
-          animate={isInView ? { width: `${percentage}%` } : {}}
-          transition={{ duration: 1.2, delay: delay + 0.3, ease: [0, 0, 0.2, 1] }}
+          initial={prefersReducedMotion ? false : { width: 0 }}
+          animate={prefersReducedMotion ? {} : (isInView ? { width: `${percentage}%` } : {})}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 1.2, delay: delay + 0.3, ease: [0, 0, 0.2, 1] }}
+          style={prefersReducedMotion ? { width: `${percentage}%` } : undefined}
         />
       </div>
     </motion.div>
@@ -173,13 +175,14 @@ function CertificationBadge({ title, description, delay }: {
   description: string;
   delay: number;
 }) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay }}
-      whileHover={{ y: -4, borderColor: 'rgba(139, 58, 42, 0.5)' }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay }}
+      whileHover={prefersReducedMotion ? undefined : { y: -4, borderColor: 'rgba(139, 58, 42, 0.5)' }}
       className="border-2 border-rust/20 bg-paper p-5 text-center transition-all duration-300 hover:shadow-[0_4px_20px_rgba(139,58,42,0.08)] relative overflow-hidden group"
     >
       {/* Grain overlay */}
@@ -222,13 +225,14 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
   };
 
   const config = statusConfig[record.status];
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -30 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, x: -30 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true, margin: '-40px' }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         duration: 0.6,
         delay: index * 0.12,
         ease: [0.25, 0.1, 0.25, 1],
@@ -242,8 +246,8 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
 
       {/* Card */}
       <motion.div
-        whileHover={{ y: -3, borderColor: 'var(--color-rust)' }}
-        transition={{ duration: 0.3 }}
+        whileHover={prefersReducedMotion ? undefined : { y: -3, borderColor: 'var(--color-rust)' }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
         className="relative p-6 border-2 border-rust/30 bg-paper transition-all duration-300 hover:border-rust/50 overflow-hidden"
       >
         {/* Grain overlay */}
@@ -275,8 +279,8 @@ function EnhancedTimelineEntry({ record, index, t, locale }: {
               </p>
             </div>
             <motion.div
-              whileHover={{ scale: 1.03 }}
-              transition={{ duration: 0.3 }}
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.03 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
               className="hidden sm:block flex-shrink-0 w-[100px] h-[100px] overflow-hidden border border-warm-gray/40"
             >
               <img
@@ -371,6 +375,7 @@ function EnhancedTimeline({ records, t, locale }: { records: EnhancedSupplyChain
 
 export default function Traceability() {
   const { t, i18n } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const timelineRef = useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
@@ -432,10 +437,10 @@ export default function Traceability() {
         />
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={prefersReducedMotion ? undefined : { once: true }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
           className="max-w-xl mb-16"
         >
           <div className="relative">
@@ -465,10 +470,10 @@ export default function Traceability() {
           <AnimatePresence>
             {isSearching && (
               <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, height: 0 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, height: 'auto' }}
+                exit={prefersReducedMotion ? {} : { opacity: 0, height: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
               >
                 <SearchSpinner />
               </motion.div>
@@ -478,10 +483,10 @@ export default function Traceability() {
           <AnimatePresence>
             {searchResult && !isSearching && (
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.4 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                exit={prefersReducedMotion ? {} : { opacity: 0, y: -10 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4 }}
                 className="mt-4 p-5 border-2 border-eco-green/30 bg-eco-green/5 relative overflow-hidden"
               >
                 <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-eco-green/30" />
@@ -532,9 +537,10 @@ export default function Traceability() {
 
               {/* Carbon total */}
               <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
+                initial={prefersReducedMotion ? false : { opacity: 0 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
+                viewport={prefersReducedMotion ? undefined : { once: true }}
+                transition={prefersReducedMotion ? { duration: 0 } : undefined}
                 className="mt-6 border border-warm-gray/30 p-6 bg-aged-stock"
               >
                 <span className="font-body text-caption text-sepia-mid tracking-[0.2em] uppercase">
@@ -552,10 +558,10 @@ export default function Traceability() {
               <AnimatePresence>
                 {highlightedId && (
                   <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.4 }}
+                    initial={prefersReducedMotion ? false : { opacity: 0, height: 0 }}
+                    animate={prefersReducedMotion ? {} : { opacity: 1, height: 'auto' }}
+                    exit={prefersReducedMotion ? {} : { opacity: 0, height: 0 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4 }}
                     className="mt-4 border-2 border-eco-green/30 p-5 bg-eco-green/5"
                   >
                     <span className="font-body text-[10px] text-eco-green tracking-[0.15em] uppercase">
@@ -635,10 +641,10 @@ export default function Traceability() {
               />
 
               <motion.p
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+                initial={prefersReducedMotion ? false : { opacity: 0 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
+                viewport={prefersReducedMotion ? undefined : { once: true }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: 0.5 }}
                 className="font-body text-xs text-ink-faded leading-relaxed border-l-2 border-eco-green/30 pl-4 mt-4"
               >
                 {t('traceability.carbon.explanation')}
@@ -648,10 +654,10 @@ export default function Traceability() {
             {/* Reduction counter */}
             <div className="md:col-span-5">
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.95 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1, scale: 1 }}
+                viewport={prefersReducedMotion ? undefined : { once: true }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: 0.3 }}
                 className="border-2 border-eco-green/30 p-8 text-center bg-paper relative overflow-hidden"
               >
                 {/* Grain */}
@@ -706,10 +712,10 @@ export default function Traceability() {
             ].map((step, i) => (
               <motion.div
                 key={step.num}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.12, ease: [0, 0, 0.2, 1] }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={prefersReducedMotion ? undefined : { once: true }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: i * 0.12, ease: [0, 0, 0.2, 1] }}
                 className="border-t border-warm-gray/30 pt-6"
               >
                 <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
@@ -754,10 +760,10 @@ export default function Traceability() {
 
       <SectionContainer narrow>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+          whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={prefersReducedMotion ? undefined : { once: true }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1] }}
           className="text-center py-8"
         >
           <span className="font-body text-[10px] tracking-[0.3em] uppercase text-sepia-mid block mb-4">

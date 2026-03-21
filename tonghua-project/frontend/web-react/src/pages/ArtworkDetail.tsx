@@ -138,7 +138,7 @@ export default function ArtworkDetail() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleVote}
-                    className="flex-1 font-body text-sm tracking-[0.15em] uppercase py-4 bg-rust text-paper transition-colors hover:bg-archive-brown"
+                    className="flex-1 font-body text-sm tracking-[0.15em] uppercase py-4 bg-rust text-paper transition-colors hover:bg-archive-brown cursor-pointer"
                   >
                     {t('artwork.detail.vote')}
                   </motion.button>

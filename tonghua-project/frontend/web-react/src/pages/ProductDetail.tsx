@@ -234,7 +234,7 @@ export default function ProductDetail() {
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     aria-label={t('shop.detail.decreaseQuantity')}
-                    className="px-3 py-2 text-ink hover:bg-warm-gray/20 transition-colors"
+                    className="px-3 py-2 text-ink hover:bg-warm-gray/20 transition-colors cursor-pointer"
                   >
                     -
                   </button>
@@ -242,7 +242,7 @@ export default function ProductDetail() {
                   <button
                     onClick={() => setQuantity(quantity + 1)}
                     aria-label={t('shop.detail.increaseQuantity')}
-                    className="px-3 py-2 text-ink hover:bg-warm-gray/20 transition-colors"
+                    className="px-3 py-2 text-ink hover:bg-warm-gray/20 transition-colors cursor-pointer"
                   >
                     +
                   </button>

@@ -13,6 +13,7 @@ import ImpactCounter from '@/components/editorial/ImpactCounter';
 import FAQAccordion from '@/components/editorial/FAQAccordion';
 import MagneticButton from '@/components/animations/MagneticButton';
 import { donationsApi } from '@/services/donations';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
 
@@ -71,12 +72,13 @@ function ImpactProgressBar({
   icon: string;
   index: number;
 }) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   return (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         type: 'spring',
         stiffness: 300,
         damping: 30,
@@ -96,10 +98,10 @@ function ImpactProgressBar({
       </div>
       <div className="h-2 bg-warm-gray/15 overflow-hidden" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={label}>
         <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: `${pct}%` }}
-          viewport={{ once: true }}
-          transition={{
+          initial={prefersReducedMotion ? false : { width: 0 }}
+          whileInView={prefersReducedMotion ? undefined : { width: `${pct}%` }}
+          viewport={prefersReducedMotion ? undefined : { once: true }}
+          transition={prefersReducedMotion ? { duration: 0 } : {
             type: 'spring',
             stiffness: 80,
             damping: 20,
@@ -107,6 +109,7 @@ function ImpactProgressBar({
           }}
           className="h-full"
           style={{
+            width: prefersReducedMotion ? `${pct}%` : undefined,
             background: 'linear-gradient(90deg, var(--color-rust), var(--color-archive-brown))',
           }}
         />
@@ -121,12 +124,13 @@ function ImpactProgressBar({
 /* ─── Trust Badge ─── */
 
 function TrustBadge({ label, index }: { label: string; index: number }) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         type: 'spring',
         stiffness: 380,
         damping: 30,
@@ -157,18 +161,19 @@ function DonationStoryCard({
   imageSeed: string;
   index: number;
 }) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         type: 'spring',
         stiffness: 380,
         damping: 30,
         delay: index * 0.12,
       }}
-      whileHover={{ y: -6 }}
+      whileHover={prefersReducedMotion ? undefined : { y: -6 }}
       className="group"
     >
       <SepiaImageFrame
@@ -197,6 +202,7 @@ function DonationStoryCard({
 
 export default function Donate() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [donationSuccess, setDonationSuccess] = useState(false);
   const successRef = useRef<HTMLDivElement>(null);
@@ -309,9 +315,9 @@ export default function Donate() {
             {donationSuccess && (
               <motion.div
                 ref={successRef}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
                 className="mt-6 p-5 border-2 border-eco-green/30 bg-eco-green/5"
                 role="status"
               >
@@ -407,8 +413,8 @@ export default function Donate() {
               </div>
 
               <motion.button
-                className="font-body text-xs text-rust tracking-[0.15em] uppercase hover:text-ink transition-colors"
-                whileHover={{ x: 4 }}
+                className="font-body text-xs text-rust tracking-[0.15em] uppercase hover:text-ink transition-colors cursor-pointer"
+                whileHover={prefersReducedMotion ? undefined : { x: 4 }}
               >
                 {t('donate.transparency.viewReport')} &rarr;
               </motion.button>
@@ -418,11 +424,14 @@ export default function Donate() {
                 {['Q1 2026', 'Q4 2025', 'Q3 2025', 'Q2 2025'].map((quarter, index) => (
                   <motion.div
                     key={quarter}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ y: -6 }}
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+                    whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                    viewport={prefersReducedMotion ? undefined : { once: true }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.1 }}
+                    whileHover={prefersReducedMotion ? undefined : { y: -6 }}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`${quarter} ${t('donate.transparency.financialReport')}`}
                     className="border border-warm-gray/30 p-6 bg-paper hover:border-rust/30 transition-colors cursor-pointer relative"
                   >
                     {/* Corner accents */}
@@ -499,34 +508,35 @@ export default function Donate() {
           <div className="relative z-10 text-center max-w-2xl mx-auto">
             {/* Decorative line above */}
             <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: '80px' }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0, 0, 0.2, 1] }}
+              initial={prefersReducedMotion ? false : { width: 0 }}
+              whileInView={prefersReducedMotion ? undefined : { width: '80px' }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0, 0, 0.2, 1] }}
               className="h-px bg-rust/50 mx-auto mb-10"
+              style={prefersReducedMotion ? { width: '80px' } : undefined}
             />
 
             <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 30 }}
               className="font-display text-h2 md:text-h1 font-bold leading-[0.95] mb-10"
             >
               {t('donate.cta.title')}
             </motion.h2>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30, delay: 0.15 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 30, delay: 0.15 }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
               <MagneticButton strength={0.35}>
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-rust text-paper px-10 py-4 hover:bg-pale-gold hover:text-ink transition-all duration-300"
+                  className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-rust text-paper px-10 py-4 hover:bg-pale-gold hover:text-ink transition-all duration-300 cursor-pointer"
                 >
                   {t('donate.cta.donate')}
                 </button>
@@ -534,7 +544,7 @@ export default function Donate() {
               <MagneticButton strength={0.35}>
                 <Link
                   to="/about"
-                  className="inline-block font-body text-sm tracking-[0.15em] uppercase border border-warm-gray/40 text-paper px-10 py-4 hover:border-pale-gold hover:text-pale-gold transition-all duration-300"
+                  className="inline-block font-body text-sm tracking-[0.15em] uppercase border border-warm-gray/40 text-paper px-10 py-4 hover:border-pale-gold hover:text-pale-gold transition-all duration-300 cursor-pointer"
                 >
                   {t('donate.cta.learnMore')}
                 </Link>
@@ -543,11 +553,12 @@ export default function Donate() {
 
             {/* Decorative line below */}
             <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: '80px' }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0, 0, 0.2, 1], delay: 0.3 }}
+              initial={prefersReducedMotion ? false : { width: 0 }}
+              whileInView={prefersReducedMotion ? undefined : { width: '80px' }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0, 0, 0.2, 1], delay: 0.3 }}
               className="h-px bg-rust/50 mx-auto mt-10"
+              style={prefersReducedMotion ? { width: '80px' } : undefined}
             />
           </div>
         </SectionContainer>
