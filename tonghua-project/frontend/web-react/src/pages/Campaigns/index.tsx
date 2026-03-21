@@ -301,10 +301,10 @@ export default function Campaigns() {
                     {/* Grain overlay */}
                     <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: 'var(--grain-overlay)' }} aria-hidden="true" />
                     {/* Corner accents */}
-                    <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
-                    <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
-                    <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
-                    <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-rust/20 pointer-events-none z-10" aria-hidden="true" />
+                    <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                    <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                    <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                    <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
                     <Link to={`/campaigns/${campaign.id}`} className="group block cursor-pointer">
                       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                         {/* Image */}

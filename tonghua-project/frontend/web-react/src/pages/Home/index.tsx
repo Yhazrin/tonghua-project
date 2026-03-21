@@ -53,10 +53,10 @@ function GalleryItem({ src, alt, index }: GalleryItemProps) {
       <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/8 via-transparent to-archive-brown/8" aria-hidden="true" />
 
       {/* Decorative corner accents */}
-      <div className="absolute top-2 left-2 w-6 h-6 border-t border-l border-rust/40 z-20 pointer-events-none" aria-hidden="true" />
-      <div className="absolute top-2 right-2 w-6 h-6 border-t border-r border-rust/40 z-20 pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-2 left-2 w-6 h-6 border-b border-l border-rust/40 z-20 pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-2 right-2 w-6 h-6 border-b border-r border-rust/40 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-2 left-2 w-6 h-6 border-t-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-2 right-2 w-6 h-6 border-t-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-2 left-2 w-6 h-6 border-b-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-2 right-2 w-6 h-6 border-b-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
 
       {/* Loading skeleton */}
       {!imageLoaded && (

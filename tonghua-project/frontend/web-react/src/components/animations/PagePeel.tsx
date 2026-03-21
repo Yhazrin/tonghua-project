@@ -121,6 +121,7 @@ export default function PagePeel({
       >
         <div
           className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          aria-hidden="true"
           style={{
             background: 'linear-gradient(135deg, transparent 50%, color-mix(in srgb, var(--color-rust) 5%, transparent) 100%)',
           }}
@@ -142,6 +143,7 @@ export default function PagePeel({
         {/* Shadow beneath the peel */}
         <motion.div
           className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
           style={{
             opacity: shadowOpacity,
             transform: `translateX(${transforms.shadowX}px) translateY(${transforms.shadowY}px)`,
@@ -155,6 +157,7 @@ export default function PagePeel({
         {/* Inner shadow for depth */}
         <motion.div
           className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
           style={{
             opacity: shadowOpacity,
             boxShadow: `inset 0 0 60px color-mix(in srgb, var(--color-ink) ${shadowIntensity * 30}%, transparent)`,
@@ -170,6 +173,7 @@ export default function PagePeel({
       {/* Peel corner accent - decorative fold line */}
       <motion.div
         className="absolute pointer-events-none z-20"
+        aria-hidden="true"
         style={{ opacity: cornerOpacity }}
       >
         {corner === 'bottom-right' && (
