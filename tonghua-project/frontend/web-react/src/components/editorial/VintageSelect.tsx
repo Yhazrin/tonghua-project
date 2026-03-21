@@ -1,5 +1,6 @@
 import { forwardRef, useId } from 'react';
 import { motion } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface VintageSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
@@ -11,6 +12,7 @@ export const VintageSelect = forwardRef<HTMLSelectElement, VintageSelectProps>(
   ({ label, options, className = '', id, ...props }, ref) => {
     const generatedId = useId();
     const selectId = id || generatedId;
+    const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
     return (
       <div className={`flex flex-col gap-2 ${className}`}>
@@ -23,8 +25,8 @@ export const VintageSelect = forwardRef<HTMLSelectElement, VintageSelectProps>(
           </label>
         )}
         <motion.div
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.99 }}
+          whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+          whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
           className="relative"
         >
           {/* Decorative corner accents */}

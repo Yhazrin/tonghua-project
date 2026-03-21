@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import type { SupplyChainRecord } from '@/types';
 import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
 
@@ -16,6 +17,7 @@ export default function TraceabilityTimeline({
 }: TraceabilityTimelineProps) {
   const { t, i18n } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   // Scroll-linked animation for the vertical path line
   const { scrollYProgress } = useScroll({
@@ -39,78 +41,99 @@ export default function TraceabilityTimeline({
 
   return (
     <div ref={containerRef} className={`relative pl-12 ${className}`}>
-      {/* Animated decorative path line - draws on scroll */}
+      {/* Decorative path line — animated on scroll, static when reduced motion */}
       <svg
         className="absolute left-[15px] top-0 w-4 h-full overflow-visible pointer-events-none"
         aria-hidden="true"
         preserveAspectRatio="none"
       >
-        {/* Main animated vertical line */}
-        <motion.path
-          d={`M 7 0 L 7 ${pathHeight}`}
-          fill="none"
-          strokeWidth="1"
-          strokeLinecap="round"
-          style={{
-            stroke: 'var(--color-warm-gray)',
-            strokeDasharray: pathHeight,
-            strokeDashoffset,
-          }}
-        />
-        {/* Decorative accent dots at top and bottom */}
-        <motion.circle
-          cx="7"
-          cy="0"
-          r="3"
-          style={{
-            fill: 'var(--color-rust)',
-            opacity: useTransform(scrollYProgress, [0, 0.1], [0, 1]),
-          }}
-        />
-        <motion.circle
-          cx="7"
-          cy={pathHeight}
-          r="3"
-          style={{
-            fill: 'var(--color-rust)',
-            opacity: useTransform(scrollYProgress, [0.9, 1], [0, 1]),
-          }}
-        />
-        {/* Decorative corner flourishes */}
-        <motion.path
-          d="M 7 20 Q 15 25 7 35"
-          fill="none"
-          strokeWidth="1"
-          strokeLinecap="round"
-          style={{
-            stroke: 'var(--color-rust)',
-            opacity: useTransform(scrollYProgress, [0, 0.15], [0, 1]),
-            strokeDasharray: 30,
-            strokeDashoffset: useTransform(scrollYProgress, [0, 0.2], [30, 0]),
-          }}
-        />
-        <motion.path
-          d="M 7 60 Q 15 65 7 75"
-          fill="none"
-          strokeWidth="1"
-          strokeLinecap="round"
-          style={{
-            stroke: 'var(--color-rust)',
-            opacity: useTransform(scrollYProgress, [0.05, 0.2], [0, 1]),
-            strokeDasharray: 30,
-            strokeDashoffset: useTransform(scrollYProgress, [0.05, 0.25], [30, 0]),
-          }}
-        />
+        {prefersReducedMotion ? (
+          <>
+            {/* Static vertical line */}
+            <path
+              d={`M 7 0 L 7 ${pathHeight}`}
+              fill="none"
+              strokeWidth="1"
+              strokeLinecap="round"
+              stroke="var(--color-warm-gray)"
+            />
+            {/* Static accent dots */}
+            <circle cx="7" cy="0" r="3" fill="var(--color-rust)" />
+            <circle cx="7" cy={pathHeight} r="3" fill="var(--color-rust)" />
+            {/* Static flourishes */}
+            <path d="M 7 20 Q 15 25 7 35" fill="none" strokeWidth="1" strokeLinecap="round" stroke="var(--color-rust)" />
+            <path d="M 7 60 Q 15 65 7 75" fill="none" strokeWidth="1" strokeLinecap="round" stroke="var(--color-rust)" />
+          </>
+        ) : (
+          <>
+            {/* Main animated vertical line */}
+            <motion.path
+              d={`M 7 0 L 7 ${pathHeight}`}
+              fill="none"
+              strokeWidth="1"
+              strokeLinecap="round"
+              style={{
+                stroke: 'var(--color-warm-gray)',
+                strokeDasharray: pathHeight,
+                strokeDashoffset,
+              }}
+            />
+            {/* Decorative accent dots at top and bottom */}
+            <motion.circle
+              cx="7"
+              cy="0"
+              r="3"
+              style={{
+                fill: 'var(--color-rust)',
+                opacity: useTransform(scrollYProgress, [0, 0.1], [0, 1]),
+              }}
+            />
+            <motion.circle
+              cx="7"
+              cy={pathHeight}
+              r="3"
+              style={{
+                fill: 'var(--color-rust)',
+                opacity: useTransform(scrollYProgress, [0.9, 1], [0, 1]),
+              }}
+            />
+            {/* Decorative corner flourishes */}
+            <motion.path
+              d="M 7 20 Q 15 25 7 35"
+              fill="none"
+              strokeWidth="1"
+              strokeLinecap="round"
+              style={{
+                stroke: 'var(--color-rust)',
+                opacity: useTransform(scrollYProgress, [0, 0.15], [0, 1]),
+                strokeDasharray: 30,
+                strokeDashoffset: useTransform(scrollYProgress, [0, 0.2], [30, 0]),
+              }}
+            />
+            <motion.path
+              d="M 7 60 Q 15 65 7 75"
+              fill="none"
+              strokeWidth="1"
+              strokeLinecap="round"
+              style={{
+                stroke: 'var(--color-rust)',
+                opacity: useTransform(scrollYProgress, [0.05, 0.2], [0, 1]),
+                strokeDasharray: 30,
+                strokeDashoffset: useTransform(scrollYProgress, [0.05, 0.25], [30, 0]),
+              }}
+            />
+          </>
+        )}
       </svg>
 
       <div className="space-y-0">
         {records.map((record, index) => (
           <motion.div
             key={record.id}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-30px' }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+            viewport={prefersReducedMotion ? undefined : { once: true, margin: '-30px' }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.1 }}
             className="relative pb-12 last:pb-0"
           >
             {/* Dot */}
@@ -123,11 +146,11 @@ export default function TraceabilityTimeline({
 
             {/* Card */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              whileHover={{ y: -2 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4, delay: index * 0.1 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -2 }}
               className="relative p-6 border-2 border-rust/30 bg-paper transition-all duration-300 hover:border-rust/50 overflow-hidden"
             >
               {/* Grain overlay */}
