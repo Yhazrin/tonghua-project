@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
@@ -13,6 +13,9 @@ import ImpactCounter from '@/components/editorial/ImpactCounter';
 import FAQAccordion from '@/components/editorial/FAQAccordion';
 import MagneticButton from '@/components/animations/MagneticButton';
 import { donationsApi } from '@/services/donations';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+
+const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
 
 /* ─── Impact Area Data ─── */
 
@@ -28,25 +31,25 @@ const IMPACT_AREAS = [
 function ImpactIcon({ type }: { type: string }) {
   const icons: Record<string, JSX.Element> = {
     brush: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M18.37 2.63a1.5 1.5 0 0 1 2.12 0l.88.88a1.5 1.5 0 0 1 0 2.12L9.12 17.88a4 4 0 0 1-2.83 1.17H4v-2.25a4 4 0 0 1 1.17-2.83L17.42 1.68z" />
         <path d="M4 20h4" />
       </svg>
     ),
     fabric: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="18" height="18" rx="2" />
         <path d="M3 9h18M3 15h18M9 3v18M15 3v18" />
       </svg>
     ),
     gear: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="3" />
         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
       </svg>
     ),
     heart: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
       </svg>
     ),
@@ -69,12 +72,13 @@ function ImpactProgressBar({
   icon: string;
   index: number;
 }) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   return (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         type: 'spring',
         stiffness: 300,
         damping: 30,
@@ -92,20 +96,21 @@ function ImpactProgressBar({
           </span>
         </div>
       </div>
-      <div className="h-2 bg-warm-gray/15 rounded-sm overflow-hidden">
+      <div className="h-2 bg-warm-gray/15 overflow-hidden" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={label}>
         <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: `${pct}%` }}
-          viewport={{ once: true }}
-          transition={{
+          initial={prefersReducedMotion ? false : { width: 0 }}
+          whileInView={prefersReducedMotion ? undefined : { width: `${pct}%` }}
+          viewport={prefersReducedMotion ? undefined : { once: true }}
+          transition={prefersReducedMotion ? { duration: 0 } : {
             type: 'spring',
             stiffness: 80,
             damping: 20,
             delay: index * 0.12 + 0.2,
           }}
-          className="h-full rounded-sm"
+          className="h-full"
           style={{
-            background: 'linear-gradient(90deg, rgba(139, 58, 42, 0.5), rgba(139, 58, 42, 0.8))',
+            width: prefersReducedMotion ? `${pct}%` : undefined,
+            background: 'linear-gradient(90deg, var(--color-rust), var(--color-archive-brown))',
           }}
         />
       </div>
@@ -119,12 +124,13 @@ function ImpactProgressBar({
 /* ─── Trust Badge ─── */
 
 function TrustBadge({ label, index }: { label: string; index: number }) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         type: 'spring',
         stiffness: 380,
         damping: 30,
@@ -132,7 +138,7 @@ function TrustBadge({ label, index }: { label: string; index: number }) {
       }}
       className="flex items-center gap-2 border border-warm-gray/30 px-4 py-2.5 bg-paper"
     >
-      <span className="w-2 h-2 bg-rust/60 rounded-full" />
+      <span className="w-2 h-2 bg-rust/60 rotate-45" />
       <span className="font-body text-xs text-ink tracking-[0.08em] uppercase">
         {label}
       </span>
@@ -155,18 +161,19 @@ function DonationStoryCard({
   imageSeed: string;
   index: number;
 }) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         type: 'spring',
         stiffness: 380,
         damping: 30,
-        delay: index * 0.15,
+        delay: index * 0.12,
       }}
-      whileHover={{ y: -6 }}
+      whileHover={prefersReducedMotion ? undefined : { y: -6 }}
       className="group"
     >
       <SepiaImageFrame
@@ -195,7 +202,11 @@ function DonationStoryCard({
 
 export default function Donate() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [donationSuccess, setDonationSuccess] = useState(false);
+  const [donationError, setDonationError] = useState<string | null>(null);
+  const successRef = useRef<HTMLDivElement>(null);
 
   const handleDonate = async (data: {
     amount: number;
@@ -204,6 +215,8 @@ export default function Donate() {
     message: string;
   }) => {
     setIsSubmitting(true);
+    setDonationSuccess(false);
+    setDonationError(null);
     try {
       await donationsApi.create({
         amount: data.amount,
@@ -212,15 +225,22 @@ export default function Donate() {
         message: data.message,
         frequency: data.frequency,
       });
-      console.log('Donation successful');
+      setDonationSuccess(true);
+      // Scroll to success feedback area
+      requestAnimationFrame(() => {
+        successRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
     } catch (error) {
       console.error('Donation failed:', error);
+      setDonationError(
+        error instanceof Error ? error.message : t('donate.form.error', 'Donation failed. Please try again.')
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const donationStories = [
+  const donationStories = useMemo(() => [
     {
       amount: t('donate.stories.items.0.amount'),
       impact: t('donate.stories.items.0.impact'),
@@ -239,7 +259,7 @@ export default function Donate() {
       caption: t('donate.stories.items.2.caption'),
       imageSeed: 'donation-workshop-rural',
     },
-  ];
+  ], [t]);
 
   return (
     <PageWrapper>
@@ -284,8 +304,8 @@ export default function Donate() {
 
             {/* Impact counters */}
             <div className="grid grid-cols-2 gap-6 mt-12">
-              <ImpactCounter value={890000} label="Funds Raised" prefix="¥" />
-              <ImpactCounter value={2847} label="Children Helped" />
+              <ImpactCounter value={890000} label={t('donate.impact.fundsRaised')} prefix="¥" />
+              <ImpactCounter value={2847} label={t('donate.impact.childrenHelped')} />
             </div>
           </div>
 
@@ -295,6 +315,44 @@ export default function Donate() {
               onSubmit={handleDonate}
               isSubmitting={isSubmitting}
             />
+
+            {/* Error feedback */}
+            {donationError && (
+              <motion.div
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
+                className="mt-6 p-5 border-l-2 border-rust bg-rust/5"
+                role="alert"
+                aria-live="assertive"
+              >
+                <p className="font-body text-sm text-rust font-medium">
+                  {donationError}
+                </p>
+                <button
+                  onClick={() => setDonationError(null)}
+                  className="font-body text-xs text-rust/70 mt-2 underline hover:text-rust transition-colors cursor-pointer"
+                >
+                  {t('common.dismiss', 'Dismiss')}
+                </button>
+              </motion.div>
+            )}
+
+            {/* Success feedback */}
+            {donationSuccess && (
+              <motion.div
+                ref={successRef}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
+                className="mt-6 p-5 border-2 border-eco-green/30 bg-eco-green/5"
+                role="status"
+              >
+                <p className="font-body text-sm text-eco-green font-medium">
+                  {t('donate.form.success', 'Thank you for your donation!')}
+                </p>
+              </motion.div>
+            )}
           </div>
         </div>
       </SectionContainer>
@@ -324,9 +382,7 @@ export default function Donate() {
         {/* Grain overlay */}
         <div
           className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]"
-          style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
-          }}
+          style={GRAIN_STYLE}
           aria-hidden="true"
         />
 
@@ -334,8 +390,8 @@ export default function Donate() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start relative z-10">
             <div className="md:col-span-5 relative">
               {/* Decorative corner accents */}
-              <div className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-rust/30 pointer-events-none" />
-              <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-rust/30 pointer-events-none" />
+              <div className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+              <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
 
               <h3 className="font-display text-h3 font-bold text-ink mb-4">
                 {t('donate.transparency.title')}
@@ -347,19 +403,19 @@ export default function Donate() {
               {/* Specific transparency data points */}
               <div className="space-y-3 mb-8">
                 <div className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-rust/60 rounded-full mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 bg-rust/60 rotate-45 mt-2 shrink-0" />
                   <span className="font-body text-sm text-ink">
                     {t('donate.transparency.lastAudit')}
                   </span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-rust/60 rounded-full mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 bg-rust/60 rotate-45 mt-2 shrink-0" />
                   <span className="font-body text-sm text-ink">
                     {t('donate.transparency.onChain')}
                   </span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-rust/60 rounded-full mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 bg-rust/60 rotate-45 mt-2 shrink-0" />
                   <span className="font-body text-sm text-ink">
                     {t('donate.transparency.quarterly')}
                   </span>
@@ -369,7 +425,7 @@ export default function Donate() {
               {/* Trust Indicators */}
               <div className="mb-8">
                 <span className="font-body text-caption text-sepia-mid tracking-[0.15em] uppercase block mb-3">
-                  Trust Indicators
+                  {t('donate.transparency.trustIndicators')}
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {[
@@ -384,8 +440,8 @@ export default function Donate() {
               </div>
 
               <motion.button
-                className="font-body text-xs text-rust tracking-[0.15em] uppercase hover:text-ink transition-colors"
-                whileHover={{ x: 4 }}
+                className="font-body text-xs text-rust tracking-[0.15em] uppercase hover:text-ink transition-colors cursor-pointer"
+                whileHover={prefersReducedMotion ? undefined : { x: 4 }}
               >
                 {t('donate.transparency.viewReport')} &rarr;
               </motion.button>
@@ -395,25 +451,26 @@ export default function Donate() {
                 {['Q1 2026', 'Q4 2025', 'Q3 2025', 'Q2 2025'].map((quarter, index) => (
                   <motion.div
                     key={quarter}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ y: -4 }}
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+                    whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                    viewport={prefersReducedMotion ? undefined : { once: true }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.1 }}
+                    whileHover={prefersReducedMotion ? undefined : { y: -6 }}
+                    aria-label={`${quarter} ${t('donate.transparency.financialReport')}`}
                     className="border border-warm-gray/30 p-6 bg-paper hover:border-rust/30 transition-colors cursor-pointer relative"
                   >
                     {/* Corner accents */}
-                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/20 pointer-events-none" />
-                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/20 pointer-events-none" />
+                    <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/20 pointer-events-none" aria-hidden="true" />
+                    <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/20 pointer-events-none" aria-hidden="true" />
 
                     <span className="font-body text-caption text-sepia-mid tracking-[0.15em]">
-                      FINANCIAL REPORT
+                      {t('donate.transparency.financialReport')}
                     </span>
                     <h4 className="font-display text-lg font-bold text-ink mt-2">
                       {quarter}
                     </h4>
                     <span className="font-body text-xs text-sepia-mid mt-2 block">
-                      PDF &middot; 2.4 MB
+                      {t('donate.transparency.pdfSize')}
                     </span>
                   </motion.div>
                 ))}
@@ -426,8 +483,8 @@ export default function Donate() {
       {/* Quote */}
       <SectionContainer narrow>
         <StoryQuoteBlock
-          quote="Transparency is not a feature. It is a responsibility."
-          author="Annual Report 2025"
+          quote={t('donate.transparency.quote')}
+          author={t('donate.transparency.quoteAuthor')}
         />
       </SectionContainer>
 
@@ -468,9 +525,7 @@ export default function Donate() {
         {/* Grain overlay */}
         <div
           className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
-          style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
-          }}
+          style={GRAIN_STYLE}
           aria-hidden="true"
         />
 
@@ -478,42 +533,43 @@ export default function Donate() {
           <div className="relative z-10 text-center max-w-2xl mx-auto">
             {/* Decorative line above */}
             <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: '80px' }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0, 0, 0.2, 1] }}
+              initial={prefersReducedMotion ? false : { width: 0 }}
+              whileInView={prefersReducedMotion ? undefined : { width: '80px' }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0, 0, 0.2, 1] }}
               className="h-px bg-rust/50 mx-auto mb-10"
+              style={prefersReducedMotion ? { width: '80px' } : undefined}
             />
 
             <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 30 }}
               className="font-display text-h2 md:text-h1 font-bold leading-[0.95] mb-10"
             >
               {t('donate.cta.title')}
             </motion.h2>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30, delay: 0.15 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 30, delay: 0.15 }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
               <MagneticButton strength={0.35}>
-                <a
-                  href="#top"
-                  className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-rust text-paper px-10 py-4 hover:bg-pale-gold hover:text-ink transition-all duration-300"
+                <button
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-rust text-paper px-10 py-4 hover:bg-pale-gold hover:text-ink transition-all duration-300 cursor-pointer"
                 >
                   {t('donate.cta.donate')}
-                </a>
+                </button>
               </MagneticButton>
               <MagneticButton strength={0.35}>
                 <Link
                   to="/about"
-                  className="inline-block font-body text-sm tracking-[0.15em] uppercase border border-warm-gray/40 text-paper px-10 py-4 hover:border-pale-gold hover:text-pale-gold transition-all duration-300"
+                  className="inline-block font-body text-sm tracking-[0.15em] uppercase border border-warm-gray/40 text-paper px-10 py-4 hover:border-pale-gold hover:text-pale-gold transition-all duration-300 cursor-pointer"
                 >
                   {t('donate.cta.learnMore')}
                 </Link>
@@ -522,17 +578,18 @@ export default function Donate() {
 
             {/* Decorative line below */}
             <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: '80px' }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0, 0, 0.2, 1], delay: 0.3 }}
+              initial={prefersReducedMotion ? false : { width: 0 }}
+              whileInView={prefersReducedMotion ? undefined : { width: '80px' }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0, 0, 0.2, 1], delay: 0.3 }}
               className="h-px bg-rust/50 mx-auto mt-10"
+              style={prefersReducedMotion ? { width: '80px' } : undefined}
             />
           </div>
         </SectionContainer>
       </section>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

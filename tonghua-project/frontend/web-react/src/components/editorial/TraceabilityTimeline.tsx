@@ -2,6 +2,9 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import type { SupplyChainRecord } from '@/types';
 import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+
+const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
 
 interface TraceabilityTimelineProps {
   records: SupplyChainRecord[];
@@ -12,8 +15,9 @@ export default function TraceabilityTimeline({
   records,
   className = '',
 }: TraceabilityTimelineProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   // Scroll-linked animation for the vertical path line
   const { scrollYProgress } = useScroll({
@@ -29,7 +33,7 @@ export default function TraceabilityTimeline({
     return (
       <div className={`text-center py-16 ${className}`}>
         <p className="font-body text-sm text-sepia-mid">
-          No supply chain records available.
+          {t('traceability.noRecords')}
         </p>
       </div>
     );
@@ -37,113 +41,132 @@ export default function TraceabilityTimeline({
 
   return (
     <div ref={containerRef} className={`relative pl-12 ${className}`}>
-      {/* Animated decorative path line - draws on scroll */}
+      {/* Decorative path line — animated on scroll, static when reduced motion */}
       <svg
         className="absolute left-[15px] top-0 w-4 h-full overflow-visible pointer-events-none"
         aria-hidden="true"
         preserveAspectRatio="none"
       >
-        {/* Main animated vertical line */}
-        <motion.path
-          d={`M 7 0 L 7 ${pathHeight}`}
-          fill="none"
-          stroke="#D4CFC4"
-          strokeWidth="1"
-          strokeLinecap="round"
-          style={{
-            strokeDasharray: pathHeight,
-            strokeDashoffset,
-          }}
-        />
-        {/* Decorative accent dots at top and bottom */}
-        <motion.circle
-          cx="7"
-          cy="0"
-          r="3"
-          fill="#8B3A2A"
-          style={{
-            opacity: useTransform(scrollYProgress, [0, 0.1], [0, 1]),
-          }}
-        />
-        <motion.circle
-          cx="7"
-          cy={pathHeight}
-          r="3"
-          fill="#8B3A2A"
-          style={{
-            opacity: useTransform(scrollYProgress, [0.9, 1], [0, 1]),
-          }}
-        />
-        {/* Decorative corner flourishes */}
-        <motion.path
-          d="M 7 20 Q 15 25 7 35"
-          fill="none"
-          stroke="#8B3A2A"
-          strokeWidth="1"
-          strokeLinecap="round"
-          style={{
-            opacity: useTransform(scrollYProgress, [0, 0.15], [0, 1]),
-            strokeDasharray: 30,
-            strokeDashoffset: useTransform(scrollYProgress, [0, 0.2], [30, 0]),
-          }}
-        />
-        <motion.path
-          d="M 7 60 Q 15 65 7 75"
-          fill="none"
-          stroke="#8B3A2A"
-          strokeWidth="1"
-          strokeLinecap="round"
-          style={{
-            opacity: useTransform(scrollYProgress, [0.05, 0.2], [0, 1]),
-            strokeDasharray: 30,
-            strokeDashoffset: useTransform(scrollYProgress, [0.05, 0.25], [30, 0]),
-          }}
-        />
+        {prefersReducedMotion ? (
+          <>
+            {/* Static vertical line */}
+            <path
+              d={`M 7 0 L 7 ${pathHeight}`}
+              fill="none"
+              strokeWidth="1"
+              strokeLinecap="round"
+              stroke="var(--color-warm-gray)"
+            />
+            {/* Static accent dots */}
+            <circle cx="7" cy="0" r="3" fill="var(--color-rust)" />
+            <circle cx="7" cy={pathHeight} r="3" fill="var(--color-rust)" />
+            {/* Static flourishes */}
+            <path d="M 7 20 Q 15 25 7 35" fill="none" strokeWidth="1" strokeLinecap="round" stroke="var(--color-rust)" />
+            <path d="M 7 60 Q 15 65 7 75" fill="none" strokeWidth="1" strokeLinecap="round" stroke="var(--color-rust)" />
+          </>
+        ) : (
+          <>
+            {/* Main animated vertical line */}
+            <motion.path
+              d={`M 7 0 L 7 ${pathHeight}`}
+              fill="none"
+              strokeWidth="1"
+              strokeLinecap="round"
+              style={{
+                stroke: 'var(--color-warm-gray)',
+                strokeDasharray: pathHeight,
+                strokeDashoffset,
+              }}
+            />
+            {/* Decorative accent dots at top and bottom */}
+            <motion.circle
+              cx="7"
+              cy="0"
+              r="3"
+              style={{
+                fill: 'var(--color-rust)',
+                opacity: useTransform(scrollYProgress, [0, 0.1], [0, 1]),
+              }}
+            />
+            <motion.circle
+              cx="7"
+              cy={pathHeight}
+              r="3"
+              style={{
+                fill: 'var(--color-rust)',
+                opacity: useTransform(scrollYProgress, [0.9, 1], [0, 1]),
+              }}
+            />
+            {/* Decorative corner flourishes */}
+            <motion.path
+              d="M 7 20 Q 15 25 7 35"
+              fill="none"
+              strokeWidth="1"
+              strokeLinecap="round"
+              style={{
+                stroke: 'var(--color-rust)',
+                opacity: useTransform(scrollYProgress, [0, 0.15], [0, 1]),
+                strokeDasharray: 30,
+                strokeDashoffset: useTransform(scrollYProgress, [0, 0.2], [30, 0]),
+              }}
+            />
+            <motion.path
+              d="M 7 60 Q 15 65 7 75"
+              fill="none"
+              strokeWidth="1"
+              strokeLinecap="round"
+              style={{
+                stroke: 'var(--color-rust)',
+                opacity: useTransform(scrollYProgress, [0.05, 0.2], [0, 1]),
+                strokeDasharray: 30,
+                strokeDashoffset: useTransform(scrollYProgress, [0.05, 0.25], [30, 0]),
+              }}
+            />
+          </>
+        )}
       </svg>
 
       <div className="space-y-0">
         {records.map((record, index) => (
           <motion.div
             key={record.id}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-30px' }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+            viewport={prefersReducedMotion ? undefined : { once: true, margin: '-30px' }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.1 }}
             className="relative pb-12 last:pb-0"
           >
             {/* Dot */}
             <div
               className={`
-                absolute left-[-33px] top-1 w-4 h-4 rounded-full border-[3px] border-paper z-[2]
+                absolute left-[-33px] top-1 w-4 h-4 rotate-45 border-[3px] border-paper z-[2]
                 ${record.verified ? 'bg-rust' : 'bg-warm-gray'}
               `}
             />
 
             {/* Card */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              whileHover={{ y: -2 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4, delay: index * 0.1 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -2 }}
               className="relative p-6 border-2 border-rust/30 bg-paper transition-all duration-300 hover:border-rust/50 overflow-hidden"
             >
               {/* Grain overlay */}
-              <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08]" style={{
-                backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")'
-              }} />
+              <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08]" aria-hidden="true" style={GRAIN_STYLE} />
 
               {/* Sepia corner accents */}
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-rust/30" />
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-rust/30" />
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-rust/30" aria-hidden="true" />
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-rust/30" aria-hidden="true" />
 
               <div className="relative z-20">
                 <div className="flex justify-between items-start flex-wrap gap-3 mb-3">
-                  <h4 className="font-display text-[clamp(18px,2vw,24px)] font-bold text-ink">
+                  <h4 className="font-display text-h3 font-bold text-ink">
                     {record.stage}
                   </h4>
                   {record.verified && (
-                    <span className="font-body text-[10px] tracking-[0.1em] uppercase px-3 py-1 bg-rust/10 text-rust border border-rust/20">
+                    <span className="font-body text-overline tracking-[0.1em] uppercase px-3 py-1 bg-rust/10 text-rust border border-rust/20">
                       {t('traceability.verified')}
                     </span>
                   )}
@@ -154,18 +177,18 @@ export default function TraceabilityTimeline({
                 </p>
 
                 <div className="flex flex-wrap gap-6">
-                  <div className="font-body text-[11px] text-sepia-mid">
-                    <span className="uppercase tracking-[0.1em]">Location:</span>{' '}
+                  <div className="font-body text-label text-sepia-mid">
+                    <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.locationLabel')}</span>{' '}
                     <span className="text-ink-faded font-medium">{record.location}</span>
                   </div>
-                  <div className="font-body text-[11px] text-sepia-mid">
-                    <span className="uppercase tracking-[0.1em]">Partner:</span>{' '}
+                  <div className="font-body text-label text-sepia-mid">
+                    <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.partnerLabel')}</span>{' '}
                     <span className="text-ink-faded font-medium">{record.partnerName}</span>
                   </div>
-                  <div className="font-body text-[11px] text-sepia-mid">
-                    <span className="uppercase tracking-[0.1em]">Date:</span>{' '}
+                  <div className="font-body text-label text-sepia-mid">
+                    <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.dateLabel')}</span>{' '}
                     <span className="text-ink-faded font-medium">
-                      {new Date(record.date).toLocaleDateString('en-US', {
+                      {new Date(record.date).toLocaleDateString(i18n.language === 'zh' ? 'zh-CN' : 'en-US', {
                         year: 'numeric',
                         month: 'short',
                         day: 'numeric',
@@ -173,10 +196,10 @@ export default function TraceabilityTimeline({
                     </span>
                   </div>
                   {record.carbonFootprint !== undefined && (
-                    <div className="font-body text-[11px] text-sepia-mid">
-                      <span className="uppercase tracking-[0.1em]">{t('traceability.carbon')}:</span>{' '}
+                    <div className="font-body text-label text-sepia-mid">
+                      <span className="uppercase tracking-[0.1em]">{t('traceability.carbonLabel')}:</span>{' '}
                       <span className="text-archive-brown font-medium">
-                        {record.carbonFootprint} kg CO2
+                        {t('traceability.kgCO2', { value: record.carbonFootprint })}
                       </span>
                     </div>
                   )}

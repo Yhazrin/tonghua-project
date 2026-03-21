@@ -11,11 +11,20 @@
     "login": "登录",
     "register": "注册",
     "profile": "个人中心",
-    "logout": "退出"
+    "logout": "退出",
+    "toggleMenu": "切换导航菜单",
+    "toggleLanguage": "切换语言",
+    "userMenu": "用户菜单",
+    "mobileMenu": "移动导航菜单",
+    "userLabel": "用户",
+    "skipToContent": "跳转到主要内容"
   },
   "profile": {
     "title": "个人中心",
-    "notLoggedIn": "请登录以查看您的个人资料。"
+    "notLoggedIn": "请登录以查看您的个人资料。",
+    "accountDetails": "账户详情",
+    "userId": "用户 ID",
+    "role": "角色"
   },
   "home": {
     "hero": {
@@ -25,8 +34,29 @@
     },
     "featured": {
       "sectionTitle": "精选活动",
-      "viewAll": "查看全部活动"
+      "viewAll": "查看全部活动",
+      "alt": "孩子们在社区工作坊中创作艺术",
+      "caption": "2026 春季活动 — 作品征集阶段",
+      "body1": "每一次活动都始于一间教室、一个社区中心、一处庇护所。我们收集孩子们的画作——原始、真诚、未经修饰——并将它们转化为可持续时尚，为孩子们的未来提供资金。",
+      "body2": "这个系列中的每一件服装都以同样的方式开始——一个孩子、一张白纸、以及自由想象的空间。我们与十二座城市的学校和社区中心合作，举办工作坊，让孩子们画出他们对世界的期望。",
+      "body3": "我们的设计师将这些原始、真诚的画作转化为图案、印花和刺绣——绝不改变孩子最初的愿景。最终呈现的是承载真实故事的服装，而非批量生产的商品。",
+      "heading": "小手塑造大创意"
     },
+    "gallery": {
+      "alt1": "儿童水彩风景画",
+      "alt2": "儿童抽象蜡笔画",
+      "alt3": "儿童粉彩肖像画",
+      "alt4": "儿童墨水插画"
+    },
+    "pillars": {
+      "supplyChain": "可追溯供应链",
+      "children": "赋能儿童",
+      "reinvested": "再投资善款"
+    },
+    "location": "中国 · 上海",
+    "estYear": "创立于 2026",
+    "latestArtworks": "最新作品",
+    "artworkAlt": "{{childName}} 的作品",
     "artworks": {
       "sectionTitle": "儿童画廊",
       "viewAll": "查看完整画廊"
@@ -43,6 +73,11 @@
       "description": "无论是捐赠、购物还是分享我们的故事——每一个行动都很重要。",
       "donate": "立即捐赠",
       "shop": "可持续购物"
+    },
+    "quote": {
+      "body": "每一针都承载着一个孩子的梦想。每一件服装都是一个尚未书写的故事中的篇章。",
+      "author": "陈伟",
+      "role": "创始人，VICOO"
     }
   },
   "about": {
@@ -76,6 +111,20 @@
     "team": {
       "title": "幕后的人们",
       "subtitle": "一个小团队，怀抱一个宏大的愿景。"
+    },
+    "images": {
+      "workshop": {
+        "alt": "工作坊中的孩子们",
+        "caption": "上海的一个周六工作坊——一切开始的地方"
+      },
+      "supplies": {
+        "alt": "美术用品"
+      }
+    },
+    "quote": {
+      "body": "我们不只是卖衣服。我们卖的是这样说的权利：我知道它来自哪里，而且它来自一个美好的地方。",
+      "author": "李梅",
+      "role": "运营总监"
     }
   },
   "campaigns": {
@@ -108,9 +157,26 @@
     },
     "pagination": {
       "prev": "上一页",
-      "next": "下一页"
+      "next": "下一页",
+      "ariaLabel": "分页导航"
     },
-    "empty": "没有找到符合条件的活动。"
+    "empty": "没有找到符合条件的活动。",
+    "goalReached": "目标已达成",
+    "emptyState": {
+      "title": "此分类下没有找到活动。",
+      "subtitle": "请稍后再来查看。"
+    },
+    "campaign": "活动",
+    "about": "关于此活动",
+    "artworks": "作品",
+    "backToAll": "返回全部活动",
+    "quote": "我画了一条裙子，走路时会发出雨声。这样每个人都知道你来了。",
+    "quoteAuthor": "小美，8岁",
+    "quoteRole": "贵州",
+    "funded": "{{percent}}% 已筹",
+    "featuredChild": {
+      "ageLabel": "{{name}}，{{age}}岁"
+    }
   },
   "stories": {
     "hero": {
@@ -119,6 +185,7 @@
     },
     "readMore": "阅读全文",
     "readTime": "分钟阅读",
+    "readTimeWithMinutes": "{{minutes}} 分钟阅读",
     "categories": {
       "all": "全部",
       "impact": "影响力",
@@ -127,6 +194,7 @@
       "education": "教育"
     },
     "newsletter": {
+      "ariaLabel": "通讯订阅",
       "title": "保持联系",
       "subtitle": "每月接收关于活动、故事以及您的支持所创造的影响的通讯。",
       "hook": "让希望的故事送到您的邮箱",
@@ -138,6 +206,11 @@
       "title": "这里还没有故事",
       "body": "每本伟大的出版物都有等待被书写的空白页。试试其他分类——有故事等待被发现。",
       "browseAll": "浏览全部故事"
+    },
+    "quote": {
+      "text": "孩子画下的每一笔都是他们想象中世界的一扇窗。我们的工作是让那个世界被看见。",
+      "author": "陈伟",
+      "role": "VICOO 创始人"
     }
   },
   "donate": {
@@ -158,7 +231,14 @@
       "anonymous": "匿名捐赠",
       "message": "留言（可选）",
       "submit": "完成捐赠",
-      "processing": "处理中..."
+      "processing": "处理中...",
+      "errors": {
+        "invalidAmount": "请输入有效金额",
+        "minAmount": "最低捐赠金额为 ¥{{min}}",
+        "maxAmount": "最高捐赠金额为 ¥{{max}}"
+      },
+      "amountRange": "金额范围：¥{{min}} - ¥{{max}}",
+      "success": "感谢您的捐赠！"
     },
     "tiers": {
       "seedling": {
@@ -189,6 +269,8 @@
     },
     "impact": {
       "title": "您的资金去向",
+      "fundsRaised": "已筹资金",
+      "childrenHelped": "受助儿童",
       "artSupplies": "美术用品与工作坊",
       "artSuppliesDesc": "颜料、画笔、画布和专业的工作坊导师。",
       "production": "可持续生产",
@@ -210,7 +292,12 @@
         "verified": "已验证",
         "transparent": "透明公开",
         "impactReported": "影响报告"
-      }
+      },
+      "trustIndicators": "信任指标",
+      "financialReport": "财务报告",
+      "pdfSize": "PDF · 2.4 MB",
+      "quote": "透明不是一种功能，而是一种责任。",
+      "quoteAuthor": "2025 年度报告"
     },
     "stories": {
       "title": "您的捐赠在行动",
@@ -266,6 +353,18 @@
       "soldOut": "已售罄",
       "lowStock": "仅剩 {{count}} 件"
     },
+    "sustainabilityTiers": {
+      "exceptional": "卓越",
+      "excellent": "优秀",
+      "good": "良好"
+    },
+    "product": {
+      "artworkBy": "基于 {{name}} 的作品，{{age}} 岁",
+      "campaign": "{{campaign}} 活动"
+    },
+    "notifyMe": "到货通知",
+    "notifyMeSuccess": "到货后我们会通知您。",
+    "notifyMePlaceholder": "your@email.com",
     "detail": {
       "addToCart": "加入购物车",
       "added": "已加入购物车",
@@ -273,7 +372,12 @@
       "sustainability": "可持续评分",
       "artwork": "基于作品",
       "size": "尺码",
-      "quantity": "数量"
+      "quantity": "数量",
+      "origin": "贵州省，2025年11月",
+      "decreaseQuantity": "减少数量",
+      "increaseQuantity": "增加数量",
+      "carbonFootprint": "总碳足迹：{{value}} 千克 CO₂e · 通过认证项目抵消",
+      "viewImage": "查看图片 {{number}}"
     },
     "sort": {
       "label": "排序",
@@ -283,13 +387,34 @@
       "sustainability": "可持续评分"
     },
     "results": "{{count}} 件商品",
-    "empty": "此分类下没有商品。"
+    "empty": "此分类下没有商品。",
+    "collection": "精选系列",
+    "sustainability": {
+      "materials": "认证材料",
+      "materialsDesc": "所有面料均为 GOTS 认证有机棉或再生聚酯纤维。",
+      "production": "道德生产",
+      "productionDesc": "公平薪酬、安全条件、完整供应链透明。",
+      "carbon": "碳足迹可溯",
+      "carbonDesc": "每件产品的碳足迹均经过计算和抵消。"
+    },
+    "behind": {
+      "title": "系列背后",
+      "caption": "成都一个周六早晨的工作坊，孩子们在那里画出将成为我们下一个系列的梦想。",
+      "alt": "孩子们在VICOO工作坊创作艺术作品",
+      "body1": "这个系列的每一件服装都以相同的方式开始——一个孩子、一张白纸和想象的自由。我们与十二座城市的学校和社区中心合作，举办工作坊，让孩子们画出他们对世界的期望。",
+      "body2": "我们的设计师随后将这些原始、真诚的艺术作品转化为图案、印花和刺绣——从不改变孩子最初的愿景。结果是承载真实故事的服装，而非制造出来的故事。",
+      "quote": "我画了大海，因为我希望它永远是蓝色的。",
+      "quoteAuthor": "小林",
+      "quoteRole": "8 岁，海洋之梦活动"
+    }
   },
   "traceability": {
     "hero": {
       "title": "溯源",
       "subtitle": "从孩子绘制设计的双手，到缝制它的工匠——跟随每一步旅程。"
     },
+    "subtitle": "完整旅程",
+    "journeySubtitle": "从原材料到成品的可验证、逐步记录。",
     "stages": {
       "artwork": "艺术创作",
       "design": "设计转化",
@@ -299,7 +424,12 @@
       "shipping": "物流配送"
     },
     "verified": "已验证",
-    "carbon": "碳足迹",
+    "carbonLabel": "碳足迹",
+    "total": "总计",
+    "noRecords": "暂无供应链记录。",
+    "kgCO2": "{{value}} 千克 CO2",
+    "carbonValue": "5.3 千克 CO2",
+    "offsetDesc": "通过云南省经认证的再造林项目实现碳抵消。",
     "lookup": {
       "title": "追溯您的产品",
       "subtitle": "输入订单号或产品 ID，追踪从创作到交付的完整旅程。",
@@ -314,6 +444,15 @@
       "inProgress": "进行中",
       "pending": "待处理"
     },
+    "timeline": {
+      "location": "地点",
+      "partner": "合作方",
+      "date": "日期",
+      "locationLabel": "地点：",
+      "partnerLabel": "合作方：",
+      "dateLabel": "日期："
+    },
+    "searching": "正在追溯供应链…",
     "carbon": {
       "title": "碳足迹对比",
       "subtitle": "我们对可持续发展的承诺意味着测量、减少并抵消每一克排放。",
@@ -325,8 +464,30 @@
     },
     "certifications": {
       "title": "认证与标准",
-      "subtitle": "我们做出的每一项声明都有独立第三方验证的支持。"
+      "subtitle": "我们做出的每一项声明都有独立第三方验证的支持。",
+      "gots": "GOTS 有机认证",
+      "fairTrade": "公平贸易认证",
+      "carbonNeutral": "碳中和认证",
+      "childSafe": "儿童安全生产",
+      "gotsDesc": "全球有机纺织品标准认证的有机纤维和负责任加工。",
+      "fairTradeDesc": "为每位工人提供生活工资、安全条件和道德待遇。",
+      "carbonNeutralDesc": "通过经认证的再造林和可再生能源实现运营碳抵消。",
+      "childSafeDesc": "完全遵守儿童保护法规和知情同意协议。"
     },
+    "howItWorks": {
+      "title": "溯源工作原理",
+      "record": "记录",
+      "recordDesc": "供应链的每一步都记录了照片、日期、地点和合作方验证。",
+      "verify": "验证",
+      "verifyDesc": "第三方审核员验证每条记录。未验证的步骤会被透明标记。",
+      "publish": "发布",
+      "publishDesc": "完整旅程发布在我们的平台上，供每位客户查验。"
+    },
+    "featuredTitle": "产品溯源之旅",
+    "featuredProduct": "梦境T恤",
+    "quote": "可追溯，方可信。每一针每一线都讲述着值得了解的故事。",
+    "quoteAuthor": "供应链宣言",
+    "quoteRole": "童画公益，2025",
     "cta": {
       "label": "放心购物",
       "headline": "知你所穿，信你所购。",
@@ -379,7 +540,7 @@
         "other": "其他"
       },
       "message": "您的留言",
-      "characterCount": "{count} / {max} 字符",
+      "characterCount": "{{count}} / {{max}} 字符",
       "requiredField": "此字段为必填项",
       "invalidEmail": "请输入有效的电子邮箱",
       "submit": "发送消息",
@@ -388,11 +549,16 @@
       "success": "感谢您的来信，我们将在24小时内回复您。",
       "error": "出了点问题，请重试。"
     },
+    "formTitle": "给我们写信",
+    "contactTitle": "联系方式",
     "info": {
       "title": "其他联系方式",
       "email": "hello@tonghua.org",
       "wechat": "TonghuaOfficial",
-      "address": "中国上海"
+      "address": "中国上海",
+      "emailLabel": "邮箱",
+      "wechatLabel": "微信",
+      "locationLabel": "地址"
     },
     "cards": {
       "email": {
@@ -407,7 +573,8 @@
         "title": "回复时间",
         "description": "平均回复时间在12小时以内，紧急事项会优先处理。"
       }
-    }
+    },
+    "officeCaption": "我们的上海办公室"
   },
   "login": {
     "title": "欢迎回来",
@@ -418,7 +585,8 @@
     "register": "创建账户",
     "forgotPassword": "忘记密码？",
     "orContinueWith": "或使用以下方式继续",
-    "wechat": "微信"
+    "wechat": "微信",
+    "rememberMe": "记住我"
   },
   "register": {
     "title": "加入我们的社区",
@@ -440,6 +608,7 @@
   "notFound": {
     "title": "页面未找到",
     "subtitle": "这个章节似乎从我们的出版物中遗失了。",
+    "body": "您访问的页面可能已被移动、重命名或不再存在。以下是一些可以开始的地方。",
     "cta": "返回目录"
   },
   "footer": {
@@ -460,17 +629,35 @@
       "terms": "使用条款",
       "children": "儿童保护"
     },
-    "copyright": "© 2026 童画公益。保留所有权利。",
-    "issueNo": "第01期 — 创刊号"
+    "copyright": "© {{year}} VICOO。保留所有权利。",
+    "copyrightTonghua": "© 2026 童画公益。保留所有权利。",
+    "issueNo": "第01期 — 创刊号",
+    "brandTagline": "创意机遇中的远见",
+    "newsletter": {
+      "title": "通讯季刊",
+      "body": "每季度来自编辑台的通讯。绝不发送垃圾邮件，只分享故事。",
+      "placeholder": "your@email.com",
+      "subscribe": "订阅",
+      "ariaLabel": "电子邮箱地址"
+    },
+    "location": "中国 · 上海",
+    "builtWith": "用心构建"
   },
   "artwork": {
+    "card": {
+      "age": "{{age}} 岁",
+      "votes": "{{count}} 票"
+    },
     "detail": {
       "heading": "作品详情",
       "artist": "创作者",
+      "artistInfo": "{{name}}，{{age}} 岁",
       "vote": "为作品投票",
       "votes": "票",
       "tags": "标签"
-    }
+    },
+    "loadError": "加载作品失败",
+    "notFound": "未找到作品"
   },
   "common": {
     "loading": "加载中...",
@@ -480,11 +667,25 @@
     "next": "下一页",
     "previous": "上一页",
     "close": "关闭",
+    "dismiss": "关闭提示",
     "search": "搜索",
     "filter": "筛选",
     "sort": "排序",
     "viewAll": "查看全部",
     "learnMore": "了解更多",
-    "getStarted": "开始使用"
+    "getStarted": "开始使用",
+    "email": "邮箱",
+    "send": "发送"
+  },
+  "error": {
+    "title": "出了点问题",
+    "subtitle": "遇到了障碍",
+    "body": "页面遇到了意外错误。我们的团队已收到通知。您可以重试或返回首页。",
+    "retry": "重试",
+    "home": "首页"
+  },
+  "hero": {
+    "scroll": "向下滚动",
+    "brandTagline": "创意机遇中的愿景"
   }
 }

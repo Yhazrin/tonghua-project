@@ -11,21 +11,26 @@
     "login": "Login",
     "register": "Register",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "toggleMenu": "Toggle navigation menu",
+    "toggleLanguage": "Toggle language",
+    "userMenu": "User menu",
+    "mobileMenu": "Mobile navigation menu",
+    "userLabel": "User",
+    "skipToContent": "Skip to content"
   },
   "profile": {
     "title": "My Profile",
-    "notLoggedIn": "Please log in to view your profile."
+    "notLoggedIn": "Please log in to view your profile.",
+    "accountDetails": "Account Details",
+    "userId": "User ID",
+    "role": "Role"
   },
   "home": {
     "hero": {
       "title": "Where Little Hands Shape the Future of Fashion",
       "subtitle": "Every child's imagination, woven into sustainable threads. Every purchase, a step toward a fairer world.",
       "cta": "Explore Our Work"
-    },
-    "featured": {
-      "sectionTitle": "Featured Campaigns",
-      "viewAll": "View All Campaigns"
     },
     "artworks": {
       "sectionTitle": "Children's Gallery",
@@ -38,11 +43,41 @@
       "donated": "Funds Raised",
       "products": "Products Sold"
     },
+    "featured": {
+      "sectionTitle": "Featured Campaigns",
+      "viewAll": "View All Campaigns",
+      "alt": "Children creating art in a community workshop",
+      "caption": "Spring Campaign 2026 — Artwork Collection Phase",
+      "body1": "Each campaign begins in a classroom, a community center, a shelter. We collect children's artwork — raw, honest, unfiltered — and transform it into sustainable fashion that funds their future.",
+      "body2": "Every garment in this collection begins the same way — with a child, a blank page, and the freedom to imagine. We partner with schools and community centres across twelve cities, running workshops where children draw their hopes for the world.",
+      "body3": "Our designers then translate these raw, honest artworks into patterns, prints, and embroideries — never altering the child's original vision. The result is clothing that carries real stories, not manufactured ones.",
+      "heading": "Where Little Hands Shape Big Ideas"
+    },
+    "gallery": {
+      "alt1": "Child's watercolor landscape",
+      "alt2": "Child's abstract crayon drawing",
+      "alt3": "Child's pastel portrait",
+      "alt4": "Child's ink illustration"
+    },
+    "pillars": {
+      "supplyChain": "Traceable Supply Chain",
+      "children": "Children Empowered",
+      "reinvested": "Yuan Reinvested"
+    },
+    "location": "Shanghai, China",
+    "estYear": "Est. 2026",
+    "latestArtworks": "Latest Artworks",
+    "artworkAlt": "Artwork by {{childName}}",
     "cta": {
       "title": "Join the Movement",
       "description": "Whether you donate, shop, or share our story — every action counts.",
       "donate": "Make a Donation",
       "shop": "Shop Sustainably"
+    },
+    "quote": {
+      "body": "Every stitch carries a child's dream. Every garment is a chapter in a story that hasn't been written yet.",
+      "author": "Chen Wei",
+      "role": "Founder, VICOO"
     }
   },
   "about": {
@@ -76,6 +111,20 @@
     "team": {
       "title": "The People Behind the Pages",
       "subtitle": "A small team with an oversized purpose."
+    },
+    "images": {
+      "workshop": {
+        "alt": "Children in a workshop",
+        "caption": "A Saturday workshop in Shanghai — where it all begins"
+      },
+      "supplies": {
+        "alt": "Art supplies"
+      }
+    },
+    "quote": {
+      "body": "We don't just sell clothes. We sell the right to say: I know where this came from, and it came from somewhere good.",
+      "author": "Li Mei",
+      "role": "Head of Operations"
     }
   },
   "campaigns": {
@@ -108,9 +157,26 @@
     },
     "pagination": {
       "prev": "Prev",
-      "next": "Next"
+      "next": "Next",
+      "ariaLabel": "Pagination"
     },
-    "empty": "No campaigns found matching your criteria."
+    "empty": "No campaigns found matching your criteria.",
+    "goalReached": "Goal Reached",
+    "emptyState": {
+      "title": "No campaigns found in this category.",
+      "subtitle": "Check back soon."
+    },
+    "campaign": "Campaign",
+    "about": "About This Campaign",
+    "artworks": "Artworks",
+    "backToAll": "to all campaigns",
+    "quote": "I drew a dress that makes rain sounds when you walk. That way, everyone knows you're coming.",
+    "quoteAuthor": "Mei, age 8",
+    "quoteRole": "Guizhou",
+    "funded": "{{percent}}% funded",
+    "featuredChild": {
+      "ageLabel": "{{name}}, age {{age}}"
+    }
   },
   "stories": {
     "hero": {
@@ -119,6 +185,7 @@
     },
     "readMore": "Read Full Story",
     "readTime": "min read",
+    "readTimeWithMinutes": "{{minutes}} min read",
     "categories": {
       "all": "All",
       "impact": "Impact",
@@ -127,6 +194,7 @@
       "education": "Education"
     },
     "newsletter": {
+      "ariaLabel": "Newsletter subscription",
       "title": "Stay in the Loop",
       "subtitle": "Get monthly dispatches on campaigns, stories, and the impact your support creates.",
       "hook": "Get stories of hope delivered to your inbox",
@@ -138,6 +206,11 @@
       "title": "No stories here yet",
       "body": "Every great publication has blank pages waiting to be filled. Try another category — there are stories waiting to be discovered.",
       "browseAll": "Browse All Stories"
+    },
+    "quote": {
+      "text": "Every brushstroke a child makes is a window into a world they imagine. Our job is to make that world visible.",
+      "author": "Chen Wei",
+      "role": "Founder, VICOO"
     }
   },
   "donate": {
@@ -158,7 +231,14 @@
       "anonymous": "Make this donation anonymous",
       "message": "Leave a message (optional)",
       "submit": "Complete Donation",
-      "processing": "Processing..."
+      "processing": "Processing...",
+      "errors": {
+        "invalidAmount": "Please enter a valid amount",
+        "minAmount": "Minimum donation is ¥{{min}}",
+        "maxAmount": "Maximum donation is ¥{{max}}"
+      },
+      "amountRange": "Amount: ¥{{min}} - ¥{{max}}",
+      "success": "Thank you for your donation!"
     },
     "tiers": {
       "seedling": {
@@ -189,6 +269,8 @@
     },
     "impact": {
       "title": "Where Your Money Goes",
+      "fundsRaised": "Funds Raised",
+      "childrenHelped": "Children Helped",
       "artSupplies": "Art Supplies & Workshops",
       "artSuppliesDesc": "Paints, brushes, canvases, and skilled workshop facilitators.",
       "production": "Sustainable Production",
@@ -210,7 +292,12 @@
         "verified": "Verified",
         "transparent": "Transparent",
         "impactReported": "Impact-Reported"
-      }
+      },
+      "trustIndicators": "Trust Indicators",
+      "financialReport": "FINANCIAL REPORT",
+      "pdfSize": "PDF · 2.4 MB",
+      "quote": "Transparency is not a feature. It is a responsibility.",
+      "quoteAuthor": "Annual Report 2025"
     },
     "stories": {
       "title": "Your Donations at Work",
@@ -266,6 +353,18 @@
       "soldOut": "Sold Out",
       "lowStock": "Only {{count}} left"
     },
+    "sustainabilityTiers": {
+      "exceptional": "Exceptional",
+      "excellent": "Excellent",
+      "good": "Good"
+    },
+    "product": {
+      "artworkBy": "Artwork by {{name}}, age {{age}}",
+      "campaign": "{{campaign}} campaign"
+    },
+    "notifyMe": "Notify Me",
+    "notifyMeSuccess": "We will let you know when this is back.",
+    "notifyMePlaceholder": "your@email.com",
     "detail": {
       "addToCart": "Add to Cart",
       "added": "Added to Cart",
@@ -273,7 +372,12 @@
       "sustainability": "Sustainability Score",
       "artwork": "Based on artwork by",
       "size": "Size",
-      "quantity": "Quantity"
+      "quantity": "Quantity",
+      "origin": "Guizhou Province, November 2025",
+      "decreaseQuantity": "Decrease quantity",
+      "increaseQuantity": "Increase quantity",
+      "carbonFootprint": "Total carbon footprint: {{value}} kg CO₂e · Offset via verified programs",
+      "viewImage": "View image {{number}}"
     },
     "sort": {
       "label": "Sort by",
@@ -283,13 +387,34 @@
       "sustainability": "Sustainability"
     },
     "results": "{{count}} products",
-    "empty": "No products found in this category."
+    "empty": "No products found in this category.",
+    "collection": "Collection",
+    "sustainability": {
+      "materials": "Certified Materials",
+      "materialsDesc": "All fabrics are GOTS-certified organic cotton or recycled polyester.",
+      "production": "Ethical Production",
+      "productionDesc": "Fair wages, safe conditions, full supply chain transparency.",
+      "carbon": "Carbon Measured",
+      "carbonDesc": "Every product's carbon footprint is calculated and offset."
+    },
+    "behind": {
+      "title": "Behind the Collection",
+      "caption": "A Saturday morning workshop in Chengdu, where children paint the dreams that will become our next collection.",
+      "alt": "Children creating artwork in a VICOO workshop",
+      "body1": "Every garment in this collection begins the same way — with a child, a blank page, and the freedom to imagine. We partner with schools and community centres across twelve cities, running workshops where children draw their hopes for the world.",
+      "body2": "Our designers then translate these raw, honest artworks into patterns, prints, and embroideries — never altering the child's original vision. The result is clothing that carries real stories, not manufactured ones.",
+      "quote": "I drew the ocean because I want it to stay blue forever.",
+      "quoteAuthor": "Xiao Lin",
+      "quoteRole": "Age 8, Ocean Dreams campaign"
+    }
   },
   "traceability": {
     "hero": {
       "title": "Traceability",
       "subtitle": "From the child's hand that drew the design to the artisan who stitched it — follow every step of the journey."
     },
+    "subtitle": "Full Journey",
+    "journeySubtitle": "A verifiable, step-by-step record from raw material to finished garment.",
     "stages": {
       "artwork": "Artwork Creation",
       "design": "Design Adaptation",
@@ -299,7 +424,12 @@
       "shipping": "Shipping"
     },
     "verified": "Verified",
-    "carbon": "Carbon Footprint",
+    "carbonLabel": "Carbon Footprint",
+    "total": "Total",
+    "noRecords": "No supply chain records available.",
+    "kgCO2": "{{value}} kg CO2",
+    "carbonValue": "5.3 kg CO2",
+    "offsetDesc": "Offset through verified reforestation project in Yunnan Province.",
     "lookup": {
       "title": "Trace Your Product",
       "subtitle": "Enter an order number or product ID to follow its complete journey from creation to delivery.",
@@ -314,6 +444,15 @@
       "inProgress": "In Progress",
       "pending": "Pending"
     },
+    "timeline": {
+      "location": "Location",
+      "partner": "Partner",
+      "date": "Date",
+      "locationLabel": "Location:",
+      "partnerLabel": "Partner:",
+      "dateLabel": "Date:"
+    },
+    "searching": "Tracing supply chain…",
     "carbon": {
       "title": "Carbon Footprint Comparison",
       "subtitle": "Our commitment to sustainability means measuring, reducing, and offsetting every gram of emissions.",
@@ -325,8 +464,30 @@
     },
     "certifications": {
       "title": "Certifications and Standards",
-      "subtitle": "Every claim we make is backed by independent third-party verification."
+      "subtitle": "Every claim we make is backed by independent third-party verification.",
+      "gots": "GOTS Certified Organic",
+      "fairTrade": "Fair Trade Verified",
+      "carbonNeutral": "Carbon Neutral",
+      "childSafe": "Child-Safe Production",
+      "gotsDesc": "Global Organic Textile Standard verified organic fibers and responsible processing.",
+      "fairTradeDesc": "Living wages, safe conditions, and ethical treatment for every worker.",
+      "carbonNeutralDesc": "Operations offset through verified reforestation and renewable energy.",
+      "childSafeDesc": "Full compliance with child protection regulations and consent protocols."
     },
+    "howItWorks": {
+      "title": "How Traceability Works",
+      "record": "Record",
+      "recordDesc": "Every step in the supply chain is documented with photos, dates, locations, and partner verification.",
+      "verify": "Verify",
+      "verifyDesc": "Third-party auditors verify each record. Unverified steps are flagged transparently.",
+      "publish": "Publish",
+      "publishDesc": "The complete journey is published on our platform for every customer to inspect."
+    },
+    "featuredTitle": "Product Journey",
+    "featuredProduct": "Dreamscape Tee",
+    "quote": "If you can trace it, you can trust it. Every stitch tells a story worth knowing.",
+    "quoteAuthor": "Supply Chain Manifesto",
+    "quoteRole": "Tonghua Public Welfare, 2025",
     "cta": {
       "label": "Shop with Confidence",
       "headline": "Know what you wear. Trust what you buy.",
@@ -379,7 +540,7 @@
         "other": "Other"
       },
       "message": "Your Message",
-      "characterCount": "{count} / {max} characters",
+      "characterCount": "{{count}} / {{max}} characters",
       "requiredField": "This field is required",
       "invalidEmail": "Please enter a valid email address",
       "submit": "Send Message",
@@ -388,11 +549,16 @@
       "success": "Thank you for reaching out. We'll get back to you within 24 hours.",
       "error": "Something went wrong. Please try again."
     },
+    "formTitle": "Write to Us",
+    "contactTitle": "Get in Touch",
     "info": {
       "title": "Other Ways to Reach Us",
       "email": "hello@tonghua.org",
       "wechat": "TonghuaOfficial",
-      "address": "Shanghai, China"
+      "address": "Shanghai, China",
+      "emailLabel": "Email",
+      "wechatLabel": "WeChat",
+      "locationLabel": "Location"
     },
     "cards": {
       "email": {
@@ -407,7 +573,8 @@
         "title": "Response Time",
         "description": "Average reply time is under 12 hours. Urgent matters are prioritized."
       }
-    }
+    },
+    "officeCaption": "Our Shanghai office"
   },
   "login": {
     "title": "Welcome Back",
@@ -418,7 +585,8 @@
     "register": "Create an Account",
     "forgotPassword": "Forgot Password?",
     "orContinueWith": "Or continue with",
-    "wechat": "WeChat"
+    "wechat": "WeChat",
+    "rememberMe": "Remember me"
   },
   "register": {
     "title": "Join Our Community",
@@ -440,6 +608,7 @@
   "notFound": {
     "title": "Page Not Found",
     "subtitle": "This chapter seems to be missing from our publication.",
+    "body": "The page you are looking for may have been moved, renamed, or no longer exists. Here are some places to start.",
     "cta": "Return to Table of Contents"
   },
   "footer": {
@@ -460,17 +629,35 @@
       "terms": "Terms of Use",
       "children": "Children's Protection"
     },
-    "copyright": "© 2026 Tonghua Public Welfare. All rights reserved.",
-    "issueNo": "Issue No. 01 — Inaugural Edition"
+    "copyright": "© {{year}} VICOO. All rights reserved.",
+    "copyrightTonghua": "© 2026 Tonghua Public Welfare. All rights reserved.",
+    "issueNo": "Issue No. 01 — Inaugural Edition",
+    "brandTagline": "Vision In Creative Opportunity",
+    "newsletter": {
+      "title": "Newsletter",
+      "body": "Quarterly dispatches from the editor's desk. No spam, only stories.",
+      "placeholder": "your@email.com",
+      "subscribe": "Subscribe",
+      "ariaLabel": "Email address for newsletter"
+    },
+    "location": "Shanghai, China",
+    "builtWith": "Built with care"
   },
   "artwork": {
+    "card": {
+      "age": "Age {{age}}",
+      "votes": "{{count}} votes"
+    },
     "detail": {
       "heading": "Artwork",
       "artist": "Artist",
+      "artistInfo": "{{name}}, age {{age}}",
       "vote": "Vote for this Artwork",
       "votes": "Votes",
       "tags": "Tags"
-    }
+    },
+    "loadError": "Failed to load artwork",
+    "notFound": "Artwork not found"
   },
   "common": {
     "loading": "Loading...",
@@ -480,11 +667,25 @@
     "next": "Next",
     "previous": "Previous",
     "close": "Close",
+    "dismiss": "Dismiss",
     "search": "Search",
     "filter": "Filter",
     "sort": "Sort",
     "viewAll": "View All",
     "learnMore": "Learn More",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "email": "Email",
+    "send": "Send"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "subtitle": "We hit a snag",
+    "body": "The page encountered an unexpected error. Our team has been notified. You can try again or return to the home page.",
+    "retry": "Try again",
+    "home": "Home"
+  },
+  "hero": {
+    "scroll": "Scroll",
+    "brandTagline": "Vision In Creative Opportunity"
   }
 }

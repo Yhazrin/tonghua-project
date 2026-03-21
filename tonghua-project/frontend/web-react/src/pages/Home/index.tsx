@@ -12,6 +12,7 @@ import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
 import MagneticButton from '@/components/animations/MagneticButton';
 import { ScrollPathDrawInline } from '@/components/animations/ScrollPathDraw';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 /* ─── Gallery Item (extracted to fix useState-in-map bug) ─── */
 
@@ -23,36 +24,37 @@ interface GalleryItemProps {
 
 function GalleryItem({ src, alt, index }: GalleryItemProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         type: 'spring',
         stiffness: 380,
         damping: 30,
         delay: index * 0.08,
       }}
-      whileHover={{ y: -4 }}
+      whileHover={prefersReducedMotion ? undefined : { y: -4 }}
       className="relative aspect-square overflow-hidden border-2 border-warm-gray/50 bg-aged-stock group"
     >
       {/* Grain overlay */}
       <div
         className="absolute inset-0 z-10 pointer-events-none opacity-15"
         style={{
-          backgroundImage:
-            'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+          backgroundImage: 'var(--grain-overlay)',
         }}
+        aria-hidden="true"
       />
 
       {/* Sepia frame effect */}
-      <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/8 via-transparent to-archive-brown/8" />
+      <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/8 via-transparent to-archive-brown/8" aria-hidden="true" />
 
       {/* Decorative corner accents */}
-      <div className="absolute top-2 left-2 w-6 h-6 border-t border-l border-rust/40 z-20 pointer-events-none" />
-      <div className="absolute bottom-2 right-2 w-6 h-6 border-b border-r border-rust/40 z-20 pointer-events-none" />
+      <div className="absolute top-2 left-2 w-6 h-6 border-t border-l border-rust/40 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-2 right-2 w-6 h-6 border-b border-r border-rust/40 z-20 pointer-events-none" aria-hidden="true" />
 
       {/* Loading skeleton */}
       {!imageLoaded && (
@@ -91,14 +93,16 @@ function LatestArtworkCard({
   index,
   wide = false,
 }: LatestArtworkCardProps) {
+  const { t } = useTranslation();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         type: 'spring',
         stiffness: 380,
         damping: 30,
@@ -115,11 +119,11 @@ function LatestArtworkCard({
         <div
           className="absolute inset-0 z-10 pointer-events-none opacity-10"
           style={{
-            backgroundImage:
-              'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+            backgroundImage: 'var(--grain-overlay)',
           }}
+          aria-hidden="true"
         />
-        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" aria-hidden="true" />
 
         {!imageLoaded && (
           <ImageSkeleton
@@ -130,7 +134,7 @@ function LatestArtworkCard({
 
         <img
           src={src}
-          alt={`Artwork by ${childName}`}
+          alt={t('home.artworkAlt', { childName })}
           className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 sepia-[0.1] ${
             imageLoaded ? 'opacity-100' : 'opacity-0'
           }`}
@@ -163,12 +167,14 @@ interface BrandPillarProps {
 }
 
 function BrandPillar({ label, value, index }: BrandPillarProps) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         type: 'spring',
         stiffness: 380,
         damping: 30,
@@ -186,44 +192,46 @@ function BrandPillar({ label, value, index }: BrandPillarProps) {
   );
 }
 
+/* ─── Static Data ─── */
+
+const galleryImages = [
+  { src: 'https://picsum.photos/seed/children-art-1/400/400' },
+  { src: 'https://picsum.photos/seed/children-art-2/400/400' },
+  { src: 'https://picsum.photos/seed/children-art-3/400/400' },
+  { src: 'https://picsum.photos/seed/children-art-4/400/400' },
+];
+
+const latestArtworks = [
+  {
+    src: 'https://picsum.photos/seed/spring-bloom-art/800/500',
+    childName: 'Lin Xiaomei',
+    campaignName: 'Spring Bloom Campaign',
+    date: 'Mar 2026',
+  },
+  {
+    src: 'https://picsum.photos/seed/ocean-dreams-art/400/533',
+    childName: 'Zhang Yufei',
+    campaignName: 'Ocean Dreams',
+    date: 'Feb 2026',
+  },
+  {
+    src: 'https://picsum.photos/seed/mountain-song-art/400/533',
+    childName: 'Wang Haoran',
+    campaignName: 'Mountain Song',
+    date: 'Jan 2026',
+  },
+];
+
+const brandPillars = [
+  { label: 'supplyChain', value: '100%' },
+  { label: 'children', value: '2,847' },
+  { label: 'reinvested', value: '890,000' },
+];
+
 /* ─── Home Page ─── */
 
 export default function Home() {
   const { t } = useTranslation();
-
-  const galleryImages = [
-    { src: 'https://picsum.photos/seed/children-art-1/400/400', alt: "Child's watercolor landscape" },
-    { src: 'https://picsum.photos/seed/children-art-2/400/400', alt: "Child's abstract crayon drawing" },
-    { src: 'https://picsum.photos/seed/children-art-3/400/400', alt: "Child's pastel portrait" },
-    { src: 'https://picsum.photos/seed/children-art-4/400/400', alt: "Child's ink illustration" },
-  ];
-
-  const latestArtworks = [
-    {
-      src: 'https://picsum.photos/seed/spring-bloom-art/800/500',
-      childName: 'Lin Xiaomei',
-      campaignName: 'Spring Bloom Campaign',
-      date: 'Mar 2026',
-    },
-    {
-      src: 'https://picsum.photos/seed/ocean-dreams-art/400/533',
-      childName: 'Zhang Yufei',
-      campaignName: 'Ocean Dreams',
-      date: 'Feb 2026',
-    },
-    {
-      src: 'https://picsum.photos/seed/mountain-song-art/400/533',
-      childName: 'Wang Haoran',
-      campaignName: 'Mountain Song',
-      date: 'Jan 2026',
-    },
-  ];
-
-  const brandPillars = [
-    { label: 'Traceable Supply Chain', value: '100%' },
-    { label: 'Children Empowered', value: '2,847' },
-    { label: 'Yuan Reinvested', value: '890,000' },
-  ];
 
   return (
     <PageWrapper>
@@ -237,7 +245,7 @@ export default function Home() {
         <MagneticButton strength={0.4}>
           <Link
             to="/campaigns"
-            className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-8 py-4 hover:bg-rust transition-colors duration-300"
+            className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-8 py-4 hover:bg-rust transition-colors duration-300 cursor-pointer"
           >
             {t('home.hero.cta')}
           </Link>
@@ -252,24 +260,22 @@ export default function Home() {
           <div className="md:col-span-7">
             <SepiaImageFrame
               src="https://picsum.photos/seed/spring-campaign/800/600"
-              alt="Children creating art in a community workshop"
-              caption="Spring Campaign 2026 — Artwork Collection Phase"
+              alt={t('home.featured.alt')}
+              caption={t('home.featured.caption')}
               aspectRatio="landscape"
               size="full"
             />
           </div>
           <div className="md:col-span-5 flex flex-col justify-center">
             <h3 className="font-display text-h3 md:text-h2 font-bold text-ink leading-tight mb-4">
-              Where Little Hands Shape Big Ideas
+              {t('home.featured.heading')}
             </h3>
             <p className="font-body text-sm text-ink-faded leading-relaxed mb-6">
-              Each campaign begins in a classroom, a community center, a shelter.
-              We collect children's artwork — raw, honest, unfiltered — and transform
-              it into sustainable fashion that funds their future.
+              {t('home.featured.body1')}
             </p>
             <Link
               to="/campaigns"
-              className="font-body text-xs text-rust tracking-[0.15em] uppercase hover:text-ink transition-colors"
+              className="font-body text-xs text-rust tracking-[0.15em] uppercase hover:text-ink transition-colors cursor-pointer"
             >
               {t('home.featured.viewAll')} &rarr;
             </Link>
@@ -281,7 +287,7 @@ export default function Home() {
       <div className="flex justify-center py-2" aria-hidden="true">
         <ScrollPathDrawInline
           path="M0,10 L60,10 M80,10 L140,10 M160,10 L220,10"
-          strokeColor="#D4CFC4"
+          strokeColor="var(--color-warm-gray)"
           strokeWidth={1}
           className="w-56 h-5"
         />
@@ -290,9 +296,9 @@ export default function Home() {
       {/* Quote Interlude */}
       <SectionContainer narrow>
         <StoryQuoteBlock
-          quote="Every stitch carries a child's dream. Every garment is a chapter in a story that hasn't been written yet."
-          author="Chen Wei"
-          role="Founder, VICOO"
+          quote={t('home.quote.body')}
+          author={t('home.quote.author')}
+          role={t('home.quote.role')}
         />
       </SectionContainer>
 
@@ -310,7 +316,7 @@ export default function Home() {
 
       {/* Latest Artworks */}
       <SectionContainer>
-        <NumberedSectionHeading number="03" title="Latest Artworks" />
+        <NumberedSectionHeading number="03" title={t('home.latestArtworks')} />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {latestArtworks.map((artwork, i) => (
@@ -336,7 +342,7 @@ export default function Home() {
             <GalleryItem
               key={img.src}
               src={img.src}
-              alt={img.alt}
+              alt={t(`home.gallery.alt${i + 1}`)}
               index={i}
             />
           ))}
@@ -345,7 +351,7 @@ export default function Home() {
         <div className="mt-8 text-center">
           <Link
             to="/campaigns"
-            className="font-body text-xs text-rust tracking-[0.15em] uppercase hover:text-ink transition-colors"
+            className="font-body text-xs text-rust tracking-[0.15em] uppercase hover:text-ink transition-colors cursor-pointer"
           >
             {t('home.artworks.viewAll')} &rarr;
           </Link>
@@ -368,7 +374,7 @@ export default function Home() {
               <MagneticButton strength={0.35}>
                 <Link
                   to="/donate"
-                  className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-rust text-paper px-8 py-4 hover:bg-pale-gold hover:text-ink transition-all duration-300"
+                  className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-rust text-paper px-8 py-4 hover:bg-pale-gold hover:text-ink transition-all duration-300 cursor-pointer"
                 >
                   {t('home.cta.donate')}
                 </Link>
@@ -376,7 +382,7 @@ export default function Home() {
               <MagneticButton strength={0.35}>
                 <Link
                   to="/shop"
-                  className="inline-block font-body text-sm tracking-[0.15em] uppercase border border-warm-gray/40 text-paper px-8 py-4 hover:border-pale-gold hover:text-pale-gold transition-all duration-300"
+                  className="inline-block font-body text-sm tracking-[0.15em] uppercase border border-warm-gray/40 text-paper px-8 py-4 hover:border-pale-gold hover:text-pale-gold transition-all duration-300 cursor-pointer"
                 >
                   {t('home.cta.shop')}
                 </Link>
@@ -387,7 +393,7 @@ export default function Home() {
       </section>
 
       {/* Editorial divider before footer */}
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
 
       {/* Bottom feature strip — 3 brand pillars */}
       <SectionContainer>
@@ -396,15 +402,15 @@ export default function Home() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="py-12 md:py-16"
+          className="section-spacing-sm"
         >
           <div className="flex items-baseline gap-3 mb-10">
             <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
-              Shanghai, China
+              {t('home.location')}
             </span>
             <span className="flex-1 h-px bg-warm-gray/40" />
             <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
-              Est. 2026
+              {t('home.estYear')}
             </span>
           </div>
 
@@ -412,7 +418,7 @@ export default function Home() {
             {brandPillars.map((pillar, i) => (
               <BrandPillar
                 key={pillar.label}
-                label={pillar.label}
+                label={t(`home.pillars.${pillar.label}`)}
                 value={pillar.value}
                 index={i}
               />

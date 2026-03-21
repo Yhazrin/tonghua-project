@@ -6,10 +6,22 @@
 @import './tokens.css';
 @import './typography.css';
 
+/* ── Shared Design Tokens ── */
+:root {
+  --grain-overlay: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
 /* ── Tailwind Layers ── */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ── Component Utilities ── */
+@layer components {
+  .shadow-rust-glow {
+    box-shadow: 0 0 30px color-mix(in srgb, var(--color-rust) 15%, transparent);
+  }
+}
 
 /* ── Reset & Base ── */
 *,
@@ -31,7 +43,7 @@ html {
 body {
   background-color: var(--color-paper);
   color: var(--color-ink);
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   position: relative;
 }
@@ -44,10 +56,10 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 15% 30%, rgba(196, 164, 90, 0.05) 0%, transparent 45%),
-    radial-gradient(ellipse at 85% 15%, rgba(139, 58, 42, 0.04) 0%, transparent 40%),
-    radial-gradient(ellipse at 50% 85%, rgba(92, 64, 51, 0.03) 0%, transparent 55%),
-    radial-gradient(ellipse at 70% 60%, rgba(212, 207, 196, 0.08) 0%, transparent 50%);
+    radial-gradient(ellipse at 15% 30%, color-mix(in srgb, var(--color-pale-gold) 5%, transparent) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 15%, color-mix(in srgb, var(--color-rust) 4%, transparent) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 85%, color-mix(in srgb, var(--color-archive-brown) 3%, transparent) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 60%, color-mix(in srgb, var(--color-warm-gray) 8%, transparent) 0%, transparent 50%);
 }
 
 /* ── Grain Overlay ── */
@@ -57,7 +69,7 @@ body::after {
   inset: 0;
   z-index: var(--z-grain);
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.15;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 180px 180px;
@@ -88,14 +100,18 @@ body::after {
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-muted-gray) var(--color-aged-stock);
+  scrollbar-color: var(--color-warm-gray) transparent;
 }
 
 /* ── Focus Styles ── */
 :focus-visible {
   outline: 2px solid var(--color-rust);
-  outline-offset: 3px;
+  outline-offset: 2px;
   border-radius: var(--radius-sm);
+}
+
+.bg-ink *:focus-visible {
+  outline-color: var(--color-pale-gold);
 }
 
 /* ── List Reset ── */
@@ -111,11 +127,14 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
-  filter: sepia(0.15) contrast(1.05) brightness(0.97);
   transition: filter var(--duration-normal) var(--ease-editorial);
 }
 
-img:hover {
+.editorial-content img {
+  filter: sepia(0.15) contrast(1.05) brightness(0.97);
+}
+
+.editorial-content img:hover {
   filter: sepia(0.05) contrast(1.08) brightness(1.0);
 }
 
@@ -327,8 +346,8 @@ input, textarea, select {
 .aged-border {
   border: 1px solid var(--color-warm-gray);
   box-shadow:
-    inset 0 0 30px rgba(237, 230, 214, 0.5),
-    0 2px 8px rgba(26, 26, 22, 0.05);
+    inset 0 0 30px color-mix(in srgb, var(--color-aged-stock) 50%, transparent),
+    0 2px 8px color-mix(in srgb, var(--color-ink) 5%, transparent);
   position: relative;
 }
 
@@ -339,10 +358,10 @@ input, textarea, select {
   pointer-events: none;
   background: linear-gradient(
     135deg,
-    rgba(196, 164, 90, 0.06) 0%,
+    color-mix(in srgb, var(--color-pale-gold) 6%, transparent) 0%,
     transparent 40%,
     transparent 60%,
-    rgba(92, 64, 51, 0.04) 100%
+    color-mix(in srgb, var(--color-archive-brown) 4%, transparent) 100%
   );
 }
 
@@ -359,9 +378,9 @@ input, textarea, select {
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(196, 164, 90, 0.08) 0%,
+    color-mix(in srgb, var(--color-pale-gold) 8%, transparent) 0%,
     transparent 50%,
-    rgba(92, 64, 51, 0.05) 100%
+    color-mix(in srgb, var(--color-archive-brown) 5%, transparent) 100%
   );
   pointer-events: none;
 }
@@ -376,7 +395,7 @@ input, textarea, select {
 .vintage-card {
   position: relative;
   background: var(--color-paper);
-  border: 1px solid rgba(26, 26, 22, 0.12);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
   transition: all var(--duration-normal) var(--ease-editorial);
 }
 
@@ -406,7 +425,7 @@ input, textarea, select {
 }
 
 .vintage-card:hover {
-  border-color: rgba(26, 26, 22, 0.25);
+  border-color: color-mix(in srgb, var(--color-ink) 25%, transparent);
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
 }
@@ -626,6 +645,27 @@ input, textarea, select {
   color: var(--color-muted-gray);
 }
 
+/* ── VintageInput Focus Highlight Line ── */
+.vintage-input-line {
+  position: relative;
+}
+
+.vintage-input-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--color-rust);
+  transition: all var(--duration-normal) var(--ease-editorial);
+  transform: translateX(-50%);
+}
+
+.vintage-input-line:focus-within::after {
+  width: 100%;
+}
+
 /* ─────────────────────────────────────────────────────────────
    Animation Utilities
    ───────────────────────────────────────────────────────────── */
@@ -675,6 +715,21 @@ input, textarea, select {
 .stagger-3 { animation-delay: 300ms; }
 .stagger-4 { animation-delay: 400ms; }
 .stagger-5 { animation-delay: 500ms; }
+
+/* ─────────────────────────────────────────────────────────────
+   Reduced Motion
+   ───────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-content {
+    animation: none !important;
+  }
+  .animate-fade-in,
+  .animate-fade-up,
+  .animate-fade-down {
+    animation: none !important;
+  }
+}
 
 /* ─────────────────────────────────────────────────────────────
    Print-specific styles

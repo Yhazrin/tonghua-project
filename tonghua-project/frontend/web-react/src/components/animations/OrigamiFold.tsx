@@ -8,6 +8,7 @@
 
 import { type ReactNode } from 'react';
 import { motion } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 /* ─────────────────────────────────────────────────────────────
    OrigamiCorner — Decorative folded paper corner effect
@@ -38,17 +39,17 @@ const cornerColorClasses = {
   paper: {
     front: 'bg-paper',
     back: 'bg-aged-stock',
-    shadow: 'rgba(26, 26, 22, 0.08)',
+    shadow: 'color-mix(in srgb, var(--color-ink) 8%, transparent)',
   },
   aged: {
     front: 'bg-aged-stock',
     back: 'bg-warm-gray',
-    shadow: 'rgba(26, 26, 22, 0.12)',
+    shadow: 'color-mix(in srgb, var(--color-ink) 12%, transparent)',
   },
   sepia: {
     front: 'bg-sepia-mid',
     back: 'bg-archive-brown',
-    shadow: 'rgba(26, 26, 22, 0.15)',
+    shadow: 'color-mix(in srgb, var(--color-ink) 15%, transparent)',
   },
 };
 
@@ -60,6 +61,7 @@ export function OrigamiCorner({
   className = '',
 }: OrigamiCornerProps) {
   const colors = cornerColorClasses[color];
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <div
@@ -74,9 +76,9 @@ export function OrigamiCorner({
 
       {/* Folded corner triangle */}
       <motion.div
-        initial={{ rotate: 0, opacity: 0 }}
-        animate={{ rotate: -180, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+        initial={prefersReducedMotion ? false : { rotate: 0, opacity: 0 }}
+        animate={prefersReducedMotion ? undefined : { rotate: -180, opacity: 1 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
         className={`
           absolute
           ${position === 'top-left' || position === 'bottom-right' ? 'top-0 right-0' : 'top-0 left-0'}
@@ -124,7 +126,7 @@ export function OrigamiCorner({
         className="absolute w-px bg-white/20"
         style={{
           ...getHighlightPosition(position),
-          background: `linear-gradient(${getHighlightGradient(position)}, rgba(255,255,255,0.15), transparent)`,
+          background: `linear-gradient(${getHighlightGradient(position)}, color-mix(in srgb, var(--color-paper) 15%, transparent), transparent)`,
         }}
       />
     </div>
@@ -227,6 +229,7 @@ export function OrigamiDivider({
   children,
 }: OrigamiDividerProps) {
   const isHorizontal = orientation === 'horizontal';
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   const containerClasses = isHorizontal
     ? `h-12 ${dividerLengthClasses[length]}`
@@ -234,9 +237,9 @@ export function OrigamiDivider({
 
   return (
     <motion.div
-      initial={{ opacity: 0, scaleX: isHorizontal ? 0 : 1, scaleY: isHorizontal ? 1 : 0 }}
-      animate={{ opacity: 1, scaleX: 1, scaleY: 1 }}
-      transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
+      initial={prefersReducedMotion ? false : { opacity: 0, scaleX: isHorizontal ? 0 : 1, scaleY: isHorizontal ? 1 : 0 }}
+      animate={prefersReducedMotion ? undefined : { opacity: 1, scaleX: 1, scaleY: 1 }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
       className={`flex ${isHorizontal ? 'items-center' : 'items-center'} ${containerClasses} ${className}`}
       aria-label="Section divider"
       role="separator"
@@ -305,6 +308,7 @@ function FoldSegment({
   const colors = dividerColorClasses[color];
   const isHorizontal = orientation === 'horizontal';
   const segmentSize = isHorizontal ? 'w-6 h-full' : 'h-6 w-full';
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   // Calculate alternating angles for zigzag variant
   const zigzagAngle = variant === 'zigzag' ? (index % 2 === 0 ? -3 : 3) : 0;
@@ -313,9 +317,9 @@ function FoldSegment({
 
   return (
     <motion.div
-      initial={{ opacity: 0, rotate: baseRotate + 90 }}
-      animate={{ opacity: 1, rotate }}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, rotate: baseRotate + 90 }}
+      animate={prefersReducedMotion ? undefined : { opacity: 1, rotate }}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         duration: 0.5,
         delay: index * 0.1,
         ease: [0.34, 1.56, 0.64, 1],
@@ -428,23 +432,23 @@ export function OrigamiFoldAccent({
         {/* Shadow */}
         <path
           d="M0 0 L40 0 L40 40 Z"
-          fill={`rgba(26, 26, 22, ${opacityValue * 0.15})`}
+          fill={`color-mix(in srgb, var(--color-ink) ${opacityValue * 15}%, transparent)`}
           filter="blur(2px)"
         />
 
         {/* Front face */}
         <path
           d="M0 0 L40 0 L40 40 Z"
-          fill="#EDE6D6"
-          stroke="rgba(26, 26, 22, 0.08)"
+          stroke="color-mix(in srgb, var(--color-ink) 8%, transparent)"
           strokeWidth="0.5"
+          style={{ fill: 'var(--color-aged-stock)' }}
         />
 
         {/* Back face (showing through) */}
         <path
           d="M0 0 L40 40 L0 40 Z"
-          fill="#D4CFC4"
           opacity="0.6"
+          style={{ fill: 'var(--color-warm-gray)' }}
         />
 
         {/* Crease line */}
@@ -453,7 +457,7 @@ export function OrigamiFoldAccent({
           y1="0"
           x2="40"
           y2="40"
-          stroke="rgba(26, 26, 22, 0.1)"
+          stroke="color-mix(in srgb, var(--color-ink) 10%, transparent)"
           strokeWidth="0.5"
         />
 
@@ -463,7 +467,7 @@ export function OrigamiFoldAccent({
           y1="0"
           x2="40"
           y2="40"
-          stroke="rgba(255, 255, 255, 0.2)"
+          stroke="color-mix(in srgb, var(--color-paper) 20%, transparent)"
           strokeWidth="0.5"
           style={{ mixBlendMode: 'overlay' }}
         />
@@ -492,19 +496,20 @@ export function OrigamiPaperStrip({
   className = '',
 }: OrigamiPaperStripProps) {
   const colors = {
-    paper: { front: '#F5F0E8', back: '#EDE6D6', shadow: 'rgba(26, 26, 22, 0.06)' },
-    aged: { front: '#EDE6D6', back: '#D4CFC4', shadow: 'rgba(26, 26, 22, 0.1)' },
-    sepia: { front: '#5C4D3D', back: '#5C4033', shadow: 'rgba(26, 26, 22, 0.15)' },
+    paper: { front: 'var(--color-paper)', back: 'var(--color-aged-stock)', shadow: 'color-mix(in srgb, var(--color-ink) 6%, transparent)' },
+    aged: { front: 'var(--color-aged-stock)', back: 'var(--color-warm-gray)', shadow: 'color-mix(in srgb, var(--color-ink) 10%, transparent)' },
+    sepia: { front: 'var(--color-sepia-mid)', back: 'var(--color-archive-brown)', shadow: 'color-mix(in srgb, var(--color-ink) 15%, transparent)' },
   }[color];
 
   const isHorizontal = orientation === 'horizontal';
   const stripSize = isHorizontal ? { width: foldCount * 20, height: 12 } : { width: 12, height: foldCount * 20 };
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <motion.div
-      initial={animated ? { opacity: 0, scale: 0.8 } : {}}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+      initial={prefersReducedMotion ? false : (animated ? { opacity: 0, scale: 0.8 } : {})}
+      animate={prefersReducedMotion ? undefined : { opacity: 1, scale: 1 }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
       className={`flex ${isHorizontal ? '' : 'flex-col'} ${className}`}
       style={stripSize}
       aria-hidden="true"
@@ -516,9 +521,9 @@ export function OrigamiPaperStrip({
         return (
           <motion.div
             key={index}
-            initial={animated ? { rotate: isEven ? 5 : -5, opacity: 0 } : {}}
-            animate={{ rotate: rotateValue, opacity: 1 }}
-            transition={{
+            initial={prefersReducedMotion ? false : (animated ? { rotate: isEven ? 5 : -5, opacity: 0 } : {})}
+            animate={prefersReducedMotion ? undefined : { rotate: rotateValue, opacity: 1 }}
+            transition={prefersReducedMotion ? { duration: 0 } : {
               duration: 0.4,
               delay: animated ? index * 0.08 : 0,
               ease: [0.34, 1.56, 0.64, 1],

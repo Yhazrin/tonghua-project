@@ -1,42 +1,15 @@
-import { type ReactNode, useRef } from 'react';
+import { type ReactNode, useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface PagePeelProps {
   children: ReactNode;
-  /**
-   * Corner to peel from: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'
-   * @default 'bottom-right'
-   */
   corner?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
-  /**
-   * Maximum rotation angle in degrees
-   * @default 15
-   */
   maxRotation?: number;
-  /**
-   * Shadow intensity (0-1)
-   * @default 0.3
-   */
   shadowIntensity?: number;
-  /**
-   * ClassName for the container
-   */
   className?: string;
 }
 
-/**
- * PagePeel - A magazine-style page curl/peel animation component
- *
- * Creates a 3D page corner that "lifts" as if turning a magazine page,
- * revealing content beneath with realistic shadows.
- *
- * @example
- * ```tsx
- * <PagePeel corner="bottom-right">
- *   <div>Content to reveal</div>
- * </PagePeel>
- * ```
- */
 export default function PagePeel({
   children,
   corner = 'bottom-right',
@@ -45,73 +18,95 @@ export default function PagePeel({
   className = '',
 }: PagePeelProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
 
-  // Map scroll progress to rotation and transform based on corner
-  const getTransforms = () => {
-    switch (corner) {
-      case 'bottom-right':
-        return {
-          rotateX: useTransform(scrollYProgress, [0, 0.5], [maxRotation, 0]),
-          rotateY: useTransform(scrollYProgress, [0, 0.5], [-maxRotation, 0]),
-          translateX: useTransform(scrollYProgress, [0, 0.5], [20, 0]),
-          translateY: useTransform(scrollYProgress, [0, 0.5], [10, 0]),
-          transformOrigin: 'right bottom',
-          shadowX: 15,
-          shadowY: 15,
-          shadowBlur: 25,
-        };
-      case 'bottom-left':
-        return {
-          rotateX: useTransform(scrollYProgress, [0, 0.5], [maxRotation, 0]),
-          rotateY: useTransform(scrollYProgress, [0, 0.5], [maxRotation, 0]),
-          translateX: useTransform(scrollYProgress, [0, 0.5], [-20, 0]),
-          translateY: useTransform(scrollYProgress, [0, 0.5], [10, 0]),
-          transformOrigin: 'left bottom',
-          shadowX: -15,
-          shadowY: 15,
-          shadowBlur: 25,
-        };
-      case 'top-right':
-        return {
-          rotateX: useTransform(scrollYProgress, [0, 0.5], [-maxRotation, 0]),
-          rotateY: useTransform(scrollYProgress, [0, 0.5], [-maxRotation, 0]),
-          translateX: useTransform(scrollYProgress, [0, 0.5], [20, 0]),
-          translateY: useTransform(scrollYProgress, [0, 0.5], [-10, 0]),
-          transformOrigin: 'right top',
-          shadowX: 15,
-          shadowY: -15,
-          shadowBlur: 25,
-        };
-      case 'top-left':
-        return {
-          rotateX: useTransform(scrollYProgress, [0, 0.5], [-maxRotation, 0]),
-          rotateY: useTransform(scrollYProgress, [0, 0.5], [maxRotation, 0]),
-          translateX: useTransform(scrollYProgress, [0, 0.5], [-20, 0]),
-          translateY: useTransform(scrollYProgress, [0, 0.5], [-10, 0]),
-          transformOrigin: 'left top',
-          shadowX: -15,
-          shadowY: -15,
-          shadowBlur: 25,
-        };
-    }
-  };
+  // Call ALL useTransform hooks unconditionally at the top level
+  // bottom-right transforms
+  const brRotateX = useTransform(scrollYProgress, [0, 0.5], [maxRotation, 0]);
+  const brRotateY = useTransform(scrollYProgress, [0, 0.5], [-maxRotation, 0]);
+  const brTranslateX = useTransform(scrollYProgress, [0, 0.5], [20, 0]);
+  const brTranslateY = useTransform(scrollYProgress, [0, 0.5], [10, 0]);
 
-  const transforms = getTransforms();
+  // bottom-left transforms
+  const blRotateX = useTransform(scrollYProgress, [0, 0.5], [maxRotation, 0]);
+  const blRotateY = useTransform(scrollYProgress, [0, 0.5], [maxRotation, 0]);
+  const blTranslateX = useTransform(scrollYProgress, [0, 0.5], [-20, 0]);
+  const blTranslateY = useTransform(scrollYProgress, [0, 0.5], [10, 0]);
 
-  // Shadow opacity follows inverse of rotation
+  // top-right transforms
+  const trRotateX = useTransform(scrollYProgress, [0, 0.5], [-maxRotation, 0]);
+  const trRotateY = useTransform(scrollYProgress, [0, 0.5], [-maxRotation, 0]);
+  const trTranslateX = useTransform(scrollYProgress, [0, 0.5], [20, 0]);
+  const trTranslateY = useTransform(scrollYProgress, [0, 0.5], [-10, 0]);
+
+  // top-left transforms
+  const tlRotateX = useTransform(scrollYProgress, [0, 0.5], [-maxRotation, 0]);
+  const tlRotateY = useTransform(scrollYProgress, [0, 0.5], [maxRotation, 0]);
+  const tlTranslateX = useTransform(scrollYProgress, [0, 0.5], [-20, 0]);
+  const tlTranslateY = useTransform(scrollYProgress, [0, 0.5], [-10, 0]);
+
+  // Shared transforms
   const shadowOpacity = useTransform(
     scrollYProgress,
     [0, 0.3, 0.5],
     [shadowIntensity, shadowIntensity * 0.5, 0]
   );
-
-  // Peek amount - how much content is visible under the peel
   const peekOpacity = useTransform(scrollYProgress, [0, 0.4, 0.5], [0, 0.3, 0]);
+  const cornerOpacity = useTransform(scrollYProgress, [0, 0.3, 0.5], [0.6, 0.3, 0]);
+
+  // Select the right transforms based on corner
+  const transforms = useMemo(() => {
+    switch (corner) {
+      case 'bottom-right':
+        return {
+          rotateX: brRotateX, rotateY: brRotateY,
+          translateX: brTranslateX, translateY: brTranslateY,
+          transformOrigin: 'right bottom' as const,
+          shadowX: 15, shadowY: 15, shadowBlur: 25,
+        };
+      case 'bottom-left':
+        return {
+          rotateX: blRotateX, rotateY: blRotateY,
+          translateX: blTranslateX, translateY: blTranslateY,
+          transformOrigin: 'left bottom' as const,
+          shadowX: -15, shadowY: 15, shadowBlur: 25,
+        };
+      case 'top-right':
+        return {
+          rotateX: trRotateX, rotateY: trRotateY,
+          translateX: trTranslateX, translateY: trTranslateY,
+          transformOrigin: 'right top' as const,
+          shadowX: 15, shadowY: -15, shadowBlur: 25,
+        };
+      case 'top-left':
+        return {
+          rotateX: tlRotateX, rotateY: tlRotateY,
+          translateX: tlTranslateX, translateY: tlTranslateY,
+          transformOrigin: 'left top' as const,
+          shadowX: -15, shadowY: -15, shadowBlur: 25,
+        };
+    }
+  }, [corner, brRotateX, brRotateY, brTranslateX, brTranslateY,
+      blRotateX, blRotateY, blTranslateX, blTranslateY,
+      trRotateX, trRotateY, trTranslateX, trTranslateY,
+      tlRotateX, tlRotateY, tlTranslateX, tlTranslateY]);
+
+  if (prefersReducedMotion) {
+    return (
+      <div ref={containerRef} className={`relative ${className}`}>
+        <div className="relative z-10">
+          <div className="bg-paper">
+            {children}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -124,11 +119,10 @@ export default function PagePeel({
         className="relative z-0"
         style={{ opacity: peekOpacity }}
       >
-        {/* Subtle hint that there's more content */}
         <div
           className="absolute inset-0 flex items-center justify-center pointer-events-none"
           style={{
-            background: 'linear-gradient(135deg, transparent 50%, rgba(139, 58, 42, 0.05) 100%)',
+            background: 'linear-gradient(135deg, transparent 50%, color-mix(in srgb, var(--color-rust) 5%, transparent) 100%)',
           }}
         />
       </motion.div>
@@ -152,7 +146,7 @@ export default function PagePeel({
             opacity: shadowOpacity,
             transform: `translateX(${transforms.shadowX}px) translateY(${transforms.shadowY}px)`,
             transformOrigin: transforms.transformOrigin,
-            background: `radial-gradient(ellipse at ${corner.replace('-', ' ')}, rgba(26, 26, 22, 0.4) 0%, transparent 70%)`,
+            background: `radial-gradient(ellipse at ${corner.replace('-', ' ')}, color-mix(in srgb, var(--color-ink) 40%, transparent) 0%, transparent 70%)`,
             filter: `blur(${transforms.shadowBlur}px)`,
             zIndex: -1,
           }}
@@ -163,12 +157,11 @@ export default function PagePeel({
           className="absolute inset-0 pointer-events-none"
           style={{
             opacity: shadowOpacity,
-            boxShadow: `inset 0 0 60px rgba(26, 26, 22, ${shadowIntensity * 0.3})`,
+            boxShadow: `inset 0 0 60px color-mix(in srgb, var(--color-ink) ${shadowIntensity * 30}%, transparent)`,
             transform: 'translateZ(-1px)',
           }}
         />
 
-        {/* Content */}
         <div className="bg-paper">
           {children}
         </div>
@@ -177,22 +170,16 @@ export default function PagePeel({
       {/* Peel corner accent - decorative fold line */}
       <motion.div
         className="absolute pointer-events-none z-20"
-        style={{
-          opacity: useTransform(scrollYProgress, [0, 0.3, 0.5], [0.6, 0.3, 0]),
-        }}
+        style={{ opacity: cornerOpacity }}
       >
         {corner === 'bottom-right' && (
           <svg
             className="absolute bottom-0 right-0"
             style={{ width: 80, height: 80, transform: 'rotate(90deg)' }}
             viewBox="0 0 80 80"
+            aria-hidden="true"
           >
-            <path
-              d="M0 80 Q0 0 80 0"
-              fill="none"
-              stroke="rgba(139, 58, 42, 0.2)"
-              strokeWidth="1"
-            />
+            <path d="M0 80 Q0 0 80 0" fill="none" stroke="color-mix(in srgb, var(--color-rust) 20%, transparent)" strokeWidth="1" />
           </svg>
         )}
         {corner === 'bottom-left' && (
@@ -200,13 +187,9 @@ export default function PagePeel({
             className="absolute bottom-0 left-0"
             style={{ width: 80, height: 80, transform: 'rotate(0deg)' }}
             viewBox="0 0 80 80"
+            aria-hidden="true"
           >
-            <path
-              d="M0 80 Q0 0 80 0"
-              fill="none"
-              stroke="rgba(139, 58, 42, 0.2)"
-              strokeWidth="1"
-            />
+            <path d="M0 80 Q0 0 80 0" fill="none" stroke="color-mix(in srgb, var(--color-rust) 20%, transparent)" strokeWidth="1" />
           </svg>
         )}
         {corner === 'top-right' && (
@@ -214,13 +197,9 @@ export default function PagePeel({
             className="absolute top-0 right-0"
             style={{ width: 80, height: 80, transform: 'rotate(180deg)' }}
             viewBox="0 0 80 80"
+            aria-hidden="true"
           >
-            <path
-              d="M0 80 Q0 0 80 0"
-              fill="none"
-              stroke="rgba(139, 58, 42, 0.2)"
-              strokeWidth="1"
-            />
+            <path d="M0 80 Q0 0 80 0" fill="none" stroke="color-mix(in srgb, var(--color-rust) 20%, transparent)" strokeWidth="1" />
           </svg>
         )}
         {corner === 'top-left' && (
@@ -228,13 +207,9 @@ export default function PagePeel({
             className="absolute top-0 left-0"
             style={{ width: 80, height: 80, transform: 'rotate(270deg)' }}
             viewBox="0 0 80 80"
+            aria-hidden="true"
           >
-            <path
-              d="M0 80 Q0 0 80 0"
-              fill="none"
-              stroke="rgba(139, 58, 42, 0.2)"
-              strokeWidth="1"
-            />
+            <path d="M0 80 Q0 0 80 0" fill="none" stroke="color-mix(in srgb, var(--color-rust) 20%, transparent)" strokeWidth="1" />
           </svg>
         )}
       </motion.div>

@@ -10,6 +10,7 @@ import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeadin
 import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import { VintageInput } from '@/components/editorial/VintageInput';
 import { campaignsApi } from '@/services/campaigns';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import type { Campaign } from '@/types';
 
 const MOCK_CAMPAIGNS: Campaign[] = [
@@ -126,11 +127,12 @@ type StatusFilter = 'all' | 'active' | 'upcoming' | 'completed';
 
 export default function Campaigns() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [filter, setFilter] = useState<StatusFilter>('all');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['campaigns', { status: filter, page, search }],
     queryFn: async () => {
       try {
@@ -214,19 +216,20 @@ export default function Campaigns() {
             <motion.button
               key={status}
               onClick={() => handleFilterChange(status)}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-              whileHover={{ y: -2 }}
+              aria-pressed={filter === status}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+              animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { delay: index * 0.05 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -2 }}
               className={`
-                font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative
+                font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
                 ${filter === status
                   ? 'border-rust text-rust'
                   : 'border-transparent text-sepia-mid hover:text-ink'
                 }
               `}
             >
-              <span className="font-body text-[10px] text-sepia-mid/60 mr-1.5">
+              <span className="font-body text-overline text-sepia-mid/60 mr-1.5">
                 {String(index + 1).padStart(2, '0')}
               </span>
               {status === 'all'
@@ -234,9 +237,9 @@ export default function Campaigns() {
                 : t(`campaigns.status.${status}`)}
               {filter === status && (
                 <motion.span
-                  layoutId="campaign-category-indicator"
+                  layoutId={prefersReducedMotion ? undefined : "campaign-category-indicator"}
                   className="absolute bottom-0 left-0 right-0 h-px bg-rust"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
             </motion.button>
@@ -249,10 +252,15 @@ export default function Campaigns() {
         </p>
 
         {/* Campaign list */}
-        {isLoading ? (
+        {error ? (
+          <div className="text-center py-20" role="alert" aria-live="assertive">
+            <p className="font-body text-sm text-rust">{t('common.error')}</p>
+            <p className="font-body text-xs text-sepia-mid mt-2">{t('common.retry')}</p>
+          </div>
+        ) : isLoading ? (
           <div className="space-y-16">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="animate-pulse grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+              <div key={i} className={`${prefersReducedMotion ? '' : 'animate-pulse'} grid grid-cols-1 md:grid-cols-12 gap-8 items-center`}>
                 <div className="md:col-span-7 bg-warm-gray/20 aspect-[16/10] border border-warm-gray/20" />
                 <div className="md:col-span-5 space-y-3">
                   <div className="h-4 bg-warm-gray/20 w-24" />
@@ -267,10 +275,10 @@ export default function Campaigns() {
           <AnimatePresence mode="wait">
             <motion.div
               key={`${filter}-${page}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={prefersReducedMotion ? false : { opacity: 0 }}
+              animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+              exit={prefersReducedMotion ? undefined : { opacity: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
               className="space-y-16"
             >
               {paginated.map((campaign, index) => {
@@ -282,13 +290,13 @@ export default function Campaigns() {
                 return (
                   <motion.article
                     key={campaign.id}
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-80px' }}
-                    transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
+                    whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                    viewport={prefersReducedMotion ? undefined : { once: true, margin: '-80px' }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1] }}
                   >
-                    <Link to={`/campaigns/${campaign.id}`} className="group block">
-                      <div className={`grid grid-cols-1 md:grid-cols-12 gap-8 items-center ${index % 2 === 1 ? '' : ''}`}>
+                    <Link to={`/campaigns/${campaign.id}`} className="group block cursor-pointer">
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                         {/* Image */}
                         <div className={`md:col-span-7 ${index % 2 === 1 ? 'md:order-2' : ''}`}>
                           <div className={isCompleted ? 'opacity-85 grayscale-[15%]' : ''}>
@@ -305,7 +313,7 @@ export default function Campaigns() {
                         <div className={`md:col-span-5 ${index % 2 === 1 ? 'md:order-1' : ''}`}>
                           <div className="flex items-center gap-3 mb-4">
                             <span className={`
-                              font-body text-[10px] tracking-[0.2em] uppercase px-3 py-1 border
+                              font-body text-overline tracking-[0.2em] uppercase px-3 py-1 border
                               ${campaign.status === 'active' ? 'border-rust text-rust' : ''}
                               ${campaign.status === 'upcoming' ? 'border-pale-gold text-pale-gold' : ''}
                               ${campaign.status === 'completed' ? 'border-sepia-mid text-sepia-mid' : ''}
@@ -313,16 +321,16 @@ export default function Campaigns() {
                               {t(`campaigns.status.${campaign.status}`)}
                             </span>
                             {isCompleted && fundingPercent >= 100 && (
-                              <span className="font-body text-[10px] tracking-[0.2em] uppercase px-3 py-1 border border-sepia-mid text-sepia-mid flex items-center gap-1.5">
-                                <svg className="w-3 h-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+                              <span className="font-body text-overline tracking-[0.2em] uppercase px-3 py-1 border border-sepia-mid text-sepia-mid flex items-center gap-1.5">
+                                <svg aria-hidden="true" className="w-3 h-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
                                   <path d="M3 8.5l3.5 3.5 6.5-7" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
-                                Goal Reached
+                                {t('campaigns.goalReached')}
                               </span>
                             )}
                           </div>
 
-                          <h3 className="font-display text-h3 md:text-h2 font-bold text-ink mb-3 group-hover:text-rust transition-colors">
+                          <h3 className="font-display text-h3 md:text-h2 font-bold text-ink mb-3 transition-colors duration-300 ease-out group-hover:text-rust">
                             {campaign.title}
                           </h3>
 
@@ -339,17 +347,17 @@ export default function Campaigns() {
                                 </span>
                                 <span className={`font-body text-xs ${isCompleted ? 'text-sepia-mid' : 'text-sepia-mid'}`}>
                                   {isCompleted
-                                    ? `${fundingPercent}% funded`
+                                    ? t('campaigns.funded', { percent: fundingPercent })
                                     : `${fundingPercent}%`
                                   }
                                 </span>
                               </div>
                               <div className="h-1.5 bg-warm-gray/30 w-full">
                                 <motion.div
-                                  initial={{ width: 0 }}
-                                  whileInView={{ width: `${Math.min(100, fundingPercent)}%` }}
-                                  viewport={{ once: true }}
-                                  transition={{ duration: 1, delay: 0.3, type: 'spring', stiffness: 60, damping: 20 }}
+                                  initial={prefersReducedMotion ? false : { width: 0 }}
+                                  whileInView={prefersReducedMotion ? undefined : { width: `${Math.min(100, fundingPercent)}%` }}
+                                  viewport={prefersReducedMotion ? undefined : { once: true }}
+                                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 1, delay: 0.3, type: 'spring', stiffness: 60, damping: 20 }}
                                   className={`h-full ${isCompleted ? 'bg-sepia-mid' : 'bg-rust'}`}
                                 />
                               </div>
@@ -359,17 +367,17 @@ export default function Campaigns() {
                           {/* Featured child quote */}
                           {campaign.featured && campaign.featuredChild && (
                             <motion.div
-                              initial={{ opacity: 0, x: -10 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 0.6, delay: 0.5 }}
+                              initial={prefersReducedMotion ? false : { opacity: 0, x: -10 }}
+                              whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+                              viewport={prefersReducedMotion ? undefined : { once: true }}
+                              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: 0.5 }}
                               className="border-l-2 border-rust/40 pl-4 mt-5"
                             >
                               <p className="font-display italic text-sm text-ink-faded leading-relaxed">
                                 &ldquo;{campaign.featuredChild.quote}&rdquo;
                               </p>
-                              <p className="font-body text-[11px] text-sepia-mid mt-1.5 tracking-wider uppercase">
-                                {campaign.featuredChild.name}, age {campaign.featuredChild.age}
+                              <p className="font-body text-label text-sepia-mid mt-1.5 tracking-wider uppercase">
+                                {t('campaigns.featuredChild.ageLabel', { name: campaign.featuredChild.name, age: campaign.featuredChild.age })}
                               </p>
                             </motion.div>
                           )}
@@ -392,30 +400,30 @@ export default function Campaigns() {
           </AnimatePresence>
         ) : (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center py-24"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
+            className="text-center section-spacing"
           >
             <span className="font-display text-7xl text-warm-gray/30 leading-none block mb-6 select-none">
               &ldquo;
             </span>
             <p className="font-display text-lg text-ink-faded mb-2">
-              No campaigns found in this category.
+              {t('campaigns.emptyState.title')}
             </p>
             <p className="font-body text-sm text-sepia-mid">
-              Check back soon.
+              {t('campaigns.emptyState.subtitle')}
             </p>
           </motion.div>
         )}
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-center gap-2 mt-16">
+          <nav className="flex items-center justify-center gap-2 mt-16" aria-label={t('campaigns.pagination.ariaLabel', 'Pagination')}>
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="font-body text-caption tracking-wider uppercase px-4 py-2 border border-warm-gray/30 text-sepia-mid hover:border-rust hover:text-rust disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="font-body text-caption tracking-wider uppercase px-4 py-2 border border-warm-gray/30 text-sepia-mid hover:border-rust hover:text-rust disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
             >
               {t('campaigns.pagination.prev')}
             </button>
@@ -423,12 +431,13 @@ export default function Campaigns() {
               <button
                 key={p}
                 onClick={() => setPage(p)}
+                aria-current={page === p ? 'page' : undefined}
                 className={`
                   w-10 h-10 font-body text-caption border transition-all
                   ${page === p
                     ? 'border-rust bg-rust text-paper'
                     : 'border-warm-gray/30 text-sepia-mid hover:border-rust hover:text-rust'
-                  }
+                  } cursor-pointer
                 `}
               >
                 {String(p).padStart(2, '0')}
@@ -437,15 +446,15 @@ export default function Campaigns() {
             <button
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
-              className="font-body text-caption tracking-wider uppercase px-4 py-2 border border-warm-gray/30 text-sepia-mid hover:border-rust hover:text-rust disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="font-body text-caption tracking-wider uppercase px-4 py-2 border border-warm-gray/30 text-sepia-mid hover:border-rust hover:text-rust disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
             >
               {t('campaigns.pagination.next')}
             </button>
-          </div>
+          </nav>
         )}
       </SectionContainer>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

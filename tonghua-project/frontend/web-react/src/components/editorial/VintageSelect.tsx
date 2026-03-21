@@ -1,5 +1,6 @@
 import { forwardRef, useId } from 'react';
 import { motion } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface VintageSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
@@ -11,25 +12,26 @@ export const VintageSelect = forwardRef<HTMLSelectElement, VintageSelectProps>(
   ({ label, options, className = '', id, ...props }, ref) => {
     const generatedId = useId();
     const selectId = id || generatedId;
+    const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
     return (
       <div className={`flex flex-col gap-2 ${className}`}>
         {label && (
           <label
             htmlFor={selectId}
-            className="font-body text-[10px] text-sepia-mid tracking-[0.2em] uppercase"
+            className="font-body text-overline text-sepia-mid tracking-[0.2em] uppercase"
           >
             {label}
           </label>
         )}
         <motion.div
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.99 }}
+          whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+          whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
           className="relative"
         >
           {/* Decorative corner accents */}
-          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none" />
+          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+          <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
 
           <select
             ref={ref}
@@ -55,6 +57,7 @@ export const VintageSelect = forwardRef<HTMLSelectElement, VintageSelectProps>(
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={1.5}
+              aria-hidden="true"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>

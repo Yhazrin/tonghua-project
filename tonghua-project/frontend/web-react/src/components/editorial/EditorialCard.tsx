@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
 
 interface EditorialCardProps {
@@ -30,19 +31,20 @@ export const EditorialCard = ({
 }: EditorialCardProps) => {
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   const hoverClasses = {
     lift: 'hover:-translate-y-1 hover:shadow-lg',
-    glow: 'hover:shadow-[0_0_30px_rgba(139,58,42,0.15)]',
+    glow: 'hover:shadow-rust-glow',
     border: 'hover:border-ink/40',
   };
 
   return (
     <motion.article
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : {}}
-      transition={{
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
+      animate={prefersReducedMotion ? {} : (isVisible ? { opacity: 1, y: 0 } : {})}
+      transition={prefersReducedMotion ? { duration: 0 } : {
         duration: 0.6,
         ease: [0, 0, 0.2, 1],
         delay: index * 0.08,
@@ -59,15 +61,16 @@ export const EditorialCard = ({
       {/* Grain overlay */}
       <div
         className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]"
+        aria-hidden="true"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+          backgroundImage: 'var(--grain-overlay)'
         }}
       />
       {/* Decorative corner accents */}
-      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 z-10" />
-      <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 z-10" />
-      <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 z-10" />
-      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 z-10" />
+      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 z-10" aria-hidden="true" />
+      <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 z-10" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 z-10" aria-hidden="true" />
+      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 z-10" aria-hidden="true" />
 
       {/* Image section */}
       {image && (
@@ -75,11 +78,12 @@ export const EditorialCard = ({
           {/* Grain overlay for image */}
           <div
             className="absolute inset-0 z-10 pointer-events-none opacity-10"
+            aria-hidden="true"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+              backgroundImage: 'var(--grain-overlay)'
             }}
           />
-          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
+          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" aria-hidden="true" />
 
           {/* Loading skeleton */}
           {!imageLoaded && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-[4/3]" />}
@@ -97,7 +101,7 @@ export const EditorialCard = ({
       {/* Content section */}
       <div className="p-5">
         {subtitle && (
-          <span className="font-mono text-[10px] text-rust tracking-[0.2em] uppercase mb-2 block">
+          <span className="font-body text-overline text-rust tracking-[0.2em] uppercase mb-2 block">
             {subtitle}
           </span>
         )}
@@ -117,8 +121,8 @@ export const EditorialCard = ({
 
       {/* Hover indicator */}
       {onClick && (
-        <div className="absolute bottom-4 right-4 w-6 h-6 rounded-full border border-ink/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span className="font-mono text-[8px] text-ink/50">→</span>
+        <div className="absolute bottom-4 right-4 w-6 h-6 border border-ink/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span className="font-body text-overline text-ink/50" aria-hidden="true">→</span>
         </div>
       )}
     </motion.article>

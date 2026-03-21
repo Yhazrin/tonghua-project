@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import PageWrapper from '@/components/layout/PageWrapper';
 import SectionContainer from '@/components/layout/SectionContainer';
 import EditorialHero from '@/components/editorial/EditorialHero';
@@ -19,8 +20,65 @@ const TEAM_MEMBERS = [
   { name: 'Wang Jun', role: 'Supply Chain Manager', initials: 'WJ' },
 ];
 
+function TeamMemberCard({ member, index }: { member: { name: string; role: string; initials: string }; index: number }) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imgError, setImgError] = useState(false);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
+  return (
+    <motion.div
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: index * 0.12 }}
+      whileHover={prefersReducedMotion ? undefined : { y: -4 }}
+      className="group"
+    >
+      <div className="relative aspect-[3/4] overflow-hidden border-2 border-warm-gray/50 bg-aged-stock mb-4">
+        {/* Grain overlay */}
+        <div className="absolute inset-0 z-10 pointer-events-none opacity-12" style={{
+          backgroundImage: 'var(--grain-overlay)'
+        }} aria-hidden="true" />
+
+        {/* Sepia frame effect */}
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" aria-hidden="true" />
+
+        {/* Decorative corner accents */}
+        <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+        <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+
+        {/* Loading skeleton */}
+        {!imageLoaded && !imgError && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-[3/4]" />}
+
+        {/* Fallback initials placeholder */}
+        {imgError && (
+          <div className="absolute inset-0 z-[5] flex items-center justify-center bg-aged-stock">
+            <span className="font-display text-4xl font-bold text-rust/40">
+              {member.initials}
+            </span>
+          </div>
+        )}
+
+        <img
+          src={`https://picsum.photos/seed/vicoo-team-${index}/400/533`}
+          alt={member.name}
+          className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 sepia-[0.05] ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+          loading="lazy"
+          onLoad={() => setImageLoaded(true)}
+          onError={() => setImgError(true)}
+        />
+      </div>
+      <h4 className="font-display text-base font-semibold text-ink group-hover:text-rust transition-colors">
+        {member.name}
+      </h4>
+      <p className="font-body text-xs text-sepia-mid mt-1">{member.role}</p>
+    </motion.div>
+  );
+}
+
 export default function About() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   return (
     <PageWrapper>
@@ -43,7 +101,7 @@ export default function About() {
           </div>
           <div className="md:col-span-7 md:pt-8 relative">
             {/* Decorative vertical line alongside mission text */}
-            <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-rust/40 via-rust/20 to-transparent" />
+            <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-rust/40 via-rust/20 to-transparent" aria-hidden="true" />
             <p className="font-body text-base md:text-lg text-ink-faded leading-[1.85] editorial-drop-cap pl-6">
               {t('about.mission.body')}
             </p>
@@ -55,7 +113,7 @@ export default function About() {
       <div className="flex justify-center py-6" aria-hidden="true">
         <ScrollPathDrawInline
           path="M0,15 Q50,0 100,15 T200,15 T300,15 T400,15"
-          strokeColor="#8B3A2A"
+          strokeColor="var(--color-rust)"
           strokeWidth={1}
           className="w-80 h-8 opacity-60"
         />
@@ -67,8 +125,8 @@ export default function About() {
           <div className="md:col-span-8">
             <SepiaImageFrame
               src="https://picsum.photos/seed/vicoo-workshop/1000/563"
-              alt="Children in a workshop"
-              caption="A Saturday workshop in Shanghai — where it all begins"
+              alt={t('about.images.workshop.alt')}
+              caption={t('about.images.workshop.caption')}
               aspectRatio="wide"
               size="full"
             />
@@ -76,7 +134,7 @@ export default function About() {
           <div className="md:col-span-4 flex items-end">
             <SepiaImageFrame
               src="https://picsum.photos/seed/vicoo-supplies/500/667"
-              alt="Art supplies"
+              alt={t('about.images.supplies.alt')}
               aspectRatio="portrait"
               size="full"
             />
@@ -95,11 +153,11 @@ export default function About() {
           {VALUES.map((key, i) => (
             <motion.article
               key={key}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
-              whileHover={{ y: -3 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true, margin: '-50px' }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: i * 0.12 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -3 }}
               className="border-t border-warm-gray/30 pt-6 cursor-default"
             >
               <h3 className="font-display text-h3 font-bold text-ink mb-3">
@@ -116,9 +174,9 @@ export default function About() {
       {/* Quote */}
       <SectionContainer narrow>
         <StoryQuoteBlock
-          quote="We don't just sell clothes. We sell the right to say: I know where this came from, and it came from somewhere good."
-          author="Li Mei"
-          role="Head of Operations"
+          quote={t('about.quote.body')}
+          author={t('about.quote.author')}
+          role={t('about.quote.role')}
         />
       </SectionContainer>
 
@@ -131,68 +189,13 @@ export default function About() {
         />
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          {TEAM_MEMBERS.map((member, i) => {
-            const [imageLoaded, setImageLoaded] = useState(false);
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                whileHover={{ y: -4 }}
-                className="group"
-              >
-                <div className="relative aspect-[3/4] overflow-hidden border-2 border-warm-gray/50 bg-aged-stock mb-4">
-                  {/* Grain overlay */}
-                  <div className="absolute inset-0 z-10 pointer-events-none opacity-12" style={{
-                    backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")'
-                  }} />
-
-                  {/* Sepia frame effect */}
-                  <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
-
-                  {/* Decorative corner accents */}
-                  <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-rust/30 z-20 pointer-events-none" />
-                  <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-rust/30 z-20 pointer-events-none" />
-
-                  {/* Loading skeleton */}
-                  {!imageLoaded && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-[3/4]" />}
-
-                  {/* Fallback initials placeholder */}
-                  <div
-                    className="team-fallback absolute inset-0 z-5 hidden items-center justify-center bg-aged-stock"
-                  >
-                    <span className="font-display text-4xl font-bold text-rust/40">
-                      {member.initials}
-                    </span>
-                  </div>
-
-                  <img
-                    src={`https://picsum.photos/seed/vicoo-team-${i}/400/533`}
-                    alt={member.name}
-                    className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 sepia-[0.05] ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                    loading="lazy"
-                    onLoad={() => setImageLoaded(true)}
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                      const fallback = target.parentElement?.querySelector('.team-fallback');
-                      if (fallback) (fallback as HTMLElement).style.display = 'flex';
-                    }}
-                  />
-                </div>
-                <h4 className="font-display text-base font-semibold text-ink group-hover:text-rust transition-colors">
-                  {member.name}
-                </h4>
-                <p className="font-body text-xs text-sepia-mid mt-1">{member.role}</p>
-              </motion.div>
-            );
-          })}
+          {TEAM_MEMBERS.map((member, i) => (
+            <TeamMemberCard key={member.name} member={member} index={i} />
+          ))}
         </div>
       </SectionContainer>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

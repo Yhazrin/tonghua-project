@@ -136,7 +136,7 @@
 
 .form__success {
   padding: var(--space-lg);
-  background-color: rgba(139, 58, 42, 0.06);
+  background-color: color-mix(in srgb, var(--color-rust) 6%, transparent);
   border-left: 3px solid var(--color-rust);
   margin-top: var(--space-lg);
 }

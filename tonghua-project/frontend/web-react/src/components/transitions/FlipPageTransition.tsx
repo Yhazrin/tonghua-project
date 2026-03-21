@@ -1,12 +1,13 @@
-import { type ReactNode } from 'react';
+import { type ReactNode, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface FlipPageTransitionProps {
   children: ReactNode;
 }
 
-const pageVariants = {
+const motionPageVariants = {
   initial: {
     opacity: 0,
     rotateY: -3,
@@ -33,14 +34,32 @@ const pageVariants = {
   },
 };
 
+const reducedPageVariants = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: 1,
+    transition: { duration: 0.3 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.2 },
+  },
+};
+
 export default function FlipPageTransition({ children }: FlipPageTransitionProps) {
   const location = useLocation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
+  const variants = useMemo(
+    () => (prefersReducedMotion ? reducedPageVariants : motionPageVariants),
+    [prefersReducedMotion]
+  );
 
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={location.pathname}
-        variants={pageVariants}
+        variants={variants}
         initial="initial"
         animate="animate"
         exit="exit"

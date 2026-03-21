@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface StoryQuoteBlockProps {
   quote: string;
@@ -17,6 +18,7 @@ export default function StoryQuoteBlock({
 }: StoryQuoteBlockProps) {
   const [ref, isVisible] = useScrollReveal<HTMLQuoteElement>();
   const underlineRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   // Scroll-linked animation for the decorative underline
   const { scrollYProgress } = useScroll({
@@ -31,10 +33,10 @@ export default function StoryQuoteBlock({
   return (
     <motion.blockquote
       ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, ease: [0, 0, 0.2, 1] }}
-      className={`relative py-12 md:py-16 ${className}`}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+      animate={prefersReducedMotion ? {} : (isVisible ? { opacity: 1, y: 0 } : {})}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, ease: [0, 0, 0.2, 1] }}
+      className={`relative section-spacing-sm ${className}`}
     >
       {/* Decorative quote mark */}
       <span
@@ -57,52 +59,75 @@ export default function StoryQuoteBlock({
             preserveAspectRatio="xMinYMid meet"
             aria-hidden="true"
           >
-            {/* Main decorative underline with flourish */}
-            <motion.path
-              d="M 0 8 Q 20 4 60 8 T 140 8 T 220 8 L 260 8"
-              fill="none"
-              stroke="#8B3A2A"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              style={{
-                strokeDasharray: 280,
-                strokeDashoffset,
-                opacity: underlineOpacity,
-              }}
-            />
-            {/* Accent dot at start */}
-            <motion.circle
-              cx="0"
-              cy="8"
-              r="2.5"
-              fill="#8B3A2A"
-              style={{
-                opacity: underlineOpacity,
-              }}
-            />
-            {/* Accent dot at end */}
-            <motion.circle
-              cx="260"
-              cy="8"
-              r="2.5"
-              fill="#8B3A2A"
-              style={{
-                opacity: underlineOpacity,
-              }}
-            />
-            {/* Decorative flourish after the line */}
-            <motion.path
-              d="M 265 8 Q 270 12 268 16 Q 272 14 275 18"
-              fill="none"
-              stroke="#8B3A2A"
-              strokeWidth="1"
-              strokeLinecap="round"
-              style={{
-                strokeDasharray: 20,
-                strokeDashoffset: useTransform(scrollYProgress, [0.1, 0.5], [20, 0]),
-                opacity: underlineOpacity,
-              }}
-            />
+            {prefersReducedMotion ? (
+              <>
+                <path
+                  d="M 0 8 Q 20 4 60 8 T 140 8 T 220 8 L 260 8"
+                  fill="none"
+                  stroke="var(--color-rust)"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+                <circle cx="0" cy="8" r="2.5" fill="var(--color-rust)" />
+                <circle cx="260" cy="8" r="2.5" fill="var(--color-rust)" />
+                <path
+                  d="M 265 8 Q 270 12 268 16 Q 272 14 275 18"
+                  fill="none"
+                  stroke="var(--color-rust)"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                />
+              </>
+            ) : (
+              <>
+                {/* Main decorative underline with flourish */}
+                <motion.path
+                  d="M 0 8 Q 20 4 60 8 T 140 8 T 220 8 L 260 8"
+                  fill="none"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  style={{
+                    stroke: 'var(--color-rust)',
+                    strokeDasharray: 280,
+                    strokeDashoffset,
+                    opacity: underlineOpacity,
+                  }}
+                />
+                {/* Accent dot at start */}
+                <motion.circle
+                  cx="0"
+                  cy="8"
+                  r="2.5"
+                  style={{
+                    fill: 'var(--color-rust)',
+                    opacity: underlineOpacity,
+                  }}
+                />
+                {/* Accent dot at end */}
+                <motion.circle
+                  cx="260"
+                  cy="8"
+                  r="2.5"
+                  style={{
+                    fill: 'var(--color-rust)',
+                    opacity: underlineOpacity,
+                  }}
+                />
+                {/* Decorative flourish after the line */}
+                <motion.path
+                  d="M 265 8 Q 270 12 268 16 Q 272 14 275 18"
+                  fill="none"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  style={{
+                    stroke: 'var(--color-rust)',
+                    strokeDasharray: 20,
+                    strokeDashoffset: useTransform(scrollYProgress, [0.1, 0.5], [20, 0]),
+                    opacity: underlineOpacity,
+                  }}
+                />
+              </>
+            )}
           </svg>
         </div>
 

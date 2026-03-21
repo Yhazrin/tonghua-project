@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { VintageInput } from '@/components/editorial/VintageInput';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+
+const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
 
 interface DonationPanelProps {
   onSubmit?: (data: {
@@ -24,6 +27,7 @@ export default function DonationPanel({
   className = '',
 }: DonationPanelProps) {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [selectedAmount, setSelectedAmount] = useState<number>(100);
   const [customAmount, setCustomAmount] = useState<string>('');
   const [frequency, setFrequency] = useState<'once' | 'monthly'>('once');
@@ -81,13 +85,13 @@ export default function DonationPanel({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={prefersReducedMotion ? undefined : { once: true }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
       className={className}
     >
-      <h3 className="font-display text-[clamp(24px,3vw,36px)] font-bold text-ink mb-8">
+      <h3 className="font-display text-h2 font-bold text-ink mb-8">
         {t('donate.form.title')}
       </h3>
 
@@ -98,11 +102,11 @@ export default function DonationPanel({
             <motion.button
               key={amount}
               type="button"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+              animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, delay: index * 0.05 }}
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
               onClick={() => {
                 setSelectedAmount(amount);
                 setCustomAmount('');
@@ -116,27 +120,25 @@ export default function DonationPanel({
               `}
             >
               {/* Grain overlay */}
-              <div className="absolute inset-0 z-10 pointer-events-none opacity-10" style={{
-                backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")'
-              }} />
+              <div className="absolute inset-0 z-10 pointer-events-none opacity-10" aria-hidden="true" style={GRAIN_STYLE} />
 
               {/* Sepia accent gradient */}
-              <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/3 via-transparent to-archive-brown/5" />
+              <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/3 via-transparent to-archive-brown/5" aria-hidden="true" />
 
               {/* Active indicator */}
               {selectedAmount === amount && !customAmount && (
                 <motion.div
                   className="absolute inset-0 z-0 bg-rust/[0.04]"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                  initial={prefersReducedMotion ? false : { opacity: 0 }}
+                  animate={prefersReducedMotion ? undefined : { opacity: 1 }}
                 />
               )}
 
               <div className="relative z-20">
-                <span className="block font-display text-[clamp(20px,2.5vw,28px)] font-extrabold text-ink">
+                <span className="block font-display text-h3 font-extrabold text-ink">
                   {amount}
                 </span>
-                <span className="block font-body text-[10px] tracking-[0.1em] uppercase text-sepia-mid mt-1">
+                <span className="block font-body text-overline tracking-[0.1em] uppercase text-sepia-mid mt-1">
                   {t('donate.form.currency')}
                 </span>
               </div>
@@ -162,9 +164,11 @@ export default function DonationPanel({
         {/* Error Message */}
         {error && !customAmount && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: -10 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
             className="mb-6 p-3 bg-archive-brown/10 border border-archive-brown/30"
+            role="alert"
+            aria-live="assertive"
           >
             <p className="font-body text-xs text-archive-brown">{error}</p>
           </motion.div>

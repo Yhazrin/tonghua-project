@@ -1,6 +1,7 @@
 import { useRef, type ReactNode, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface TiltCardProps {
   children: ReactNode;
@@ -24,6 +25,7 @@ export default function TiltCard({
 }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const isTouchDevice = useIsTouchDevice();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   // Motion values for mouse position
   const mouseX = useMotionValue(0);
@@ -72,8 +74,8 @@ export default function TiltCard({
     mouseY.set(0);
   }, [mouseX, mouseY]);
 
-  // Static presentation for touch devices (no tilt effect)
-  if (isTouchDevice) {
+  // Static presentation for touch devices or reduced motion preference
+  if (isTouchDevice || prefersReducedMotion) {
     return (
       <div
         ref={cardRef}
@@ -112,7 +114,7 @@ export default function TiltCard({
           y: shadowY,
           filter: 'blur(28px)',
           opacity: shadowIntensity,
-          background: 'radial-gradient(circle at 50% 50%, rgba(20, 12, 6, 0.45) 0%, transparent 65%)',
+          background: 'radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--color-ink) 45%, transparent) 0%, transparent 65%)',
           transform: 'translateZ(-50px)',
           willChange: 'transform',
         }}

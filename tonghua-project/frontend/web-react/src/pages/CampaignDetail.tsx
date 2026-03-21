@@ -10,6 +10,7 @@ import PaperTextureBackground from '@/components/editorial/PaperTextureBackgroun
 import DonationPanel from '@/components/editorial/DonationPanel';
 import ArtworkCard from '@/components/editorial/ArtworkCard';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import type { Campaign, Artwork } from '@/types';
 
 const MOCK_CAMPAIGN: Campaign = {
@@ -19,7 +20,7 @@ const MOCK_CAMPAIGN: Campaign = {
   description:
     "In the misty villages of Guizhou Province, children aged 6-12 are given watercolors and a simple prompt: \"Draw the clothes you wish existed.\" What emerges is a torrent of imagination — dresses that bloom with flowers, jackets that change color with the weather, shoes that carry you to the moon. This campaign collects their artwork and, with the help of sustainable textile partners, transforms select designs into real garments. Every purchase funds the next workshop, the next set of supplies, the next child's creative journey.",
   coverImageUrl:
-    'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=1400&h=600&fit=crop',
+    'https://picsum.photos/seed/guizhou-campaign/1400/600',
   startDate: '2026-01-15',
   endDate: '2026-06-30',
   status: 'active',
@@ -35,7 +36,7 @@ const MOCK_ARTWORKS: Artwork[] = [
     id: 'a1',
     title: 'The Garden That Grows Clothes',
     description: '',
-    imageUrl: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=800&fit=crop',
+    imageUrl: 'https://picsum.photos/seed/artwork-garden/600/800',
     childParticipant: { id: 'c1', firstName: 'Mei', age: 8, guardianId: 'g1', consentGiven: true },
     status: 'featured',
     voteCount: 234,
@@ -46,7 +47,7 @@ const MOCK_ARTWORKS: Artwork[] = [
     id: 'a2',
     title: 'Butterfly Factory',
     description: '',
-    imageUrl: 'https://images.unsplash.com/photo-1560807707-8cc77767d783?w=600&h=800&fit=crop',
+    imageUrl: 'https://picsum.photos/seed/artwork-butterfly/600/800',
     childParticipant: { id: 'c2', firstName: 'Jun', age: 7, guardianId: 'g2', consentGiven: true },
     status: 'approved',
     voteCount: 189,
@@ -57,7 +58,7 @@ const MOCK_ARTWORKS: Artwork[] = [
     id: 'a3',
     title: 'Rain on My Umbrella Hat',
     description: '',
-    imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop',
+    imageUrl: 'https://picsum.photos/seed/artwork-umbrella/600/800',
     childParticipant: { id: 'c3', firstName: 'Lan', age: 9, guardianId: 'g3', consentGiven: true },
     status: 'approved',
     voteCount: 167,
@@ -68,7 +69,7 @@ const MOCK_ARTWORKS: Artwork[] = [
     id: 'a4',
     title: 'Stars in My Pockets',
     description: '',
-    imageUrl: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&h=800&fit=crop',
+    imageUrl: 'https://picsum.photos/seed/artwork-stars/600/800',
     childParticipant: { id: 'c4', firstName: 'Hao', age: 6, guardianId: 'g4', consentGiven: true },
     status: 'approved',
     voteCount: 145,
@@ -79,17 +80,20 @@ const MOCK_ARTWORKS: Artwork[] = [
 
 export default function CampaignDetail() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const campaign = MOCK_CAMPAIGN;
   const progress = Math.round((campaign.raisedAmount / campaign.goalAmount) * 100);
 
   return (
     <PageWrapper>
       {/* Hero Image */}
-      <section className="relative h-[50vh] md:h-[60vh]">
+      <section className="relative min-h-[50dvh] md:min-h-[60dvh]">
         <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-video" />
         <img
           src={campaign.coverImageUrl}
           alt={campaign.title}
+          width={1200}
+          height={800}
           className="w-full h-full object-cover"
           style={{ filter: 'sepia(0.2) contrast(1.05) brightness(0.97)', opacity: 0, transition: 'opacity 0.3s' }}
           onLoad={(e) => {
@@ -102,8 +106,8 @@ export default function CampaignDetail() {
         <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
           <div className="max-w-[1400px] mx-auto">
-            <span className="font-body text-[10px] tracking-[0.3em] uppercase text-pale-gold mb-3 block">
-              {t(`campaigns.status.${campaign.status}`)} Campaign
+            <span className="font-body text-overline tracking-[0.3em] uppercase text-pale-gold mb-3 block">
+              {t(`campaigns.status.${campaign.status}`)} {t('campaigns.campaign')}
             </span>
             <BleedTitleBlock>
               <span className="text-paper">{campaign.title}</span>
@@ -113,20 +117,20 @@ export default function CampaignDetail() {
       </section>
 
       {/* Content — asymmetric grid */}
-      <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+      <PaperTextureBackground variant="paper" className="section-spacing">
         <SectionContainer>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
             {/* Main content */}
             <div className="md:col-span-7">
-              <NumberedSectionHeading number="01" title="About This Campaign" />
+              <NumberedSectionHeading number="01" title={t('campaigns.about')} />
               <p className="font-body text-sm text-ink-faded leading-[1.8] mb-6">
                 {campaign.description}
               </p>
 
               <StoryQuoteBlock
-                quote="I drew a dress that makes rain sounds when you walk. That way, everyone knows you're coming."
-                author="Mei, age 8"
-                role="Guizhou"
+                quote={t('campaigns.quote')}
+                author={t('campaigns.quoteAuthor')}
+                role={t('campaigns.quoteRole')}
               />
             </div>
 
@@ -141,25 +145,26 @@ export default function CampaignDetail() {
                       {t('campaigns.detail.progress')}
                     </span>
                   </div>
-                  <div className="w-full h-1.5 bg-warm-gray/30 rounded-full overflow-hidden mb-4">
+                  <div className="w-full h-1.5 bg-warm-gray/30 overflow-hidden mb-4">
                     <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${progress}%` }}
-                      transition={{ duration: 1.2, ease: 'easeOut' }}
-                      className="h-full bg-archive-brown rounded-full"
+                      initial={prefersReducedMotion ? false : { width: 0 }}
+                      animate={prefersReducedMotion ? undefined : { width: `${progress}%` }}
+                      transition={prefersReducedMotion ? { duration: 0 } : { duration: 1.2, ease: 'easeOut' }}
+                      className="h-full bg-archive-brown"
+                      style={prefersReducedMotion ? { width: `${progress}%` } : undefined}
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
                       <p className="font-display text-xl text-ink">{campaign.participantCount}</p>
-                      <p className="font-body text-[10px] text-sepia-mid tracking-wider uppercase">
+                      <p className="font-body text-overline text-sepia-mid tracking-wider uppercase">
                         {t('campaigns.detail.participants')}
                       </p>
                     </div>
                     <div>
                       <p className="font-display text-xl text-ink">{campaign.artworkCount}</p>
-                      <p className="font-body text-[10px] text-sepia-mid tracking-wider uppercase">
-                        Artworks
+                      <p className="font-body text-overline text-sepia-mid tracking-wider uppercase">
+                        {t('campaigns.artworks')}
                       </p>
                     </div>
                   </div>
@@ -179,7 +184,7 @@ export default function CampaignDetail() {
       </PaperTextureBackground>
 
       {/* Campaign Artworks */}
-      <PaperTextureBackground variant="aged" className="py-16 md:py-24">
+      <PaperTextureBackground variant="aged" className="section-spacing">
         <SectionContainer>
           <NumberedSectionHeading number="02" title={t('campaigns.detail.artworks')} />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
@@ -194,11 +199,13 @@ export default function CampaignDetail() {
       <SectionContainer className="py-8">
         <Link
           to="/campaigns"
-          className="font-body text-xs tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors"
+          className="font-body text-xs tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors cursor-pointer"
         >
-          &larr; {t('common.back')} to all campaigns
+          &larr; {t('common.back')} {t('campaigns.backToAll')}
         </Link>
       </SectionContainer>
+
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

@@ -11,6 +11,7 @@ import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import StoryQuoteBlock from '@/components/editorial/StoryQuoteBlock';
 import VintageSelect from '@/components/editorial/VintageSelect';
 import { productsApi } from '@/services/products';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import type { Product } from '@/types';
 
 type Category = 'all' | 'apparel' | 'accessories' | 'stationery' | 'prints';
@@ -105,10 +106,11 @@ const MOCK_PRODUCTS: Product[] = [
 
 export default function Shop() {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const [sortBy, setSortBy] = useState<SortOption>('default');
 
-  const { data } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['products', { category: activeCategory }],
     queryFn: async () => {
       try {
@@ -159,7 +161,7 @@ export default function Shop() {
       />
 
       <SectionContainer noTopSpacing>
-        <NumberedSectionHeading number="01" title="Collection" />
+        <NumberedSectionHeading number="01" title={t('shop.collection')} />
 
         {/* Filters and sort row */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
@@ -169,12 +171,13 @@ export default function Shop() {
               <motion.button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-                whileHover={{ y: -2 }}
+                aria-pressed={activeCategory === cat}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { delay: index * 0.05 }}
+                whileHover={prefersReducedMotion ? undefined : { y: -2 }}
                 className={`
-                  font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative
+                  font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
                   ${activeCategory === cat
                     ? 'border-rust text-rust'
                     : 'border-transparent text-sepia-mid hover:text-ink'
@@ -184,9 +187,9 @@ export default function Shop() {
                 {t(`shop.filters.${cat}`)}
                 {activeCategory === cat && (
                   <motion.span
-                    layoutId="category-indicator"
+                    layoutId={prefersReducedMotion ? undefined : "category-indicator"}
                     className="absolute bottom-0 left-0 right-0 h-px bg-rust"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
               </motion.button>
@@ -211,7 +214,22 @@ export default function Shop() {
         </p>
 
         {/* Product grid */}
-        {filtered.length === 0 ? (
+        {isLoading ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-14">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="space-y-3">
+                <div className={`aspect-[3/4] bg-aged-stock ${prefersReducedMotion ? '' : 'animate-pulse'} border border-warm-gray/30`} />
+                <div className={`h-4 bg-aged-stock ${prefersReducedMotion ? '' : 'animate-pulse'} w-3/4`} />
+                <div className={`h-3 bg-aged-stock ${prefersReducedMotion ? '' : 'animate-pulse'} w-1/2`} />
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="text-center py-20" role="alert" aria-live="assertive">
+            <p className="font-body text-sm text-rust">{t('common.error')}</p>
+            <p className="font-body text-xs text-sepia-mid mt-2">{t('common.retry')}</p>
+          </div>
+        ) : filtered.length === 0 ? (
           <p className="font-body text-sm text-sepia-mid py-20 text-center">
             {t('shop.empty')}
           </p>
@@ -219,10 +237,10 @@ export default function Shop() {
           <AnimatePresence mode="wait">
             <motion.div
               key={`${activeCategory}-${sortBy}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={prefersReducedMotion ? false : { opacity: 0 }}
+              animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+              exit={prefersReducedMotion ? undefined : { opacity: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
               className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-14"
             >
               {filtered.map((product, index) => (
@@ -237,56 +255,56 @@ export default function Shop() {
       <SectionContainer>
         <div className="border-t border-warm-gray/30 pt-12 mt-8 relative">
           {/* Decorative corner accents */}
-          <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-rust/30 pointer-events-none" />
-          <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-rust/30 pointer-events-none" />
+          <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-rust/30 pointer-events-none" aria-hidden="true" />
+          <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-rust/30 pointer-events-none" aria-hidden="true" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.1 }}
             >
               <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
                 01
               </span>
               <h4 className="font-display text-lg font-bold text-ink mt-2 mb-2">
-                Certified Materials
+                {t('shop.sustainability.materials')}
               </h4>
               <p className="font-body text-xs text-ink-faded leading-relaxed">
-                All fabrics are GOTS-certified organic cotton or recycled polyester.
+                {t('shop.sustainability.materialsDesc')}
               </p>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.2 }}
             >
               <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
                 02
               </span>
               <h4 className="font-display text-lg font-bold text-ink mt-2 mb-2">
-                Ethical Production
+                {t('shop.sustainability.production')}
               </h4>
               <p className="font-body text-xs text-ink-faded leading-relaxed">
-                Fair wages, safe conditions, full supply chain transparency.
+                {t('shop.sustainability.productionDesc')}
               </p>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={prefersReducedMotion ? undefined : { once: true }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.3 }}
             >
               <span className="font-body text-caption text-sepia-mid tracking-[0.2em]">
                 03
               </span>
               <h4 className="font-display text-lg font-bold text-ink mt-2 mb-2">
-                Carbon Measured
+                {t('shop.sustainability.carbon')}
               </h4>
               <p className="font-body text-xs text-ink-faded leading-relaxed">
-                Every product's carbon footprint is calculated and offset.
+                {t('shop.sustainability.carbonDesc')}
               </p>
             </motion.div>
           </div>
@@ -295,21 +313,21 @@ export default function Shop() {
 
       {/* Behind the Collection */}
       <SectionContainer>
-        <NumberedSectionHeading number="02" title="Behind the Collection" />
+        <NumberedSectionHeading number="02" title={t('shop.behind.title')} />
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 mt-10">
           {/* Left: Workshop image — 8/12 columns */}
           <motion.div
             className="md:col-span-8"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: -30 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+            viewport={prefersReducedMotion ? undefined : { once: true }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1] }}
           >
             <SepiaImageFrame
               src="https://picsum.photos/seed/vicoo-workshop-art/800/500"
-              alt="Children creating artwork in a VICOO workshop"
-              caption="A Saturday morning workshop in Chengdu, where children paint the dreams that will become our next collection."
+              alt={t('shop.behind.alt')}
+              caption={t('shop.behind.caption')}
               aspectRatio="wide"
               size="full"
               showCornerAccents={true}
@@ -320,33 +338,28 @@ export default function Shop() {
           {/* Right: Editorial text — 4/12 columns */}
           <motion.div
             className="md:col-span-4 flex flex-col justify-center"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0, 0, 0.2, 1] }}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: 30 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
+            viewport={prefersReducedMotion ? undefined : { once: true }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, delay: 0.15, ease: [0, 0, 0.2, 1] }}
           >
             <p className="font-body text-xs text-ink-faded leading-relaxed mb-4">
-              Every garment in this collection begins the same way -- with a child,
-              a blank page, and the freedom to imagine. We partner with schools and
-              community centres across twelve cities, running workshops where children
-              draw their hopes for the world.
+              {t('shop.behind.body1')}
             </p>
             <p className="font-body text-xs text-ink-faded leading-relaxed mb-6">
-              Our designers then translate these raw, honest artworks into patterns,
-              prints, and embroideries -- never altering the child's original vision.
-              The result is clothing that carries real stories, not manufactured ones.
+              {t('shop.behind.body2')}
             </p>
 
             <StoryQuoteBlock
-              quote="I drew the ocean because I want it to stay blue forever."
-              author="Xiao Lin"
-              role="Age 8, Ocean Dreams campaign"
+              quote={t('shop.behind.quote')}
+              author={t('shop.behind.quoteAuthor')}
+              role={t('shop.behind.quoteRole')}
             />
           </motion.div>
         </div>
       </SectionContainer>
 
-      <div className="editorial-divider" />
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

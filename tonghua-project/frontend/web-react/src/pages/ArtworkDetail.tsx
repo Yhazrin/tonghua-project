@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
@@ -6,31 +6,41 @@ import PageWrapper from '@/components/layout/PageWrapper';
 import SectionContainer from '@/components/layout/SectionContainer';
 import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import PaperTextureBackground from '@/components/editorial/PaperTextureBackground';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { artworksApi } from '@/services/artworks';
 import type { Artwork } from '@/types';
 
 export default function ArtworkDetail() {
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [artwork, setArtwork] = useState<Artwork | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   // Load artwork data
-  if (loading && id) {
+  useEffect(() => {
+    if (!id) return;
+    let cancelled = false;
+    setLoading(true);
     artworksApi
       .getById(id)
       .then((data) => {
-        setArtwork(data);
-        setLoading(false);
+        if (!cancelled) {
+          setArtwork(data);
+          setLoading(false);
+        }
       })
       .catch((err) => {
-        setError(err.message || 'Failed to load artwork');
-        setLoading(false);
+        if (!cancelled) {
+          setError(err.message || t('artwork.loadError'));
+          setLoading(false);
+        }
       });
-  }
+    return () => { cancelled = true; };
+  }, [id]);
 
-  const handleVote = async () => {
+  const handleVote = useCallback(async () => {
     if (!id) return;
     try {
       const result = await artworksApi.vote(id);
@@ -38,14 +48,14 @@ export default function ArtworkDetail() {
     } catch (err) {
       console.error('Failed to vote', err);
     }
-  };
+  }, [id]);
 
   if (loading) {
     return (
       <PageWrapper>
-        <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+        <PaperTextureBackground variant="paper" className="section-spacing">
           <SectionContainer>
-            <p className="font-body text-sepia-mid">Loading...</p>
+            <p className="font-body text-sepia-mid">{t('common.loading')}</p>
           </SectionContainer>
         </PaperTextureBackground>
       </PageWrapper>
@@ -55,17 +65,17 @@ export default function ArtworkDetail() {
   if (error || !artwork) {
     return (
       <PageWrapper>
-        <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+        <PaperTextureBackground variant="paper" className="section-spacing">
           <SectionContainer>
-            <div className="text-center">
+            <div className="text-center" role="alert" aria-live="assertive">
               <h1 className="font-display text-2xl text-ink mb-4">
-                Artwork not found
+                {t('artwork.notFound')}
               </h1>
               <Link
                 to="/stories"
-                className="font-body text-xs tracking-[0.15em] uppercase text-rust hover:text-ink transition-colors"
+                className="font-body text-xs tracking-[0.15em] uppercase text-rust hover:text-ink transition-colors cursor-pointer"
               >
-                &larr; Back to Stories
+                &larr; {t('common.back')} {t('nav.stories')}
               </Link>
             </div>
           </SectionContainer>
@@ -77,15 +87,15 @@ export default function ArtworkDetail() {
   return (
     <PageWrapper>
       {/* Artwork section */}
-      <PaperTextureBackground variant="paper" className="py-16 md:py-24">
+      <PaperTextureBackground variant="paper" className="section-spacing">
         <SectionContainer>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
             {/* Image */}
             <div className="md:col-span-6">
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
+                initial={prefersReducedMotion ? false : { opacity: 0 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
               >
                 <SepiaImageFrame
                   src={artwork.imageUrl}
@@ -98,7 +108,7 @@ export default function ArtworkDetail() {
 
             {/* Details */}
             <div className="md:col-span-5 md:col-start-8">
-              <p className="font-body text-[10px] tracking-[0.3em] uppercase text-sepia-mid mb-2">
+              <p className="font-body text-overline tracking-[0.3em] uppercase text-sepia-mid mb-2">
                 {t('artwork.detail.heading')}
               </p>
               <h1 className="font-display text-3xl md:text-4xl text-ink font-bold leading-tight mb-4">
@@ -114,7 +124,7 @@ export default function ArtworkDetail() {
                   {t('artwork.detail.artist')}
                 </p>
                 <p className="font-body text-xs text-ink-faded">
-                  {artwork.childParticipant.firstName}, age {artwork.childParticipant.age}
+                  {t('artwork.detail.artistInfo', { name: artwork.childParticipant.firstName, age: artwork.childParticipant.age })}
                 </p>
                 {artwork.childParticipant.schoolName && (
                   <p className="font-body text-xs text-ink-faded mt-1">
@@ -127,10 +137,10 @@ export default function ArtworkDetail() {
               <div className="mb-8">
                 <div className="flex items-center gap-4">
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
                     onClick={handleVote}
-                    className="flex-1 font-body text-sm tracking-[0.15em] uppercase py-4 bg-rust text-paper transition-colors hover:bg-archive-brown"
+                    className="flex-1 font-body text-sm tracking-[0.15em] uppercase py-4 bg-rust text-paper transition-colors hover:bg-archive-brown cursor-pointer"
                   >
                     {t('artwork.detail.vote')}
                   </motion.button>
@@ -170,11 +180,13 @@ export default function ArtworkDetail() {
       <SectionContainer className="py-8">
         <Link
           to="/stories"
-          className="font-body text-xs tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors"
+          className="font-body text-xs tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors cursor-pointer"
         >
-          &larr; {t('common.back')} to Stories
+          &larr; {t('common.back')} {t('nav.stories')}
         </Link>
       </SectionContainer>
+
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import PageWrapper from '@/components/layout/PageWrapper';
 import { VintageInput } from '@/components/editorial/VintageInput';
+import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeading';
 import { useAuth } from '@/hooks/useAuth';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function Register() {
   const { t } = useTranslation();
@@ -15,6 +17,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [localError, setLocalError] = useState('');
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,36 +46,22 @@ export default function Register() {
   return (
     <PageWrapper>
       {/* Centered auth layout - no hero section */}
-      <div className="min-h-screen flex items-center justify-center py-12 px-4">
+      <div className="min-h-[100dvh] flex items-center justify-center py-12 px-4">
         <div className="w-full max-w-md">
           {/* Header */}
-          <div className="text-center mb-10">
-            <span className="font-body text-caption text-sepia-mid tracking-[0.3em] uppercase mb-4 block">
-              10
-            </span>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
-              className="font-display text-3xl md:text-4xl font-bold text-ink mb-4"
-            >
-              {t('register.title')}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.1 }}
-              className="font-body text-sm text-ink-faded"
-            >
-              {t('register.subtitle')}
-            </motion.p>
-          </div>
+          <NumberedSectionHeading
+            number="10"
+            title={t('register.title')}
+            subtitle={t('register.subtitle')}
+            centered
+            immediate
+          />
 
           {/* Form */}
           <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.2 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: [0, 0, 0.2, 1], delay: 0.2 }}
             onSubmit={handleSubmit}
             className="space-y-6"
           >
@@ -109,7 +98,7 @@ export default function Register() {
             />
 
             {(localError || registerError) && (
-              <div className="text-red-600 text-sm text-center">
+              <div role="alert" aria-live="assertive" className="border-l-2 border-rust pl-4 text-rust text-sm text-center">
                 {localError || registerError}
               </div>
             )}
@@ -117,11 +106,11 @@ export default function Register() {
             <motion.button
               type="submit"
               disabled={isRegistering}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              className="w-full font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300 disabled:opacity-50"
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
+              className="w-full font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300 disabled:opacity-50 cursor-pointer"
             >
-              {isRegistering ? '...' : t('register.submit')}
+              {isRegistering ? t('common.loading') : t('register.submit')}
             </motion.button>
 
             <div className="relative py-4">
@@ -137,9 +126,9 @@ export default function Register() {
 
             <motion.button
               type="button"
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              className="w-full font-body text-sm tracking-[0.1em] border border-warm-gray/40 text-ink px-10 py-4 hover:border-ink transition-colors duration-300"
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
+              className="w-full font-body text-sm tracking-[0.1em] border border-warm-gray/40 text-ink px-10 py-4 hover:border-ink transition-colors duration-300 cursor-pointer"
             >
               {t('register.wechat')}
             </motion.button>
@@ -150,7 +139,7 @@ export default function Register() {
               </span>
               <Link
                 to="/login"
-                className="font-body text-xs text-rust hover:text-ink transition-colors tracking-[0.1em] uppercase"
+                className="font-body text-xs text-rust hover:text-ink transition-colors tracking-[0.1em] uppercase cursor-pointer"
               >
                 {t('register.login')}
               </Link>
@@ -158,6 +147,8 @@ export default function Register() {
           </motion.form>
         </div>
       </div>
+
+      <div className="editorial-divider" aria-hidden="true" />
     </PageWrapper>
   );
 }

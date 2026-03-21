@@ -3,8 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { useUIStore } from '@/stores/uiStore';
 import { useAuthStore } from '@/stores/authStore';
-import { useIsMobile } from '@/hooks/useMediaQuery';
+import { useIsMobile, useMediaQuery } from '@/hooks/useMediaQuery';
 import { useRef, useEffect, useState } from 'react';
+
+const GRAIN_STYLE: React.CSSProperties = { backgroundImage: 'var(--grain-overlay)' };
 
 const NAV_ITEMS = [
   { key: 'home', path: '/' },
@@ -22,6 +24,7 @@ export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const { mobileNavOpen, toggleMobileNav, setMobileNavOpen, currentLocale, setLocale, setMenuTriggerRef } =
     useUIStore();
   const { user, isAuthenticated, logout } = useAuthStore();
@@ -34,20 +37,25 @@ export default function Header() {
     setMenuTriggerRef(menuTriggerRef);
   }, [setMenuTriggerRef]);
 
-  // Close user menu when clicking outside
+  // Close user menu when clicking outside or pressing Escape
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
         setUserMenuOpen(false);
       }
     };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setUserMenuOpen(false);
+    };
 
     if (userMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [userMenuOpen]);
 
@@ -64,19 +72,24 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-paper/90 backdrop-blur-sm border-b border-warm-gray/30">
+    <header className="fixed top-0 left-0 right-0 z-overlay bg-paper/95 backdrop-blur-sm border-b border-warm-gray/30">
+      {/* Skip to content - visible on focus for keyboard users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-modal focus:px-4 focus:py-2 focus:bg-ink focus:text-paper focus:font-body focus:text-sm focus:tracking-wide"
+      >
+        {t('nav.skipToContent', 'Skip to content')}
+      </a>
       {/* Grain overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-      }} />
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]" aria-hidden="true" style={GRAIN_STYLE} />
       <div className="relative max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link
           to="/"
-          className="font-display text-ink text-lg md:text-xl font-bold tracking-tight"
+          className="font-display text-ink text-lg md:text-xl font-bold tracking-tight cursor-pointer"
           onClick={() => setMobileNavOpen(false)}
         >
-          Tonghua
+          VICOO
         </Link>
 
         {/* Desktop Navigation */}
@@ -89,11 +102,11 @@ export default function Header() {
                   key={item.key}
                   to={item.path}
                   className={`
-                    font-body text-label tracking-wide px-3 py-2 transition-colors duration-200
+                    font-body text-label tracking-wide px-3 py-2 transition-colors duration-200 cursor-pointer
                     ${isActive ? 'text-rust' : 'text-ink-faded hover:text-ink'}
                   `}
                 >
-                  <span className="text-[9px] tracking-[0.2em] text-sepia-mid mr-2 font-mono">
+                  <span className="text-overline tracking-[0.2em] text-sepia-mid mr-2 font-body">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   {t(`nav.${item.key}`)}
@@ -107,8 +120,8 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleLocale}
-            className="font-body text-caption text-ink-faded hover:text-ink transition-colors px-2 py-1 border border-warm-gray/40 rounded"
-            aria-label="Toggle language"
+            className="font-body text-caption text-ink-faded hover:text-ink transition-colors px-2 py-1 border border-warm-gray/40 cursor-pointer"
+            aria-label={t('nav.toggleLanguage')}
           >
             {currentLocale === 'en' ? '中文' : 'EN'}
           </button>
@@ -118,35 +131,35 @@ export default function Header() {
             <div className="relative" ref={userMenuRef}>
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="hidden md:flex items-center gap-2 font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 rounded"
-                aria-label="User menu"
+                className="hidden md:flex items-center gap-2 font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 cursor-pointer"
+                aria-label={t('nav.userMenu')}
                 aria-expanded={userMenuOpen}
               >
-                <span className="text-[9px] tracking-[0.2em] text-sepia-mid font-mono">USER</span>
+                <span className="text-overline tracking-[0.2em] text-sepia-mid font-body">{t('nav.userLabel')}</span>
                 <span className="max-w-[120px] truncate">{user.nickname || user.email}</span>
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
 
               {/* Dropdown menu */}
               {userMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 rounded shadow-lg z-50">
+                <div className="absolute right-0 top-full mt-2 w-48 bg-paper border border-warm-gray/40 shadow-lg z-dropdown">
                   <div className="py-2">
                     <div className="px-4 py-2 border-b border-warm-gray/20">
                       <p className="font-body text-xs text-ink-faded">{user.nickname || user.email}</p>
-                      <p className="font-body text-[10px] text-sepia-mid capitalize">{user.role}</p>
+                      <p className="font-body text-overline text-sepia-mid capitalize">{user.role}</p>
                     </div>
                     <Link
                       to="/profile"
-                      className="block px-4 py-2 font-body text-sm text-ink hover:bg-warm-gray/10 transition-colors"
+                      className="block px-4 py-2 font-body text-sm text-ink hover:bg-warm-gray/10 transition-colors cursor-pointer"
                       onClick={() => setUserMenuOpen(false)}
                     >
                       {t('nav.profile')}
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 font-body text-sm text-ink hover:bg-warm-gray/10 transition-colors"
+                      className="w-full text-left px-4 py-2 font-body text-sm text-ink hover:bg-warm-gray/10 transition-colors cursor-pointer"
                     >
                       {t('nav.logout')}
                     </button>
@@ -158,7 +171,7 @@ export default function Header() {
             /* Login link - shown when not authenticated */
             <Link
               to="/login"
-              className="hidden md:inline-block font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 rounded"
+              className="hidden md:inline-block font-body text-label text-ink-faded hover:text-ink transition-colors px-3 py-1.5 border border-warm-gray/40 cursor-pointer"
             >
               {t('nav.login')}
             </Link>
@@ -169,21 +182,21 @@ export default function Header() {
             <button
               ref={menuTriggerRef}
               onClick={toggleMobileNav}
-              className="flex flex-col gap-1.5 p-2"
-              aria-label="Toggle menu"
+              className="flex flex-col gap-1.5 p-2 cursor-pointer"
+              aria-label={t('nav.toggleMenu')}
               aria-expanded={mobileNavOpen}
               aria-controls="mobile-navigation"
             >
               <motion.span
-                animate={mobileNavOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                animate={prefersReducedMotion ? undefined : (mobileNavOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 })}
                 className="block w-6 h-px bg-ink"
               />
               <motion.span
-                animate={mobileNavOpen ? { opacity: 0 } : { opacity: 1 }}
+                animate={prefersReducedMotion ? undefined : (mobileNavOpen ? { opacity: 0 } : { opacity: 1 })}
                 className="block w-6 h-px bg-ink"
               />
               <motion.span
-                animate={mobileNavOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                animate={prefersReducedMotion ? undefined : (mobileNavOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 })}
                 className="block w-6 h-px bg-ink"
               />
             </button>

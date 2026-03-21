@@ -1,5 +1,6 @@
 import { useRef, type RefObject } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 /**
  * Hook to create scroll-linked path drawing animation
@@ -44,11 +45,12 @@ interface MotionPathProps {
 export function MotionPath({
   d,
   className = '',
-  strokeColor = '#8B3A2A', // rust default
+  strokeColor = 'var(--color-rust)',
   strokeWidth = 2,
   fill = 'none',
   containerRef,
 }: MotionPathProps) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
@@ -56,6 +58,20 @@ export function MotionPath({
 
   const pathLength = 1000; // Approximate path length for normalization
   const strokeDashoffset = useTransform(scrollYProgress, [0, 1], [pathLength, 0]);
+
+  if (prefersReducedMotion) {
+    return (
+      <path
+        d={d}
+        fill={fill}
+        stroke={strokeColor}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+      />
+    );
+  }
 
   return (
     <motion.path
@@ -111,11 +127,12 @@ interface ScrollPathDrawInlineProps {
 export function ScrollPathDrawInline({
   path,
   className = '',
-  strokeColor = '#8B3A2A', // rust
+  strokeColor = 'var(--color-rust)',
   strokeWidth = 2,
   containerRef,
   delay = 0,
 }: ScrollPathDrawInlineProps) {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const internalRef = useRef<HTMLDivElement>(null);
   const resolvedRef = containerRef || internalRef;
 
@@ -139,18 +156,29 @@ export function ScrollPathDrawInline({
         className="w-full h-full"
         aria-hidden="true"
       >
-        <motion.path
-          d={path}
-          fill="none"
-          stroke={strokeColor}
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            strokeDasharray: 1000,
-            strokeDashoffset,
-          }}
-        />
+        {prefersReducedMotion ? (
+          <path
+            d={path}
+            fill="none"
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ) : (
+          <motion.path
+            d={path}
+            fill="none"
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              strokeDasharray: 1000,
+              strokeDashoffset,
+            }}
+          />
+        )}
       </svg>
     </div>
   );

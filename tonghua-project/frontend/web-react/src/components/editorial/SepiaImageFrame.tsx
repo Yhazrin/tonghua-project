@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
 import { OrigamiFoldAccent } from '@/components/animations/OrigamiFold';
 
@@ -42,6 +43,7 @@ export default function SepiaImageFrame({
   accentSize = 'sm',
 }: SepiaImageFrameProps) {
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [imageLoaded, setImageLoaded] = useState(false);
 
   // Determine corner accent positions based on accentPosition
@@ -52,7 +54,7 @@ export default function SepiaImageFrame({
         { position: 'bottom-right' as const, intensity: 'medium' as const },
       ];
     }
-    return [{ position: accentPosition as any, intensity: 'medium' as const }];
+    return [{ position: accentPosition as 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right', intensity: 'medium' as const }];
   };
 
   const cornerAccents = getCornerAccents();
@@ -60,9 +62,9 @@ export default function SepiaImageFrame({
   return (
     <motion.figure
       ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+      animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1] }}
       className={`${sizeClasses[size]} ${className}`}
     >
       <div
@@ -83,13 +85,14 @@ export default function SepiaImageFrame({
           />
         ))}
         {/* Aged overlay */}
-        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" />
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/5 via-transparent to-archive-brown/5" aria-hidden="true" />
 
         {/* Vignette */}
         <div
           className="absolute inset-0 z-10 pointer-events-none"
+          aria-hidden="true"
           style={{
-            boxShadow: 'inset 0 0 60px rgba(26, 26, 22, 0.12)',
+            boxShadow: 'inset 0 0 60px color-mix(in srgb, var(--color-ink) 12%, transparent)',
           }}
         />
 

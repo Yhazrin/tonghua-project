@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import TiltCard from '@/components/animations/TiltCard';
 import ImageSkeleton from '@/components/editorial/ImageSkeleton';
 import { VintageInput } from '@/components/editorial/VintageInput';
@@ -14,10 +15,10 @@ interface ProductCardProps {
   className?: string;
 }
 
-function getSustainabilityTier(score: number): { label: string; colorClass: string; barColor: string } {
-  if (score >= 90) return { label: 'Exceptional', colorClass: 'text-rust', barColor: 'bg-rust' };
-  if (score >= 80) return { label: 'Excellent', colorClass: 'text-[#6B7C3E]', barColor: 'bg-[#6B7C3E]' };
-  return { label: 'Good', colorClass: 'text-sepia-mid', barColor: 'bg-sepia-mid' };
+function getSustainabilityTier(score: number, t: (key: string) => string): { label: string; colorClass: string; barColor: string } {
+  if (score >= 90) return { label: t('shop.sustainabilityTiers.exceptional'), colorClass: 'text-rust', barColor: 'bg-rust' };
+  if (score >= 80) return { label: t('shop.sustainabilityTiers.excellent'), colorClass: 'text-eco-green', barColor: 'bg-eco-green' };
+  return { label: t('shop.sustainabilityTiers.good'), colorClass: 'text-sepia-mid', barColor: 'bg-sepia-mid' };
 }
 
 export default function ProductCard({
@@ -26,13 +27,14 @@ export default function ProductCard({
   className = '',
 }: ProductCardProps) {
   const { t } = useTranslation();
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const [ref, isVisible] = useScrollReveal<HTMLDivElement>();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showNotifyInput, setShowNotifyInput] = useState(false);
   const [notifyEmail, setNotifyEmail] = useState('');
   const [notifySubmitted, setNotifySubmitted] = useState(false);
 
-  const sustainability = getSustainabilityTier(product.sustainabilityScore);
+  const sustainability = getSustainabilityTier(product.sustainabilityScore, t);
 
   const handleNotifySubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,24 +54,25 @@ export default function ProductCard({
     >
       <motion.article
         ref={ref}
-        initial={{ opacity: 0, y: 40 }}
-        animate={isVisible ? { opacity: 1, y: 0 } : {}}
-        transition={{
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
+        animate={prefersReducedMotion ? undefined : (isVisible ? { opacity: 1, y: 0 } : {})}
+        transition={prefersReducedMotion ? { duration: 0 } : {
           duration: 0.7,
           ease: [0, 0, 0.2, 1],
           delay: index * 0.1,
         }}
         className="h-full"
       >
-        <Link to={`/shop/${product.id}`} className="block h-full">
+        <Link to={`/shop/${product.id}`} className="block h-full cursor-pointer">
         {/* Image */}
         <div className="relative aspect-[3/4] overflow-hidden border-2 border-rust/30 bg-aged-stock mb-5 group-hover:border-rust/50 transition-colors duration-300">
           {/* Vintage frame effect */}
-          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/3 via-transparent to-archive-brown/5" />
+          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-pale-gold/3 via-transparent to-archive-brown/5" aria-hidden="true" />
 
           {/* Grain overlay */}
           <div className="absolute inset-0 z-20 pointer-events-none opacity-10"
-               style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }} />
+               aria-hidden="true"
+               style={{ backgroundImage: 'var(--grain-overlay)' }} />
 
           {/* Loading skeleton */}
           {!imageLoaded && <ImageSkeleton className="absolute inset-0" aspectRatio="aspect-[3/4]" />}
@@ -84,19 +87,19 @@ export default function ProductCard({
 
           {/* Stock badge */}
           {!product.inStock && (
-            <div className="absolute top-3 right-3 z-30 bg-ink/90 text-paper font-body text-caption px-3 py-1 tracking-wider border border-ink">
+            <div className="absolute top-3 right-3 z-30 bg-ink/90 text-paper font-body text-caption px-3 py-1 tracking-wider border border-ink" role="status">
               {t('shop.card.soldOut')}
             </div>
           )}
 
           {product.inStock && product.stockCount <= 5 && (
-            <div className="absolute top-3 right-3 z-30 bg-rust/95 text-paper font-body text-caption px-3 py-1 tracking-wider border border-rust">
+            <div className="absolute top-3 right-3 z-30 bg-rust/95 text-paper font-body text-caption px-3 py-1 tracking-wider border border-rust" role="status">
               {t('shop.card.lowStock', { count: product.stockCount })}
             </div>
           )}
 
           {/* Hover overlay */}
-          <div className="absolute inset-0 z-15 bg-ink/0 group-hover:bg-ink/5 transition-colors duration-300" />
+          <div className="absolute inset-0 z-[15] bg-ink/0 group-hover:bg-ink/5 transition-colors duration-300" />
         </div>
 
         {/* Info */}
@@ -105,16 +108,16 @@ export default function ProductCard({
             <h3 className="font-display text-base md:text-lg font-semibold text-ink group-hover:text-rust transition-colors leading-tight">
               {product.name}
             </h3>
-            <span className="font-body text-[10px] text-sepia-mid uppercase tracking-wider flex-shrink-0 mt-1">
+            <span className="font-body text-overline text-sepia-mid uppercase tracking-wider flex-shrink-0 mt-1">
               {product.category}
             </span>
           </div>
 
           {/* Artwork attribution */}
           {product.artworkBy && (
-            <p className="font-body text-[10px] text-sepia-mid tracking-wide mb-2">
-              Artwork by {product.artworkBy.childName}, age {product.artworkBy.age}
-              {' '}&mdash; {product.artworkBy.campaign} campaign
+            <p className="font-body text-overline text-sepia-mid tracking-wide mb-2">
+              {t('shop.product.artworkBy', { name: product.artworkBy.childName, age: product.artworkBy.age })}
+              {' '}&mdash; {t('shop.product.campaign', { campaign: product.artworkBy.campaign })}
             </p>
           )}
 
@@ -127,19 +130,19 @@ export default function ProductCard({
             {/* Sustainability score with tier */}
             <div className="flex flex-col items-end">
               <div className="flex items-center gap-1.5">
-                <span className="font-mono text-[10px] text-sepia-mid">
+                <span className="font-body text-overline text-sepia-mid">
                   {product.sustainabilityScore}
                 </span>
-                <span className={`font-body text-[10px] tracking-wide ${sustainability.colorClass}`}>
+                <span className={`font-body text-overline tracking-wide ${sustainability.colorClass}`}>
                   {sustainability.label}
                 </span>
               </div>
               <div className="w-12 h-px bg-warm-gray/30 mt-0.5">
                 <motion.div
                   className={`h-full ${sustainability.barColor}`}
-                  initial={{ width: 0 }}
-                  animate={isVisible ? { width: `${product.sustainabilityScore}%` } : {}}
-                  transition={{ duration: 0.8, delay: 0.3, ease: [0, 0, 0.2, 1] }}
+                  initial={prefersReducedMotion ? false : { width: 0 }}
+                  animate={prefersReducedMotion ? undefined : (isVisible ? { width: `${product.sustainabilityScore}%` } : {})}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, delay: 0.3, ease: [0, 0, 0.2, 1] }}
                 />
               </div>
             </div>
@@ -147,42 +150,43 @@ export default function ProductCard({
 
           {/* Notify Me for out-of-stock */}
           {!product.inStock && (
-            <div className="mt-3" onClick={(e) => e.preventDefault()}>
+            <div className="mt-3" onClick={(e) => e.preventDefault()} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); } }}>
               {!showNotifyInput ? (
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
+                  whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     setShowNotifyInput(true);
                   }}
-                  className="w-full font-body text-[10px] tracking-[0.15em] uppercase text-sepia-mid py-2 px-4 border border-dashed border-sepia-mid/50 hover:border-sepia-mid hover:text-ink transition-all duration-200 bg-transparent"
+                  aria-label={t('shop.notifyMe')}
+                  className="w-full font-body text-overline tracking-[0.15em] uppercase text-sepia-mid py-2 px-4 border border-dashed border-sepia-mid/50 hover:border-sepia-mid hover:text-ink transition-all duration-200 bg-transparent cursor-pointer"
                 >
-                  Notify Me
+                  {t('shop.notifyMe')}
                 </motion.button>
               ) : notifySubmitted ? (
                 <motion.p
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="font-body text-[10px] text-[#6B7C3E] tracking-wide text-center py-2"
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 5 }}
+                  animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                  className="font-body text-overline text-eco-green tracking-wide text-center py-2"
                 >
-                  We will let you know when this is back.
+                  {t('shop.notifyMeSuccess')}
                 </motion.p>
               ) : (
                 <AnimatePresence>
                   <motion.form
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
+                    initial={prefersReducedMotion ? false : { opacity: 0, height: 0 }}
+                    animate={prefersReducedMotion ? undefined : { opacity: 1, height: 'auto' }}
+                    exit={prefersReducedMotion ? undefined : { opacity: 0, height: 0 }}
                     onSubmit={handleNotifySubmit}
                     className="flex items-end gap-2"
                   >
                     <div className="flex-1">
                       <VintageInput
                         type="email"
-                        label="Email"
-                        placeholder="your@email.com"
+                        label={t('common.email')}
+                        placeholder={t('shop.notifyMePlaceholder')}
                         value={notifyEmail}
                         onChange={(e) => setNotifyEmail(e.target.value)}
                         icon="email"
@@ -190,11 +194,11 @@ export default function ProductCard({
                     </div>
                     <motion.button
                       type="submit"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="font-body text-[10px] tracking-[0.1em] uppercase text-paper bg-rust px-3 py-3 border border-rust hover:bg-rust/90 transition-colors flex-shrink-0"
+                      whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
+                      whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
+                      className="font-body text-overline tracking-[0.1em] uppercase text-paper bg-rust px-3 py-3 border border-rust hover:bg-rust/90 transition-colors flex-shrink-0"
                     >
-                      Send
+                      {t('common.send')}
                     </motion.button>
                   </motion.form>
                 </AnimatePresence>
@@ -205,7 +209,7 @@ export default function ProductCard({
           {/* Decorative divider */}
           <div className="flex items-center gap-2 mt-3">
             <div className="flex-1 h-px bg-ink/20" />
-            <span className="font-mono text-[9px] text-sepia-mid tracking-widest">
+            <span className="font-body text-overline text-sepia-mid tracking-widest">
               {String(product.id).padStart(3, '0')}
             </span>
             <div className="flex-1 h-px bg-ink/20" />
