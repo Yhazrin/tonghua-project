@@ -111,7 +111,7 @@ export const EditorialCard = ({
       {/* Content section */}
       <div className="p-5">
         {subtitle && (
-          <span className="font-body text-[10px] text-rust tracking-[0.2em] uppercase mb-2 block">
+          <span className="font-body text-overline text-rust tracking-[0.2em] uppercase mb-2 block">
             {subtitle}
           </span>
         )}
@@ -132,7 +132,7 @@ export const EditorialCard = ({
       {/* Hover indicator */}
       {onClick && (
         <div className="absolute bottom-4 right-4 w-6 h-6 border border-ink/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span className="font-mono text-[8px] text-ink/50" aria-hidden="true">→</span>
+          <span className="font-body text-[8px] text-ink/50" aria-hidden="true">→</span>
         </div>
       )}
     </motion.article>

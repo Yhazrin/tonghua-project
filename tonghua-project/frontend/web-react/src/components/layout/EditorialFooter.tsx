@@ -82,14 +82,14 @@ export default function EditorialFooter() {
               {t('footer.brandTagline')}
             </p>
             <div className="w-12 h-px bg-pale-gold mb-6" aria-hidden="true" />
-            <p className="font-body text-[10px] tracking-[0.2em] uppercase text-sepia-mid">
+            <p className="font-body text-overline tracking-[0.2em] uppercase text-sepia-mid">
               {t('footer.issueNo')}
             </p>
           </div>
 
           {/* Publication */}
           <div className="md:col-span-2">
-            <h4 className="font-body text-[10px] tracking-[0.2em] uppercase text-sepia-mid mb-6">
+            <h4 className="font-body text-overline tracking-[0.2em] uppercase text-sepia-mid mb-6">
               {t('footer.sections.publication')}
             </h4>
             <ul className="space-y-3">
@@ -98,7 +98,7 @@ export default function EditorialFooter() {
                   <motion.div whileHover={prefersReducedMotion ? undefined : { x: 4 }}>
                     <Link
                       to={`/${key}`}
-                      className="font-body text-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block"
+                      className="font-body text-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block cursor-pointer"
                     >
                       {t(`footer.links.${key}`)}
                     </Link>
@@ -110,7 +110,7 @@ export default function EditorialFooter() {
 
           {/* Connect */}
           <div className="md:col-span-2">
-            <h4 className="font-body text-[10px] tracking-[0.2em] uppercase text-sepia-mid mb-6">
+            <h4 className="font-body text-overline tracking-[0.2em] uppercase text-sepia-mid mb-6">
               {t('footer.sections.connect')}
             </h4>
             <ul className="space-y-3">
@@ -119,7 +119,7 @@ export default function EditorialFooter() {
                   <motion.div whileHover={prefersReducedMotion ? undefined : { x: 4 }}>
                     <Link
                       to={`/${key}`}
-                      className="font-body text-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block"
+                      className="font-body text-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block cursor-pointer"
                     >
                       {t(`footer.links.${key}`)}
                     </Link>
@@ -131,7 +131,7 @@ export default function EditorialFooter() {
 
           {/* Legal */}
           <div className="md:col-span-2">
-            <h4 className="font-body text-[10px] tracking-[0.2em] uppercase text-sepia-mid mb-6">
+            <h4 className="font-body text-overline tracking-[0.2em] uppercase text-sepia-mid mb-6">
               {t('footer.sections.legal')}
             </h4>
             <ul className="space-y-3">
@@ -140,7 +140,7 @@ export default function EditorialFooter() {
                   <motion.div whileHover={prefersReducedMotion ? undefined : { x: 4 }}>
                     <Link
                       to={`/${key}`}
-                      className="font-body text-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block"
+                      className="font-body text-sm text-warm-gray hover:text-paper transition-colors duration-200 inline-block cursor-pointer"
                     >
                       {t(`footer.links.${key}`)}
                     </Link>
@@ -168,7 +168,7 @@ export default function EditorialFooter() {
               className="absolute -bottom-1 -right-1 pointer-events-none"
             />
 
-            <h4 className="font-body text-[10px] tracking-[0.2em] uppercase text-sepia-mid mb-6">
+            <h4 className="font-body text-overline tracking-[0.2em] uppercase text-sepia-mid mb-6">
               {t('footer.newsletter.title')}
             </h4>
             <p className="font-body text-xs text-warm-gray mb-4 leading-relaxed">
@@ -193,7 +193,7 @@ export default function EditorialFooter() {
               />
               <motion.button
                 type="submit"
-                className="font-body text-[10px] tracking-[0.15em] uppercase text-pale-gold hover:text-paper transition-colors text-left cursor-pointer"
+                className="font-body text-overline tracking-[0.15em] uppercase text-pale-gold hover:text-paper transition-colors text-left cursor-pointer"
                 whileHover={prefersReducedMotion ? undefined : { x: 4 }}
               >
                 {t('footer.newsletter.subscribe')} &rarr;
@@ -204,14 +204,14 @@ export default function EditorialFooter() {
 
         {/* Divider */}
         <div className="border-t border-sepia-mid/20 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <p className="font-body text-[11px] text-sepia-mid">
+          <p className="font-body text-label text-sepia-mid">
             {t('footer.copyright', { year })}
           </p>
           <div className="flex items-center gap-6">
-            <span className="font-body text-[11px] text-sepia-mid">
+            <span className="font-body text-label text-sepia-mid">
               {t('footer.location')}
             </span>
-            <span className="font-body text-[11px] text-sepia-mid">
+            <span className="font-body text-label text-sepia-mid">
               {t('footer.builtWith')}
             </span>
           </div>

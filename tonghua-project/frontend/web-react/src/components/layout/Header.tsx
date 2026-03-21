@@ -86,7 +86,7 @@ export default function Header() {
         {/* Logo */}
         <Link
           to="/"
-          className="font-display text-ink text-lg md:text-xl font-bold tracking-tight"
+          className="font-display text-ink text-lg md:text-xl font-bold tracking-tight cursor-pointer"
           onClick={() => setMobileNavOpen(false)}
         >
           VICOO
@@ -102,11 +102,11 @@ export default function Header() {
                   key={item.key}
                   to={item.path}
                   className={`
-                    font-body text-label tracking-wide px-3 py-2 transition-colors duration-200
+                    font-body text-label tracking-wide px-3 py-2 transition-colors duration-200 cursor-pointer
                     ${isActive ? 'text-rust' : 'text-ink-faded hover:text-ink'}
                   `}
                 >
-                  <span className="text-[9px] tracking-[0.2em] text-sepia-mid mr-2 font-mono">
+                  <span className="text-[9px] tracking-[0.2em] text-sepia-mid mr-2 font-body">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   {t(`nav.${item.key}`)}
@@ -135,7 +135,7 @@ export default function Header() {
                 aria-label={t('nav.userMenu')}
                 aria-expanded={userMenuOpen}
               >
-                <span className="text-[9px] tracking-[0.2em] text-sepia-mid font-mono">{t('nav.userLabel')}</span>
+                <span className="text-[9px] tracking-[0.2em] text-sepia-mid font-body">{t('nav.userLabel')}</span>
                 <span className="max-w-[120px] truncate">{user.nickname || user.email}</span>
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

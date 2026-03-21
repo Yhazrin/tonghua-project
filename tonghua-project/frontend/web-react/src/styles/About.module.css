@@ -2,7 +2,7 @@
 
 .hero {
   padding: var(--space-4xl) 0;
-  min-height: 60vh;
+  min-height: 60dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;

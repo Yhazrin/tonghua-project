@@ -95,7 +95,7 @@ export default function MobileNav() {
                     to={item.path}
                     onClick={() => setMobileNavOpen(false)}
                     className={`
-                      flex items-baseline gap-4 py-4 border-b border-warm-gray/20 w-full
+                      flex items-baseline gap-4 py-4 border-b border-warm-gray/20 w-full cursor-pointer
                       transition-colors duration-200
                       ${isActive ? 'text-rust' : 'text-ink hover:text-rust'}
                     `}
@@ -127,7 +127,7 @@ export default function MobileNav() {
                 <Link
                   to="/profile"
                   onClick={() => setMobileNavOpen(false)}
-                  className="inline-block font-body text-sm text-ink-faded border border-warm-gray/40 px-6 py-3 hover:text-ink transition-colors"
+                  className="inline-block font-body text-sm text-ink-faded border border-warm-gray/40 px-6 py-3 hover:text-ink transition-colors cursor-pointer"
                 >
                   {t('nav.profile')}
                 </Link>
@@ -143,14 +143,14 @@ export default function MobileNav() {
                 <Link
                   to="/login"
                   onClick={() => setMobileNavOpen(false)}
-                  className="inline-block font-body text-sm text-ink-faded border border-warm-gray/40 px-6 py-3 hover:text-ink transition-colors"
+                  className="inline-block font-body text-sm text-ink-faded border border-warm-gray/40 px-6 py-3 hover:text-ink transition-colors cursor-pointer"
                 >
                   {t('nav.login')}
                 </Link>
                 <Link
                   to="/register"
                   onClick={() => setMobileNavOpen(false)}
-                  className="inline-block font-body text-sm bg-ink text-paper border border-ink px-6 py-3 hover:bg-rust transition-colors"
+                  className="inline-block font-body text-sm bg-ink text-paper border border-ink px-6 py-3 hover:bg-rust transition-colors cursor-pointer"
                 >
                   {t('nav.register')}
                 </Link>

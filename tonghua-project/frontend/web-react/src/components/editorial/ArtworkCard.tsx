@@ -41,7 +41,7 @@ export default function ArtworkCard({
       <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 z-20" aria-hidden="true" />
       <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 z-20" aria-hidden="true" />
 
-      <Link to={`/artworks/${artwork.id}`} className="block">
+      <Link to={`/artworks/${artwork.id}`} className="block cursor-pointer">
         {/* Image */}
         <div className="relative aspect-square overflow-hidden border-2 border-rust/30 bg-aged-stock mb-4">
           {/* Grain overlay */}

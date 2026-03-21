@@ -101,7 +101,7 @@ export default function EditorialHero({
             />
             {/* Large faded rectangle bottom-left */}
             <div
-              className="absolute -bottom-10 -left-10 w-[50vw] h-[30vh]
+              className="absolute -bottom-10 -left-10 w-[50vw] h-[30dvh]
                          bg-gradient-to-br from-warm-gray/20 to-transparent transform rotate-[-5deg]"
             />
           </motion.div>
@@ -230,7 +230,7 @@ export default function EditorialHero({
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
           aria-hidden="true"
         >
-          <span className="font-body text-[10px] tracking-[0.2em] uppercase text-sepia-mid">
+          <span className="font-body text-overline tracking-[0.2em] uppercase text-sepia-mid">
             {t('hero.scroll')}
           </span>
           <motion.div

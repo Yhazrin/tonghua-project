@@ -69,7 +69,7 @@ export default function Login() {
             <div className="flex items-center justify-between">
               <Link
                 to="/forgot-password"
-                className="font-body text-xs text-rust hover:text-ink transition-colors"
+                className="font-body text-xs text-rust hover:text-ink transition-colors cursor-pointer"
               >
                 {t('login.forgotPassword')}
               </Link>
@@ -114,7 +114,7 @@ export default function Login() {
             <p className="text-center pt-4">
               <Link
                 to="/register"
-                className="font-body text-xs text-rust hover:text-ink transition-colors tracking-[0.1em] uppercase"
+                className="font-body text-xs text-rust hover:text-ink transition-colors tracking-[0.1em] uppercase cursor-pointer"
               >
                 {t('login.register')}
               </Link>

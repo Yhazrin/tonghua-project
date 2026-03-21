@@ -1,7 +1,7 @@
 /* ─── Home Page Styles ──────────────────────────────────────── */
 
 .hero {
-  min-height: 90vh;
+  min-height: 90dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;

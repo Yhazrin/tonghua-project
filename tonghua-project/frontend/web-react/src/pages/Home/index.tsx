@@ -240,7 +240,7 @@ export default function Home() {
         <MagneticButton strength={0.4}>
           <Link
             to="/campaigns"
-            className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-8 py-4 hover:bg-rust transition-colors duration-300"
+            className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-8 py-4 hover:bg-rust transition-colors duration-300 cursor-pointer"
           >
             {t('home.hero.cta')}
           </Link>
@@ -270,7 +270,7 @@ export default function Home() {
             </p>
             <Link
               to="/campaigns"
-              className="font-body text-xs text-rust tracking-[0.15em] uppercase hover:text-ink transition-colors"
+              className="font-body text-xs text-rust tracking-[0.15em] uppercase hover:text-ink transition-colors cursor-pointer"
             >
               {t('home.featured.viewAll')} &rarr;
             </Link>
@@ -346,7 +346,7 @@ export default function Home() {
         <div className="mt-8 text-center">
           <Link
             to="/campaigns"
-            className="font-body text-xs text-rust tracking-[0.15em] uppercase hover:text-ink transition-colors"
+            className="font-body text-xs text-rust tracking-[0.15em] uppercase hover:text-ink transition-colors cursor-pointer"
           >
             {t('home.artworks.viewAll')} &rarr;
           </Link>
@@ -369,7 +369,7 @@ export default function Home() {
               <MagneticButton strength={0.35}>
                 <Link
                   to="/donate"
-                  className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-rust text-paper px-8 py-4 hover:bg-pale-gold hover:text-ink transition-all duration-300"
+                  className="inline-block font-body text-sm tracking-[0.15em] uppercase bg-rust text-paper px-8 py-4 hover:bg-pale-gold hover:text-ink transition-all duration-300 cursor-pointer"
                 >
                   {t('home.cta.donate')}
                 </Link>
@@ -377,7 +377,7 @@ export default function Home() {
               <MagneticButton strength={0.35}>
                 <Link
                   to="/shop"
-                  className="inline-block font-body text-sm tracking-[0.15em] uppercase border border-warm-gray/40 text-paper px-8 py-4 hover:border-pale-gold hover:text-pale-gold transition-all duration-300"
+                  className="inline-block font-body text-sm tracking-[0.15em] uppercase border border-warm-gray/40 text-paper px-8 py-4 hover:border-pale-gold hover:text-pale-gold transition-all duration-300 cursor-pointer"
                 >
                   {t('home.cta.shop')}
                 </Link>

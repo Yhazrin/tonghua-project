@@ -73,7 +73,7 @@ export default function ArtworkDetail() {
               </h1>
               <Link
                 to="/stories"
-                className="font-body text-xs tracking-[0.15em] uppercase text-rust hover:text-ink transition-colors"
+                className="font-body text-xs tracking-[0.15em] uppercase text-rust hover:text-ink transition-colors cursor-pointer"
               >
                 &larr; {t('common.back')} {t('nav.stories')}
               </Link>
@@ -180,7 +180,7 @@ export default function ArtworkDetail() {
       <SectionContainer className="py-8">
         <Link
           to="/stories"
-          className="font-body text-xs tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors"
+          className="font-body text-xs tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors cursor-pointer"
         >
           &larr; {t('common.back')} {t('nav.stories')}
         </Link>

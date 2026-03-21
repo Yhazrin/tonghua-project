@@ -292,7 +292,7 @@ export default function ProductDetail() {
       <SectionContainer className="py-8">
         <Link
           to="/shop"
-          className="font-body text-xs tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors"
+          className="font-body text-xs tracking-[0.15em] uppercase text-ink-faded hover:text-rust transition-colors cursor-pointer"
         >
           &larr; {t('common.back')} {t('nav.shop')}
         </Link>

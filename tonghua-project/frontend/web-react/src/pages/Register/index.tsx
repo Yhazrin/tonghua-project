@@ -139,7 +139,7 @@ export default function Register() {
               </span>
               <Link
                 to="/login"
-                className="font-body text-xs text-rust hover:text-ink transition-colors tracking-[0.1em] uppercase"
+                className="font-body text-xs text-rust hover:text-ink transition-colors tracking-[0.1em] uppercase cursor-pointer"
               >
                 {t('register.login')}
               </Link>

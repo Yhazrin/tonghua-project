@@ -138,7 +138,7 @@ export default function DonationPanel({
                 <span className="block font-display text-[clamp(20px,2.5vw,28px)] font-extrabold text-ink">
                   {amount}
                 </span>
-                <span className="block font-body text-[10px] tracking-[0.1em] uppercase text-sepia-mid mt-1">
+                <span className="block font-body text-overline tracking-[0.1em] uppercase text-sepia-mid mt-1">
                   {t('donate.form.currency')}
                 </span>
               </div>

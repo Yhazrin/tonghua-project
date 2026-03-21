@@ -166,7 +166,7 @@ export default function TraceabilityTimeline({
                     {record.stage}
                   </h4>
                   {record.verified && (
-                    <span className="font-body text-[10px] tracking-[0.1em] uppercase px-3 py-1 bg-rust/10 text-rust border border-rust/20">
+                    <span className="font-body text-overline tracking-[0.1em] uppercase px-3 py-1 bg-rust/10 text-rust border border-rust/20">
                       {t('traceability.verified')}
                     </span>
                   )}
@@ -177,15 +177,15 @@ export default function TraceabilityTimeline({
                 </p>
 
                 <div className="flex flex-wrap gap-6">
-                  <div className="font-body text-[11px] text-sepia-mid">
+                  <div className="font-body text-label text-sepia-mid">
                     <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.locationLabel')}</span>{' '}
                     <span className="text-ink-faded font-medium">{record.location}</span>
                   </div>
-                  <div className="font-body text-[11px] text-sepia-mid">
+                  <div className="font-body text-label text-sepia-mid">
                     <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.partnerLabel')}</span>{' '}
                     <span className="text-ink-faded font-medium">{record.partnerName}</span>
                   </div>
-                  <div className="font-body text-[11px] text-sepia-mid">
+                  <div className="font-body text-label text-sepia-mid">
                     <span className="uppercase tracking-[0.1em]">{t('traceability.timeline.dateLabel')}</span>{' '}
                     <span className="text-ink-faded font-medium">
                       {new Date(record.date).toLocaleDateString(i18n.language === 'zh' ? 'zh-CN' : 'en-US', {
@@ -196,7 +196,7 @@ export default function TraceabilityTimeline({
                     </span>
                   </div>
                   {record.carbonFootprint !== undefined && (
-                    <div className="font-body text-[11px] text-sepia-mid">
+                    <div className="font-body text-label text-sepia-mid">
                       <span className="uppercase tracking-[0.1em]">{t('traceability.carbonLabel')}:</span>{' '}
                       <span className="text-archive-brown font-medium">
                         {t('traceability.kgCO2', { value: record.carbonFootprint })}

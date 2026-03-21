@@ -777,7 +777,7 @@ export default function Traceability() {
           </p>
           <Link
             to="/shop"
-            className="inline-block font-body text-label tracking-[0.2em] uppercase px-10 py-4 border-2 border-rust text-rust hover:bg-rust hover:text-paper transition-all duration-300"
+            className="inline-block font-body text-label tracking-[0.2em] uppercase px-10 py-4 border-2 border-rust text-rust hover:bg-rust hover:text-paper transition-all duration-300 cursor-pointer"
           >
             {t('traceability.cta.button')}
           </Link>

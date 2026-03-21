@@ -63,7 +63,7 @@ export default function ProductCard({
         }}
         className="h-full"
       >
-        <Link to={`/shop/${product.id}`} className="block h-full">
+        <Link to={`/shop/${product.id}`} className="block h-full cursor-pointer">
         {/* Image */}
         <div className="relative aspect-[3/4] overflow-hidden border-2 border-rust/30 bg-aged-stock mb-5 group-hover:border-rust/50 transition-colors duration-300">
           {/* Vintage frame effect */}
@@ -209,7 +209,7 @@ export default function ProductCard({
           {/* Decorative divider */}
           <div className="flex items-center gap-2 mt-3">
             <div className="flex-1 h-px bg-ink/20" />
-            <span className="font-mono text-[9px] text-sepia-mid tracking-widest">
+            <span className="font-body text-[9px] text-sepia-mid tracking-widest">
               {String(product.id).padStart(3, '0')}
             </span>
             <div className="flex-1 h-px bg-ink/20" />
