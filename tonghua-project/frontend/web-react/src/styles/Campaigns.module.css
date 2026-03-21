@@ -5,7 +5,7 @@
 }
 
 .hero__overline {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -14,7 +14,7 @@
 }
 
 .hero__subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.8;
   color: var(--color-ink-faded);
@@ -36,7 +36,7 @@
 }
 
 .filterBtn {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -101,7 +101,7 @@
   position: absolute;
   top: var(--space-md);
   left: var(--space-md);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-overline);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -138,7 +138,7 @@
 }
 
 .card__subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   color: var(--color-sepia-mid);
   line-height: 1.6;
@@ -152,7 +152,7 @@
 }
 
 .card__stat {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   color: var(--color-sepia-mid);
 }
@@ -173,13 +173,13 @@
 }
 
 .card__progressText {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   color: var(--color-sepia-mid);
 }
 
 .card__progressAmount {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   color: var(--color-rust);
   font-weight: 600;
@@ -211,7 +211,7 @@
 }
 
 .empty__text {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   color: var(--color-sepia-mid);
 }

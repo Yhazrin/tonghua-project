@@ -45,7 +45,7 @@ h4, .text-h3 {
 body,
 .body-text,
 .font-body {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.7;
   color: var(--color-ink-faded);
@@ -54,7 +54,7 @@ body,
 }
 
 p {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.7;
   color: var(--color-ink-faded);
@@ -63,7 +63,7 @@ p {
 
 /* ── Labels & Captions ── */
 .text-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -71,7 +71,7 @@ p {
 }
 
 .text-caption {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -89,7 +89,7 @@ select {
 
 /* ── Editorial Utilities ── */
 .editorial-subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -98,7 +98,7 @@ select {
 }
 
 .editorial-body-large {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-lg);
   line-height: 1.8;
   color: var(--color-ink-faded);

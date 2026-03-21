@@ -14,7 +14,7 @@
 }
 
 .hero__overline {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -33,7 +33,7 @@
 }
 
 .hero__subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.8;
   color: var(--color-ink-faded);
@@ -96,7 +96,7 @@
 }
 
 .campaignCard__status {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-overline);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -114,7 +114,7 @@
 }
 
 .campaignCard__meta {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   color: var(--color-sepia-mid);
 }
@@ -137,7 +137,7 @@
 }
 
 .campaignCard__progressText {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   color: var(--color-sepia-mid);
 }
@@ -189,7 +189,7 @@
 }
 
 .artworkCard__artist {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   color: var(--color-sepia-mid);
   margin-top: 2px;
@@ -235,7 +235,7 @@
 
 .stat__number {
   font-family: var(--font-display);
-  font-size: clamp(36px, 5vw, 56px);
+  font-size: var(--text-stat);
   font-weight: 900;
   line-height: 1;
   color: var(--color-rust);
@@ -243,7 +243,7 @@
 }
 
 .stat__label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -283,7 +283,7 @@
 }
 
 .cta__description {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   color: var(--color-ink-faded);
   margin-bottom: var(--space-2xl);

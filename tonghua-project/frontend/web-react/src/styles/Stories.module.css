@@ -5,7 +5,7 @@
 }
 
 .hero__overline {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -14,7 +14,7 @@
 }
 
 .hero__subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.8;
   color: var(--color-ink-faded);
@@ -41,7 +41,7 @@
 }
 
 .filterBtn {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -64,7 +64,7 @@
 }
 
 .searchInput {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   padding: 6px 0;
   border-bottom: 1px solid var(--color-warm-gray);
@@ -130,7 +130,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   color: var(--color-paper);
   background: color-mix(in srgb, var(--color-ink) 60%, transparent);
@@ -159,7 +159,7 @@
 }
 
 .artwork__meta {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   color: var(--color-sepia-mid);
 }
@@ -172,7 +172,7 @@
 }
 
 .artwork__tag {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-overline);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -189,7 +189,7 @@
 }
 
 .empty__text {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   color: var(--color-sepia-mid);
 }

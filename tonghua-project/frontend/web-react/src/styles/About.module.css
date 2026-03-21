@@ -9,7 +9,7 @@
 }
 
 .hero__overline {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -18,7 +18,7 @@
 }
 
 .hero__subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.8;
   color: var(--color-ink-faded);
@@ -44,7 +44,7 @@
 }
 
 .mission__body {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.9;
   color: var(--color-ink-faded);
@@ -87,7 +87,7 @@
 }
 
 .valueCard__body {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   line-height: 1.8;
   color: var(--color-ink-faded);
@@ -135,7 +135,7 @@
 }
 
 .teamMember__role {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -144,7 +144,7 @@
 }
 
 .teamMember__bio {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   color: var(--color-sepia-mid);
   line-height: 1.6;
@@ -196,7 +196,7 @@
 }
 
 .milestone__description {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   line-height: 1.7;
   color: var(--color-warm-gray);

@@ -5,7 +5,7 @@
 }
 
 .hero__overline {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -14,7 +14,7 @@
 }
 
 .hero__subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.8;
   color: var(--color-ink-faded);
@@ -58,7 +58,7 @@
 
 .form__label {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -69,7 +69,7 @@
 .form__input {
   width: 100%;
   padding: var(--space-md) 0;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   color: var(--color-ink);
   border-bottom: 1px solid var(--color-warm-gray);
@@ -90,7 +90,7 @@
 .form__textarea {
   width: 100%;
   padding: var(--space-md);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   line-height: 1.7;
   color: var(--color-ink);
@@ -114,7 +114,7 @@
 .form__submit {
   width: 100%;
   padding: var(--space-lg);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -142,13 +142,13 @@
 }
 
 .form__successText {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   color: var(--color-rust);
 }
 
 .form__error {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   color: var(--color-rust);
   margin-top: var(--space-xs);
@@ -177,7 +177,7 @@
 }
 
 .info__itemLabel {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -186,7 +186,7 @@
 }
 
 .info__itemValue {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   color: var(--color-ink-faded);
 }
@@ -209,7 +209,7 @@
 }
 
 .social__title {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -225,7 +225,7 @@
 }
 
 .social__link {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   color: var(--color-ink-faded);
   text-decoration: none;
@@ -275,7 +275,7 @@
 }
 
 .office__detailLabel {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-overline);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -284,7 +284,7 @@
 }
 
 .office__detailValue {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   color: var(--color-warm-gray);
 }

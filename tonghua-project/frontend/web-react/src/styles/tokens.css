@@ -41,12 +41,14 @@
 
   /* ── Typography ── */
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --font-mono: 'IBM Plex Mono', 'Courier New', Courier, monospace;
+  --font-body: 'IBM Plex Mono', 'Courier New', Courier, monospace;
+  --font-mono: var(--font-body); /* legacy alias — prefer --font-body */
   --font-ui: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* ── Font Sizes — Modular Scale (1.25 ratio) ── */
   --text-hero: clamp(56px, 10vw, 120px);
   --text-display: clamp(40px, 7vw, 80px);
+  --text-stat: clamp(36px, 5vw, 56px);
   --text-h1: clamp(32px, 5vw, 56px);
   --text-h2: clamp(24px, 3.5vw, 40px);
   --text-h3: clamp(20px, 2.5vw, 28px);

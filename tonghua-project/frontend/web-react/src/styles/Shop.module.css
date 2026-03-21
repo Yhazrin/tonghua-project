@@ -5,7 +5,7 @@
 }
 
 .hero__overline {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -14,7 +14,7 @@
 }
 
 .hero__subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.8;
   color: var(--color-ink-faded);
@@ -36,7 +36,7 @@
 }
 
 .filterBtn {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -104,7 +104,7 @@
   position: absolute;
   top: var(--space-sm);
   left: var(--space-sm);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-overline);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -126,7 +126,7 @@
   position: absolute;
   bottom: var(--space-sm);
   right: var(--space-sm);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-overline);
   letter-spacing: 0.05em;
   color: var(--color-paper);
@@ -160,7 +160,7 @@
 }
 
 .card__price {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   color: var(--color-ink-faded);
   margin-bottom: var(--space-sm);
@@ -189,7 +189,7 @@
 }
 
 .card__sustainabilityLabel {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-overline);
   color: var(--color-sepia-mid);
   letter-spacing: 0.05em;
@@ -199,7 +199,7 @@
   width: 100%;
   margin-top: var(--space-md);
   padding: var(--space-sm) var(--space-md);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -222,7 +222,7 @@
 }
 
 .empty__text {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   color: var(--color-sepia-mid);
 }

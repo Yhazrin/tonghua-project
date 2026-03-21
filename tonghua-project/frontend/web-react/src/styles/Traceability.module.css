@@ -5,7 +5,7 @@
 }
 
 .hero__overline {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -14,7 +14,7 @@
 }
 
 .hero__subtitle {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.8;
   color: var(--color-ink-faded);
@@ -29,7 +29,7 @@
 }
 
 .selector__label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -77,7 +77,7 @@
 }
 
 .selector__itemCategory {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-overline);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -160,7 +160,7 @@
 }
 
 .timeline__stepVerified {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-overline);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -170,7 +170,7 @@
 }
 
 .timeline__stepDescription {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   line-height: 1.7;
   color: var(--color-ink-faded);
@@ -184,7 +184,7 @@
 }
 
 .timeline__stepMetaItem {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   color: var(--color-sepia-mid);
 }
@@ -220,7 +220,7 @@
 }
 
 .carbon__label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -236,7 +236,7 @@
 }
 
 .carbon__unit {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   color: var(--color-sepia-mid);
   margin-left: var(--space-sm);
@@ -291,7 +291,7 @@
 }
 
 .certificate__issuer {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-label);
   color: var(--color-sepia-mid);
   letter-spacing: 0.05em;
@@ -304,7 +304,7 @@
 }
 
 .empty__text {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-body-sm);
   color: var(--color-sepia-mid);
 }
