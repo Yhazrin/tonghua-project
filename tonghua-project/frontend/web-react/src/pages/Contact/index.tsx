@@ -192,7 +192,7 @@ function FAQItem({
             className="overflow-hidden"
             role="region"
           >
-            <p className="font-body text-sm md:text-base text-ink-faded leading-[1.75] pb-6 pr-8">
+            <p className="font-body text-body-sm md:text-base text-ink-faded leading-[1.75] pb-6 pr-8">
               {answer}
             </p>
           </motion.div>
@@ -261,7 +261,7 @@ function ContactInfoCard({
               {t(card.titleKey)}
             </h3>
           </div>
-          <p className="font-body text-sm text-ink-faded leading-relaxed">
+          <p className="font-body text-body-sm text-ink-faded leading-relaxed">
             {t(card.descKey)}
           </p>
         </div>
@@ -476,7 +476,7 @@ export default function Contact() {
                       {t('contact.form.successTitle')}
                     </h3>
 
-                    <p className="font-body text-sm md:text-base text-ink-faded mt-3 max-w-md leading-relaxed">
+                    <p className="font-body text-body-sm md:text-base text-ink-faded mt-3 max-w-md leading-relaxed">
                       {t('contact.form.success')}
                     </p>
 
@@ -485,7 +485,7 @@ export default function Contact() {
                       onClick={resetForm}
                       whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
                       whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
-                      className="mt-8 font-body text-sm tracking-[0.15em] uppercase border-2 border-ink text-ink px-8 py-3 hover:bg-ink hover:text-paper transition-colors duration-300 cursor-pointer"
+                      className="mt-8 font-body text-body-sm tracking-[0.15em] uppercase border-2 border-ink text-ink px-8 py-3 hover:bg-ink hover:text-paper transition-colors duration-300 cursor-pointer"
                     >
                       {t('contact.form.submit')}
                     </motion.button>
@@ -530,13 +530,15 @@ export default function Contact() {
                     </label>
                     <div className="relative">
                       <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                      <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                      <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
                       <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
                       <select
                         id="contact-subject"
                         value={formData.subject}
                         onChange={handleSubjectChange}
                         className={`
-                          w-full font-body text-sm py-3 px-3
+                          w-full font-body text-body-sm py-3 px-3
                           border-b-2 bg-transparent
                           transition-all duration-300
                           focus:outline-none focus:border-rust
@@ -585,6 +587,8 @@ export default function Contact() {
                     </label>
                     <div className="relative">
                       <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                      <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
+                      <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
                       <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-rust/30 pointer-events-none z-10" aria-hidden="true" />
                       <motion.textarea
                         id="contact-message"
@@ -593,7 +597,7 @@ export default function Contact() {
                         rows={5}
                         whileFocus={prefersReducedMotion ? undefined : { scale: 1.005 }}
                         className={`
-                          w-full font-body text-sm py-3 px-3
+                          w-full font-body text-body-sm py-3 px-3
                           border-b-2 bg-transparent
                           transition-all duration-300
                           placeholder:text-ink-faded/80
@@ -636,7 +640,7 @@ export default function Contact() {
                       disabled={status === 'sending'}
                       whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
                       whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
-                      className="font-body text-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300 disabled:opacity-60 flex items-center gap-3 cursor-pointer"
+                      className="font-body text-body-sm tracking-[0.15em] uppercase bg-ink text-paper px-10 py-4 hover:bg-rust transition-colors duration-300 disabled:opacity-60 flex items-center gap-3 cursor-pointer"
                     >
                       {status === 'sending' ? (
                         <>
@@ -655,7 +659,7 @@ export default function Contact() {
                       initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
                       animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                       transition={prefersReducedMotion ? { duration: 0 } : undefined}
-                      className="font-body text-sm text-archive-brown"
+                      className="font-body text-body-sm text-archive-brown"
                       role="alert"
                       aria-live="assertive"
                     >

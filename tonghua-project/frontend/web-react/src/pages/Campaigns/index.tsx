@@ -224,7 +224,7 @@ export default function Campaigns() {
               transition={prefersReducedMotion ? { duration: 0 } : { delay: index * 0.05 }}
               whileHover={prefersReducedMotion ? undefined : { y: -2 }}
               className={`
-                font-body text-xs tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
+                font-body text-caption tracking-[0.15em] uppercase px-4 py-3 transition-all duration-200 border-b-2 -mb-px whitespace-nowrap relative cursor-pointer
                 ${filter === status
                   ? 'border-rust text-rust'
                   : 'border-transparent text-sepia-mid hover:text-ink'
@@ -256,8 +256,8 @@ export default function Campaigns() {
         {/* Campaign list */}
         {error ? (
           <div className="text-center py-20" role="alert" aria-live="assertive">
-            <p className="font-body text-sm text-rust">{t('common.error')}</p>
-            <p className="font-body text-xs text-sepia-mid mt-2">{t('common.retry')}</p>
+            <p className="font-body text-body-sm text-rust">{t('common.error')}</p>
+            <p className="font-body text-caption text-sepia-mid mt-2">{t('common.retry')}</p>
           </div>
         ) : isLoading ? (
           <div className="space-y-16">
@@ -344,7 +344,7 @@ export default function Campaigns() {
                             {campaign.title}
                           </h3>
 
-                          <p className="font-body text-sm text-ink-faded leading-relaxed mb-6">
+                          <p className="font-body text-body-sm text-ink-faded leading-relaxed mb-6">
                             {campaign.subtitle}
                           </p>
 
@@ -352,13 +352,13 @@ export default function Campaigns() {
                           {campaign.goalAmount > 0 && (
                             <div className="mb-4">
                               <div className="flex items-baseline justify-between mb-2">
-                                <span className="font-body text-xs text-sepia-mid">
+                                <span className="font-body text-caption text-sepia-mid">
                                   ¥{campaign.raisedAmount.toLocaleString()} / ¥{campaign.goalAmount.toLocaleString()}
                                 </span>
-                                <span className={`font-body text-xs ${isCompleted ? 'text-ink-faded' : 'text-sepia-mid'}`}>
+                                <span className={`font-body text-caption ${isCompleted ? 'text-ink-faded' : 'text-sepia-mid'}`}>
                                   {isCompleted
                                     ? t('campaigns.funded', { percent: fundingPercent })
-                                    : `${fundingPercent}%`
+                                    : t('campaigns.fundingPercent', { percent: fundingPercent })
                                   }
                                 </span>
                               </div>
@@ -383,7 +383,7 @@ export default function Campaigns() {
                               transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: 0.5 }}
                               className="border-l-2 border-rust/40 pl-4 mt-5"
                             >
-                              <p className="font-display italic text-sm text-ink-faded leading-relaxed">
+                              <p className="font-display italic text-body-sm text-ink-faded leading-relaxed">
                                 &ldquo;{campaign.featuredChild.quote}&rdquo;
                               </p>
                               <p className="font-body text-label text-sepia-mid mt-1.5 tracking-wider uppercase">
@@ -392,7 +392,7 @@ export default function Campaigns() {
                             </motion.div>
                           )}
 
-                          <div className="flex gap-6 font-body text-xs text-sepia-mid mt-4">
+                          <div className="flex gap-6 font-body text-caption text-sepia-mid mt-4">
                             <span>{campaign.artworkCount} {t('campaigns.detail.artworks')}</span>
                             <span>{campaign.participantCount} {t('campaigns.detail.participants')}</span>
                           </div>
@@ -421,7 +421,7 @@ export default function Campaigns() {
             <p className="font-display text-lg text-ink-faded mb-2">
               {t('campaigns.emptyState.title')}
             </p>
-            <p className="font-body text-sm text-sepia-mid">
+            <p className="font-body text-body-sm text-sepia-mid">
               {t('campaigns.emptyState.subtitle')}
             </p>
           </motion.div>

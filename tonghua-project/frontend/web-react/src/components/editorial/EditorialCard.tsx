@@ -63,7 +63,7 @@ export const EditorialCard = ({
     >
       {/* Grain overlay */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]"
+        className="absolute inset-0 z-0 pointer-events-none opacity-[0.06]"
         aria-hidden="true"
         style={{
           backgroundImage: 'var(--grain-overlay)'
@@ -80,7 +80,7 @@ export const EditorialCard = ({
         <div className="relative aspect-[4/3] overflow-hidden border-b-2 border-rust/30">
           {/* Grain overlay for image */}
           <div
-            className="absolute inset-0 z-10 pointer-events-none opacity-10"
+            className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]"
             aria-hidden="true"
             style={{
               backgroundImage: 'var(--grain-overlay)'
@@ -109,12 +109,12 @@ export const EditorialCard = ({
           </span>
         )}
 
-        <h3 className="font-display text-lg font-semibold text-ink leading-tight mb-2">
+        <h3 className="font-display text-body-lg font-semibold text-ink leading-tight mb-2">
           {title}
         </h3>
 
         {description && (
-          <p className="font-body text-xs text-ink-faded leading-relaxed mb-4">
+          <p className="font-body text-caption text-ink-faded leading-relaxed mb-4">
             {description}
           </p>
         )}

@@ -51,6 +51,8 @@ export default function SepiaImageFrame({
     if (accentPosition === 'diagonal') {
       return [
         { position: 'top-left' as const, intensity: 'subtle' as const },
+        { position: 'top-right' as const, intensity: 'subtle' as const },
+        { position: 'bottom-left' as const, intensity: 'medium' as const },
         { position: 'bottom-right' as const, intensity: 'medium' as const },
       ];
     }

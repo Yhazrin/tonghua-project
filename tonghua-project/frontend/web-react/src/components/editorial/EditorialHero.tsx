@@ -127,7 +127,7 @@ export default function EditorialHero({
 
           {/* Foreground layer - subtle grain texture overlay, moves fastest */}
           <motion.div
-            className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.015]"
+            className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.06]"
             style={{ y: foregroundY }}
             aria-hidden="true"
           >
@@ -156,6 +156,12 @@ export default function EditorialHero({
           </motion.div>
         </>
       )}
+
+      {/* Corner accents */}
+      <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-rust/30 z-20 pointer-events-none" aria-hidden="true" />
 
       <div
         className={`
@@ -201,7 +207,7 @@ export default function EditorialHero({
             animate={isVisible ? (prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }) : {}}
             transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, ease: [0, 0, 0.2, 1], delay: 0.25 }}
             className={`
-              font-body text-base md:text-lg text-ink-faded mt-6 md:mt-8 leading-relaxed max-w-xl
+              font-body text-body md:text-body-lg text-ink-faded mt-6 md:mt-8 leading-relaxed max-w-xl
               ${align === 'center' ? 'max-w-2xl text-center mx-auto' : ''}
             `}
           >

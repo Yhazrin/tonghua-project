@@ -36,7 +36,7 @@ function TeamMemberCard({ member, index }: { member: { name: string; role: strin
     >
       <div className="relative aspect-[3/4] overflow-hidden border-2 border-warm-gray/50 bg-aged-stock mb-4">
         {/* Grain overlay */}
-        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08]" style={{
+        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.06]" style={{
           backgroundImage: 'var(--grain-overlay)'
         }} aria-hidden="true" />
 
