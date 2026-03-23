@@ -1,28 +1,174 @@
-<view class="page-container">
-  <loading loading="{{loading}}" />
-  <view wx:if="{{order && \!loading}}">
-    <view class="section-header">
-      <text class="section-number">01</text>
-      <text class="editorial-title">\u8BA2\u5355\u8BE6\u60C5</text>
+<view class="page">
+  <view wx:if="{{loading}}" class="loading-center">
+    <text class="loading-text">加载中…</text>
+  </view>
+
+  <block wx:elif="{{order}}">
+    <!-- Status Banner -->
+    <view class="status-banner">
+      <text class="status-label">{{orderStatusLabels[order.status] || order.status}}</text>
+      <text class="order-no">#{{order.order_no}}</text>
     </view>
-    <view class="status-bar">
-      <text class="status-text">{{order.status === `paid` ? `\u5DF2\u652F\u4ED8` : order.status === `shipped` ? `\u5DF2\u53D1\u8D27` : order.status === `completed` ? `\u5DF2\u5B8C\u6210` : `\u5F85\u652F\u4ED8`}}</text>
+
+    <!-- Tab Bar -->
+    <view class="tab-bar">
+      <view class="tab-item {{activeTab === 'detail' ? 'active' : ''}}" bindtap="switchTab" data-tab="detail">订单详情</view>
+      <view class="tab-item {{activeTab === 'logistics' ? 'active' : ''}}" bindtap="switchTab" data-tab="logistics">物流追踪</view>
+      <view class="tab-item {{activeTab === 'review' && canReview ? 'active' : ''}} {{!canReview ? 'disabled' : ''}}"
+        bindtap="switchTab" data-tab="review">评价商品</view>
+      <view class="tab-item {{activeTab === 'aftersales' && canAfterSales ? 'active' : ''}} {{!canAfterSales ? 'disabled' : ''}}"
+        bindtap="switchTab" data-tab="aftersales">申请售后</view>
     </view>
-    <view class="order-items card">
-      <view class="order-item" wx:for="{{order.items}}" wx:key="id">
-        <image class="item-img" src="{{item.imageUrl}}" mode="aspectFill" alt="{{item.name}}" />
-        <view class="item-info">
-          <text class="item-name">{{item.name}}</text>
-          <text class="item-qty editorial-caption">x {{item.quantity}}</text>
-          <text class="item-price">�{{item.price}}</text>
+
+    <!-- ── 订单详情 ── -->
+    <view wx:if="{{activeTab === 'detail'}}" class="tab-content">
+      <view class="info-card">
+        <view class="info-row">
+          <text class="info-label">订单编号</text>
+          <text class="info-value">{{order.order_no}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">支付方式</text>
+          <text class="info-value">{{order.payment_method || '未选择'}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">收货地址</text>
+          <text class="info-value">{{order.shipping_address || '暂无'}}</text>
         </view>
       </view>
+
+      <!-- Items -->
+      <view class="section-title">商品明细</view>
+      <view class="items-list">
+        <view class="item-row" wx:for="{{order.items}}" wx:key="id">
+          <view class="item-info">
+            <text class="item-name">商品 #{{item.product_id}}</text>
+            <text class="item-qty">× {{item.quantity}}</text>
+          </view>
+          <text class="item-price">¥{{(item.price * item.quantity).toFixed(2)}}</text>
+        </view>
+        <view class="total-row">
+          <text class="total-label">合计</text>
+          <text class="total-amount">¥{{order.total_amount}}</text>
+        </view>
+      </view>
+
+      <!-- Actions -->
+      <view class="action-bar">
+        <button wx:if="{{order.status === 'pending'}}" class="btn btn-danger" bindtap="onCancelOrder">取消订单</button>
+        <button wx:if="{{canReview}}" class="btn btn-primary" bindtap="switchTab" data-tab="review">评价商品</button>
+        <button wx:if="{{canAfterSales}}" class="btn btn-outline" bindtap="switchTab" data-tab="aftersales">申请售后</button>
+      </view>
     </view>
-    <view class="order-info card">
-      <view class="info-row"><text class="info-label editorial-caption">\u8BA2\u5355\u53F7</text><text>{{order.orderNo}}</text></view>
-      <view class="info-row"><text class="info-label editorial-caption">\u91D1\u989D</text><text class="info-value">�{{order.totalAmount}}</text></view>
-      <view class="info-row"><text class="info-label editorial-caption">\u65F6\u95F4</text><text>{{order.createdAt}}</text></view>
+
+    <!-- ── 物流追踪 ── -->
+    <view wx:elif="{{activeTab === 'logistics'}}" class="tab-content">
+      <view wx:if="{{!logistics}}" class="empty-state">
+        <text class="empty-text">暂无物流信息</text>
+        <text class="empty-sub">订单发货后将显示物流追踪</text>
+      </view>
+      <block wx:else>
+        <view class="logistics-summary">
+          <view class="info-row">
+            <text class="info-label">快递公司</text>
+            <text class="info-value">{{logistics.carrier || '暂无'}}</text>
+          </view>
+          <view class="info-row">
+            <text class="info-label">运单号</text>
+            <text class="info-value">{{logistics.tracking_no || '暂无'}}</text>
+          </view>
+          <view class="info-row">
+            <text class="info-label">当前状态</text>
+            <text class="info-value">{{logistics.status}}</text>
+          </view>
+        </view>
+
+        <view class="timeline">
+          <view class="timeline-item" wx:for="{{logistics.events}}" wx:key="id">
+            <view class="timeline-dot {{index === 0 ? 'active' : ''}}"></view>
+            <view class="timeline-content">
+              <text class="timeline-desc">{{item.description}}</text>
+              <text class="timeline-location" wx:if="{{item.location}}">{{item.location}}</text>
+              <text class="timeline-time">{{item.event_time}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
     </view>
-    <view class="btn-secondary trace-btn" bindtap="onTraceTap">\u67E5\u770B\u6EAF\u6E90\u4FE1\u606F</view>
+
+    <!-- ── 评价商品 ── -->
+    <view wx:elif="{{activeTab === 'review' && canReview}}" class="tab-content">
+      <view wx:if="{{reviewSubmitted}}" class="success-state">
+        <text class="success-icon">✓</text>
+        <text class="success-text">感谢您的评价！</text>
+        <text class="success-sub">您的评价帮助其他用户做出更好的选择</text>
+      </view>
+      <block wx:else>
+        <view class="section-title">商品评分</view>
+        <view class="star-row">
+          <text class="star {{reviewForm.rating >= n ? 'active' : ''}}" wx:for="{{[1,2,3,4,5]}}" wx:key="*this"
+            bindtap="onRatingTap" data-rating="{{item}}">★</text>
+        </view>
+
+        <view class="section-title">可持续性评分</view>
+        <view class="star-row">
+          <text class="star sustainability {{reviewForm.sustainability_rating >= n ? 'active' : ''}}"
+            wx:for="{{[1,2,3,4,5]}}" wx:key="*this"
+            bindtap="onSustainabilityRatingTap" data-rating="{{item}}">✦</text>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">评价标题（可选）</text>
+          <input class="field-input" placeholder="用一句话概括体验" bindinput="onReviewTitleInput" value="{{reviewForm.title}}" />
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">详细评价（可选）</text>
+          <textarea class="field-textarea" placeholder="分享您对商品质量、环保理念等方面的感受" bindinput="onReviewContentInput" value="{{reviewForm.content}}" />
+        </view>
+
+        <view class="form-field">
+          <switch checked="{{reviewForm.is_anonymous}}" bindchange="onAnonymousChange" />
+          <text class="switch-label">匿名发布</text>
+        </view>
+
+        <button class="btn btn-primary btn-full" bindtap="onSubmitReview">提交评价</button>
+      </block>
+    </view>
+
+    <!-- ── 申请售后 ── -->
+    <view wx:elif="{{activeTab === 'aftersales' && canAfterSales}}" class="tab-content">
+      <view wx:if="{{afterSalesSubmitted}}" class="success-state">
+        <text class="success-icon">✓</text>
+        <text class="success-text">售后申请已提交</text>
+        <text class="success-sub">客服将在1-2个工作日内处理</text>
+      </view>
+      <block wx:else>
+        <view class="section-title">售后类型</view>
+        <view class="type-grid">
+          <view class="type-item {{afterSalesForm.request_type === item.value ? 'active' : ''}}"
+            wx:for="{{afterSalesTypes}}" wx:key="value"
+            bindtap="onAfterSalesTypeChange" data-type="{{item.value}}">
+            {{item.label}}
+          </view>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">申请原因 *</text>
+          <input class="field-input" placeholder="简要描述申请原因" bindinput="onAfterSalesReasonInput" value="{{afterSalesForm.reason}}" />
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">详细说明（可选）</text>
+          <textarea class="field-textarea" placeholder="请尽量详细描述问题" bindinput="onAfterSalesDescInput" value="{{afterSalesForm.description}}" />
+        </view>
+
+        <button class="btn btn-primary btn-full" bindtap="onSubmitAfterSales">提交售后申请</button>
+      </block>
+    </view>
+  </block>
+
+  <view wx:else class="empty-state">
+    <text class="empty-text">订单不存在</text>
   </view>
 </view>

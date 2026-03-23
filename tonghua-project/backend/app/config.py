@@ -46,6 +46,12 @@ class Settings(BaseSettings):
     GLOBAL_RATE_LIMIT: int = 1000  # per minute
     USER_RATE_LIMIT: int = 60  # per minute
 
+    # AI / LLM Configuration
+    OPENAI_API_KEY: Optional[str] = None
+    ZHIPU_API_KEY: Optional[str] = None       # 智谱GLM API Key
+    LLM_BASE_URL: str = "https://open.bigmodel.cn/api/paas/v4"
+    LLM_MODEL: str = "glm-4-flash"
+
     # Encryption - Read from env, no default for security
     ENCRYPTION_KEY: str  # Must be 32 bytes for AES-256
 

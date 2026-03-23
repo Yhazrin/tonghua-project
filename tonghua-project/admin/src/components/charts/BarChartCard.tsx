@@ -1,18 +1,26 @@
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
 import type { ChartDataPoint } from '../../types';
+
+interface BarSpec {
+  dataKey: string;
+  name?: string;
+  color?: string;
+}
 
 interface BarChartCardProps {
   title: string;
   data: ChartDataPoint[];
   dataKey?: string;
+  xKey?: string;
   color?: string;
+  bars?: BarSpec[];
   height?: number;
 }
 
-export default function BarChartCard({
-  title, data, dataKey = 'value', color = '#c17c5a', height = 280,
+export function BarChartCard({
+  title, data, dataKey = 'value', xKey = 'name', color = '#c17c5a', bars, height = 280,
 }: BarChartCardProps) {
   return (
     <div style={{
@@ -28,7 +36,7 @@ export default function BarChartCard({
         <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0eb" />
           <XAxis
-            dataKey="name"
+            dataKey={xKey}
             tick={{ fontSize: 11, fill: '#9ca3af' }}
             axisLine={{ stroke: '#e5e5e0' }}
             tickLine={false}
@@ -47,9 +55,16 @@ export default function BarChartCard({
               boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
             }}
           />
-          <Bar dataKey={dataKey} fill={color} radius={[4, 4, 0, 0]} />
+          {bars && bars.length > 1 && <Legend />}
+          {bars ? bars.map((b) => (
+            <Bar key={b.dataKey} dataKey={b.dataKey} name={b.name} fill={b.color || color} radius={[4, 4, 0, 0]} />
+          )) : (
+            <Bar dataKey={dataKey} fill={color} radius={[4, 4, 0, 0]} />
+          )}
         </BarChart>
       </ResponsiveContainer>
     </div>
   );
 }
+
+export default BarChartCard;

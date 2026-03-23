@@ -7,6 +7,10 @@ from app.models.order import Order, OrderItem
 from app.models.supply_chain import SupplyChainRecord
 from app.models.payment import PaymentTransaction
 from app.models.audit import AuditLog
+from app.models.logistics import LogisticsRecord, LogisticsEvent
+from app.models.review import ProductReview, ReviewHelpful
+from app.models.after_sales import AfterSalesRequest, AfterSalesMessage
+from app.models.ai_interaction import AIInteraction, SustainabilityMetric, ClothingDonation
 
 __all__ = [
     "User",
@@ -20,4 +24,13 @@ __all__ = [
     "SupplyChainRecord",
     "PaymentTransaction",
     "AuditLog",
+    "LogisticsRecord",
+    "LogisticsEvent",
+    "ProductReview",
+    "ReviewHelpful",
+    "AfterSalesRequest",
+    "AfterSalesMessage",
+    "AIInteraction",
+    "SustainabilityMetric",
+    "ClothingDonation",
 ]

@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import SmoothTransition from '@/components/transitions/SmoothTransition';
 import ErrorBoundary from '@/components/editorial/ErrorBoundary';
+import AIAssistant from '@/components/editorial/AIAssistant';
 import Home from '@/pages/Home';
 import About from '@/pages/About';
 import Campaigns from '@/pages/Campaigns';
@@ -20,6 +21,8 @@ import Privacy from '@/pages/Privacy';
 import Terms from '@/pages/Terms';
 import ChildrenSafety from '@/pages/ChildrenSafety';
 import NotFound from '@/pages/NotFound';
+import ClothingDonation from '@/pages/ClothingDonation';
+import OrderDetail from '@/pages/OrderDetail';
 import { useSessionRestore } from '@/hooks/useSessionRestore';
 
 function AnimatedRoutes() {
@@ -48,10 +51,14 @@ function AnimatedRoutes() {
             <Route path="privacy" element={<ErrorBoundary><Privacy /></ErrorBoundary>} />
             <Route path="terms" element={<ErrorBoundary><Terms /></ErrorBoundary>} />
             <Route path="children-safety" element={<ErrorBoundary><ChildrenSafety /></ErrorBoundary>} />
+            <Route path="clothing-donation" element={<ErrorBoundary><ClothingDonation /></ErrorBoundary>} />
+            <Route path="orders/:id" element={<ErrorBoundary><OrderDetail /></ErrorBoundary>} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </SmoothTransition>
+      {/* AI Assistant - always visible after login */}
+      <AIAssistant />
     </ErrorBoundary>
   );
 }

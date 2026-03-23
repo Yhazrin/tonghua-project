@@ -11,6 +11,11 @@ import UserPage from './pages/UserPage';
 import ChildAuditPage from './pages/ChildAuditPage';
 import SettingsPage from './pages/SettingsPage';
 import AuditLogPage from './pages/AuditLogPage';
+import LogisticsPage from './pages/LogisticsPage';
+import AfterSalesPage from './pages/AfterSalesPage';
+import ReviewManagePage from './pages/ReviewManagePage';
+import ClothingDonationAdminPage from './pages/ClothingDonationAdminPage';
+import AIAnalyticsPage from './pages/AIAnalyticsPage';
 
 export default function App() {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -26,9 +31,14 @@ export default function App() {
         <Route path="/artworks" element={<ArtworkPage />} />
         <Route path="/campaigns" element={<CampaignPage />} />
         <Route path="/donations" element={<DonationPage />} />
+        <Route path="/clothing-donations" element={<ClothingDonationAdminPage />} />
         <Route path="/orders" element={<OrderPage />} />
+        <Route path="/logistics" element={<LogisticsPage />} />
+        <Route path="/reviews" element={<ReviewManagePage />} />
+        <Route path="/after-sales" element={<AfterSalesPage />} />
         <Route path="/users" element={<UserPage />} />
         <Route path="/child-audit" element={<ChildAuditPage />} />
+        <Route path="/ai-analytics" element={<AIAnalyticsPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/audit-log" element={<AuditLogPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

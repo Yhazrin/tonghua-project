@@ -6,12 +6,17 @@ const menuItems = [
   { path: '/artworks', label: '作品管理', icon: '02', iconSvg: 'artworks' },
   { path: '/campaigns', label: '活动管理', icon: '03', iconSvg: 'campaigns' },
   { path: '/donations', label: '捐赠管理', icon: '04', iconSvg: 'donations' },
-  { path: '/orders', label: '订单管理', icon: '05', iconSvg: 'orders' },
-  { path: '/users', label: '用户管理', icon: '06', iconSvg: 'users' },
-  { path: '/child-audit', label: '儿童审计', icon: '07', iconSvg: 'child' },
+  { path: '/clothing-donations', label: '衣物捐献', icon: '05', iconSvg: 'clothing' },
+  { path: '/orders', label: '订单管理', icon: '06', iconSvg: 'orders' },
+  { path: '/logistics', label: '物流管理', icon: '07', iconSvg: 'logistics' },
+  { path: '/reviews', label: '评价审核', icon: '08', iconSvg: 'review' },
+  { path: '/after-sales', label: '售后管理', icon: '09', iconSvg: 'aftersales' },
+  { path: '/users', label: '用户管理', icon: '10', iconSvg: 'users' },
+  { path: '/child-audit', label: '儿童审计', icon: '11', iconSvg: 'child' },
+  { path: '/ai-analytics', label: 'AI分析', icon: '12', iconSvg: 'ai' },
   { divider: true },
-  { path: '/audit-log', label: '审计日志', icon: '08', iconSvg: 'audit' },
-  { path: '/settings', label: '系统设置', icon: '09', iconSvg: 'settings' },
+  { path: '/audit-log', label: '审计日志', icon: '13', iconSvg: 'audit' },
+  { path: '/settings', label: '系统设置', icon: '14', iconSvg: 'settings' },
 ];
 
 const iconPaths: Record<string, React.ReactNode> = {
@@ -24,6 +29,11 @@ const iconPaths: Record<string, React.ReactNode> = {
   child: <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />,
   audit: <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z" />,
   settings: <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />,
+  clothing: <path d="M20.38 8.57l-1.23 1.85a8 8 0 01-.22 7.58H5.07A8 8 0 0115.58 6.85l1.85-1.23A10 10 0 003.35 19a2 2 0 001.72 1h13.86a2 2 0 001.72-1 10 10 0 00-0.27-10.43z" />,
+  logistics: <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />,
+  review: <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 9l-1 2h-2l-1-2-2-1v-2l2-1 1-2h2l1 2 2 1v2l-2 1z" />,
+  aftersales: <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z" />,
+  ai: <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />,
 };
 
 export default function Sidebar() {

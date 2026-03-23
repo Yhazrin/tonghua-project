@@ -85,6 +85,13 @@ def require_role(*roles: str):
     return _check
 
 
+async def require_admin(current_user: dict = Depends(get_current_user)) -> dict:
+    """Dependency that enforces the current user is an admin."""
+    if current_user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    return current_user
+
+
 async def rate_limit_check(request: Request, current_user: Optional[dict] = None) -> bool:
     """Rate limiting using Redis sliding window algorithm.
 

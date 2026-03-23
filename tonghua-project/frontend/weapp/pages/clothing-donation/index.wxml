@@ -1,0 +1,97 @@
+<view class="page">
+  <!-- Success State -->
+  <view wx:if="{{step === 'success'}}" class="success-container">
+    <view class="success-icon">✓</view>
+    <view class="success-title">捐献申请已提交</view>
+    <view class="success-sub">申请编号：TH-CD-{{successId}}</view>
+    <view class="success-desc">我们将在1-2个工作日内安排专人与您联系，确认取件时间。您的善意将帮助更多孩子。</view>
+    <view class="action-bar">
+      <button class="btn btn-primary" bindtap="onReset">再次捐献</button>
+    </view>
+  </view>
+
+  <!-- Form State -->
+  <view wx:else class="form-container">
+    <view class="page-header">
+      <view class="page-title">衣物捐献</view>
+      <view class="page-subtitle">将闲置衣物捐献给童画公益，让衣物继续它的故事</view>
+    </view>
+
+    <!-- Flow Steps -->
+    <view class="flow-steps">
+      <view class="flow-step" wx:for="{{['提交申请','安排取件','清洗修复','循环再生']}}" wx:key="*this">
+        <view class="step-num">0{{index + 1}}</view>
+        <view class="step-text">{{item}}</view>
+      </view>
+    </view>
+
+    <!-- Clothing Type -->
+    <view class="section">
+      <view class="section-title">衣物类型 *</view>
+      <view class="type-chips">
+        <view class="chip {{formData.clothing_type === item ? 'active' : ''}}"
+          wx:for="{{clothingTypes}}" wx:key="*this"
+          bindtap="onClothingTypeSelect" data-type="{{item}}">{{item}}</view>
+      </view>
+    </view>
+
+    <!-- Quantity -->
+    <view class="section">
+      <view class="section-title">捐献件数 *</view>
+      <view class="quantity-row">
+        <view class="qty-btn" bindtap="onQuantityDecrease">−</view>
+        <view class="qty-value">{{formData.quantity}}</view>
+        <view class="qty-btn" bindtap="onQuantityIncrease">+</view>
+      </view>
+    </view>
+
+    <!-- Condition -->
+    <view class="section">
+      <view class="section-title">衣物状态 *</view>
+      <view class="condition-grid">
+        <view class="condition-item {{formData.condition === item.value ? 'active' : ''}}"
+          wx:for="{{conditions}}" wx:key="value"
+          bindtap="onConditionSelect" data-condition="{{item.value}}">{{item.label}}</view>
+      </view>
+    </view>
+
+    <!-- Description -->
+    <view class="section">
+      <view class="section-title">补充说明（可选）</view>
+      <textarea class="field-textarea" placeholder="描述衣物特征、品牌、使用情况等" bindinput="onDescInput" value="{{formData.description}}" />
+    </view>
+
+    <!-- Pickup Address -->
+    <view class="section">
+      <view class="section-title">取件地址 *</view>
+      <input class="field-input" placeholder="省市区详细地址" bindinput="onAddressInput" value="{{formData.pickup_address}}" />
+    </view>
+
+    <!-- Time Slot -->
+    <view class="section">
+      <view class="section-title">期望取件时间（可选）</view>
+      <input class="field-input" placeholder="例：工作日 10:00-18:00" bindinput="onTimeSlotInput" value="{{formData.pickup_time_slot}}" />
+    </view>
+
+    <button class="btn btn-primary btn-full {{submitting ? 'disabled' : ''}}" bindtap="onSubmit" disabled="{{submitting}}">
+      {{submitting ? '提交中…' : '提交捐献申请'}}
+    </button>
+
+    <!-- My Donations History -->
+    <view wx:if="{{myDonations.length > 0}}" class="history-section">
+      <view class="section-title">我的捐献记录</view>
+      <view class="history-item" wx:for="{{myDonations}}" wx:key="id">
+        <view class="history-main">
+          <view class="history-info">
+            <text class="history-type">{{item.clothing_type}} × {{item.quantity}}件</text>
+            <text class="history-status">{{donationStatusLabels[item.status] || item.status}}</text>
+          </view>
+          <view wx:if="{{item.converted_product_id}}" class="history-link" bindtap="onViewProduct" data-id="{{item.converted_product_id}}">
+            查看商品 →
+          </view>
+        </view>
+        <text class="history-id">TH-CD-{{item.id}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -89,6 +89,44 @@ from app.schemas.supply_chain import (
     SupplyChainTrace,
 )
 
+# Logistics
+from app.schemas.logistics import (
+    LogisticsCreate,
+    LogisticsEventCreate,
+    LogisticsEventOut,
+    LogisticsRecordOut,
+    LogisticsUpdate,
+)
+
+# Reviews
+from app.schemas.review import (
+    ReviewCreate,
+    ReviewOut,
+    ReviewSummary,
+    ReviewUpdate,
+)
+
+# After Sales
+from app.schemas.after_sales import (
+    AfterSalesCreate,
+    AfterSalesMessageCreate,
+    AfterSalesMessageOut,
+    AfterSalesOut,
+    AfterSalesUpdate,
+)
+
+# AI Assistant & Sustainability
+from app.schemas.ai_assistant import (
+    AIChatRequest,
+    AIChatResponse,
+    AIFeedbackRequest,
+    ClothingDonationCreate,
+    ClothingDonationOut,
+    ClothingDonationUpdate,
+    SustainabilityMetricCreate,
+    SustainabilityMetricOut,
+)
+
 __all__ = [
     # Common
     "ApiResponse",
@@ -148,4 +186,30 @@ __all__ = [
     "SupplyChainRecordUpdate",
     "SupplyChainRecordOut",
     "SupplyChainTrace",
+    # Logistics
+    "LogisticsCreate",
+    "LogisticsUpdate",
+    "LogisticsEventCreate",
+    "LogisticsEventOut",
+    "LogisticsRecordOut",
+    # Reviews
+    "ReviewCreate",
+    "ReviewUpdate",
+    "ReviewOut",
+    "ReviewSummary",
+    # After Sales
+    "AfterSalesCreate",
+    "AfterSalesUpdate",
+    "AfterSalesMessageCreate",
+    "AfterSalesMessageOut",
+    "AfterSalesOut",
+    # AI & Sustainability
+    "AIChatRequest",
+    "AIChatResponse",
+    "AIFeedbackRequest",
+    "ClothingDonationCreate",
+    "ClothingDonationUpdate",
+    "ClothingDonationOut",
+    "SustainabilityMetricCreate",
+    "SustainabilityMetricOut",
 ]
