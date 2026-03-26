@@ -13,7 +13,7 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!username || !password) {
-      toast.error('请输入用户名和密码');
+      toast.error('Please enter your email and password');
       return;
     }
     setLoading(true);
@@ -26,7 +26,7 @@ export default function LoginPage() {
       });
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
-        throw new Error(data.detail || data.message || '用户名或密码错误');
+        throw new Error(data.detail || data.message || 'Invalid email or password');
       }
       const data = await response.json();
       const userData = data.data?.user || data.user;
@@ -34,9 +34,9 @@ export default function LoginPage() {
       const accessToken = tokenData.access_token || tokenData.accessToken;
       const refreshToken = tokenData.refresh_token || tokenData.refreshToken;
       login(userData, accessToken, refreshToken);
-      toast.success('登录成功');
+      toast.success('Login successful');
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : '登录失败，请重试';
+      const message = err instanceof Error ? err.message : 'Login failed, please try again';
       toast.error(message);
     } finally {
       setLoading(false);
@@ -76,13 +76,13 @@ export default function LoginPage() {
             T
           </div>
           <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 12, fontFamily: 'var(--font-mono)' }}>
-            童画公益
+            Tonghua
           </h1>
           <p style={{ fontSize: 14, color: 'var(--color-text-sidebar)', lineHeight: 1.6 }}>
             Tonghua Public Welfare &times; Sustainable Fashion
           </p>
           <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.3)', marginTop: 24, fontFamily: 'var(--font-mono)' }}>
-            管理后台 v1.0.0
+            Admin Dashboard v1.0.0
           </p>
         </div>
       </div>
@@ -96,20 +96,20 @@ export default function LoginPage() {
         padding: 48,
       }}>
         <form onSubmit={handleLogin} style={{ width: '100%', maxWidth: 380 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>欢迎回来</h2>
+          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>Welcome Back</h2>
           <p style={{ fontSize: 13, color: 'var(--color-text-secondary)', marginBottom: 32 }}>
-            登录管理后台以继续操作
+            Sign in to the admin dashboard to continue
           </p>
 
           <div style={{ marginBottom: 20 }}>
             <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6 }}>
-              邮箱
+              Email
             </label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="请输入邮箱"
+              placeholder="Enter your email"
               style={{
                 width: '100%', padding: '10px 14px',
                 border: '1px solid var(--color-border)',
@@ -125,13 +125,13 @@ export default function LoginPage() {
 
           <div style={{ marginBottom: 28 }}>
             <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6 }}>
-              密码
+              Password
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="请输入密码"
+              placeholder="Enter your password"
               style={{
                 width: '100%', padding: '10px 14px',
                 border: '1px solid var(--color-border)',
@@ -160,7 +160,7 @@ export default function LoginPage() {
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
             }}
           >
-            {loading ? '登录中...' : '登录'}
+            {loading ? 'Signing in...' : 'Sign In'}
           </button>
 
           {/* Divider */}
@@ -169,7 +169,7 @@ export default function LoginPage() {
             gap: 12,
           }}>
             <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-            <span style={{ fontSize: 12, color: 'var(--color-text-light)' }}>或使用第三方账号登录</span>
+            <span style={{ fontSize: 12, color: 'var(--color-text-light)' }}>Or continue with</span>
             <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
           </div>
 
