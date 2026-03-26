@@ -13,17 +13,30 @@ from app.schemas.common import (
     TokenResponse,
 )
 
-# User & Child participant
+# User & Child participant & Address & Admin
 from app.schemas.user import (
-    ChildParticipantCreate,
-    ChildParticipantOut,
-    ChildParticipantUpdate,
     UserCreate,
+    UserCreateByEmail,
+    UserLoginBySms,
+    UserLoginByWechat,
+    UserUpdate,
     UserOut,
+    UserOutWithPhone,
     UserOutSensitive,
     UserRoleUpdate,
     UserStatusUpdate,
-    UserUpdate,
+    AdminUserCreate,
+    AdminUserUpdate,
+    AdminUserOut,
+    AdminUserBatchImport,
+    AddressCreate,
+    AddressUpdate,
+    AddressOut,
+    ChildParticipantCreate,
+    ChildParticipantUpdate,
+    ChildParticipantOut,
+    ChildParticipantOutSensitive,
+    ChildParticipantFrontend,
 )
 
 # Artwork
@@ -89,6 +102,33 @@ from app.schemas.supply_chain import (
     SupplyChainTrace,
 )
 
+# Vote & Design
+from app.schemas.vote import (
+    VoteCreate,
+    InternalVoteCreate,
+    VoteOut,
+    VoteRecordOut,
+    DesignCreate,
+    DesignUpdate,
+    DesignOut,
+    DesignListItem,
+)
+
+# Recycle
+from app.schemas.recycle import (
+    RecycleOrderCreate,
+    RecycleOrderUpdate,
+    RecycleOrderOut,
+    RecycleOrderListItem,
+)
+
+# Notification
+from app.schemas.notification import (
+    NotificationOut,
+    NotificationMarkRead,
+    UnreadCountOut,
+)
+
 __all__ = [
     # Common
     "ApiResponse",
@@ -100,16 +140,32 @@ __all__ = [
     "AuditLogOut",
     "DashboardMetrics",
     "SettingsUpdate",
-    # User
+    # User (C端)
     "UserCreate",
+    "UserCreateByEmail",
+    "UserLoginBySms",
+    "UserLoginByWechat",
     "UserUpdate",
     "UserOut",
+    "UserOutWithPhone",
     "UserOutSensitive",
     "UserRoleUpdate",
     "UserStatusUpdate",
+    # Admin (B端)
+    "AdminUserCreate",
+    "AdminUserUpdate",
+    "AdminUserOut",
+    "AdminUserBatchImport",
+    # Address
+    "AddressCreate",
+    "AddressUpdate",
+    "AddressOut",
+    # Child
     "ChildParticipantCreate",
     "ChildParticipantUpdate",
     "ChildParticipantOut",
+    "ChildParticipantOutSensitive",
+    "ChildParticipantFrontend",
     # Artwork
     "ArtworkCreate",
     "ArtworkUpdate",
@@ -148,4 +204,22 @@ __all__ = [
     "SupplyChainRecordUpdate",
     "SupplyChainRecordOut",
     "SupplyChainTrace",
+    # Vote & Design
+    "VoteCreate",
+    "InternalVoteCreate",
+    "VoteOut",
+    "VoteRecordOut",
+    "DesignCreate",
+    "DesignUpdate",
+    "DesignOut",
+    "DesignListItem",
+    # Recycle
+    "RecycleOrderCreate",
+    "RecycleOrderUpdate",
+    "RecycleOrderOut",
+    "RecycleOrderListItem",
+    # Notification
+    "NotificationOut",
+    "NotificationMarkRead",
+    "UnreadCountOut",
 ]
