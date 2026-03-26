@@ -21,6 +21,28 @@ logger = logging.getLogger(__name__)
 redis_client = None
 
 
+def _extract_access_token(request: Request, authorization: Optional[str]) -> Optional[str]:
+    """Read the access token from the Authorization header or auth cookie."""
+    if authorization and authorization.startswith("Bearer "):
+        return authorization.split(" ", 1)[1]
+
+    cookie_token = request.cookies.get("access_token")
+    if cookie_token:
+        return cookie_token
+    return None
+
+
+def _user_from_token_payload(payload: dict) -> dict:
+    """Build a user dict from JWT claims for non-database subjects."""
+    resolved_id = payload.get("user_id", payload.get("sub"))
+    return {
+        "id": resolved_id,
+        "email": payload.get("email", ""),
+        "role": payload.get("role", "user"),
+        "nickname": payload.get("nickname", ""),
+    }
+
+
 async def get_redis_client():
     """Get or create Redis client for rate limiting."""
     global redis_client
@@ -35,10 +57,9 @@ async def get_current_user(
     db: AsyncSession = Depends(get_db),
 ) -> dict:
     """Extract the current user from the JWT token in the Authorization header."""
-    if not authorization or not authorization.startswith("Bearer "):
+    token = _extract_access_token(request, authorization)
+    if not token:
         raise HTTPException(status_code=401, detail="Missing or invalid Authorization header")
-
-    token = authorization.split(" ", 1)[1]
     try:
         payload = decode_token(token)
         if payload.get("type") != "access":
@@ -51,8 +72,8 @@ async def get_current_user(
     try:
         user_id = int(sub)
     except (ValueError, TypeError):
-        # WeChat openid (non-numeric subject) — no DB lookup possible
-        raise HTTPException(status_code=401, detail="User not found")
+        # Non-numeric subjects (mock users, OAuth/openid flows) are resolved from the token claims.
+        return _user_from_token_payload(payload)
 
     try:
         from sqlalchemy import select
@@ -70,8 +91,10 @@ async def get_current_user(
         # Fail closed: do not fall back to token payload when DB is unavailable
         raise HTTPException(status_code=503, detail="Service temporarily unavailable")
 
-    # User not found in DB — reject rather than trusting the token payload
-    raise HTTPException(status_code=401, detail="User not found")
+        # User not found in DB — in development we can fall back to signed token claims.
+        if settings.APP_ENV == "development":
+            return _user_from_token_payload(payload)
+        raise HTTPException(status_code=401, detail="User not found")
 
 
 def require_role(*roles: str):
@@ -185,27 +208,18 @@ async def rate_limit_check(request: Request, current_user: Optional[dict] = None
 
 async def get_current_user_from_request(request: Request, db: AsyncSession) -> Optional[dict]:
     """Try to extract current user from request without raising exceptions."""
-    authorization = request.headers.get("Authorization")
-    if not authorization or not authorization.startswith("Bearer "):
+    token = _extract_access_token(request, request.headers.get("Authorization"))
+    if not token:
         return None
-
-    parts = authorization.split(" ", 1)
-    if len(parts) < 2:
-        return None
-    token = parts[1]
     try:
         payload = decode_token(token)
         if payload.get("type") != "access":
             return None
-
-        # Try DB lookup
         sub = payload["sub"]
         try:
             user_id = int(sub)
         except (ValueError, TypeError):
-            # WeChat openid (non-numeric subject) — no DB lookup possible
-            return None
-
+            return _user_from_token_payload(payload)
         try:
             from sqlalchemy import select
             stmt = select(User).where(User.id == user_id)
@@ -219,7 +233,9 @@ async def get_current_user_from_request(request: Request, db: AsyncSession) -> O
             # Fail closed: do not fall back to token payload when DB is unavailable
             return None
 
-        # User not found in DB — reject
+        # User not found in DB — allow development token claims to keep mock auth working.
+        if settings.APP_ENV == "development":
+            return _user_from_token_payload(payload)
         return None
     except Exception:
         return None
@@ -231,29 +247,7 @@ async def get_optional_current_user(
     db: AsyncSession = Depends(get_db),
 ) -> Optional[dict]:
     """Return the current user dict or None if not authenticated (no exception)."""
-    if not authorization or not authorization.startswith("Bearer "):
-        return None
-    token = authorization.split(" ", 1)[1]
-    try:
-        payload = decode_token(token)
-        if payload.get("type") != "access":
-            return None
-        sub = payload["sub"]
-        try:
-            user_id = int(sub)
-        except (ValueError, TypeError):
-            return None
-        from sqlalchemy import select
-        stmt = select(User).where(User.id == user_id)
-        result = await db.execute(stmt)
-        user = result.scalar_one_or_none()
-        if user and user.status == "banned":
-            return None
-        if user:
-            return {"id": user.id, "email": user.email, "role": user.role, "nickname": user.nickname}
-    except Exception:
-        return None
-    return None
+    return await get_current_user_from_request(request, db)
 
 
 async def verify_request_signature(request: Request) -> tuple[bool, Optional[str]]:

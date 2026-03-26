@@ -94,6 +94,24 @@ npm install
 npm run dev                # Dev server at http://localhost:5173
 ```
 
+### Current Local Dev Snapshot
+
+For the current merged state, the local ports are fixed as:
+
+| Service | Address | Notes |
+|---------|---------|-------|
+| Backend API | `http://127.0.0.1:8000` | Shared by main site and admin |
+| Main web | `http://localhost:5173` | Google OAuth callback target |
+| Admin dashboard | `http://localhost:5174` | Separate port to avoid conflict |
+
+Detailed notes for this merge are in [docs/development/2026-03-26-admin-main-merge.md](docs/development/2026-03-26-admin-main-merge.md).
+
+Important current values:
+
+- Main web Google OAuth redirect URI: `http://localhost:5173/api/v1/auth/google/callback`
+- Admin login account: `admin@tonghua.org`
+- Admin development password and child audit access code both use `SEED_ADMIN_PASSWORD` from `backend/.env`
+
 For full deployment instructions, see the **[Deployment Guide](docs/deployment/deployment-guide.md)**.
 
 ---

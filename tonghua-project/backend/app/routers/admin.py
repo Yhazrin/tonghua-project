@@ -1,10 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
+from pydantic import BaseModel
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime
 from typing import Optional
 import logging
+import secrets
 
+from app.config import settings
 from app.database import get_db
 from app.models.user import User, ChildParticipant
 from app.models.artwork import Artwork
@@ -19,6 +22,10 @@ from app.deps import require_role
 router = APIRouter(prefix="/admin", tags=["Admin"])
 
 logger = logging.getLogger(__name__)
+
+
+class AuditAccessRequest(BaseModel):
+    accessCode: str
 
 _mock_audit_logs = [
     {"id": 1, "user_id": 1, "user_name": "管理员", "action": "login", "resource": "auth", "resource_id": None, "details": "管理员登录成功", "ip_address": "192.168.1.100", "timestamp": "2025-03-01T08:00:00"},
@@ -107,6 +114,19 @@ async def get_settings(
             "languages": ["zh-CN", "en-US"],
         }
     )
+
+
+@router.post("/auth/verify-audit-access", response_model=ApiResponse)
+async def verify_audit_access(
+    body: AuditAccessRequest,
+    _current_user: dict = Depends(require_role("admin")),
+):
+    """Verify the extra access code for the sensitive child audit page."""
+    expected_code = settings.SEED_ADMIN_PASSWORD
+    if not body.accessCode or not secrets.compare_digest(body.accessCode, expected_code):
+        raise HTTPException(status_code=401, detail="Invalid audit access code")
+
+    return ApiResponse(data={"granted": True})
 
 
 @router.put("/settings", response_model=ApiResponse)

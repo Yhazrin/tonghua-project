@@ -6,11 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased] — Cycle 35
 
+### Changed
+
+- Merged the `origin/main` update that converted the admin login page copy to English, then kept the local backend/frontend fixes in the same branch.
+- Split local development ports so the main site stays on `5173` and the admin dashboard moves to `5174`. This avoids the two React apps fighting over the same Vite port.
+- Aligned the admin frontend API base to the actual backend route prefix: `/api/v1/admin`.
+- Added a dedicated local runbook at `docs/development/2026-03-26-admin-main-merge.md` so future edits do not accidentally revert the port or auth alignment.
+
 ### Fixed
 
 - **Backend (P0)**: 8 paginated endpoints — `count_stmt` now propagates all `.where()` filters. Previously `select(func.count(Model.id))` ignored filters applied to the main query, returning total count of ALL rows regardless of filter parameters. Fixed in: `orders.py`, `artworks.py`, `campaigns.py`, `donations.py`, `products.py`, `supply_chain.py`, `admin.py` (audit-logs + child-participants).
 - **Backend (P1)**: `orders.py` — eliminated N+1 query pattern. Order items now batch-loaded with single `in_(order_ids)` query instead of per-order fetch loop.
 - **Backend (P1)**: `payment_service.py` — changed synchronous `httpx.post()` to `async with httpx.AsyncClient().post()`. Blocking call was stalling the FastAPI async event loop.
+- **Backend (P1)**: `auth.py` and `deps.py` — development admin login now uses a non-colliding mock subject, and auth dependencies can read access tokens from httpOnly cookies or Bearer headers. This keeps the admin dashboard and audit page working with the same session.
+- **Backend (P1)**: `admin.py` — added `POST /api/v1/admin/auth/verify-audit-access` for the sensitive child audit page.
+- **Frontend (P1)**: `admin` app — login page now normalizes the backend `nickname` field to `username` so the top bar renders a stable display name.
+- **Frontend (P1)**: `admin` app — child audit access check now targets `/api/v1/admin/auth/verify-audit-access` instead of the old `/api/admin/...` path.
 - **Backend (P1)**: `payments.py` — WeChat and Alipay webhook handlers now use `db.flush()` instead of `db.commit()`. The `get_db` dependency already commits on session exit; manual commit was premature and could cause transaction conflicts.
 - **Frontend (P1)**: `tokens.css` — added missing `--space-xs`, `--space-sm`, `--space-md` CSS custom property aliases. These were referenced across ~8 CSS module files but never defined.
 - **Frontend (P2)**: `HeroFloatingCards.tsx` — replaced 5 instances of default Tailwind `text-gray-400`/`text-gray-500` with editorial token `text-sepia-light`.
@@ -18,7 +29,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Verified
 
-- TypeScript compilation: `npx tsc --noEmit` — zero errors.
+- Backend syntax check: `python -m py_compile app/deps.py app/routers/auth.py app/routers/admin.py`
+- Admin frontend build: `npm run build`
+- Manual smoke test:
+  - `GET /health` returns 200
+  - main web serves on `5173`
+  - admin dashboard serves on `5174`
+  - admin login succeeds with the development account
+  - child audit access verification succeeds after login
 
 ## [Released] — Cycle 34
 

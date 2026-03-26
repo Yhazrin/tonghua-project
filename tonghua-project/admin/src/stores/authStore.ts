@@ -12,7 +12,7 @@ interface AuthUser {
 interface AuthState {
   user: AuthUser | null;
   isAuthenticated: boolean;
-  login: (user: AuthUser, token: string) => void;
+  login: (user: AuthUser, accessToken?: string, refreshToken?: string) => void;
   logout: () => void;
   updateUser: (user: Partial<AuthUser>) => void;
 }
@@ -22,12 +22,12 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       isAuthenticated: false,
-      login: (user, _token) => {
+      login: (user, _accessToken, _refreshToken) => {
         // Token is managed by httpOnly cookies set by the server.
         set({ user, isAuthenticated: true });
       },
       logout: () => {
-        // Server will clear httpOnly cookies on /api/admin/auth/logout
+        // Server will clear httpOnly cookies on /api/v1/auth/logout
         set({ user: null, isAuthenticated: false });
       },
       updateUser: (updates) =>

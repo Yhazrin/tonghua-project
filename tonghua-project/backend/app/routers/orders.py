@@ -3,6 +3,7 @@ from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from decimal import Decimal
 import random
+import logging
 
 from app.database import get_db
 from app.models.order import Order, OrderItem

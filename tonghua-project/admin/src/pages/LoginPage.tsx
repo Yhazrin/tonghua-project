@@ -29,7 +29,11 @@ export default function LoginPage() {
         throw new Error(data.detail || data.message || 'Invalid email or password');
       }
       const data = await response.json();
-      const userData = data.data?.user || data.user;
+      const rawUser = data.data?.user || data.user;
+      const userData = {
+        ...rawUser,
+        username: rawUser?.username || rawUser?.nickname || rawUser?.email || 'admin',
+      };
       const tokenData = data.data?.token || data.token || data;
       const accessToken = tokenData.access_token || tokenData.accessToken;
       const refreshToken = tokenData.refresh_token || tokenData.refreshToken;

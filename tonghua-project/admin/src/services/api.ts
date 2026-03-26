@@ -13,7 +13,7 @@ import {
 } from './mockData';
 
 const api = axios.create({
-  baseURL: '/api/admin',
+  baseURL: '/api/v1/admin',
   timeout: 10000,
   withCredentials: true, // Send httpOnly cookies with every request
   headers: { 'Content-Type': 'application/json' },

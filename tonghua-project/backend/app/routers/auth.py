@@ -182,15 +182,26 @@ async def login(body: LoginRequest, db: AsyncSession = Depends(get_db)):
         if mock:
             logger.debug(f"Mock user found: id={mock['id']}, role={mock['role']}")
             # Security: Validate password even for mock users
-            # Use environment variable for mock password (no default)
-            mock_password = settings.MOCK_USER_PASSWORD
+            # Use role-specific development passwords.
+            mock_password = settings.SEED_ADMIN_PASSWORD if mock["role"] == "admin" else settings.MOCK_USER_PASSWORD
             logger.debug("Verifying mock password")
             if not hmac.compare_digest(mock_password, body.password):
                 logger.debug("Mock password verification failed")
                 raise HTTPException(status_code=401, detail="Invalid credentials")
             logger.debug("Mock password verification passed")
-            token = create_access_token(subject=str(mock["id"]), role=mock["role"])
-            refresh = create_refresh_token(subject=str(mock["id"]), role=mock["role"])
+            token = create_access_token(
+                subject=f"mock-{mock['id']}",
+                role=mock["role"],
+                extra={
+                    "email": mock["email"],
+                    "nickname": mock["nickname"],
+                    "user_id": 0 if mock["role"] == "admin" else mock["id"],
+                },
+            )
+            refresh = create_refresh_token(
+                subject=f"mock-{mock['id']}",
+                role=mock["role"],
+            )
             response_data = ApiResponse(
                 success=True,
                 data={
