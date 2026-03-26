@@ -1,0 +1,13 @@
+.form-group { margin-bottom: 32rpx; }
+.form-label { display: block; margin-bottom: 12rpx; }
+.form-input { background: #fff; border: 1rpx solid #E8DDD0; padding: 20rpx; font-size: 28rpx; }
+.form-textarea { background: #fff; border: 1rpx solid #E8DDD0; padding: 20rpx; font-size: 28rpx; width: 100%; height: 200rpx; box-sizing: border-box; }
+.form-picker { background: #fff; border: 1rpx solid #E8DDD0; padding: 20rpx; font-size: 28rpx; color: #3A3226; }
+.image-picker { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.image-item { position: relative; width: 200rpx; height: 200rpx; }
+.image-item image { width: 100%; height: 100%; }
+.remove-btn { position: absolute; top: -10rpx; right: -10rpx; width: 40rpx; height: 40rpx; background: #C0392B; color: #fff; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 24rpx; }
+.add-image { width: 200rpx; height: 200rpx; border: 2rpx dashed #C4B5A1; display: flex; align-items: center; justify-content: center; font-size: 64rpx; color: #C4B5A1; }
+.consent-group { display: flex; align-items: center; gap: 12rpx; margin: 32rpx 0; }
+.consent-text { font-size: 24rpx; color: #7A6A58; }
+.submit-btn { text-align: center; margin-top: 48rpx; }

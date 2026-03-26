@@ -1,0 +1,132 @@
+.user-page {
+  min-height: 100vh;
+  background-color: #F5F0E8;
+}
+
+.user-header {
+  padding: 60rpx 40rpx 40rpx;
+  text-align: center;
+  background-color: #2C1810;
+  color: #F5F0E8;
+}
+
+.user-avatar-wrap {
+  width: 120rpx;
+  height: 120rpx;
+  margin: 0 auto 20rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3rpx solid #5C4033;
+}
+
+.user-avatar {
+  width: 100%;
+  height: 100%;
+}
+
+.user-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #5C4033;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  color: #F5F0E8;
+}
+
+.user-name {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.user-subtitle {
+  font-size: 24rpx;
+  color: #7A6A58;
+}
+
+.login-tip {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.menu-section {
+  margin-top: 30rpx;
+  padding: 0 30rpx;
+}
+
+.section-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 22rpx;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+  color: #7A6A58;
+  margin-bottom: 16rpx;
+  padding-left: 10rpx;
+}
+
+.menu-list {
+  background-color: #fff;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 24rpx;
+  border-bottom: 1rpx solid #E8DDD0;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-icon-wrap {
+  width: 64rpx;
+  height: 64rpx;
+  background-color: #F5F0E8;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+
+.menu-icon-text {
+  font-size: 32rpx;
+}
+
+.menu-content {
+  flex: 1;
+}
+
+.menu-title {
+  display: block;
+  font-size: 28rpx;
+  color: #2C1810;
+  margin-bottom: 4rpx;
+}
+
+.menu-desc {
+  display: block;
+  font-size: 22rpx;
+  color: #7A6A58;
+}
+
+.menu-arrow {
+  font-size: 28rpx;
+  color: #7A6A58;
+}
+
+.logout-wrap {
+  padding: 60rpx 30rpx;
+}
+
+.logout-btn {
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 28rpx;
+}

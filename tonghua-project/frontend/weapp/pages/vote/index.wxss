@@ -1,0 +1,3 @@
+.vote-hint { display: block; margin-bottom: 24rpx; padding: 16rpx; background: #F0E8DC; text-align: center; }
+.vote-action { margin-top: -8rpx; padding: 16rpx; background: #2C1810; color: #F5F0E8; text-align: center; font-family: `IBM Plex Mono`, monospace; font-size: 26rpx; }
+.vote-action.voted { background: #9A8B78; }

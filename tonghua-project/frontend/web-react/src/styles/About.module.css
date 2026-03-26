@@ -1,0 +1,214 @@
+/* ─── About Page Styles ─────────────────────────────────────── */
+
+.hero {
+  padding: var(--space-4xl) 0;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero__overline {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-rust);
+  margin-bottom: var(--space-lg);
+}
+
+.hero__subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  line-height: 1.8;
+  color: var(--color-ink-faded);
+  max-width: 600px;
+  margin-top: var(--space-xl);
+}
+
+/* ─── Mission ──────────────────────────────────────────────── */
+.mission {
+  padding: var(--space-3xl) 0;
+}
+
+.mission__grid {
+  display: grid;
+  gap: var(--space-2xl);
+}
+
+@media (min-width: 768px) {
+  .mission__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+  }
+}
+
+.mission__body {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--color-ink-faded);
+}
+
+.mission__image {
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+
+/* ─── Values ────────────────────────────────────────────────── */
+.values {
+  padding: var(--space-3xl) 0;
+  background-color: var(--color-aged-stock);
+}
+
+.values__grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .values__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.valueCard {
+  padding: var(--space-xl);
+  border-left: 2px solid var(--color-rust);
+  background-color: var(--color-paper);
+}
+
+.valueCard__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-md);
+}
+
+.valueCard__body {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--color-ink-faded);
+}
+
+/* ─── Team ──────────────────────────────────────────────────── */
+.team {
+  padding: var(--space-3xl) 0;
+}
+
+.team__header {
+  margin-bottom: var(--space-2xl);
+}
+
+.team__grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .team__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.teamMember {
+  text-align: center;
+}
+
+.teamMember__avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto var(--space-md);
+  border: 2px solid var(--color-warm-gray);
+}
+
+.teamMember__name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xs);
+}
+
+.teamMember__role {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-rust);
+  margin-bottom: var(--space-sm);
+}
+
+.teamMember__bio {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-sepia-mid);
+  line-height: 1.6;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* ─── Milestones ────────────────────────────────────────────── */
+.milestones {
+  padding: var(--space-3xl) 0;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.milestones__header {
+  margin-bottom: var(--space-2xl);
+}
+
+.milestone {
+  display: flex;
+  gap: var(--space-xl);
+  padding: var(--space-xl) 0;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+}
+
+.milestone:last-child {
+  border-bottom: none;
+}
+
+.milestone__year {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 900;
+  color: var(--color-pale-gold);
+  min-width: 100px;
+  line-height: 1;
+}
+
+.milestone__content {
+  flex: 1;
+}
+
+.milestone__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-paper);
+  margin-bottom: var(--space-sm);
+}
+
+.milestone__description {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-warm-gray);
+}
+
+@media (max-width: 767px) {
+  .milestone {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .milestone__year {
+    font-size: var(--text-h3);
+  }
+}

@@ -1,0 +1,100 @@
+<scroll-view scroll-y class="page-upload">
+  <view class="container">
+    <view class="page-header">
+      <text class="section-number">Submit Artwork</text>
+      <text class="section-title">上传作品</text>
+      <text class="section-subtitle">让孩子的画作被更多人看见</text>
+    </view>
+
+    <!-- Image Picker -->
+    <view class="form-section">
+      <text class="form-label">作品图片 *</text>
+      <view class="image-picker" wx:if="{{!imagePath}}" bindtap="onChooseImage">
+        <text class="image-picker__icon">+</text>
+        <text class="image-picker__text">点击选择图片</text>
+        <text class="image-picker__hint">支持 JPG/PNG，建议不超过 5MB</text>
+      </view>
+      <view class="image-preview" wx:if="{{imagePath}}">
+        <image class="image-preview__img sepia-image" src="{{imagePath}}" mode="aspectFit" alt="Selected image" />
+        <view class="image-preview__remove" bindtap="onRemoveImage">
+          <text>x</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Title -->
+    <view class="form-section">
+      <text class="form-label">作品标题 *</text>
+      <input
+        class="form-input"
+        placeholder="给作品起个名字"
+        value="{{title}}"
+        bindinput="onTitleInput"
+        maxlength="50"
+      />
+    </view>
+
+    <!-- Campaign Selector -->
+    <view class="form-section">
+      <text class="form-label">参加活动 *</text>
+      <picker mode="selector" range="{{activeCampaigns}}" range-key="title" value="{{selectedCampaignIndex}}" bindchange="onCampaignChange">
+        <view class="form-picker">
+          <text wx:if="{{selectedCampaignIndex < 0}}" class="form-picker__placeholder">选择活动</text>
+          <text wx:else class="form-picker__value">{{activeCampaigns[selectedCampaignIndex].title}}</text>
+          <text class="form-picker__arrow">&gt;</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- Display Name -->
+    <view class="form-section">
+      <text class="form-label">展示名称 *</text>
+      <text class="form-hint">为保护儿童隐私，请使用昵称而非真实姓名</text>
+      <input
+        class="form-input"
+        placeholder="孩子的昵称（如：小星星）"
+        value="{{displayName}}"
+        bindinput="onDisplayNameInput"
+        maxlength="20"
+      />
+    </view>
+
+    <!-- Description -->
+    <view class="form-section">
+      <text class="form-label">作品描述</text>
+      <textarea
+        class="form-textarea"
+        placeholder="简单描述这幅画的故事..."
+        value="{{description}}"
+        bindinput="onDescInput"
+        maxlength="200"
+      />
+    </view>
+
+    <!-- Guardian Consent -->
+    <view class="form-section">
+      <view class="consent-block">
+        <checkbox-group bindchange="onConsentChange">
+          <label class="consent-label">
+            <checkbox value="consent" checked="{{guardianConsent}}" color="#5C4033" />
+            <text class="consent-text">
+              我确认已获得该儿童监护人的知情同意，允许上传并展示此作品。我了解作品将在审核通过后公开展示。
+            </text>
+          </label>
+        </checkbox-group>
+      </view>
+    </view>
+
+    <!-- Submit -->
+    <view class="form-actions">
+      <button class="btn-primary submit-btn" bindtap="onSubmit" loading="{{submitting}}" disabled="{{submitting}}">
+        {{submitting ? '提交中...' : '提交作品'}}
+      </button>
+    </view>
+
+    <view class="editorial-footer">
+      <view class="editorial-footer__divider"></view>
+      <text class="editorial-footer__copy">童画公益 &times; 可持续时尚</text>
+    </view>
+  </view>
+</scroll-view>

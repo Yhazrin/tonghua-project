@@ -1,0 +1,10 @@
+.order-summary { margin-bottom: 32rpx; }
+.order-item { display: flex; justify-content: space-between; padding: 16rpx 0; border-bottom: 1rpx solid #F0E8DC; }
+.order-item-name { font-size: 28rpx; color: #3A3226; }
+.order-item-price { font-family: `IBM Plex Mono`, monospace; color: #5C4033; }
+.order-total { display: flex; justify-content: space-between; padding-top: 16rpx; font-size: 32rpx; font-weight: 700; }
+.total-amount { font-family: `Playfair Display`, serif; color: #5C4033; }
+.address-section { margin-bottom: 32rpx; }
+.form-input { background: #fff; border: 1rpx solid #E8DDD0; padding: 20rpx; font-size: 28rpx; margin-bottom: 16rpx; }
+.form-textarea { background: #fff; border: 1rpx solid #E8DDD0; padding: 20rpx; font-size: 28rpx; width: 100%; height: 160rpx; box-sizing: border-box; }
+.submit-btn { text-align: center; margin-top: 48rpx; }

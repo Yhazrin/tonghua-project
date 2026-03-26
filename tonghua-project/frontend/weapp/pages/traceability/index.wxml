@@ -1,0 +1,74 @@
+<scroll-view scroll-y class="page-traceability">
+  <view class="container">
+    <view class="page-header">
+      <text class="section-number">Trace</text>
+      <text class="section-title">供应链溯源</text>
+      <text class="section-subtitle">从原料到成品，每一步都透明可查</text>
+    </view>
+
+    <!-- Product Selector -->
+    <view class="selector-section" wx:if="{{!searched}}">
+      <text class="form-label">选择商品查看溯源信息</text>
+      <view class="product-list">
+        <view
+          class="product-list__item"
+          wx:for="{{products}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onProductSelect"
+        >
+          <text class="product-list__name">{{item.title}}</text>
+          <text class="product-list__arrow">&gt;</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Selected Product Info -->
+    <view class="selected-header" wx:if="{{searched}}">
+      <view class="selected-header__info">
+        <text class="selected-header__label editorial-caption">当前查看</text>
+        <text class="selected-header__name">{{products[selectedProductId - 1].title}}</text>
+      </view>
+      <text class="selected-header__change" bindtap="onReset">更换商品</text>
+    </view>
+
+    <!-- Timeline -->
+    <view class="timeline" wx:if="{{searched && !loading}}">
+      <view
+        class="timeline__item"
+        wx:for="{{supplyChain}}"
+        wx:key="stage"
+      >
+        <view class="timeline__left">
+          <view class="timeline__dot">
+            <text class="timeline__dot-number">{{item.icon}}</text>
+          </view>
+          <view class="timeline__line" wx:if="{{index < supplyChain.length - 1}}"></view>
+        </view>
+        <view class="timeline__content">
+          <text class="timeline__stage">{{item.stage}}</text>
+          <text class="timeline__desc">{{item.description}}</text>
+          <view class="timeline__meta">
+            <view class="timeline__meta-item">
+              <text class="timeline__meta-label">地点</text>
+              <text class="timeline__meta-value">{{item.location}}</text>
+            </view>
+            <view class="timeline__meta-item">
+              <text class="timeline__meta-label">日期</text>
+              <text class="timeline__meta-value">{{item.date}}</text>
+            </view>
+          </view>
+          <view class="timeline__cert">
+            <text class="timeline__cert-badge">{{item.cert}}</text>
+            <text class="timeline__cert-no">{{item.cert_no}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Loading -->
+    <view class="loading-hint" wx:if="{{loading}}">
+      <text class="loading-hint__text">加载中...</text>
+    </view>
+  </view>
+</scroll-view>

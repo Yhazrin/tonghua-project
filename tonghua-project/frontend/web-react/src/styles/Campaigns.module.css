@@ -1,0 +1,217 @@
+/* ─── Campaigns Page Styles ─────────────────────────────────── */
+
+.hero {
+  padding: var(--space-4xl) 0 var(--space-2xl);
+}
+
+.hero__overline {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-rust);
+  margin-bottom: var(--space-lg);
+}
+
+.hero__subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  line-height: 1.8;
+  color: var(--color-ink-faded);
+  max-width: 700px;
+  margin-top: var(--space-xl);
+}
+
+/* ─── Filters ──────────────────────────────────────────────── */
+.filters {
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--color-warm-gray);
+  margin-bottom: var(--space-2xl);
+}
+
+.filters__list {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-sepia-mid);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-editorial);
+  background: none;
+}
+
+.filterBtn:hover {
+  color: var(--color-ink);
+  border-color: var(--color-warm-gray);
+}
+
+.filterBtn__active {
+  color: var(--color-rust);
+  border-color: var(--color-rust);
+}
+
+/* ─── Grid ──────────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  gap: var(--space-xl);
+  padding-bottom: var(--space-3xl);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ─── Campaign Card ────────────────────────────────────────── */
+.card {
+  border: 1px solid var(--color-warm-gray);
+  background-color: var(--color-paper);
+  transition: all var(--duration-normal) var(--ease-editorial);
+  cursor: pointer;
+}
+
+.card:hover {
+  border-color: var(--color-rust);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 26, 22, 0.08);
+}
+
+.card__image {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  position: relative;
+}
+
+.card__status {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  z-index: 2;
+}
+
+.card__status--active {
+  background-color: var(--color-rust);
+  color: var(--color-paper);
+}
+
+.card__status--upcoming {
+  background-color: var(--color-pale-gold);
+  color: var(--color-ink);
+}
+
+.card__status--completed {
+  background-color: var(--color-sepia-mid);
+  color: var(--color-paper);
+}
+
+.card__body {
+  padding: var(--space-lg);
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+}
+
+.card__subtitle {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-sepia-mid);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.card__stats {
+  display: flex;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.card__stat {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-sepia-mid);
+}
+
+.card__statValue {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.card__progress {
+  margin-top: var(--space-md);
+}
+
+.card__progressHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-xs);
+}
+
+.card__progressText {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-sepia-mid);
+}
+
+.card__progressAmount {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-rust);
+  font-weight: 600;
+}
+
+.card__progressBar {
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-warm-gray);
+}
+
+.card__progressFill {
+  height: 100%;
+  background-color: var(--color-rust);
+  transition: width 1s var(--ease-editorial);
+}
+
+/* ─── Empty State ──────────────────────────────────────────── */
+.empty {
+  text-align: center;
+  padding: var(--space-4xl) var(--space-lg);
+}
+
+.empty__icon {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  color: var(--color-sepia-mid);
+  margin-bottom: var(--space-lg);
+}
+
+.empty__text {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-sepia-mid);
+}

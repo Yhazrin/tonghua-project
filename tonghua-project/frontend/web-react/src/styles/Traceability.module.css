@@ -1,0 +1,310 @@
+/* ─── Traceability Page Styles ──────────────────────────────── */
+
+.hero {
+  padding: var(--space-4xl) 0 var(--space-2xl);
+}
+
+.hero__overline {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-rust);
+  margin-bottom: var(--space-lg);
+}
+
+.hero__subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  line-height: 1.8;
+  color: var(--color-ink-faded);
+  max-width: 700px;
+  margin-top: var(--space-xl);
+}
+
+/* ─── Product Selector ─────────────────────────────────────── */
+.selector {
+  padding: var(--space-2xl) 0;
+  border-bottom: 1px solid var(--color-warm-gray);
+}
+
+.selector__label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-sepia-mid);
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.selector__grid {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 768px) {
+  .selector__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.selector__item {
+  border: 1px solid var(--color-warm-gray);
+  padding: var(--space-md);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-editorial);
+  text-align: center;
+  background: var(--color-paper);
+}
+
+.selector__item:hover {
+  border-color: var(--color-rust);
+}
+
+.selector__item--active {
+  border-color: var(--color-rust);
+  background-color: rgba(139, 58, 42, 0.04);
+}
+
+.selector__itemName {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xs);
+}
+
+.selector__itemCategory {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-sepia-mid);
+}
+
+/* ─── Timeline ─────────────────────────────────────────────── */
+.timeline {
+  padding: var(--space-3xl) 0;
+}
+
+.timeline__header {
+  margin-bottom: var(--space-2xl);
+}
+
+.timeline__chain {
+  position: relative;
+  padding-left: var(--space-3xl);
+}
+
+.timeline__line {
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--color-warm-gray);
+}
+
+.timeline__step {
+  position: relative;
+  padding-bottom: var(--space-2xl);
+}
+
+.timeline__step:last-child {
+  padding-bottom: 0;
+}
+
+.timeline__dot {
+  position: absolute;
+  left: calc(-1 * var(--space-3xl) + 8px);
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--color-warm-gray);
+  border: 3px solid var(--color-paper);
+  z-index: 2;
+}
+
+.timeline__dot--verified {
+  background-color: var(--color-rust);
+}
+
+.timeline__stepContent {
+  padding: var(--space-lg);
+  border: 1px solid var(--color-warm-gray);
+  background-color: var(--color-paper);
+  transition: border-color var(--duration-fast) var(--ease-editorial);
+}
+
+.timeline__stepContent:hover {
+  border-color: rgba(139, 58, 42, 0.3);
+}
+
+.timeline__stepHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-sm);
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.timeline__stepTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.timeline__stepVerified {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  background-color: rgba(139, 58, 42, 0.1);
+  color: var(--color-rust);
+}
+
+.timeline__stepDescription {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-ink-faded);
+  margin-bottom: var(--space-md);
+}
+
+.timeline__stepMeta {
+  display: flex;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.timeline__stepMetaItem {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-sepia-mid);
+}
+
+.timeline__stepMetaValue {
+  color: var(--color-ink-faded);
+  font-weight: 500;
+}
+
+/* ─── Carbon Footprint ─────────────────────────────────────── */
+.carbon {
+  padding: var(--space-2xl) 0;
+  margin-top: var(--space-xl);
+  border-top: 1px solid var(--color-warm-gray);
+}
+
+.carbon__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.carbon__icon {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  color: var(--color-archive-brown);
+}
+
+.carbon__info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.carbon__label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-sepia-mid);
+  margin-bottom: var(--space-xs);
+}
+
+.carbon__value {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 800;
+  color: var(--color-archive-brown);
+}
+
+.carbon__unit {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-sepia-mid);
+  margin-left: var(--space-sm);
+}
+
+/* ─── Certificates ─────────────────────────────────────────── */
+.certificates {
+  padding: var(--space-3xl) 0;
+  background-color: var(--color-aged-stock);
+}
+
+.certificates__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-2xl);
+  text-align: center;
+}
+
+.certificates__grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .certificates__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.certificate {
+  padding: var(--space-xl);
+  border: 1px solid var(--color-warm-gray);
+  background-color: var(--color-paper);
+  text-align: center;
+}
+
+.certificate__icon {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  color: var(--color-pale-gold);
+  margin-bottom: var(--space-md);
+}
+
+.certificate__name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: var(--space-sm);
+}
+
+.certificate__issuer {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-sepia-mid);
+  letter-spacing: 0.05em;
+}
+
+/* ─── Empty State ──────────────────────────────────────────── */
+.empty {
+  text-align: center;
+  padding: var(--space-4xl) var(--space-lg);
+}
+
+.empty__text {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-sepia-mid);
+}

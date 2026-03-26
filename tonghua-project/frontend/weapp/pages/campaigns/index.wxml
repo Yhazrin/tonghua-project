@@ -1,0 +1,29 @@
+<view class="page-container">
+  <loading loading="{{loading}}" />
+  <view wx:if="{{\!loading}}">
+    <view class="section-header">
+      <text class="section-number">01</text>
+      <text class="editorial-title section-title">\u516C\u76CA\u6D3B\u52A8</text>
+    </view>
+    <view class="tab-bar">
+      <view class="tab-item {{currentTab===`all` ? `active` : ``}}" data-tab="all" bindtap="onTabChange">\u5168\u90E8</view>
+      <view class="tab-item {{currentTab===`active` ? `active` : ``}}" data-tab="active" bindtap="onTabChange">\u8FDB\u884C\u4E2D</view>
+      <view class="tab-item {{currentTab===`ended` ? `active` : ``}}" data-tab="ended" bindtap="onTabChange">\u5DF2\u7ED3\u675F</view>
+    </view>
+    <view class="campaigns-list">
+      <view class="campaign-card card" wx:for="{{campaigns}}" wx:key="id" bindtap="onCampaignTap" data-id="{{item.id}}">
+        <view class="campaign-status">
+          <text class="status-dot {{item.status===`active` ? `dot-active` : ``}}"></text>
+          <text class="editorial-caption">{{item.status===`active` ? `\u8FDB\u884C\u4E2D` : `\u5DF2\u7ED3\u675F`}}</text>
+        </view>
+        <text class="campaign-name">{{item.name}}</text>
+        <text class="text-muted campaign-desc">{{item.description}}</text>
+        <view class="campaign-meta">
+          <text class="editorial-caption">{{item.artworkCount}} \u4EF7\u4F5C\u54C1</text>
+          <text class="editorial-caption">{{item.startDate}} - {{item.endDate}}</text>
+        </view>
+      </view>
+      <empty-state wx:if="{{campaigns.length===0}}" text="\u6682\u65E0\u6D3B\u52A8" />
+    </view>
+  </view>
+</view>

@@ -1,0 +1,52 @@
+<scroll-view scroll-y class="page-stories">
+  <view class="container">
+    <view class="page-header">
+      <text class="section-number">Stories</text>
+      <text class="section-title">童画作品</text>
+      <text class="section-subtitle">每一幅画，都是一个孩子眼中的可持续世界</text>
+    </view>
+
+    <view class="artwork-grid">
+      <view
+        class="artwork-grid__item"
+        wx:for="{{artworks}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onArtworkTap"
+      >
+        <view class="artwork-card">
+          <view class="artwork-card__image-wrap">
+            <image
+              class="artwork-card__image sepia-image"
+              src="{{item.image_url}}"
+              mode="aspectFill"
+              lazy-load
+              alt="{{item.title}}"
+            />
+            <view class="artwork-card__overlay">
+              <text class="artwork-card__child-name">{{item.child_display_name}}</text>
+            </view>
+          </view>
+          <view class="artwork-card__body">
+            <text class="artwork-card__title">{{item.title}}</text>
+            <view class="artwork-card__meta">
+              <text class="artwork-card__campaign editorial-caption">{{item.campaign_name}}</text>
+              <view class="artwork-card__like" catchtap="onLikeTap" data-id="{{item.id}}">
+                <text class="artwork-card__like-icon">&#9829;</text>
+                <text class="artwork-card__like-count">{{item.like_count}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="loading-hint" wx:if="{{loading}}">
+      <text class="loading-hint__text">加载中...</text>
+    </view>
+
+    <view class="empty-hint" wx:if="{{!loading && artworks.length === 0}}">
+      <text class="empty-hint__text">暂无作品</text>
+    </view>
+  </view>
+</scroll-view>

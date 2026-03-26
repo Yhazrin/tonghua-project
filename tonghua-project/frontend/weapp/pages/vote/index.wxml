@@ -1,0 +1,19 @@
+<view class="page-container">
+  <loading loading="{{loading}}" />
+  <view wx:if="{{\!loading}}">
+    <view class="section-header">
+      <text class="section-number">01</text>
+      <text class="editorial-title">\u4F5C\u54C1\u6295\u7968</text>
+    </view>
+    <text class="editorial-caption vote-hint">\u4ECA\u65E5\u5269\u4F59: {{dailyLimit - votedToday}} \u7968</text>
+    <view class="vote-grid">
+      <view class="vote-item" wx:for="{{artworks}}" wx:key="id">
+        <artwork-card artwork="{{item}}" showVote="{{true}}" bind:tap="onArtworkTap" />
+        <view class="vote-action {{votedIds.indexOf(item.id)>=0 ? `voted` : ``}}" data-id="{{item.id}}" catchtap="onVote">
+          <text>{{votedIds.indexOf(item.id)>=0 ? `\u5DF2\u6295` : `\u6295\u7968`}}</text>
+        </view>
+      </view>
+    </view>
+    <empty-state wx:if="{{artworks.length===0}}" text="\u6682\u65E0\u4F5C\u54C1" />
+  </view>
+</view>

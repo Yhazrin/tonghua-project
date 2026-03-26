@@ -1,0 +1,24 @@
+<view class="donation-panel">
+  <view class="donation-panel__grid">
+    <view
+      class="donation-panel__amount {{selectedAmount === item && !isCustom ? 'donation-panel__amount--active' : ''}}"
+      wx:for="{{amounts}}"
+      wx:key="*this"
+      data-amount="{{item}}"
+      bindtap="onSelectAmount"
+    >
+      <text class="donation-panel__amount-symbol">&yen;</text>
+      <text class="donation-panel__amount-value">{{item}}</text>
+    </view>
+    <view class="donation-panel__amount {{isCustom ? 'donation-panel__amount--active' : ''}}">
+      <input
+        class="donation-panel__custom-input"
+        type="digit"
+        placeholder="自定义"
+        value="{{customAmount}}"
+        bindinput="onCustomInput"
+        bindfocus="onCustomFocus"
+      />
+    </view>
+  </view>
+</view>
