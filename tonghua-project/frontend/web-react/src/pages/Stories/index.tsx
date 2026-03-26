@@ -11,7 +11,7 @@ import NumberedSectionHeading from '@/components/editorial/NumberedSectionHeadin
 import SepiaImageFrame from '@/components/editorial/SepiaImageFrame';
 import StoryQuoteBlock from '@/components/editorial/StoryQuoteBlock';
 import { VintageInput } from '@/components/editorial/VintageInput';
-import PagePeel from '@/components/animations/PagePeel';
+import MagazineCurl from '@/components/animations/MagazineCurl';
 import { KineticTextMarquee } from '@/components/animations/KineticMarquee';
 
 type Category = 'all' | 'impact' | 'fashion' | 'community' | 'education';
@@ -433,7 +433,7 @@ export default function Stories() {
                 // Alternate peel corners for visual interest
                 const peelCorner = index % 2 === 0 ? 'bottom-right' : 'bottom-left';
                 return (
-                  <PagePeel
+                  <MagazineCurl
                     key={story.id}
                     corner={peelCorner}
                     maxRotation={12}
@@ -502,13 +502,13 @@ export default function Stories() {
                       {/* Insert a quote block after the first story */}
                       {index === 0 && (
                         <div className="mt-16 md:mt-24">
-                          <PagePeel corner="top-right" maxRotation={8} shadowIntensity={0.2}>
+                          <MagazineCurl corner="top-right" maxRotation={8} shadowIntensity={0.2}>
                             <StoryQuoteBlock
                               quote={t('stories.featuredQuote.text')}
                               author={t('stories.featuredQuote.author')}
                               role={t('stories.featuredQuote.role')}
                             />
-                          </PagePeel>
+                          </MagazineCurl>
                         </div>
                       )}
 
@@ -516,7 +516,7 @@ export default function Stories() {
                         <div className="editorial-divider mt-16 md:mt-24" />
                       )}
                     </motion.article>
-                  </PagePeel>
+                  </MagazineCurl>
                 );
                 })}
               </motion.div>

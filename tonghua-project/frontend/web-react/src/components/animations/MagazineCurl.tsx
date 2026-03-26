@@ -1,7 +1,7 @@
 import { type ReactNode, useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 
-interface PagePeelProps {
+interface MagazineCurlProps {
   children: ReactNode;
   /**
    * Corner to peel from: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'
@@ -25,25 +25,25 @@ interface PagePeelProps {
 }
 
 /**
- * PagePeel - A magazine-style page curl/peel animation component
+ * MagazineCurl - A magazine-style page curl/peel animation component
  *
  * Creates a 3D page corner that "lifts" as if turning a magazine page,
  * revealing content beneath with realistic shadows.
  *
  * @example
  * ```tsx
- * <PagePeel corner="bottom-right">
+ * <MagazineCurl corner="bottom-right">
  *   <div>Content to reveal</div>
- * </PagePeel>
+ * </MagazineCurl>
  * ```
  */
-export default function PagePeel({
+export default function MagazineCurl({
   children,
   corner = 'bottom-right',
   maxRotation = 15,
   shadowIntensity = 0.3,
   className = '',
-}: PagePeelProps) {
+}: MagazineCurlProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
