@@ -103,7 +103,7 @@ export async function updateArtworkStatus(id: string, status: Artwork['status'])
   if (art) {
     art.status = status;
     art.reviewedAt = new Date().toISOString();
-    art.reviewedBy = '管理员';
+    art.reviewedBy = 'Admin';
   }
   return { ...art! };
 }

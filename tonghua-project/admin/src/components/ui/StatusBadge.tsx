@@ -5,28 +5,28 @@ interface StatusBadgeProps {
 
 const statusStyles: Record<string, { bg: string; color: string; label: string }> = {
   // Artwork
-  pending: { bg: 'var(--color-warning-light)', color: 'var(--color-warning)', label: '待审核' },
-  approved: { bg: 'var(--color-success-light)', color: 'var(--color-success)', label: '已通过' },
-  rejected: { bg: 'var(--color-danger-light)', color: 'var(--color-danger)', label: '已拒绝' },
-  archived: { bg: 'var(--color-info-light)', color: 'var(--color-info)', label: '已归档' },
+  pending: { bg: 'var(--color-warning-light)', color: 'var(--color-warning)', label: 'Pending' },
+  approved: { bg: 'var(--color-success-light)', color: 'var(--color-success)', label: 'Approved' },
+  rejected: { bg: 'var(--color-danger-light)', color: 'var(--color-danger)', label: 'Rejected' },
+  archived: { bg: 'var(--color-info-light)', color: 'var(--color-info)', label: 'Archived' },
   // Campaign
-  draft: { bg: '#f3f4f6', color: '#6b7280', label: '草稿' },
-  active: { bg: 'var(--color-success-light)', color: 'var(--color-success)', label: '进行中' },
-  ended: { bg: '#f3f4f6', color: '#6b7280', label: '已结束' },
+  draft: { bg: '#f3f4f6', color: '#6b7280', label: 'Draft' },
+  active: { bg: 'var(--color-success-light)', color: 'var(--color-success)', label: 'In Progress' },
+  ended: { bg: '#f3f4f6', color: '#6b7280', label: 'Ended' },
   // Order
-  paid: { bg: 'var(--color-info-light)', color: 'var(--color-info)', label: '已支付' },
-  shipped: { bg: 'var(--color-accent-light)', color: 'var(--color-accent)', label: '已发货' },
-  delivered: { bg: 'var(--color-success-light)', color: 'var(--color-success)', label: '已送达' },
-  cancelled: { bg: 'var(--color-danger-light)', color: 'var(--color-danger)', label: '已取消' },
-  refunded: { bg: '#f3f4f6', color: '#6b7280', label: '已退款' },
+  paid: { bg: 'var(--color-info-light)', color: 'var(--color-info)', label: 'Paid' },
+  shipped: { bg: 'var(--color-accent-light)', color: 'var(--color-accent)', label: 'Shipped' },
+  delivered: { bg: 'var(--color-success-light)', color: 'var(--color-success)', label: 'Delivered' },
+  cancelled: { bg: 'var(--color-danger-light)', color: 'var(--color-danger)', label: 'Cancelled' },
+  refunded: { bg: '#f3f4f6', color: '#6b7280', label: 'Refunded' },
   // Donation
-  completed: { bg: 'var(--color-success-light)', color: 'var(--color-success)', label: '已完成' },
-  failed: { bg: 'var(--color-danger-light)', color: 'var(--color-danger)', label: '失败' },
+  completed: { bg: 'var(--color-success-light)', color: 'var(--color-success)', label: 'Completed' },
+  failed: { bg: 'var(--color-danger-light)', color: 'var(--color-danger)', label: 'Failed' },
   // User
-  disabled: { bg: 'var(--color-danger-light)', color: 'var(--color-danger)', label: '已禁用' },
+  disabled: { bg: 'var(--color-danger-light)', color: 'var(--color-danger)', label: 'Disabled' },
   // Child participant
-  withdrawn: { bg: '#f3f4f6', color: '#6b7280', label: '已退出' },
-  pending_review: { bg: 'var(--color-warning-light)', color: 'var(--color-warning)', label: '待审查' },
+  withdrawn: { bg: '#f3f4f6', color: '#6b7280', label: 'Withdrawn' },
+  pending_review: { bg: 'var(--color-warning-light)', color: 'var(--color-warning)', label: 'Under Review' },
 };
 
 export default function StatusBadge({ status, label }: StatusBadgeProps) {

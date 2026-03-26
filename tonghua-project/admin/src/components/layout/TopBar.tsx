@@ -30,7 +30,7 @@ export default function TopBar() {
           }}
           onMouseEnter={(e) => { (e.target as HTMLElement).style.background = '#f3f4f6'; }}
           onMouseLeave={(e) => { (e.target as HTMLElement).style.background = 'transparent'; }}
-          title="切换侧边栏"
+          title="Toggle sidebar"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
@@ -81,15 +81,15 @@ export default function TopBar() {
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontSize: 13, fontWeight: 600,
           }}>
-            {(user?.username || '管')[0]}
+            {(user?.username || 'A')[0]}
           </div>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 500 }}>{user?.username || '管理员'}</div>
+            <div style={{ fontSize: 13, fontWeight: 500 }}>{user?.username || 'Admin'}</div>
             <div style={{ fontSize: 11, color: 'var(--color-text-light)' }}>{user?.role || 'admin'}</div>
           </div>
           <button
             onClick={logout}
-            title="退出登录"
+            title="Sign Out"
             style={{
               marginLeft: 8,
               padding: '4px 8px',
@@ -101,7 +101,7 @@ export default function TopBar() {
             onMouseEnter={(e) => { (e.target as HTMLElement).style.background = '#f3f4f6'; }}
             onMouseLeave={(e) => { (e.target as HTMLElement).style.background = 'transparent'; }}
           >
-            退出
+            Sign Out
           </button>
         </div>
       </div>

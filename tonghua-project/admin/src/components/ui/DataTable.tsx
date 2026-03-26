@@ -78,14 +78,14 @@ export default function DataTable<T extends Record<string, any>>({
                       borderRadius: '50%',
                       animation: 'spin 0.8s linear infinite',
                     }} />
-                    加载中...
+                    Loading...
                   </div>
                 </td>
               </tr>
             ) : data.length === 0 ? (
               <tr>
                 <td colSpan={columns.length} style={{ padding: 40, textAlign: 'center', color: 'var(--color-text-light)' }}>
-                  暂无数据
+                  No data
                 </td>
               </tr>
             ) : (

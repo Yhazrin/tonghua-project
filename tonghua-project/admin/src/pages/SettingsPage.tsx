@@ -20,33 +20,33 @@ export default function SettingsPage() {
     mutationFn: updateSystemSettings,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['settings'] });
-      toast.success('设置已保存');
+      toast.success('Settings saved');
     },
   });
 
-  if (!form) return <div>加载中...</div>;
+  if (!form) return <div>Loading...</div>;
 
   const handleSave = () => {
     updateMutation.mutate(form);
   };
 
   const tabs = [
-    { key: 'general', label: '基本设置' },
-    { key: 'payment', label: '支付配置' },
-    { key: 'security', label: '安全设置' },
+    { key: 'general', label: 'General Settings' },
+    { key: 'payment', label: 'Payment Config' },
+    { key: 'security', label: 'Security Settings' },
   ];
 
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>系统设置</h1>
+          <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>System Settings</h1>
           <p style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
-            管理平台配置与 API 密钥
+            Manage platform configuration and API keys
           </p>
         </div>
         <Button variant="primary" loading={updateMutation.isPending} onClick={handleSave}>
-          保存设置
+          Save Settings
         </Button>
       </div>
 
@@ -78,23 +78,23 @@ export default function SettingsPage() {
           background: 'var(--color-bg-card)', border: '1px solid var(--color-border)',
           borderRadius: 'var(--radius-lg)', padding: 24,
         }}>
-          <Section title="站点信息">
-            <Field label="站点名称">
+          <Section title="Site Information">
+            <Field label="Site Name">
               <input value={form.siteName} onChange={(e) => setForm({ ...form, siteName: e.target.value })} style={inputStyle} />
             </Field>
-            <Field label="站点描述">
+            <Field label="Site Description">
               <textarea value={form.siteDescription} onChange={(e) => setForm({ ...form, siteDescription: e.target.value })} style={{ ...inputStyle, height: 80 }} />
             </Field>
-            <Field label="联系邮箱">
+            <Field label="Contact Email">
               <input value={form.contactEmail} onChange={(e) => setForm({ ...form, contactEmail: e.target.value })} style={inputStyle} type="email" />
             </Field>
           </Section>
 
-          <Section title="功能开关">
-            <Toggle label="捐赠功能" checked={form.donationEnabled} onChange={(v) => setForm({ ...form, donationEnabled: v })} />
-            <Toggle label="商城功能" checked={form.shopEnabled} onChange={(v) => setForm({ ...form, shopEnabled: v })} />
-            <Toggle label="用户注册" checked={form.registrationEnabled} onChange={(v) => setForm({ ...form, registrationEnabled: v })} />
-            <Toggle label="维护模式" checked={form.maintenanceMode} onChange={(v) => setForm({ ...form, maintenanceMode: v })} description="开启后前台将显示维护页面" />
+          <Section title="Feature Toggles">
+            <Toggle label="Donations" checked={form.donationEnabled} onChange={(v) => setForm({ ...form, donationEnabled: v })} />
+            <Toggle label="Shop" checked={form.shopEnabled} onChange={(v) => setForm({ ...form, shopEnabled: v })} />
+            <Toggle label="User Registration" checked={form.registrationEnabled} onChange={(v) => setForm({ ...form, registrationEnabled: v })} />
+            <Toggle label="Maintenance Mode" checked={form.maintenanceMode} onChange={(v) => setForm({ ...form, maintenanceMode: v })} description="When enabled, the front-end will display a maintenance page" />
           </Section>
         </div>
       )}
@@ -106,9 +106,9 @@ export default function SettingsPage() {
           borderRadius: 'var(--radius-lg)', padding: 24,
         }}>
           {(['wechat', 'alipay', 'stripe', 'paypal'] as const).map((method) => (
-            <Section key={method} title={method === 'wechat' ? '微信支付' : method === 'alipay' ? '支付宝' : method.charAt(0).toUpperCase() + method.slice(1)}>
+            <Section key={method} title={method === 'wechat' ? 'WeChat Pay' : method === 'alipay' ? 'Alipay' : method.charAt(0).toUpperCase() + method.slice(1)}>
               <Toggle
-                label="启用"
+                label="Enabled"
                 checked={form.paymentMethods[method].enabled}
                 onChange={(v) => setForm({
                   ...form,
@@ -131,7 +131,7 @@ export default function SettingsPage() {
                       },
                     })}
                     style={inputStyle}
-                    placeholder="输入 App ID"
+                    placeholder="Enter App ID"
                   />
                 </Field>
               )}
@@ -148,7 +148,7 @@ export default function SettingsPage() {
                       },
                     })}
                     style={inputStyle}
-                    placeholder="输入 Merchant ID"
+                    placeholder="Enter Merchant ID"
                   />
                 </Field>
               )}
@@ -182,7 +182,7 @@ export default function SettingsPage() {
                       },
                     })}
                     style={inputStyle}
-                    placeholder="输入 Client ID"
+                    placeholder="Enter Client ID"
                   />
                 </Field>
               )}
@@ -197,24 +197,24 @@ export default function SettingsPage() {
           background: 'var(--color-bg-card)', border: '1px solid var(--color-border)',
           borderRadius: 'var(--radius-lg)', padding: 24,
         }}>
-          <Section title="认证配置">
-            <Field label="Access Token 过期时间">
-              <input value="15 分钟" disabled style={{ ...inputStyle, opacity: 0.6 }} />
+          <Section title="Authentication Config">
+            <Field label="Access Token Expiry">
+              <input value="15 minutes" disabled style={{ ...inputStyle, opacity: 0.6 }} />
             </Field>
-            <Field label="Refresh Token 过期时间">
-              <input value="7 天" disabled style={{ ...inputStyle, opacity: 0.6 }} />
+            <Field label="Refresh Token Expiry">
+              <input value="7 days" disabled style={{ ...inputStyle, opacity: 0.6 }} />
             </Field>
           </Section>
-          <Section title="API 安全">
-            <Field label="全局限流">
+          <Section title="API Security">
+            <Field label="Global Rate Limit">
               <input value="1000 QPS" disabled style={{ ...inputStyle, opacity: 0.6 }} />
             </Field>
-            <Field label="用户限流">
+            <Field label="User Rate Limit">
               <input value="60 QPM" disabled style={{ ...inputStyle, opacity: 0.6 }} />
             </Field>
           </Section>
           <div style={{ padding: '12px 16px', background: 'var(--color-info-light)', borderRadius: 'var(--radius-sm)', fontSize: 13, color: '#1e40af', marginTop: 8 }}>
-            安全配置由安全工程师在代码级别设置，管理员无法在此修改。如需调整请联系技术团队。
+            Security settings are configured at the code level by security engineers. Admins cannot modify them here. Please contact the technical team for changes.
           </div>
         </div>
       )}

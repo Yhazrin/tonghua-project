@@ -28,9 +28,9 @@ export default function DashboardPage() {
   return (
     <div>
       <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>仪表盘</h1>
+        <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>Dashboard</h1>
         <p style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
-          数据概览与关键指标监控
+          Overview and key metrics monitoring
         </p>
       </div>
 
@@ -42,33 +42,33 @@ export default function DashboardPage() {
         marginBottom: 24,
       }}>
         <StatCard
-          title="作品总数"
+          title="Total Artworks"
           value={metrics?.totalArtworks || 0}
-          subtitle={`待审核 ${metrics?.pendingArtworks || 0}`}
+          subtitle={`Pending Review ${metrics?.pendingArtworks || 0}`}
           icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" /></svg>}
           trend={{ value: 12, isUp: true }}
           color="accent"
         />
         <StatCard
-          title="捐赠总额"
+          title="Total Donations"
           value={`\u00a5${(metrics?.totalDonationAmount || 0).toLocaleString()}`}
-          subtitle={`共 ${metrics?.totalDonations || 0} 笔捐赠`}
+          subtitle={`${metrics?.totalDonations || 0} donations total`}
           icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /></svg>}
           trend={{ value: 8, isUp: true }}
           color="success"
         />
         <StatCard
-          title="订单总数"
+          title="Total Orders"
           value={metrics?.totalOrders || 0}
-          subtitle="本月新增订单"
+          subtitle="New orders this month"
           icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18 6h-2c0-2.21-1.79-4-4-4S8 3.79 8 6H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z" /></svg>}
           trend={{ value: 5, isUp: true }}
           color="info"
         />
         <StatCard
-          title="注册用户"
+          title="Registered Users"
           value={metrics?.totalUsers || 0}
-          subtitle="平台活跃用户"
+          subtitle="Active users"
           icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z" /></svg>}
           trend={{ value: 15, isUp: true }}
           color="warning"
@@ -83,14 +83,14 @@ export default function DashboardPage() {
         marginBottom: 24,
       }}>
         <LineChartCard
-          title="捐赠趋势"
+          title="Donation Trends"
           data={donationTrend || []}
           dataKeys={['wechat', 'alipay', 'stripe', 'paypal']}
           colors={['#c17c5a', '#4a9d6e', '#5a8fc4', '#8b6cc1']}
           height={300}
         />
         <PieChartCard
-          title="作品类别分布"
+          title="Artwork Category Distribution"
           data={artworkByCategory || []}
           height={300}
         />
@@ -104,14 +104,14 @@ export default function DashboardPage() {
         marginBottom: 24,
       }}>
         <BarChartCard
-          title="订单趋势"
+          title="Order Trends"
           data={orderTrend || []}
           dataKey="revenue"
           color="#4a9d6e"
           height={260}
         />
         <LineChartCard
-          title="用户增长"
+          title="User Growth"
           data={userGrowth || []}
           colors={['#5a8fc4']}
           height={260}
@@ -131,7 +131,7 @@ export default function DashboardPage() {
           borderRadius: 'var(--radius-lg)',
           padding: '20px 24px',
         }}>
-          <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 16 }}>最新作品</h3>
+          <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 16 }}>Recent Artworks</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {(recentArtworks?.data || []).map((art) => (
               <div key={art.id} style={{
@@ -158,7 +158,7 @@ export default function DashboardPage() {
           borderRadius: 'var(--radius-lg)',
           padding: '20px 24px',
         }}>
-          <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 16 }}>最新捐赠</h3>
+          <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 16 }}>Recent Donations</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {(recentDonations?.data || []).map((don) => (
               <div key={don.id} style={{
@@ -168,7 +168,7 @@ export default function DashboardPage() {
               }}>
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 500 }}>
-                    {don.isAnonymous ? '匿名捐赠' : don.donorName}
+                    {don.isAnonymous ? 'Anonymous Donation' : don.donorName}
                   </div>
                   <div style={{ fontSize: 12, color: 'var(--color-text-secondary)', marginTop: 2 }}>
                     {dayjs(don.createdAt).format('YYYY-MM-DD HH:mm')}

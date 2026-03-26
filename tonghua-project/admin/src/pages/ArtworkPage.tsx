@@ -13,13 +13,13 @@ import dayjs from 'dayjs';
 
 const columns: Column<Artwork>[] = [
   { key: 'id', title: 'ID', width: 80 },
-  { key: 'title', title: '作品名称', sorter: true },
-  { key: 'childName', title: '作者', width: 100 },
-  { key: 'category', title: '类别', width: 100 },
-  { key: 'votes', title: '票数', width: 80, sorter: true },
-  { key: 'status', title: '状态', width: 100, render: (v) => <StatusBadge status={v} /> },
-  { key: 'createdAt', title: '提交时间', width: 160, sorter: true, render: (v) => dayjs(v).format('YYYY-MM-DD HH:mm') },
-  { key: 'action', title: '操作', width: 200 },
+  { key: 'title', title: 'Title', sorter: true },
+  { key: 'childName', title: 'Author', width: 100 },
+  { key: 'category', title: 'Category', width: 100 },
+  { key: 'votes', title: 'Votes', width: 80, sorter: true },
+  { key: 'status', title: 'Status', width: 100, render: (v) => <StatusBadge status={v} /> },
+  { key: 'createdAt', title: 'Submitted', width: 160, sorter: true, render: (v) => dayjs(v).format('YYYY-MM-DD HH:mm') },
+  { key: 'action', title: 'Actions', width: 200 },
 ];
 
 export default function ArtworkPage() {
@@ -41,7 +41,7 @@ export default function ArtworkPage() {
     mutationFn: ({ id, status }: { id: string; status: Artwork['status'] }) => updateArtworkStatus(id, status),
     onSuccess: (_, vars) => {
       queryClient.invalidateQueries({ queryKey: ['artworks'] });
-      toast.success(vars.status === 'approved' ? '作品已通过审核' : '作品已拒绝');
+      toast.success(vars.status === 'approved' ? 'Artwork approved' : 'Artwork rejected');
     },
   });
 
@@ -61,15 +61,15 @@ export default function ArtworkPage() {
         render: (_: any, record: Artwork) => (
           <div style={{ display: 'flex', gap: 6 }}>
             <Button size="sm" variant="ghost" onClick={(e) => { e.stopPropagation(); setSelectedArtwork(record); setDetailModal(true); }}>
-              查看
+              View
             </Button>
             {record.status === 'pending' && (
               <>
                 <Button size="sm" variant="primary" onClick={(e) => { e.stopPropagation(); updateMutation.mutate({ id: record.id, status: 'approved' }); }}>
-                  通过
+                  Approve
                 </Button>
                 <Button size="sm" variant="danger" onClick={(e) => { e.stopPropagation(); updateMutation.mutate({ id: record.id, status: 'rejected' }); }}>
-                  拒绝
+                  Reject
                 </Button>
               </>
             )}
@@ -84,9 +84,9 @@ export default function ArtworkPage() {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>作品管理</h1>
+          <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>Artwork Management</h1>
           <p style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
-            审核和管理儿童画作作品
+            Review and manage children's artworks
           </p>
         </div>
       </div>
@@ -97,7 +97,7 @@ export default function ArtworkPage() {
       }}>
         <input
           type="text"
-          placeholder="搜索作品名称..."
+          placeholder="Search artworks..."
           value={search}
           onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           style={{
@@ -114,11 +114,11 @@ export default function ArtworkPage() {
             background: 'var(--color-bg-card)',
           }}
         >
-          <option value="">全部状态</option>
-          <option value="pending">待审核</option>
-          <option value="approved">已通过</option>
-          <option value="rejected">已拒绝</option>
-          <option value="archived">已归档</option>
+          <option value="">All Statuses</option>
+          <option value="pending">Pending Review</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+          <option value="archived">Archived</option>
         </select>
       </div>
 
@@ -144,18 +144,18 @@ export default function ArtworkPage() {
       {/* Detail Modal */}
       <Modal
         open={detailModal}
-        title="作品详情"
+        title="Artwork Details"
         onClose={() => setDetailModal(false)}
         width={560}
         footer={
           selectedArtwork?.status === 'pending' ? (
             <>
-              <Button variant="secondary" onClick={() => setDetailModal(false)}>关闭</Button>
-              <Button variant="danger" onClick={() => { updateMutation.mutate({ id: selectedArtwork.id, status: 'rejected' }); setDetailModal(false); }}>拒绝</Button>
-              <Button variant="primary" onClick={() => { updateMutation.mutate({ id: selectedArtwork.id, status: 'approved' }); setDetailModal(false); }}>通过审核</Button>
+              <Button variant="secondary" onClick={() => setDetailModal(false)}>Close</Button>
+              <Button variant="danger" onClick={() => { updateMutation.mutate({ id: selectedArtwork.id, status: 'rejected' }); setDetailModal(false); }}>Reject</Button>
+              <Button variant="primary" onClick={() => { updateMutation.mutate({ id: selectedArtwork.id, status: 'approved' }); setDetailModal(false); }}>Approve</Button>
             </>
           ) : (
-            <Button variant="secondary" onClick={() => setDetailModal(false)}>关闭</Button>
+            <Button variant="secondary" onClick={() => setDetailModal(false)}>Close</Button>
           )
         }
       >
@@ -167,23 +167,23 @@ export default function ArtworkPage() {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               color: 'var(--color-text-light)', fontSize: 13,
             }}>
-              [作品图片预览区]
+              [Artwork Image Preview]
             </div>
-            <DetailRow label="作品编号" value={selectedArtwork.id} />
-            <DetailRow label="作品名称" value={selectedArtwork.title} />
-            <DetailRow label="作者" value={`${selectedArtwork.childName} (${selectedArtwork.childAge}岁)`} />
-            <DetailRow label="类别" value={selectedArtwork.category} />
-            <DetailRow label="票数" value={selectedArtwork.votes.toString()} />
-            <DetailRow label="状态" value={<StatusBadge status={selectedArtwork.status} />} />
-            <DetailRow label="提交时间" value={dayjs(selectedArtwork.createdAt).format('YYYY-MM-DD HH:mm:ss')} />
+            <DetailRow label="Artwork ID" value={selectedArtwork.id} />
+            <DetailRow label="Title" value={selectedArtwork.title} />
+            <DetailRow label="Author" value={`${selectedArtwork.childName} (age ${selectedArtwork.childAge})`} />
+            <DetailRow label="Category" value={selectedArtwork.category} />
+            <DetailRow label="Votes" value={selectedArtwork.votes.toString()} />
+            <DetailRow label="Status" value={<StatusBadge status={selectedArtwork.status} />} />
+            <DetailRow label="Submitted" value={dayjs(selectedArtwork.createdAt).format('YYYY-MM-DD HH:mm:ss')} />
             {selectedArtwork.reviewedAt && (
               <>
-                <DetailRow label="审核时间" value={dayjs(selectedArtwork.reviewedAt).format('YYYY-MM-DD HH:mm:ss')} />
-                <DetailRow label="审核人" value={selectedArtwork.reviewedBy || '-'} />
+                <DetailRow label="Reviewed At" value={dayjs(selectedArtwork.reviewedAt).format('YYYY-MM-DD HH:mm:ss')} />
+                <DetailRow label="Reviewed By" value={selectedArtwork.reviewedBy || '-'} />
               </>
             )}
             <div>
-              <div style={{ fontSize: 12, color: 'var(--color-text-secondary)', marginBottom: 4 }}>作品描述</div>
+              <div style={{ fontSize: 12, color: 'var(--color-text-secondary)', marginBottom: 4 }}>Description</div>
               <div style={{ fontSize: 13, lineHeight: 1.6 }}>{selectedArtwork.description}</div>
             </div>
           </div>

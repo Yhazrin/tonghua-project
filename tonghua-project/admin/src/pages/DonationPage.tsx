@@ -10,8 +10,8 @@ import type { Donation } from '../types';
 import dayjs from 'dayjs';
 
 const paymentLabels: Record<string, string> = {
-  wechat: '微信支付',
-  alipay: '支付宝',
+  wechat: 'WeChat Pay',
+  alipay: 'Alipay',
   stripe: 'Stripe',
   paypal: 'PayPal',
 };
@@ -43,23 +43,23 @@ export default function DonationPage() {
 
   const columns: Column<Donation>[] = [
     { key: 'id', title: 'ID', width: 90 },
-    { key: 'donorName', title: '捐赠者' },
-    { key: 'amount', title: '金额', width: 120, sorter: true, render: (v, r) => (
+    { key: 'donorName', title: 'Donor' },
+    { key: 'amount', title: 'Amount', width: 120, sorter: true, render: (v, r) => (
       <span style={{ fontWeight: 600, color: 'var(--color-success)' }}>
         {r.currency === 'CNY' ? '\u00a5' : '$'}{v.toLocaleString()}
       </span>
     )},
-    { key: 'paymentMethod', title: '支付方式', width: 100, render: (v) => paymentLabels[v] || v },
-    { key: 'campaignTitle', title: '关联活动', width: 160, render: (v) => v || '-' },
-    { key: 'status', title: '状态', width: 100, render: (v) => <StatusBadge status={v} /> },
-    { key: 'isAnonymous', title: '匿名', width: 60, render: (v) => v ? '是' : '否' },
-    { key: 'createdAt', title: '捐赠时间', width: 160, sorter: true, render: (v) => dayjs(v).format('YYYY-MM-DD HH:mm') },
+    { key: 'paymentMethod', title: 'Payment Method', width: 100, render: (v) => paymentLabels[v] || v },
+    { key: 'campaignTitle', title: 'Campaign', width: 160, render: (v) => v || '-' },
+    { key: 'status', title: 'Status', width: 100, render: (v) => <StatusBadge status={v} /> },
+    { key: 'isAnonymous', title: 'Anonymous', width: 60, render: (v) => v ? 'Yes' : 'No' },
+    { key: 'createdAt', title: 'Donation Time', width: 160, sorter: true, render: (v) => dayjs(v).format('YYYY-MM-DD HH:mm') },
   ];
 
   const handleExport = () => {
-    const csvHeader = 'ID,捐赠者,金额,币种,支付方式,关联活动,状态,匿名,捐赠时间\n';
+    const csvHeader = 'ID,Donor,Amount,Currency,Payment Method,Campaign,Status,Anonymous,Donation Time\n';
     const csvRows = filteredData.map((d) =>
-      `${d.id},${d.donorName},${d.amount},${d.currency},${paymentLabels[d.paymentMethod]},${d.campaignTitle || ''},${d.status},${d.isAnonymous ? '是' : '否'},${dayjs(d.createdAt).format('YYYY-MM-DD HH:mm')}`
+      `${d.id},${d.donorName},${d.amount},${d.currency},${paymentLabels[d.paymentMethod]},${d.campaignTitle || ''},${d.status},${d.isAnonymous ? 'Yes' : 'No'},${dayjs(d.createdAt).format('YYYY-MM-DD HH:mm')}`
     ).join('\n');
     const blob = new Blob(['\ufeff' + csvHeader + csvRows], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
@@ -74,14 +74,14 @@ export default function DonationPage() {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>捐赠管理</h1>
+          <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>Donation Management</h1>
           <p style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
-            查看捐赠记录与生成报告
+            View donation records and generate reports
           </p>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
-          <Button variant="secondary" onClick={handleExport}>导出 CSV</Button>
-          <Button variant="primary">生成报告</Button>
+          <Button variant="secondary" onClick={handleExport}>Export CSV</Button>
+          <Button variant="primary">Generate Report</Button>
         </div>
       </div>
 
@@ -90,10 +90,10 @@ export default function DonationPage() {
         display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 20,
       }}>
         {[
-          { label: '本页总笔数', value: filteredData.length },
-          { label: '本页总额', value: `\u00a5${totalAmount.toLocaleString()}` },
-          { label: '完成笔数', value: filteredData.filter((d) => d.status === 'completed').length },
-          { label: '失败笔数', value: filteredData.filter((d) => d.status === 'failed').length },
+          { label: 'Total Records', value: filteredData.length },
+          { label: 'Total Amount', value: `\u00a5${totalAmount.toLocaleString()}` },
+          { label: 'Completed', value: filteredData.filter((d) => d.status === 'completed').length },
+          { label: 'Failed', value: filteredData.filter((d) => d.status === 'failed').length },
         ].map((s) => (
           <div key={s.label} style={{
             padding: '16px 20px', background: 'var(--color-bg-card)',
@@ -108,21 +108,21 @@ export default function DonationPage() {
       {/* Filters */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
         <input
-          type="text" placeholder="搜索捐赠者..."
+          type="text" placeholder="Search donors..."
           value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           style={filterStyle}
         />
         <select value={statusFilter} onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }} style={filterStyle}>
-          <option value="">全部状态</option>
-          <option value="completed">已完成</option>
-          <option value="pending">待处理</option>
-          <option value="failed">失败</option>
-          <option value="refunded">已退款</option>
+          <option value="">All Statuses</option>
+          <option value="completed">Completed</option>
+          <option value="pending">Pending</option>
+          <option value="failed">Failed</option>
+          <option value="refunded">Refunded</option>
         </select>
         <select value={paymentFilter} onChange={(e) => setPaymentFilter(e.target.value)} style={filterStyle}>
-          <option value="">全部支付方式</option>
-          <option value="wechat">微信支付</option>
-          <option value="alipay">支付宝</option>
+          <option value="">All Payment Methods</option>
+          <option value="wechat">WeChat Pay</option>
+          <option value="alipay">Alipay</option>
           <option value="stripe">Stripe</option>
           <option value="paypal">PayPal</option>
         </select>

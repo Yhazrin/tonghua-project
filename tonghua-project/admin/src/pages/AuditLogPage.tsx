@@ -10,16 +10,16 @@ import type { AuditLogEntry } from '../types';
 import dayjs from 'dayjs';
 
 const actionColors: Record<string, string> = {
-  '登录系统': 'var(--color-info)',
-  '审核作品': 'var(--color-accent)',
-  '修改用户角色': 'var(--color-warning)',
-  '导出数据': 'var(--color-info)',
-  '修改设置': 'var(--color-warning)',
-  '创建活动': 'var(--color-success)',
-  '处理捐赠': 'var(--color-success)',
-  '更新订单状态': 'var(--color-accent)',
-  '查看儿童信息': 'var(--color-danger)',
-  '删除数据': 'var(--color-danger)',
+  'System Login': 'var(--color-info)',
+  'Reviewed Artwork': 'var(--color-accent)',
+  'Changed User Role': 'var(--color-warning)',
+  'Exported Data': 'var(--color-info)',
+  'Changed Settings': 'var(--color-warning)',
+  'Created Campaign': 'var(--color-success)',
+  'Processed Donation': 'var(--color-success)',
+  'Updated Order Status': 'var(--color-accent)',
+  'Viewed Child Info': 'var(--color-danger)',
+  'Deleted Data': 'var(--color-danger)',
 };
 
 export default function AuditLogPage() {
@@ -41,9 +41,9 @@ export default function AuditLogPage() {
   });
 
   const columns: Column<AuditLogEntry>[] = [
-    { key: 'timestamp', title: '时间', width: 160, sorter: true, render: (v) => dayjs(v).format('YYYY-MM-DD HH:mm:ss') },
-    { key: 'userName', title: '操作人', width: 100 },
-    { key: 'action', title: '操作', width: 140, render: (v) => (
+    { key: 'timestamp', title: 'Time', width: 160, sorter: true, render: (v) => dayjs(v).format('YYYY-MM-DD HH:mm:ss') },
+    { key: 'userName', title: 'User', width: 100 },
+    { key: 'action', title: 'Action', width: 140, render: (v) => (
       <span style={{
         padding: '2px 8px', borderRadius: 4, fontSize: 12, fontWeight: 600,
         background: `${actionColors[v]}15`, color: actionColors[v] || 'var(--color-text)',
@@ -51,18 +51,18 @@ export default function AuditLogPage() {
         {v}
       </span>
     )},
-    { key: 'resource', title: '资源', width: 100 },
-    { key: 'details', title: '详情', render: (v) => (
+    { key: 'resource', title: 'Resource', width: 100 },
+    { key: 'details', title: 'Details', render: (v) => (
       <span style={{ color: 'var(--color-text-secondary)', maxWidth: 300, overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', whiteSpace: 'nowrap' }}>
         {v}
       </span>
     )},
-    { key: 'ipAddress', title: 'IP 地址', width: 130 },
+    { key: 'ipAddress', title: 'IP Address', width: 130 },
     {
-      key: 'action_col', title: '操作', width: 80,
+      key: 'action_col', title: 'Actions', width: 80,
       render: (_: any, record: AuditLogEntry) => (
         <Button size="sm" variant="ghost" onClick={(e) => { e.stopPropagation(); setSelected(record); }}>
-          详情
+          Details
         </Button>
       ),
     },
@@ -74,25 +74,25 @@ export default function AuditLogPage() {
   return (
     <div>
       <div style={{ marginBottom: 20 }}>
-        <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>审计日志</h1>
+        <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>Audit Log</h1>
         <p style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
-          查看系统操作记录与安全审计事件
+          View system operation records and security audit events
         </p>
       </div>
 
       {/* Filters */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
         <input
-          type="text" placeholder="搜索操作人或详情..."
+          type="text" placeholder="Search by user or details..."
           value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           style={filterStyle}
         />
         <select value={actionFilter} onChange={(e) => setActionFilter(e.target.value)} style={filterStyle}>
-          <option value="">全部操作</option>
+          <option value="">All Actions</option>
           {uniqueActions.map((a) => <option key={a} value={a}>{a}</option>)}
         </select>
         <select value={resourceFilter} onChange={(e) => setResourceFilter(e.target.value)} style={filterStyle}>
-          <option value="">全部资源</option>
+          <option value="">All Resources</option>
           {uniqueResources.map((r) => <option key={r} value={r}>{r}</option>)}
         </select>
       </div>
@@ -102,10 +102,10 @@ export default function AuditLogPage() {
         display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 16,
       }}>
         {[
-          { label: '总操作数', value: data?.total || 0 },
-          { label: '安全操作', value: filteredData.filter((l) => l.action === '查看儿童信息' || l.action === '删除数据').length },
-          { label: '今日操作', value: filteredData.filter((l) => dayjs(l.timestamp).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')).length },
-          { label: '涉及用户', value: new Set(filteredData.map((l) => l.userId)).size },
+          { label: 'Total Actions', value: data?.total || 0 },
+          { label: 'Security Actions', value: filteredData.filter((l) => l.action === 'Viewed Child Info' || l.action === 'Deleted Data').length },
+          { label: 'Today\'s Actions', value: filteredData.filter((l) => dayjs(l.timestamp).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')).length },
+          { label: 'Users Involved', value: new Set(filteredData.map((l) => l.userId)).size },
         ].map((s) => (
           <div key={s.label} style={{
             padding: '12px 16px', background: 'var(--color-bg-card)',
@@ -121,19 +121,19 @@ export default function AuditLogPage() {
       <Pagination page={page} totalPages={data?.totalPages || 1} total={data?.total || 0} pageSize={15} onPageChange={setPage} />
 
       {/* Detail Modal */}
-      <Modal open={!!selected} title="审计日志详情" onClose={() => setSelected(null)} width={520}>
+      <Modal open={!!selected} title="Audit Log Details" onClose={() => setSelected(null)} width={520}>
         {selected && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <Row label="日志 ID" value={selected.id} />
-            <Row label="操作人" value={selected.userName} />
-            <Row label="用户 ID" value={selected.userId} />
-            <Row label="操作" value={selected.action} />
-            <Row label="资源" value={selected.resource} />
-            {selected.resourceId && <Row label="资源 ID" value={selected.resourceId} />}
-            <Row label="IP 地址" value={selected.ipAddress} />
-            <Row label="时间" value={dayjs(selected.timestamp).format('YYYY-MM-DD HH:mm:ss')} />
+            <Row label="Log ID" value={selected.id} />
+            <Row label="User" value={selected.userName} />
+            <Row label="User ID" value={selected.userId} />
+            <Row label="Action" value={selected.action} />
+            <Row label="Resource" value={selected.resource} />
+            {selected.resourceId && <Row label="Resource ID" value={selected.resourceId} />}
+            <Row label="IP Address" value={selected.ipAddress} />
+            <Row label="Time" value={dayjs(selected.timestamp).format('YYYY-MM-DD HH:mm:ss')} />
             <div>
-              <div style={{ fontSize: 12, color: 'var(--color-text-secondary)', marginBottom: 4 }}>操作详情</div>
+              <div style={{ fontSize: 12, color: 'var(--color-text-secondary)', marginBottom: 4 }}>Action Details</div>
               <div style={{ fontSize: 13, padding: '8px 12px', background: '#f9f9f7', borderRadius: 'var(--radius-sm)' }}>
                 {selected.details}
               </div>

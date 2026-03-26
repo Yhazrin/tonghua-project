@@ -29,7 +29,7 @@ export default function Pagination({ page, totalPages, total, pageSize, onPageCh
   if (totalPages <= 1) {
     return (
       <div style={{ padding: '12px 0', fontSize: 13, color: 'var(--color-text-secondary)' }}>
-        共 {total} 条记录
+        Total {total} entries
       </div>
     );
   }
@@ -40,7 +40,7 @@ export default function Pagination({ page, totalPages, total, pageSize, onPageCh
       padding: '12px 0', flexWrap: 'wrap', gap: 12,
     }}>
       <span style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
-        显示 {start}-{end} / 共 {total} 条
+        Showing {start}-{end} / Total {total} items
       </span>
       <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
         <PageBtn onClick={() => onPageChange(page - 1)} disabled={page <= 1}>

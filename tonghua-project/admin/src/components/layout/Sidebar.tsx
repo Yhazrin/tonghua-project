@@ -2,16 +2,16 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useUIStore } from '../../stores/uiStore';
 
 const menuItems = [
-  { path: '/', label: '仪表盘', icon: '01', iconSvg: 'dashboard' },
-  { path: '/artworks', label: '作品管理', icon: '02', iconSvg: 'artworks' },
-  { path: '/campaigns', label: '活动管理', icon: '03', iconSvg: 'campaigns' },
-  { path: '/donations', label: '捐赠管理', icon: '04', iconSvg: 'donations' },
-  { path: '/orders', label: '订单管理', icon: '05', iconSvg: 'orders' },
-  { path: '/users', label: '用户管理', icon: '06', iconSvg: 'users' },
-  { path: '/child-audit', label: '儿童审计', icon: '07', iconSvg: 'child' },
+  { path: '/', label: 'Dashboard', icon: '01', iconSvg: 'dashboard' },
+  { path: '/artworks', label: 'Artworks', icon: '02', iconSvg: 'artworks' },
+  { path: '/campaigns', label: 'Campaigns', icon: '03', iconSvg: 'campaigns' },
+  { path: '/donations', label: 'Donations', icon: '04', iconSvg: 'donations' },
+  { path: '/orders', label: 'Orders', icon: '05', iconSvg: 'orders' },
+  { path: '/users', label: 'Users', icon: '06', iconSvg: 'users' },
+  { path: '/child-audit', label: 'Child Audit', icon: '07', iconSvg: 'child' },
   { divider: true },
-  { path: '/audit-log', label: '审计日志', icon: '08', iconSvg: 'audit' },
-  { path: '/settings', label: '系统设置', icon: '09', iconSvg: 'settings' },
+  { path: '/audit-log', label: 'Audit Log', icon: '08', iconSvg: 'audit' },
+  { path: '/settings', label: 'Settings', icon: '09', iconSvg: 'settings' },
 ];
 
 const iconPaths: Record<string, React.ReactNode> = {
@@ -65,10 +65,10 @@ export default function Sidebar() {
         {!collapsed && (
           <div style={{ overflow: 'hidden' }}>
             <div style={{ fontSize: 15, fontWeight: 600, color: '#fff', whiteSpace: 'nowrap' }}>
-              童画公益
+              Tonghua
             </div>
             <div style={{ fontSize: 11, color: 'var(--color-text-sidebar)', whiteSpace: 'nowrap' }}>
-              管理后台
+              Admin Dashboard
             </div>
           </div>
         )}

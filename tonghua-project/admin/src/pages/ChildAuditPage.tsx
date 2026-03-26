@@ -35,10 +35,10 @@ export default function ChildAuditPage() {
       if (response.ok) {
         setAccessGranted(true);
       } else {
-        alert('访问码错误，请联系管理员获取');
+        alert('Invalid access code. Please contact the administrator.');
       }
     } catch {
-      alert('验证失败，请重试');
+      alert('Verification failed. Please try again.');
     }
   };
 
@@ -47,9 +47,9 @@ export default function ChildAuditPage() {
     return (
       <div>
         <div style={{ marginBottom: 24 }}>
-          <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>儿童参与者审计</h1>
+          <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>Child Participant Audit</h1>
           <p style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
-            审查儿童参与者数据（受严格访问控制保护）
+            Review child participant data (protected by strict access controls)
           </p>
         </div>
 
@@ -67,10 +67,10 @@ export default function ChildAuditPage() {
               <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
             </svg>
           </div>
-          <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>敏感数据区域</h3>
+          <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>Sensitive Data Area</h3>
           <p style={{ fontSize: 13, color: 'var(--color-text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
-            此页面包含儿童个人信息，受《个人信息保护法》保护。<br />
-            请输入审计访问码以继续。
+            This page contains children's personal information, protected by the Personal Information Protection Law.<br />
+            Please enter the audit access code to continue.
           </p>
           <div style={{ display: 'flex', gap: 8 }}>
             <input
@@ -78,17 +78,17 @@ export default function ChildAuditPage() {
               value={accessCode}
               onChange={(e) => setAccessCode(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleAccess()}
-              placeholder="输入访问码"
+              placeholder="Enter access code"
               style={{
                 flex: 1, padding: '10px 14px',
                 border: '1px solid var(--color-border)',
                 borderRadius: 'var(--radius-sm)', fontSize: 14, outline: 'none',
               }}
             />
-            <Button variant="primary" onClick={handleAccess}>验证</Button>
+            <Button variant="primary" onClick={handleAccess}>Verify</Button>
           </div>
           <p style={{ fontSize: 11, color: 'var(--color-text-light)', marginTop: 12, fontFamily: 'var(--font-mono)' }}>
-            联系管理员获取访问码
+            Contact the administrator for the access code
           </p>
         </div>
       </div>
@@ -97,23 +97,23 @@ export default function ChildAuditPage() {
 
   const columns: Column<ChildParticipant>[] = [
     { key: 'id', title: 'ID', width: 90 },
-    { key: 'childName', title: '儿童姓名' },
-    { key: 'age', title: '年龄', width: 60 },
-    { key: 'guardianName', title: '监护人' },
-    { key: 'region', title: '地区', width: 100 },
-    { key: 'school', title: '学校', width: 120, render: (v) => v || '-' },
-    { key: 'artworkCount', title: '作品数', width: 80 },
-    { key: 'consentGiven', title: '同意书', width: 80, render: (v) => v ? (
-      <span style={{ color: 'var(--color-success)', fontWeight: 600 }}>已签署</span>
+    { key: 'childName', title: 'Child Name' },
+    { key: 'age', title: 'Age', width: 60 },
+    { key: 'guardianName', title: 'Guardian' },
+    { key: 'region', title: 'Region', width: 100 },
+    { key: 'school', title: 'School', width: 120, render: (v) => v || '-' },
+    { key: 'artworkCount', title: 'Artworks', width: 80 },
+    { key: 'consentGiven', title: 'Consent', width: 80, render: (v) => v ? (
+      <span style={{ color: 'var(--color-success)', fontWeight: 600 }}>Signed</span>
     ) : (
-      <span style={{ color: 'var(--color-danger)', fontWeight: 600 }}>未签署</span>
+      <span style={{ color: 'var(--color-danger)', fontWeight: 600 }}>Not Signed</span>
     )},
-    { key: 'status', title: '状态', width: 100, render: (v) => <StatusBadge status={v} /> },
+    { key: 'status', title: 'Status', width: 100, render: (v) => <StatusBadge status={v} /> },
     {
-      key: 'action', title: '操作', width: 80,
+      key: 'action', title: 'Actions', width: 80,
       render: (_: any, record: ChildParticipant) => (
         <Button size="sm" variant="ghost" onClick={(e) => { e.stopPropagation(); setSelected(record); }}>
-          详情
+          Details
         </Button>
       ),
     },
@@ -123,16 +123,16 @@ export default function ChildAuditPage() {
     <div>
       <div style={{ marginBottom: 20 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-          <h1 style={{ fontSize: 24, fontWeight: 700 }}>儿童参与者审计</h1>
+          <h1 style={{ fontSize: 24, fontWeight: 700 }}>Child Participant Audit</h1>
           <span style={{
             padding: '2px 10px', borderRadius: 20, fontSize: 11, fontWeight: 600,
             background: 'var(--color-danger-light)', color: 'var(--color-danger)',
           }}>
-            受限访问
+            Restricted Access
           </span>
         </div>
         <p style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
-          所有访问行为将被记录至审计日志。儿童信息查看需二级审批。
+          All access activities are logged in the audit trail. Viewing child information requires secondary approval.
         </p>
       </div>
 
@@ -145,20 +145,20 @@ export default function ChildAuditPage() {
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
           <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
         </svg>
-        您正在访问受保护的儿童个人信息区域。您的操作将被记录。
+        You are accessing a protected area containing children's personal information. Your actions will be logged.
       </div>
 
       <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
         <input
-          type="text" placeholder="搜索儿童姓名或监护人..."
+          type="text" placeholder="Search by child name or guardian..."
           value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           style={filterStyle}
         />
         <select value={statusFilter} onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }} style={filterStyle}>
-          <option value="">全部状态</option>
-          <option value="active">活跃</option>
-          <option value="withdrawn">已退出</option>
-          <option value="pending_review">待审查</option>
+          <option value="">All Statuses</option>
+          <option value="active">Active</option>
+          <option value="withdrawn">Withdrawn</option>
+          <option value="pending_review">Pending Review</option>
         </select>
       </div>
 
@@ -166,24 +166,24 @@ export default function ChildAuditPage() {
       <Pagination page={page} totalPages={data?.totalPages || 1} total={data?.total || 0} pageSize={10} onPageChange={setPage} />
 
       {/* Detail Modal */}
-      <Modal open={!!selected} title="参与者详情" onClose={() => setSelected(null)} width={520}>
+      <Modal open={!!selected} title="Participant Details" onClose={() => setSelected(null)} width={520}>
         {selected && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             <div style={{ padding: '12px', background: 'var(--color-danger-light)', borderRadius: 'var(--radius-sm)', fontSize: 12, color: '#991b1b' }}>
-              以下信息受《个人信息保护法》保护，未经授权不得外传。
+              The following information is protected by the Personal Information Protection Law. Unauthorized disclosure is prohibited.
             </div>
-            <Row label="儿童姓名" value={selected.childName} />
-            <Row label="年龄" value={`${selected.age}岁`} />
-            <Row label="监护人" value={selected.guardianName} />
-            <Row label="监护人电话" value={selected.guardianPhone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')} />
-            <Row label="监护人邮箱" value={selected.guardianEmail.replace(/(.{2}).+(@.+)/, '$1***$2')} />
-            <Row label="地区" value={selected.region} />
-            <Row label="学校" value={selected.school || '-'} />
-            <Row label="同意书" value={selected.consentGiven ? `已签署 (${dayjs(selected.consentDate).format('YYYY-MM-DD')})` : '未签署'} />
-            <Row label="作品数" value={selected.artworkCount.toString()} />
-            <Row label="状态" value={<StatusBadge status={selected.status} />} />
-            <Row label="加入时间" value={dayjs(selected.createdAt).format('YYYY-MM-DD')} />
-            {selected.lastActivity && <Row label="最后活动" value={dayjs(selected.lastActivity).format('YYYY-MM-DD HH:mm')} />}
+            <Row label="Child Name" value={selected.childName} />
+            <Row label="Age" value={`${selected.age} years old`} />
+            <Row label="Guardian" value={selected.guardianName} />
+            <Row label="Guardian Phone" value={selected.guardianPhone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')} />
+            <Row label="Guardian Email" value={selected.guardianEmail.replace(/(.{2}).+(@.+)/, '$1***$2')} />
+            <Row label="Region" value={selected.region} />
+            <Row label="School" value={selected.school || '-'} />
+            <Row label="Consent" value={selected.consentGiven ? `Signed (${dayjs(selected.consentDate).format('YYYY-MM-DD')})` : 'Not Signed'} />
+            <Row label="Artworks" value={selected.artworkCount.toString()} />
+            <Row label="Status" value={<StatusBadge status={selected.status} />} />
+            <Row label="Joined" value={dayjs(selected.createdAt).format('YYYY-MM-DD')} />
+            {selected.lastActivity && <Row label="Last Activity" value={dayjs(selected.lastActivity).format('YYYY-MM-DD HH:mm')} />}
           </div>
         )}
       </Modal>

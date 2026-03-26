@@ -1,15 +1,15 @@
 import { useLocation, Link } from 'react-router-dom';
 
 const pathNames: Record<string, string> = {
-  '': '仪表盘',
-  artworks: '作品管理',
-  campaigns: '活动管理',
-  donations: '捐赠管理',
-  orders: '订单管理',
-  users: '用户管理',
-  'child-audit': '儿童审计',
-  'audit-log': '审计日志',
-  settings: '系统设置',
+  '': 'Dashboard',
+  artworks: 'Artworks',
+  campaigns: 'Campaigns',
+  donations: 'Donations',
+  orders: 'Orders',
+  users: 'Users',
+  'child-audit': 'Child Audit',
+  'audit-log': 'Audit Log',
+  settings: 'Settings',
 };
 
 export default function Breadcrumb() {
@@ -25,7 +25,7 @@ export default function Breadcrumb() {
         to="/"
         style={{ color: 'var(--color-text-secondary)', textDecoration: 'none' }}
       >
-        首页
+        Home
       </Link>
       {segments.map((seg, i) => {
         const path = '/' + segments.slice(0, i + 1).join('/');
