@@ -221,6 +221,7 @@ from app.routers.payments import router as payments_router
 from app.routers.admin import router as admin_router
 from app.routers.supply_chain import router as supply_chain_router
 from app.routers.contact import router as contact_router
+from app.routers.oauth import router as oauth_router
 
 app.include_router(auth_router, prefix="/api/v1")
 app.include_router(users_router, prefix="/api/v1")
@@ -233,6 +234,7 @@ app.include_router(payments_router, prefix="/api/v1")
 app.include_router(admin_router, prefix="/api/v1")
 app.include_router(supply_chain_router, prefix="/api/v1")
 app.include_router(contact_router, prefix="/api/v1")
+app.include_router(oauth_router, prefix="/api/v1")
 
 
 if __name__ == "__main__":

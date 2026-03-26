@@ -8,6 +8,8 @@ import GrainOverlay from '@/components/editorial/GrainOverlay';
 import PaperTextureBackground from '@/components/editorial/PaperTextureBackground';
 import { useAuth } from '@/hooks/useAuth';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api/v1';
+
 export default function Login() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -99,7 +101,7 @@ export default function Login() {
                 <span className="font-body text-caption text-ink-faded">{t('login.rememberMe')}</span>
               </label>
               <Link
-                to="#"
+                to="/forgot-password"
                 className="font-body text-caption text-rust hover:text-ink transition-colors cursor-pointer"
               >
                 {t('login.forgotPassword')}
@@ -135,6 +137,7 @@ export default function Login() {
             <div className="grid grid-cols-3 gap-3">
               <motion.button
                 type="button"
+                onClick={() => { window.location.href = `${API_BASE}/auth/github`; }}
                 aria-label={t('login.socialGithub', 'Sign in with GitHub')}
                 whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
                 whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
@@ -148,6 +151,7 @@ export default function Login() {
 
               <motion.button
                 type="button"
+                onClick={() => { window.location.href = `${API_BASE}/auth/google`; }}
                 aria-label={t('login.socialGoogle', 'Sign in with Google')}
                 whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
                 whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}

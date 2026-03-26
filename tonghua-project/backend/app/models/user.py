@@ -14,6 +14,8 @@ class User(Base):
     avatar = Column(String(500), nullable=True)
     role = Column(Enum("admin", "editor", "user", name="user_role"), default="user", nullable=False)
     phone_encrypted = Column(Text, nullable=True)  # AES-256-GCM encrypted
+    github_id = Column(String(100), unique=True, nullable=True, index=True)
+    google_id = Column(String(100), unique=True, nullable=True, index=True)
     status = Column(Enum("active", "banned", name="user_status"), default="active", nullable=False)
     created_at = Column(DateTime, server_default=func.now(), nullable=False)
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=False)

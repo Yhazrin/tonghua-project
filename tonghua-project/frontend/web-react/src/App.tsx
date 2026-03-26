@@ -19,6 +19,8 @@ import Profile from '@/pages/Profile';
 import Privacy from '@/pages/Privacy';
 import Terms from '@/pages/Terms';
 import ChildrenSafety from '@/pages/ChildrenSafety';
+import AuthCallback from '@/pages/AuthCallback';
+import ForgotPassword from '@/pages/ForgotPassword';
 import NotFound from '@/pages/NotFound';
 import { useSessionRestore } from '@/hooks/useSessionRestore';
 
@@ -42,6 +44,8 @@ function AnimatedRoutes() {
             <Route path="shop/:id" element={<ErrorBoundary><ProductDetail /></ErrorBoundary>} />
             <Route path="traceability" element={<ErrorBoundary><Traceability /></ErrorBoundary>} />
             <Route path="contact" element={<ErrorBoundary><Contact /></ErrorBoundary>} />
+            <Route path="auth/callback" element={<ErrorBoundary><AuthCallback /></ErrorBoundary>} />
+            <Route path="forgot-password" element={<ErrorBoundary><ForgotPassword /></ErrorBoundary>} />
             <Route path="login" element={<ErrorBoundary><Login /></ErrorBoundary>} />
             <Route path="register" element={<ErrorBoundary><Register /></ErrorBoundary>} />
             <Route path="profile" element={<ErrorBoundary><Profile /></ErrorBoundary>} />

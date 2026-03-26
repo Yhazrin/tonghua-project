@@ -8,6 +8,8 @@ import GrainOverlay from '@/components/editorial/GrainOverlay';
 import PaperTextureBackground from '@/components/editorial/PaperTextureBackground';
 import { useAuth } from '@/hooks/useAuth';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api/v1';
+
 export default function Register() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -149,6 +151,7 @@ export default function Register() {
             <div className="grid grid-cols-3 gap-3">
               <motion.button
                 type="button"
+                onClick={() => { window.location.href = `${API_BASE}/auth/github`; }}
                 aria-label={t('register.socialGithub', 'Sign up with GitHub')}
                 whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
                 whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
@@ -162,6 +165,7 @@ export default function Register() {
 
               <motion.button
                 type="button"
+                onClick={() => { window.location.href = `${API_BASE}/auth/google`; }}
                 aria-label={t('register.socialGoogle', 'Sign up with Google')}
                 whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
                 whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}

@@ -35,6 +35,17 @@ class Settings(BaseSettings):
     WECHAT_PAY_API_KEY: Optional[str] = None  # WeChat Pay API key
     WECHAT_NOTIFY_URL: Optional[str] = None  # WeChat Pay callback URL
 
+    # OAuth — GitHub
+    GITHUB_CLIENT_ID: Optional[str] = None
+    GITHUB_CLIENT_SECRET: Optional[str] = None
+
+    # OAuth — Google
+    GOOGLE_CLIENT_ID: Optional[str] = None
+    GOOGLE_CLIENT_SECRET: Optional[str] = None
+
+    # Frontend URL for OAuth callback redirect
+    FRONTEND_URL: str = "http://localhost:5173"
+
     # Alipay
     ALIPAY_APP_ID: Optional[str] = None
     ALIPAY_PRIVATE_KEY: Optional[str] = None  # RSA2 private key (PKCS#8 PEM)
